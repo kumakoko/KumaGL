@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="kgl_lib_pch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_app.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_renderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_error.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_string_convertor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_gpu_program.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_defines.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_vertex_attribute.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_primitive.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_source_texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_material.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_light.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_primitive_tool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_font_glyph_info.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_font_renderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_font_texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_font_uv_rect.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_font_veretx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_font_primitive.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_vertex_type.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_mesh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_model.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_texture_manager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_singleton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="kgl_lib_pch.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_app.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_camera.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_renderer.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_error.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_string_convertor.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_gpu_program.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_vertex_attribute.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_primitive.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_source_texture.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_texture.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_material.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_light.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_primitive_tool.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_font_glyph_info.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_font_renderer.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_font_texture.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_font_uv_rect.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_font_vertex.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_font_primitive.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_vertex_type.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_mesh.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_model.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_texture_manager.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

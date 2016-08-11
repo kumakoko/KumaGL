@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9ADDC3CF-ED52-456E-8869-FBD492653F0F}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>klib</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>../bin</OutDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>../bin</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glfw_3_2_win32/include/;../third_lib/glew_1_13_0/include/;../third_lib/glm_0_9_7_5/include;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/soil/src;../third_lib/freetype2_3_5/include;../third_lib/boost_1_51_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile>kgl_lib_pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glfw_3_2_win32/include/;../third_lib/glew_1_13_0/include/;../third_lib/glm_0_9_7_5/include;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/soil/src;../third_lib/freetype2_3_5/include;../third_lib/boost_1_51_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile>kgl_lib_pch.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="kgl_app.h" />
+    <ClInclude Include="kgl_camera.h" />
+    <ClInclude Include="kgl_defines.h" />
+    <ClInclude Include="kgl_error.h" />
+    <ClInclude Include="kgl_font_glyph_info.h" />
+    <ClInclude Include="kgl_font_primitive.h" />
+    <ClInclude Include="kgl_font_renderer.h" />
+    <ClInclude Include="kgl_font_texture.h" />
+    <ClInclude Include="kgl_font_uv_rect.h" />
+    <ClInclude Include="kgl_font_veretx.h" />
+    <ClInclude Include="kgl_gpu_program.h" />
+    <ClInclude Include="kgl_lib_pch.h" />
+    <ClInclude Include="kgl_light.h" />
+    <ClInclude Include="kgl_material.h" />
+    <ClInclude Include="kgl_mesh.h" />
+    <ClInclude Include="kgl_model.h" />
+    <ClInclude Include="kgl_primitive_tool.h" />
+    <ClInclude Include="kgl_renderer.h" />
+    <ClInclude Include="kgl_singleton.h" />
+    <ClInclude Include="kgl_source_texture.h" />
+    <ClInclude Include="kgl_string_convertor.h" />
+    <ClInclude Include="kgl_texture.h" />
+    <ClInclude Include="kgl_texture_manager.h" />
+    <ClInclude Include="kgl_vertex_attribute.h" />
+    <ClInclude Include="kgl_primitive.h" />
+    <ClInclude Include="kgl_vertex_type.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="kgl_app.cc" />
+    <ClCompile Include="kgl_camera.cc" />
+    <ClCompile Include="kgl_error.cc" />
+    <ClCompile Include="kgl_font_glyph_info.cc" />
+    <ClCompile Include="kgl_font_primitive.cc" />
+    <ClCompile Include="kgl_font_renderer.cc" />
+    <ClCompile Include="kgl_font_texture.cc" />
+    <ClCompile Include="kgl_font_uv_rect.cc" />
+    <ClCompile Include="kgl_font_vertex.cc" />
+    <ClCompile Include="kgl_gpu_program.cc" />
+    <ClCompile Include="kgl_lib_pch.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">kgl_lib_pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">kgl_lib_pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="kgl_light.cc" />
+    <ClCompile Include="kgl_material.cc" />
+    <ClCompile Include="kgl_mesh.cc" />
+    <ClCompile Include="kgl_model.cc" />
+    <ClCompile Include="kgl_primitive_tool.cc" />
+    <ClCompile Include="kgl_renderer.cc" />
+    <ClCompile Include="kgl_source_texture.cc" />
+    <ClCompile Include="kgl_string_convertor.cc" />
+    <ClCompile Include="kgl_texture.cc" />
+    <ClCompile Include="kgl_texture_manager.cc" />
+    <ClCompile Include="kgl_vertex_attribute.cc" />
+    <ClCompile Include="kgl_primitive.cc" />
+    <ClCompile Include="kgl_vertex_type.cc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

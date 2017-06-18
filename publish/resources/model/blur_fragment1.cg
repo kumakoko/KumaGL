@@ -1,0 +1,66 @@
+struct C2E2f_Output { 
+	float3 color: COLOR;
+};
+
+
+
+C2E2f_Output main (    float2 oPosition : TEXCOORD0,
+				   uniform sampler2D decal,			   
+				   uniform float3 alpha
+				   ) 
+{
+	
+	
+	C2E2f_Output OUT;
+	
+	
+	float4 cl;
+	
+	float ccl1;
+	float v=0.0037;
+	float2 MX=float2 (v,0);
+	float2 MU=float2 (0,v);
+	
+	cl=1*tex2D (decal,oPosition);
+	
+	cl+=1*tex2D (decal,oPosition+MX);
+	cl+=1*tex2D (decal,oPosition-MX);
+	
+	cl+=1*tex2D (decal,oPosition+MU);
+	cl+=1*tex2D (decal,oPosition-MU);
+	
+	cl+=1*tex2D (decal,oPosition+2*MX);
+	cl+=1*tex2D (decal,oPosition-2*MX);
+	
+	cl+=1*tex2D (decal,oPosition+2*MU);
+	cl+=1*tex2D (decal,oPosition-2*MU);
+	
+	cl+=1*tex2D (decal,oPosition+4*MX);
+	cl+=1*tex2D (decal,oPosition-4*MX);
+	
+	cl+=1*tex2D (decal,oPosition+4*MU);
+	cl+=1*tex2D (decal,oPosition-4*MU);
+	
+	OUT.color=cl*0.105;
+	
+	return OUT;
+	
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

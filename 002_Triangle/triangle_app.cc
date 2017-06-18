@@ -18,7 +18,7 @@ TriangleApp::~TriangleApp()
 	KGL_SAFE_DELETE(triangle_primitive_4_);
 }
 
-void TriangleApp::InitScene()
+void TriangleApp::InitModel()
 {
 	gpu_program_ = new kgl::GPUProgram;
 	gpu_program_->CreateFromFile("resources/shader/002_triangle_vs.glsl", "resources/shader/002_triangle_fs.glsl", nullptr);
@@ -39,21 +39,20 @@ void TriangleApp::InitScene()
 	};
 
 	kgl::VertexAttribute va_position;
-	va_position.Index = 0;
-	va_position.Normalized = GL_FALSE;
-	va_position.Type = GL_FLOAT;
-	va_position.Size = 3; // 一个“顶点位置”的属性由3个分量组成
-	va_position.Stride = 6 * sizeof(GLfloat); // 每个顶点的步长为 
-	va_position.Pointer = nullptr;
+	va_position.index = 0;
+	va_position.normalized = GL_FALSE;
+	va_position.type = GL_FLOAT;
+	va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+	va_position.stride = 6 * sizeof(GLfloat); // 每个顶点的步长为 
+	va_position.pointer = nullptr;
 	
-
 	kgl::VertexAttribute va_color;
-	va_color.Index = 1;
-	va_color.Normalized = GL_FALSE;
-	va_color.Type = GL_FLOAT;
-	va_color.Size = 3; // 一个“顶点颜色”的属性由3个分量组成
-	va_color.Stride = 6 * sizeof(GLfloat); // 每个位置的步长为 
-	va_color.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
+	va_color.index = 1;
+	va_color.normalized = GL_FALSE;
+	va_color.type = GL_FLOAT;
+	va_color.size = 3; // 一个“顶点颜色”的属性由3个分量组成
+	va_color.stride = 6 * sizeof(GLfloat); // 每个位置的步长为 
+	va_color.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
 	std::vector<kgl::VertexAttribute> vtx_attri_array;
 	vtx_attri_array.push_back(va_position);
@@ -76,19 +75,19 @@ void TriangleApp::InitScene()
 		0, 1, 2,
 	};
 
-	va_position.Index = 0;
-	va_position.Normalized = GL_FALSE;
-	va_position.Type = GL_FLOAT;
-	va_position.Size = 3; // 一个“顶点位置”的属性由3个分量组成
-	va_position.Stride = 6 * sizeof(GLfloat); // 每个顶点的步长为 
-	va_position.Pointer = nullptr;
+	va_position.index = 0;
+	va_position.normalized = GL_FALSE;
+	va_position.type = GL_FLOAT;
+	va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+	va_position.stride = 6 * sizeof(GLfloat); // 每个顶点的步长为 
+	va_position.pointer = nullptr;
 
-	va_color.Index = 1;
-	va_color.Normalized = GL_FALSE;
-	va_color.Type = GL_FLOAT;
-	va_color.Size = 3; // 一个“顶点颜色”的属性由3个分量组成
-	va_color.Stride = 6 * sizeof(GLfloat); // 每个位置的步长为 
-	va_color.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
+	va_color.index = 1;
+	va_color.normalized = GL_FALSE;
+	va_color.type = GL_FLOAT;
+	va_color.size = 3; // 一个“顶点颜色”的属性由3个分量组成
+	va_color.stride = 6 * sizeof(GLfloat); // 每个位置的步长为 
+	va_color.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
 
 	vtx_attri_array.clear();
@@ -108,19 +107,19 @@ void TriangleApp::InitScene()
 		1.0f, -0.6f, 0.0f, 0.0f, 0.0f, 1.0f,  // 左下角
 	};
 
-	va_position.Index = 0;
-	va_position.Normalized = GL_FALSE;
-	va_position.Type = GL_FLOAT;
-	va_position.Size = 3; // 一个“顶点位置”的属性由3个分量组成
-	va_position.Stride = 6 * sizeof(GLfloat); // 每个顶点的步长为 
-	va_position.Pointer = nullptr;
+	va_position.index = 0;
+	va_position.normalized = GL_FALSE;
+	va_position.type = GL_FLOAT;
+	va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+	va_position.stride = 6 * sizeof(GLfloat); // 每个顶点的步长为 
+	va_position.pointer = nullptr;
 
-	va_color.Index = 1;
-	va_color.Normalized = GL_FALSE;
-	va_color.Type = GL_FLOAT;
-	va_color.Size = 3; // 一个“顶点颜色”的属性由3个分量组成
-	va_color.Stride = 6 * sizeof(GLfloat); // 每个位置的步长为 
-	va_color.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
+	va_color.index = 1;
+	va_color.normalized = GL_FALSE;
+	va_color.type = GL_FLOAT;
+	va_color.size = 3; // 一个“顶点颜色”的属性由3个分量组成
+	va_color.stride = 6 * sizeof(GLfloat); // 每个位置的步长为 
+	va_color.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
 
 	vtx_attri_array.clear();
@@ -140,19 +139,19 @@ void TriangleApp::InitScene()
 		1.0f, 0.6f, 0.0f, 0.0f, 0.0f, 1.0f,  // 左下角
 	};
 
-	va_position.Index = 0;
-	va_position.Normalized = GL_FALSE;
-	va_position.Type = GL_FLOAT;
-	va_position.Size = 3; // 一个“顶点位置”的属性由3个分量组成
-	va_position.Stride = 6 * sizeof(GLfloat); // 每个顶点的步长为 
-	va_position.Pointer = nullptr;
+	va_position.index = 0;
+	va_position.normalized = GL_FALSE;
+	va_position.type = GL_FLOAT;
+	va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+	va_position.stride = 6 * sizeof(GLfloat); // 每个顶点的步长为 
+	va_position.pointer = nullptr;
 
-	va_color.Index = 1;
-	va_color.Normalized = GL_FALSE;
-	va_color.Type = GL_FLOAT;
-	va_color.Size = 3; // 一个“顶点颜色”的属性由3个分量组成
-	va_color.Stride = 6 * sizeof(GLfloat); // 每个位置的步长为 
-	va_color.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
+	va_color.index = 1;
+	va_color.normalized = GL_FALSE;
+	va_color.type = GL_FLOAT;
+	va_color.size = 3; // 一个“顶点颜色”的属性由3个分量组成
+	va_color.stride = 6 * sizeof(GLfloat); // 每个位置的步长为 
+	va_color.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
 	vtx_attri_array.clear();
 	vtx_attri_array.push_back(va_position);
@@ -171,19 +170,19 @@ void TriangleApp::InitScene()
 		-1.0f, 0.6f, 0.0f, 0.0f, 0.0f, 1.0f,  // 左下角
 	};
 
-	va_position.Index = 0;
-	va_position.Normalized = GL_FALSE;
-	va_position.Type = GL_FLOAT;
-	va_position.Size = 3; // 一个“顶点位置”的属性由3个分量组成
-	va_position.Stride = 6 * sizeof(GLfloat); // 每个顶点的步长为 
-	va_position.Pointer = nullptr;
+	va_position.index = 0;
+	va_position.normalized = GL_FALSE;
+	va_position.type = GL_FLOAT;
+	va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+	va_position.stride = 6 * sizeof(GLfloat); // 每个顶点的步长为 
+	va_position.pointer = nullptr;
 
-	va_color.Index = 1;
-	va_color.Normalized = GL_FALSE;
-	va_color.Type = GL_FLOAT;
-	va_color.Size = 3; // 一个“顶点颜色”的属性由3个分量组成
-	va_color.Stride = 6 * sizeof(GLfloat); // 每个位置的步长为 
-	va_color.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
+	va_color.index = 1;
+	va_color.normalized = GL_FALSE;
+	va_color.type = GL_FLOAT;
+	va_color.size = 3; // 一个“顶点颜色”的属性由3个分量组成
+	va_color.stride = 6 * sizeof(GLfloat); // 每个位置的步长为 
+	va_color.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
 	vtx_attri_array.clear();
 	vtx_attri_array.push_back(va_position);

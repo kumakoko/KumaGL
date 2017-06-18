@@ -1,6 +1,6 @@
-﻿// 展示一个简单的三角形
-#ifndef triangle_app_h__
-#define triangle_app_h__
+﻿// 展示使用frame buffer的技术
+#ifndef frame_buffer_app_h__
+#define frame_buffer_app_h__
 
 #include "../klib/kgl_lib_pch.h"
 #include "../klib/kgl_app.h"
@@ -9,6 +9,7 @@
 #include "../klib/kgl_source_texture.h"
 #include "../klib/kgl_render_state_cull_mode.h"
 #include "../klib/kgl_render_state_depth.h"
+#include "../klib/kgl_rendered_texture.h"
 
 class FrameBufferApp : public kgl::App
 {
@@ -30,9 +31,10 @@ private:
 	kgl::PrimitiveSPtr			screen_;
 	kgl::SourceTextureSPtr		floor_texture_;
 	kgl::SourceTextureSPtr		box_texture_;
+	kgl::RenderedTextureSPtr	frame_buffer_texture_;
 	kgl::RenderStateCullMode	rs_cull_mode_;
 	kgl::RenderStateDepth		rs_depth_;
 };
 
 
-#endif // triangle_app_h__
+#endif // frame_buffer_app_h__

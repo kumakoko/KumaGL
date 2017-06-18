@@ -4,11 +4,11 @@
 
 namespace kgl
 {
-    FontUVRect::FontUVRect(float l, float t, float r, float b) : Left(l), Top(t), Right(r), Bottom(b)
+    FontUVRect::FontUVRect(float l, float t, float r, float b) : left(l), top(t), right(r), bottom(b)
     {
     }
 
-    FontUVRect::FontUVRect() : Left(0.f), Top(0.f), Right(0.f), Bottom(0.f)
+    FontUVRect::FontUVRect() : left(0.f), top(0.f), right(0.f), bottom(0.f)
     {
     }
 

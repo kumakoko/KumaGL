@@ -34,7 +34,7 @@ namespace kgl
 
 		// 初始化模型。并把shader作用到模型中的每一个mesh上
 		const char* model_path = "resources/model/sphere.obj";
-		model_ = new kgl::Model(kgl::VERTEX_TYPE_PN, model_path);
+		model_ = new kgl::StaticModel(kgl::VERTEX_TYPE_PN, model_path);
 
 		cubemap_texture_ = std::make_shared<CubemapTexture>(
 			positive_x_file,negative_x_file,
@@ -53,12 +53,6 @@ namespace kgl
 
 	void SkyBox::Draw()
 	{
-		cull_mode_before_draw_.TakeSnapshotMode();
-		depth_state_before_draw_.TakeSnapshotState();
-
-//		cull_mode_draw_.SetCullMode(GL_FRONT);
-//		depth_state_draw_.SetDepthTestFunc(GL_LEQUAL);
-
 		glm::mat4 world_matrix;
 		world_matrix = glm::translate(world_matrix, camera_->GetPosition()); // 以摄像机在世界坐标中的位置为天空球的原点
 		world_matrix = glm::scale(world_matrix, glm::vec3(5.0f, 5.0f, 5.0f));
@@ -72,9 +66,5 @@ namespace kgl
 		gpu_program_->ApplyMatrix(glm::value_ptr(projection_matrix), "projection_matrix");
 		gpu_program_->ApplyTexture(cubemap_texture_, "skybox_cubemap_texture", 0);
 		model_->Draw();
-
-		// 绘制完毕再设置回之前的mode
-		cull_mode_before_draw_.UseSnapshotMode();
-		depth_state_before_draw_.UseSnapshotState();
 	}
 }

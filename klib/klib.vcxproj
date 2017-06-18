@@ -91,6 +91,7 @@
     <ClInclude Include="kgl_app.h" />
     <ClInclude Include="kgl_camera.h" />
     <ClInclude Include="kgl_cubemap_texture.h" />
+    <ClInclude Include="kgl_debug_tool.h" />
     <ClInclude Include="kgl_defines.h" />
     <ClInclude Include="kgl_error.h" />
     <ClInclude Include="kgl_font_glyph_info.h" />
@@ -104,8 +105,6 @@
     <ClInclude Include="kgl_lib_pch.h" />
     <ClInclude Include="kgl_light.h" />
     <ClInclude Include="kgl_material.h" />
-    <ClInclude Include="kgl_mesh.h" />
-    <ClInclude Include="kgl_model.h" />
     <ClInclude Include="kgl_primitive_tool.h" />
     <ClInclude Include="kgl_rendered_texture.h" />
     <ClInclude Include="kgl_renderer.h" />
@@ -115,6 +114,9 @@
     <ClInclude Include="kgl_render_state_draw_mode.h" />
     <ClInclude Include="kgl_sky_box.h" />
     <ClInclude Include="kgl_source_texture.h" />
+    <ClInclude Include="kgl_sprite.h" />
+    <ClInclude Include="kgl_static_mesh.h" />
+    <ClInclude Include="kgl_static_model.h" />
     <ClInclude Include="kgl_string_convertor.h" />
     <ClInclude Include="kgl_texture.h" />
     <ClInclude Include="kgl_texture_manager.h" />
@@ -126,6 +128,7 @@
     <ClCompile Include="kgl_app.cc" />
     <ClCompile Include="kgl_camera.cc" />
     <ClCompile Include="kgl_cubemap_texture.cc" />
+    <ClCompile Include="kgl_debug_tool.cc" />
     <ClCompile Include="kgl_error.cc" />
     <ClCompile Include="kgl_font_glyph_info.cc" />
     <ClCompile Include="kgl_font_primitive.cc" />
@@ -143,8 +146,6 @@
     </ClCompile>
     <ClCompile Include="kgl_light.cc" />
     <ClCompile Include="kgl_material.cc" />
-    <ClCompile Include="kgl_mesh.cc" />
-    <ClCompile Include="kgl_model.cc" />
     <ClCompile Include="kgl_primitive_tool.cc" />
     <ClCompile Include="kgl_rendered_texture.cc" />
     <ClCompile Include="kgl_renderer.cc" />
@@ -154,6 +155,9 @@
     <ClCompile Include="kgl_render_state_draw_mode.cc" />
     <ClCompile Include="kgl_sky_box.cc" />
     <ClCompile Include="kgl_source_texture.cc" />
+    <ClCompile Include="kgl_sprite.cc" />
+    <ClCompile Include="kgl_static_mesh.cc" />
+    <ClCompile Include="kgl_static_model.cc" />
     <ClCompile Include="kgl_string_convertor.cc" />
     <ClCompile Include="kgl_texture.cc" />
     <ClCompile Include="kgl_texture_manager.cc" />

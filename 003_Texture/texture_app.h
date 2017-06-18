@@ -13,12 +13,12 @@ class TextureApp : public kgl::App
 public:
 	TextureApp();
 	virtual ~TextureApp();
-	virtual void InitScene();
 protected:
-	virtual void RenderFrame();
+	virtual void InitModel() override;
+	virtual void RenderFrame() override ;
 private:
-	kgl::GPUProgram*		gpu_program_;
-	kgl::Primitive*			rectangle_primitive_;
+	kgl::GPUProgram*		gpu_program_ = nullptr;
+	kgl::Primitive*			rectangle_primitive_ = nullptr;
 	kgl::SourceTextureSPtr	texture_1_;
 	kgl::SourceTextureSPtr	texture_2_;
 };

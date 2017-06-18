@@ -35,25 +35,25 @@ namespace kgl
         THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
         // 设置纹理参数,包装模式
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, texture_params.WrapSMode);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, texture_params.wrap_s_mode);
         THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, texture_params.WrapTMode);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, texture_params.wrap_t_mode);
         THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
         // 设置纹理参数,包装模式过滤模式
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texture_params.MinFilterMode);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texture_params.min_filter_mode);
         THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, texture_params.MagFilterMode);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, texture_params.mag_filter_mode);
         THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
         // 装载并生成纹理的mipmap（如果有的话）
         unsigned char* image = nullptr;
 
-        if (GL_RGB == texture_params.InternalFormat)
+        if (GL_RGB == texture_params.internal_format)
         {
-            switch ( texture_params.SrcImgPixelComponentType)
+            switch ( texture_params.src_img_px_component_type)
             {
             case GL_UNSIGNED_BYTE:
                 image = new unsigned char[width*height * 3];
@@ -61,9 +61,9 @@ namespace kgl
             default:break;
             }
         }
-        else if (GL_RGBA == texture_params.InternalFormat)
+        else if (GL_RGBA == texture_params.internal_format)
         {
-            switch ( texture_params.SrcImgPixelComponentType)
+            switch ( texture_params.src_img_px_component_type)
             {
             case GL_UNSIGNED_BYTE:
                 image = new unsigned char[width*height * 4];
@@ -71,9 +71,9 @@ namespace kgl
             default:break;
             }
         }
-        else if (GL_LUMINANCE == texture_params.InternalFormat)
+        else if (GL_LUMINANCE == texture_params.internal_format)
         {
-            switch ( texture_params.SrcImgPixelComponentType)
+            switch ( texture_params.src_img_px_component_type)
             {
             case GL_UNSIGNED_BYTE:break;
                 image = new unsigned char[width*height];
@@ -81,9 +81,9 @@ namespace kgl
             default:break;
             }
         }
-        else if (GL_LUMINANCE_ALPHA == texture_params.InternalFormat)
+        else if (GL_LUMINANCE_ALPHA == texture_params.internal_format)
         {
-            switch (texture_params.SrcImgPixelComponentType)
+            switch (texture_params.src_img_px_component_type)
             {
             case GL_UNSIGNED_BYTE:break;
                 image = new unsigned char[width*height * 2];
@@ -103,10 +103,10 @@ namespace kgl
             throw Error(wss.str(), __FILE__, __LINE__);
         }
 
-        glTexImage2D(GL_TEXTURE_2D, 0, texture_params.InternalFormat, width_, height_, 0, texture_params.SrcImgFormat, texture_params.SrcImgPixelComponentType, image);
+        glTexImage2D(GL_TEXTURE_2D, 0, texture_params.internal_format, width_, height_, 0, texture_params.src_img_format, texture_params.src_img_px_component_type, image);
         THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
-        if (texture_params.UseMipmap)
+        if (texture_params.used_mipmap)
         {
             glGenerateMipmap(GL_TEXTURE_2D);
             THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
@@ -134,21 +134,21 @@ namespace kgl
         THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
         // 设置纹理参数,包装模式
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, texture_params.WrapSMode);    // Set texture wrapping to GL_REPEAT
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, texture_params.wrap_s_mode);    // Set texture wrapping to GL_REPEAT
         THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, texture_params.WrapTMode);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, texture_params.wrap_t_mode);
         THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
         // 设置纹理参数,包装模式过滤模式
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texture_params.MinFilterMode);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texture_params.min_filter_mode);
         THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, texture_params.MagFilterMode);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, texture_params.mag_filter_mode);
         THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
         // 装载并生成纹理的mipmap（如果有的话）
-        unsigned char* image = SOIL_load_image(file_name.c_str(), &width_, &height_, 0, texture_params.LoadChannel);
+        unsigned char* image = SOIL_load_image(file_name.c_str(), &width_, &height_, 0, texture_params.load_channel);
 
         if (nullptr == image)
         {
@@ -157,10 +157,10 @@ namespace kgl
             throw Error(wss.str(), __FILE__, __LINE__);
         }
 
-        glTexImage2D(GL_TEXTURE_2D, 0, texture_params.InternalFormat, width_, height_, 0, texture_params.SrcImgFormat, texture_params.SrcImgPixelComponentType, image);
+        glTexImage2D(GL_TEXTURE_2D, 0, texture_params.internal_format, width_, height_, 0, texture_params.src_img_format, texture_params.src_img_px_component_type, image);
         THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
-        if (texture_params.UseMipmap)
+        if (texture_params.used_mipmap)
         {
             glGenerateMipmap(GL_TEXTURE_2D);
             THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
@@ -184,17 +184,10 @@ namespace kgl
 
     bool SourceTexture::IsMipmap() const
     {
-        return params_.UseMipmap;
+        return params_.used_mipmap;
     }
 
-    //************************************
-    // Method:    ActiveBind
-    // FullName:  kgl::Texture::ActiveBind
-    // Access:    virtual public 
-    // Returns:   void
-    // Qualifier: 激活并绑定本纹理到OpenGL管线
-    // Parameter: int slot_index
-    //************************************
+   
     void SourceTexture::ActiveBind(GLuint slot_index)
     {
         GLuint i = glm::clamp(slot_index, static_cast<GLuint>(0), static_cast<GLuint>(8));
@@ -215,10 +208,11 @@ namespace kgl
 	4) Pixel Buffer Object PBO - for fast uploads from CPU to GPU, not supported (yet) on OpenGL ES.
 	*/
 
+
 	void SourceTexture::Update(GLint x_offset, GLint y_offset, GLsizei width, GLsizei height, const GLvoid* data)
 	{
 		glBindTexture(GL_TEXTURE_2D, texture_id_);
-		glTexSubImage2D(GL_TEXTURE_2D, 0, x_offset, y_offset, width, height, params_.InternalFormat, params_.SrcImgPixelComponentType, data);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, x_offset, y_offset, width, height, params_.internal_format, params_.src_img_px_component_type, data);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }

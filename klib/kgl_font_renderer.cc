@@ -10,7 +10,7 @@ namespace kgl
 {
     FontRenderer::FontRenderer()
     {
-        
+		rs_depth_not_enabled_.SetEnable(GL_FALSE); // 绘制文字时不使用深度测试，直接写入，同时不写入深度值到深度缓冲区
     }
 
 	void FontRenderer::Initialize()
@@ -77,6 +77,12 @@ namespace kgl
         KGL_SAFE_DELETE(font_shader_);
     }
 
+	void FontRenderer::AddToRendered(const std::wstring& text, int32_t start_x, int32_t start_y,
+		const glm::vec4& color,float scale)
+	{
+		this->AddToRendered(text, start_x, start_y, color,color, color, color, scale);
+	}
+
     void FontRenderer::AddToRendered(const std::wstring& text, int32_t start_x, int32_t start_y, const glm::vec4& left_top_color,
         const glm::vec4& left_bottom_color,const glm::vec4& right_top_color, const glm::vec4& right_bottom_color,float scale )
     {
@@ -99,70 +105,70 @@ namespace kgl
             current_font_texture_->RenderGlyphIntoTexture(uint32_t(text[t]));
             
             const FontGlyphInfo* glyph_info = current_font_texture_->GetGlyphInfo((uint32_t)text[t]);
-            const FontUVRect uv_rect = glyph_info->UVRect;
+            const FontUVRect uv_rect = glyph_info->texture_uv_rect;
             
-            GLfloat lt_x = x + glyph_info->BearingX / view_port_width_* scale;
-            GLfloat lt_y = y - (glyph_info->BmpHeight - glyph_info->BearingY) / view_port_height_ * scale;
+            GLfloat lt_x = x + glyph_info->bearing_x / view_port_width_* scale;
+            GLfloat lt_y = y - (glyph_info->bmp_height - glyph_info->bearing_y) / view_port_height_ * scale;
 
-            font_h = glyph_info->BmpHeight / view_port_height_ * scale;
-            font_w = glyph_info->BmpWidth / view_port_width_  * scale;
+            font_h = glyph_info->bmp_height / view_port_height_ * scale;
+            font_w = glyph_info->bmp_width / view_port_width_  * scale;
 
             // 纹理坐标是上下对调的，即左下角用左上角的纹理坐标，右下角用右上角的纹理坐标
-            font_vertices[t * 6 + 0].PosX = lt_x; // 左下
-            font_vertices[t * 6 + 0].PosY = lt_y - font_h;
-            font_vertices[t * 6 + 0].R = left_bottom_color.r;
-            font_vertices[t * 6 + 0].G = left_bottom_color.g;
-            font_vertices[t * 6 + 0].B = left_bottom_color.b;
-            font_vertices[t * 6 + 0].A = left_bottom_color.a;
-            font_vertices[t * 6 + 0].U = uv_rect.Left;
-            font_vertices[t * 6 + 0].V = uv_rect.Bottom;// font_h;
+            font_vertices[t * 6 + 0].pos_x = lt_x; // 左下
+            font_vertices[t * 6 + 0].pos_y = lt_y - font_h;
+            font_vertices[t * 6 + 0].red = left_bottom_color.r;
+            font_vertices[t * 6 + 0].green = left_bottom_color.g;
+            font_vertices[t * 6 + 0].blue = left_bottom_color.b;
+            font_vertices[t * 6 + 0].alpha = left_bottom_color.a;
+            font_vertices[t * 6 + 0].texture_u = uv_rect.left;
+            font_vertices[t * 6 + 0].texture_v = uv_rect.bottom;// font_h;
 
-            font_vertices[t * 6 + 1].PosX = lt_x; // 左上
-            font_vertices[t * 6 + 1].PosY = lt_y;
-            font_vertices[t * 6 + 1].R = left_top_color.r;
-            font_vertices[t * 6 + 1].G = left_top_color.g;
-            font_vertices[t * 6 + 1].B = left_top_color.b;
-            font_vertices[t * 6 + 1].A = left_top_color.a;
-            font_vertices[t * 6 + 1].U = uv_rect.Left;
-            font_vertices[t * 6 + 1].V = uv_rect.Top;
+            font_vertices[t * 6 + 1].pos_x = lt_x; // 左上
+            font_vertices[t * 6 + 1].pos_y = lt_y;
+            font_vertices[t * 6 + 1].red = left_top_color.r;
+            font_vertices[t * 6 + 1].green = left_top_color.g;
+            font_vertices[t * 6 + 1].blue = left_top_color.b;
+            font_vertices[t * 6 + 1].alpha = left_top_color.a;
+            font_vertices[t * 6 + 1].texture_u = uv_rect.left;
+            font_vertices[t * 6 + 1].texture_v = uv_rect.top;
 
-            font_vertices[t * 6 + 2].PosX = lt_x + font_w;// 右上
-            font_vertices[t * 6 + 2].PosY = lt_y;
-            font_vertices[t * 6 + 2].R = right_top_color.r;
-            font_vertices[t * 6 + 2].G = right_top_color.g;
-            font_vertices[t * 6 + 2].B = right_top_color.b;
-            font_vertices[t * 6 + 2].A = right_top_color.a;
-            font_vertices[t * 6 + 2].U = uv_rect.Right;
-            font_vertices[t * 6 + 2].V = uv_rect.Top;
+            font_vertices[t * 6 + 2].pos_x = lt_x + font_w;// 右上
+            font_vertices[t * 6 + 2].pos_y = lt_y;
+            font_vertices[t * 6 + 2].red = right_top_color.r;
+            font_vertices[t * 6 + 2].green = right_top_color.g;
+            font_vertices[t * 6 + 2].blue = right_top_color.b;
+            font_vertices[t * 6 + 2].alpha = right_top_color.a;
+            font_vertices[t * 6 + 2].texture_u = uv_rect.right;
+            font_vertices[t * 6 + 2].texture_v = uv_rect.top;
 
-            font_vertices[t * 6 + 3].PosX = lt_x + font_w; // 右上
-            font_vertices[t * 6 + 3].PosY = lt_y;
-            font_vertices[t * 6 + 3].R = right_top_color.r;
-            font_vertices[t * 6 + 3].G = right_top_color.g;
-            font_vertices[t * 6 + 3].B = right_top_color.b;
-            font_vertices[t * 6 + 3].A = right_top_color.a;
-            font_vertices[t * 6 + 3].U = uv_rect.Right;
-            font_vertices[t * 6 + 3].V = uv_rect.Top;
+            font_vertices[t * 6 + 3].pos_x = lt_x + font_w; // 右上
+            font_vertices[t * 6 + 3].pos_y = lt_y;
+            font_vertices[t * 6 + 3].red = right_top_color.r;
+            font_vertices[t * 6 + 3].green = right_top_color.g;
+            font_vertices[t * 6 + 3].blue = right_top_color.b;
+            font_vertices[t * 6 + 3].alpha = right_top_color.a;
+            font_vertices[t * 6 + 3].texture_u = uv_rect.right;
+            font_vertices[t * 6 + 3].texture_v = uv_rect.top;
 
-            font_vertices[t * 6 + 4].PosX = lt_x + font_w; // 右下
-            font_vertices[t * 6 + 4].PosY = lt_y - font_h;
-            font_vertices[t * 6 + 4].R = right_bottom_color.r;
-            font_vertices[t * 6 + 4].G = right_bottom_color.g;
-            font_vertices[t * 6 + 4].B = right_bottom_color.b;
-            font_vertices[t * 6 + 4].A = right_bottom_color.a;
-            font_vertices[t * 6 + 4].U = uv_rect.Right;
-            font_vertices[t * 6 + 4].V = uv_rect.Bottom;
+            font_vertices[t * 6 + 4].pos_x = lt_x + font_w; // 右下
+            font_vertices[t * 6 + 4].pos_y = lt_y - font_h;
+            font_vertices[t * 6 + 4].red = right_bottom_color.r;
+            font_vertices[t * 6 + 4].green = right_bottom_color.g;
+            font_vertices[t * 6 + 4].blue = right_bottom_color.b;
+            font_vertices[t * 6 + 4].alpha = right_bottom_color.a;
+            font_vertices[t * 6 + 4].texture_u = uv_rect.right;
+            font_vertices[t * 6 + 4].texture_v = uv_rect.bottom;
 
-            font_vertices[t * 6 + 5].PosX = lt_x; // 左下
-            font_vertices[t * 6 + 5].PosY = lt_y - font_h;
-            font_vertices[t * 6 + 5].R = left_bottom_color.r;
-            font_vertices[t * 6 + 5].G = left_bottom_color.g;
-            font_vertices[t * 6 + 5].B = left_bottom_color.b;
-            font_vertices[t * 6 + 5].A = left_bottom_color.a;
-            font_vertices[t * 6 + 5].U = uv_rect.Left;
-            font_vertices[t * 6 + 5].V = uv_rect.Bottom;
+            font_vertices[t * 6 + 5].pos_x = lt_x; // 左下
+            font_vertices[t * 6 + 5].pos_y = lt_y - font_h;
+            font_vertices[t * 6 + 5].red = left_bottom_color.r;
+            font_vertices[t * 6 + 5].green = left_bottom_color.g;
+            font_vertices[t * 6 + 5].blue = left_bottom_color.b;
+            font_vertices[t * 6 + 5].alpha = left_bottom_color.a;
+            font_vertices[t * 6 + 5].texture_u = uv_rect.left;
+            font_vertices[t * 6 + 5].texture_v = uv_rect.bottom;
 
-            x += (glyph_info->Advance) / view_port_width_ * scale;
+            x += (glyph_info->advance) / view_port_width_ * scale;
         }
 
         FontPrimitive* p = this->GetUnusedFontPrimitive(char_count);
@@ -176,7 +182,12 @@ namespace kgl
 
     void FontRenderer::Draw()
     {
+		RenderStateDepth::TakeSnapshotState(rs_depth_before_draw_);
+
+		rs_depth_not_enabled_.Use();
+		rs_blend_.Use();
         font_shader_->Use();
+
         std::size_t sz = used_primitive_array_.size();
 
         for (std::size_t t = 0; t < sz; ++t)
@@ -189,6 +200,7 @@ namespace kgl
         }
 
         used_primitive_array_.clear();
+		rs_depth_before_draw_.Use();
     }
 
     FontPrimitive* FontRenderer::GetUnusedFontPrimitive(int32_t char_count)

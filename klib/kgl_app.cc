@@ -105,8 +105,42 @@ namespace kgl
 
     void App::InitScene()
     {
+		this->InitMainCamera();
+		this->InitLight();
+		this->InitMaterial();
 
+		// 因为model要使用到shader，所以务必要保证
+		// shader在Model前完成初始化
+		this->InitShader();
+		this->InitModel();		
+		this->InitFont();
     }
+
+	void App::InitMaterial()
+	{
+	}
+
+	void App::InitModel()
+	{
+	}
+
+	void App::InitShader()
+	{
+	}
+
+	void App::InitLight()
+	{
+	}
+
+	void App::InitMainCamera()
+	{
+
+	}
+
+	void App::InitFont()
+	{
+		
+	}
 
     void App::Run()
     {

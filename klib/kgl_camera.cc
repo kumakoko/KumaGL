@@ -11,12 +11,12 @@ namespace kgl
         camera_mode_ = FREE;
         camera_up_ = glm::vec3(0, 1, 0);
         field_of_view = 45;
-        rotation_quaternion = glm::quat(1, 0, 0, 0);
+        rotation_quaternion_ = glm::quat(1, 0, 0, 0);
         camera_position_delta_ = glm::vec3(0, 0, 0);
         camera_speed_ = 0.01f;
         max_pitch_rate = 5;
         max_heading_rate = 5;
-        move_camera = false;
+        move_camera_ = false;
         is_dirty_ = true;
 
         camera_pitch_ = 0.0f;
@@ -42,7 +42,7 @@ namespace kgl
 
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glViewport(viewport_x, viewport_y, window_width, window_height);
+        glViewport(viewport_x_, viewport_y_, window_width_, window_height);
 
         if (camera_mode_ == ORTHO)
         {
@@ -88,16 +88,16 @@ namespace kgl
         }
 
         view_matrix_ = glm::lookAt(camera_position_, camera_look_at_, camera_up_);
-        model = glm::mat4(1.0f);
-        MVP = projection_matrix_ * view_matrix_ * model;
-        glLoadMatrixf(glm::value_ptr(MVP));
+        model_matrix_ = glm::mat4(1.0f);
+        mvp_matrix_ = projection_matrix_ * view_matrix_ * model_matrix_;
+        glLoadMatrixf(glm::value_ptr(mvp_matrix_));
     }
 
     void Camera::SetMode(CameraType cam_mode) 
     {
         camera_mode_ = cam_mode;
         camera_up_ = glm::vec3(0, 1, 0);
-        rotation_quaternion = glm::quat(1, 0, 0, 0);
+        rotation_quaternion_ = glm::quat(1, 0, 0, 0);
         is_dirty_ = true;
     }
 
@@ -121,9 +121,9 @@ namespace kgl
 
     void Camera::SetViewport(int loc_x, int loc_y, int width, int height) 
     {
-        viewport_x = loc_x;
-        viewport_y = loc_y;
-        window_width = width;
+        viewport_x_ = loc_x;
+        viewport_y_ = loc_y;
+        window_width_ = width;
         window_height = height;
         aspect_ = static_cast<float>(width) / static_cast<float>(height);
         is_dirty_ = true;
@@ -135,6 +135,15 @@ namespace kgl
         far_clip_ = far_clip_distance;
         is_dirty_ = true;
     }
+
+	void  Camera::InitViewProjection(CameraType cam_mod, const glm::vec3& pos, const glm::vec3& look_at, float fov, float near_clip_distance, float far_clip_distance)
+	{
+		this->SetMode(cam_mod);
+		this->SetPosition(pos);
+		this->SetLookAt(look_at);
+		this->SetFOV(fov);
+		this->SetClipping(near_clip_distance, far_clip_distance);
+	}
 
     void Camera::Move(CameraDirection dir)
     {
@@ -226,13 +235,13 @@ namespace kgl
     void Camera::GetViewport(int* loc_x, int* loc_y, int* width, int* height)
     {
         if (nullptr != loc_x)
-            *loc_x = viewport_x;
+            *loc_x = viewport_x_;
 
         if (nullptr != loc_y)
-            *loc_y = viewport_y;
+            *loc_y = viewport_y_;
 
         if (nullptr != width)
-            *width = window_width;
+            *width = window_width_;
 
         if (nullptr != height)
             *height = window_height;

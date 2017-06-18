@@ -53,20 +53,20 @@ namespace kgl
         };
 
         VertexAttribute va_position;
-        va_position.Index = 0;
-        va_position.Normalized = GL_FALSE;
-        va_position.Type = GL_FLOAT;
-        va_position.Size = 3; // 一个“顶点位置”的属性由3个分量组成
-        va_position.Stride = 7 * sizeof(GLfloat); // 每个顶点的步长为 
-        va_position.Pointer = nullptr;
+        va_position.index = 0;
+        va_position.normalized = GL_FALSE;
+        va_position.type = GL_FLOAT;
+        va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+        va_position.stride = 7 * sizeof(GLfloat); // 每个顶点的步长为 
+        va_position.pointer = nullptr;
 
         VertexAttribute va_color;
-        va_color.Index = 1;
-        va_color.Normalized = GL_FALSE;
-        va_color.Type = GL_FLOAT;
-        va_color.Size = 4; // 一个“顶点颜色”的属性由3个分量组成
-        va_color.Stride = 7 * sizeof(GLfloat); // 每个位置的步长为 
-        va_color.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
+        va_color.index = 1;
+        va_color.normalized = GL_FALSE;
+        va_color.type = GL_FLOAT;
+        va_color.size = 4; // 一个“顶点颜色”的属性由3个分量组成
+		va_color.stride = 7 * sizeof(GLfloat); // 每个位置的步长为 
+		va_color.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
         std::vector<VertexAttribute> vtx_attri_array;
         vtx_attri_array.clear();
@@ -78,7 +78,8 @@ namespace kgl
         return p;
     }
 
-    PrimitiveSPtr PrimitiveTool::BuildTexturedCube()
+
+	PrimitiveSPtr PrimitiveTool::BuildTexturedCube()
     {
         GLfloat cube_vertices[] = 
         {
@@ -128,20 +129,20 @@ namespace kgl
 
 
         VertexAttribute va_position;
-        va_position.Index = 0;
-        va_position.Normalized = GL_FALSE;
-        va_position.Type = GL_FLOAT;
-        va_position.Size = 3; // 一个“顶点位置”的属性由3个分量组成
-        va_position.Stride = 5 * sizeof(GLfloat); // 每个顶点的步长为 
-        va_position.Pointer = nullptr;
+        va_position.index = 0;
+        va_position.normalized = GL_FALSE;
+        va_position.type = GL_FLOAT;
+        va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+        va_position.stride = 5 * sizeof(GLfloat); // 每个顶点的步长为 
+		va_position.pointer = nullptr;
 
         VertexAttribute va_texture;
-        va_texture.Index = 1;
-        va_texture.Normalized = GL_FALSE;
-        va_texture.Type = GL_FLOAT;
-        va_texture.Size = 2; // 一个“顶点纹理坐标”的属性由2个分量组成
-        va_texture.Stride = 5 * sizeof(GLfloat); // 每个位置的步长为 
-        va_texture.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
+        va_texture.index = 1;
+        va_texture.normalized = GL_FALSE;
+        va_texture.type = GL_FLOAT;
+        va_texture.size = 2; // 一个“顶点纹理坐标”的属性由2个分量组成
+		va_texture.stride = 5 * sizeof(GLfloat); // 每个位置的步长为 
+		va_texture.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
         std::vector<VertexAttribute> vtx_attri_array;
         vtx_attri_array.clear();
@@ -153,7 +154,8 @@ namespace kgl
         return p;
     }
 
-    PrimitiveSPtr PrimitiveTool::BuildTexturedXZPlane(float y_height,float x_scale, float z_scale,int texture_repeart)
+
+	PrimitiveSPtr PrimitiveTool::BuildTexturedXZPlane(float y_height, float x_scale, float z_scale, int texture_repeart)
     {
         GLfloat plane_vertices[] = {
             // 坐标位置          // 纹理贴图坐标
@@ -182,20 +184,20 @@ namespace kgl
         plane_vertices[29] = plane_vertices[29] * texture_repeart;
         
         VertexAttribute va_position;
-        va_position.Index = 0;
-        va_position.Normalized = GL_FALSE;
-        va_position.Type = GL_FLOAT;
-        va_position.Size = 3; // 一个“顶点位置”的属性由3个分量组成
-        va_position.Stride = 5 * sizeof(GLfloat); // 每个顶点的步长为 
-        va_position.Pointer = nullptr;
+        va_position.index = 0;
+        va_position.normalized = GL_FALSE;
+        va_position.type = GL_FLOAT;
+        va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+        va_position.stride = 5 * sizeof(GLfloat); // 每个顶点的步长为 
+        va_position.pointer = nullptr;
 
         VertexAttribute va_texture;
-        va_texture.Index = 1;
-        va_texture.Normalized = GL_FALSE;
-        va_texture.Type = GL_FLOAT;
-        va_texture.Size = 2; // 一个“顶点纹理坐标”的属性由2个分量组成
-        va_texture.Stride = 5 * sizeof(GLfloat); // 每个位置的步长为 
-        va_texture.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
+        va_texture.index = 1;
+        va_texture.normalized = GL_FALSE;
+        va_texture.type = GL_FLOAT;
+        va_texture.size = 2; // 一个“顶点纹理坐标”的属性由2个分量组成
+        va_texture.stride = 5 * sizeof(GLfloat); // 每个位置的步长为 
+        va_texture.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
         std::vector<VertexAttribute> vtx_attri_array;
         vtx_attri_array.clear();
@@ -231,20 +233,20 @@ namespace kgl
         rectangle_vertices[20] = right; rectangle_vertices[21] = top; rectangle_vertices[22] = 1.0f * texture_repeart; rectangle_vertices[23] = 1.0f * texture_repeart;
 
         VertexAttribute va_position;
-        va_position.Index = 0;
-        va_position.Normalized = GL_FALSE;
-        va_position.Type = GL_FLOAT;
-        va_position.Size = 2; // 一个“顶点位置”的属性由3个分量组成
-        va_position.Stride = 4 * sizeof(GLfloat); // 每个顶点的步长为 
-        va_position.Pointer = nullptr;
+        va_position.index = 0;
+        va_position.normalized = GL_FALSE;
+        va_position.type = GL_FLOAT;
+        va_position.size = 2; // 一个“顶点位置”的属性由3个分量组成
+        va_position.stride = 4 * sizeof(GLfloat); // 每个顶点的步长为 
+        va_position.pointer = nullptr;
 
         VertexAttribute va_texture;
-        va_texture.Index = 1;
-        va_texture.Normalized = GL_FALSE;
-        va_texture.Type = GL_FLOAT;
-        va_texture.Size = 2; // 一个“顶点纹理坐标”的属性由2个分量组成
-        va_texture.Stride = 4 * sizeof(GLfloat); // 每个位置的步长为 
-        va_texture.Pointer = reinterpret_cast<GLvoid*> (2 * sizeof(GLfloat));
+        va_texture.index = 1;
+        va_texture.normalized = GL_FALSE;
+        va_texture.type = GL_FLOAT;
+        va_texture.size = 2; // 一个“顶点纹理坐标”的属性由2个分量组成
+        va_texture.stride = 4 * sizeof(GLfloat); // 每个位置的步长为 
+        va_texture.pointer = reinterpret_cast<GLvoid*> (2 * sizeof(GLfloat));
 
         std::vector<VertexAttribute> vtx_attri_array;
         vtx_attri_array.clear();

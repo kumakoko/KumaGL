@@ -1,6 +1,7 @@
 ﻿// 简单的纹理应用示例
 #include "transform_app.h"
 #include "../klib/kgl_defines.h"
+#include "../klib/kgl_debug_tool.h"
 
 TransformApp::TransformApp() :gpu_program_(nullptr), rectangle_primitive_(nullptr)
 {
@@ -20,15 +21,15 @@ void TransformApp::InitScene()
 	gpu_program_->CreateFromFile("resources/shader/004_transform_vs.glsl", "resources/shader/004_transform_fs.glsl", nullptr);
 
 	kgl::TextureParams texture_param;
-	texture_param.WrapSMode = GL_REPEAT;
-	texture_param.WrapTMode = GL_REPEAT;
-	texture_param.MagFilterMode = GL_LINEAR;
-	texture_param.MinFilterMode = GL_LINEAR;
-	texture_param.InternalFormat = GL_RGB;
-	texture_param.SrcImgPixelComponentType = GL_UNSIGNED_BYTE;
-	texture_param.SrcImgFormat = GL_RGB;
-	texture_param.LoadChannel = SOIL_LOAD_RGB;
-	texture_param.UseMipmap = false;
+	texture_param.wrap_s_mode = GL_REPEAT;
+	texture_param.wrap_t_mode = GL_REPEAT;
+	texture_param.mag_filter_mode = GL_LINEAR;
+	texture_param.min_filter_mode = GL_LINEAR;
+	texture_param.internal_format = GL_RGB;
+	texture_param.src_img_px_component_type = GL_UNSIGNED_BYTE;
+	texture_param.src_img_format = GL_RGB;
+	texture_param.load_channel = SOIL_LOAD_RGB;
+	texture_param.used_mipmap = false;
 
 	texture_1_ = std::make_shared<kgl::SourceTexture>();
 	texture_1_->CreateFromFile("resources/image/coordinate.bmp", texture_param);
@@ -52,28 +53,28 @@ void TransformApp::InitScene()
 	};
 
 	kgl::VertexAttribute va_position;
-	va_position.Index = 0;
-	va_position.Normalized = GL_FALSE;
-	va_position.Type = GL_FLOAT;
-	va_position.Size = 3; // 一个“顶点位置”的属性由3个分量组成
-	va_position.Stride = 8 * sizeof(GLfloat); // 每个顶点的步长
-	va_position.Pointer = nullptr;
+	va_position.index = 0;
+	va_position.normalized = GL_FALSE;
+	va_position.type = GL_FLOAT;
+	va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+	va_position.stride = 8 * sizeof(GLfloat); // 每个顶点的步长
+	va_position.pointer = nullptr;
 
 	kgl::VertexAttribute va_color;
-	va_color.Index = 1;
-	va_color.Normalized = GL_FALSE;
-	va_color.Type = GL_FLOAT;
-	va_color.Size = 3; // 一个“顶点颜色”的属性由3个分量组成
-	va_color.Stride = 8 * sizeof(GLfloat); //每个顶点的步长
-	va_color.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
+	va_color.index = 1;
+	va_color.normalized = GL_FALSE;
+	va_color.type = GL_FLOAT;
+	va_color.size = 3; // 一个“顶点颜色”的属性由3个分量组成
+	va_color.stride = 8 * sizeof(GLfloat); //每个顶点的步长
+	va_color.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
 	kgl::VertexAttribute va_texture_coord;
-	va_texture_coord.Index = 2;
-	va_texture_coord.Normalized = GL_FALSE;
-	va_texture_coord.Type = GL_FLOAT;
-	va_texture_coord.Size = 2; // 一个“顶点坐标”的属性由3个分量组成
-	va_texture_coord.Stride = 8 * sizeof(GLfloat); // 每个顶点的步长
-	va_texture_coord.Pointer = reinterpret_cast<GLvoid*> (6 * sizeof(GLfloat)); // 纹理坐标数据在字段中的起始指针处
+	va_texture_coord.index = 2;
+	va_texture_coord.normalized = GL_FALSE;
+	va_texture_coord.type = GL_FLOAT;
+	va_texture_coord.size = 2; // 一个“顶点坐标”的属性由3个分量组成
+	va_texture_coord.stride = 8 * sizeof(GLfloat); // 每个顶点的步长
+	va_texture_coord.pointer = reinterpret_cast<GLvoid*> (6 * sizeof(GLfloat)); // 纹理坐标数据在字段中的起始指针处
 
 	std::vector<kgl::VertexAttribute> vtx_attri_array;
 	vtx_attri_array.push_back(va_position);

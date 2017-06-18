@@ -4,23 +4,23 @@
 
 namespace kgl
 {
-    FontVertex::FontVertex() :PosX(0.0f), PosY(0.0f), R(0.0f), G(0.0f), B(0.0f), A(0.0f), U(0.0f), V(0.0f)
+    FontVertex::FontVertex() :pos_x(0.0f), pos_y(0.0f), red(0.0f), green(0.0f), blue(0.0f), alpha(0.0f), texture_u(0.0f), texture_v(0.0f)
     {
         
     }
 
     FontVertex::FontVertex(float x, float y, float r, float g, float b, float a, float u, float v) :
-        PosX(x), PosY(y), R(r),G(g),B(b),A(a), U(u), V(v){}
+        pos_x(x), pos_y(y), red(r),green(g),blue(b),alpha(a), texture_u(u), texture_v(v){}
 
     void FontVertex::Reset()
     {
-        PosX = 0.0f;
-        PosY = 0.0f;
-        R = 0.0f;
-        G = 0.0f;
-        B = 0.0f;
-        A = 0.0f;
-        U = 0.0f;
-        V = 0.0f;
+        pos_x = 0.0f;
+        pos_y = 0.0f;
+        red = 0.0f;
+        green = 0.0f;
+        blue = 0.0f;
+        alpha = 0.0f;
+        texture_u = 0.0f;
+        texture_v = 0.0f;
     }
 }

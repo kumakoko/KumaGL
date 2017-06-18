@@ -48,15 +48,15 @@ void PixelMagicApp::InitScene()
     simple_fractal_shader_->CreateFromFile("resources/shader/pixel_magic_vs.glsl", "resources/shader/pm_japan_flag_fs.glsl", nullptr);
 // ================================================================
     kgl::TextureParams texture_param;
-    texture_param.WrapSMode = GL_REPEAT;
-    texture_param.WrapTMode = GL_REPEAT;
-    texture_param.MagFilterMode = GL_LINEAR;
-    texture_param.MinFilterMode = GL_LINEAR;
-    texture_param.InternalFormat = GL_RGB;
-    texture_param.SrcImgPixelComponentType = GL_UNSIGNED_BYTE;
-    texture_param.SrcImgFormat = GL_RGB;
-    texture_param.LoadChannel = SOIL_LOAD_RGB;
-    texture_param.UseMipmap = false;
+    texture_param.wrap_s_mode = GL_REPEAT;
+    texture_param.wrap_t_mode = GL_REPEAT;
+    texture_param.mag_filter_mode = GL_LINEAR;
+    texture_param.min_filter_mode = GL_LINEAR;
+    texture_param.internal_format = GL_RGB;
+    texture_param.src_img_px_component_type = GL_UNSIGNED_BYTE;
+    texture_param.src_img_format = GL_RGB;
+    texture_param.load_channel = SOIL_LOAD_RGB;
+    texture_param.used_mipmap = false;
 
     texture_rock_ = std::make_shared<kgl::SourceTexture>();
     texture_rock_->CreateFromFile("resources/image/stone_small.jpg", texture_param);
@@ -77,52 +77,52 @@ void PixelMagicApp::InitScene()
     };
 
     kgl::VertexAttribute va_position;
-    va_position.Index = 0;
-    va_position.Normalized = GL_FALSE;
-    va_position.Type = GL_FLOAT;
-    va_position.Size = 3; // 一个“顶点位置”的属性由3个分量组成
-    va_position.Stride = 14 * sizeof(GLfloat); // 每个顶点的步长
-    va_position.Pointer = nullptr;
+    va_position.index = 0;
+    va_position.normalized = GL_FALSE;
+    va_position.type = GL_FLOAT;
+    va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+    va_position.stride = 14 * sizeof(GLfloat); // 每个顶点的步长
+    va_position.pointer = nullptr;
 
     kgl::VertexAttribute va_color;
-    va_color.Index = 1;
-    va_color.Normalized = GL_FALSE;
-    va_color.Type = GL_FLOAT;
-    va_color.Size = 3; // 一个“顶点颜色”的属性由3个分量组成
-    va_color.Stride = 14 * sizeof(GLfloat); //每个顶点的步长
-    va_color.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
+    va_color.index = 1;
+    va_color.normalized = GL_FALSE;
+    va_color.type = GL_FLOAT;
+    va_color.size = 3; // 一个“顶点颜色”的属性由3个分量组成
+    va_color.stride = 14 * sizeof(GLfloat); //每个顶点的步长
+    va_color.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
     kgl::VertexAttribute va_texture_coord_1;
-    va_texture_coord_1.Index = 2;
-    va_texture_coord_1.Normalized = GL_FALSE;
-    va_texture_coord_1.Type = GL_FLOAT;
-    va_texture_coord_1.Size = 2; // 一个“顶点坐标”的属性由3个分量组成
-    va_texture_coord_1.Stride = 14 * sizeof(GLfloat); // 每个顶点的步长
-    va_texture_coord_1.Pointer = reinterpret_cast<GLvoid*> (6 * sizeof(GLfloat)); // 纹理坐标数据在字段中的起始指针处
+    va_texture_coord_1.index = 2;
+    va_texture_coord_1.normalized = GL_FALSE;
+    va_texture_coord_1.type = GL_FLOAT;
+    va_texture_coord_1.size = 2; // 一个“顶点坐标”的属性由3个分量组成
+    va_texture_coord_1.stride = 14 * sizeof(GLfloat); // 每个顶点的步长
+    va_texture_coord_1.pointer = reinterpret_cast<GLvoid*> (6 * sizeof(GLfloat)); // 纹理坐标数据在字段中的起始指针处
 
     kgl::VertexAttribute va_texture_coord_2;
-    va_texture_coord_2.Index = 3;
-    va_texture_coord_2.Normalized = GL_FALSE;
-    va_texture_coord_2.Type = GL_FLOAT;
-    va_texture_coord_2.Size = 2; // 一个“顶点坐标”的属性由3个分量组成
-    va_texture_coord_2.Stride = 14 * sizeof(GLfloat); // 每个顶点的步长
-    va_texture_coord_2.Pointer = reinterpret_cast<GLvoid*> (8 * sizeof(GLfloat)); // 纹理坐标数据在字段中的起始指针处
+    va_texture_coord_2.index = 3;
+    va_texture_coord_2.normalized = GL_FALSE;
+    va_texture_coord_2.type = GL_FLOAT;
+    va_texture_coord_2.size = 2; // 一个“顶点坐标”的属性由3个分量组成
+    va_texture_coord_2.stride = 14 * sizeof(GLfloat); // 每个顶点的步长
+    va_texture_coord_2.pointer = reinterpret_cast<GLvoid*> (8 * sizeof(GLfloat)); // 纹理坐标数据在字段中的起始指针处
 
     kgl::VertexAttribute va_texture_coord_3;
-    va_texture_coord_3.Index = 4;
-    va_texture_coord_3.Normalized = GL_FALSE;
-    va_texture_coord_3.Type = GL_FLOAT;
-    va_texture_coord_3.Size = 2; // 一个“顶点坐标”的属性由3个分量组成
-    va_texture_coord_3.Stride = 14 * sizeof(GLfloat); // 每个顶点的步长
-    va_texture_coord_3.Pointer = reinterpret_cast<GLvoid*> (10 * sizeof(GLfloat)); // 纹理坐标数据在字段中的起始指针处
+    va_texture_coord_3.index = 4;
+    va_texture_coord_3.normalized = GL_FALSE;
+    va_texture_coord_3.type = GL_FLOAT;
+    va_texture_coord_3.size = 2; // 一个“顶点坐标”的属性由3个分量组成
+    va_texture_coord_3.stride = 14 * sizeof(GLfloat); // 每个顶点的步长
+    va_texture_coord_3.pointer = reinterpret_cast<GLvoid*> (10 * sizeof(GLfloat)); // 纹理坐标数据在字段中的起始指针处
 
     kgl::VertexAttribute va_texture_coord_4;
-    va_texture_coord_4.Index = 5;
-    va_texture_coord_4.Normalized = GL_FALSE;
-    va_texture_coord_4.Type = GL_FLOAT;
-    va_texture_coord_4.Size = 2; // 一个“顶点坐标”的属性由3个分量组成
-    va_texture_coord_4.Stride = 14 * sizeof(GLfloat); // 每个顶点的步长
-    va_texture_coord_4.Pointer = reinterpret_cast<GLvoid*> (12 * sizeof(GLfloat)); // 纹理坐标数据在字段中的起始指针处
+    va_texture_coord_4.index = 5;
+    va_texture_coord_4.normalized = GL_FALSE;
+    va_texture_coord_4.type = GL_FLOAT;
+    va_texture_coord_4.size = 2; // 一个“顶点坐标”的属性由3个分量组成
+    va_texture_coord_4.stride = 14 * sizeof(GLfloat); // 每个顶点的步长
+    va_texture_coord_4.pointer = reinterpret_cast<GLvoid*> (12 * sizeof(GLfloat)); // 纹理坐标数据在字段中的起始指针处
 
     std::vector<kgl::VertexAttribute> vtx_attri_array;
     vtx_attri_array.push_back(va_position);

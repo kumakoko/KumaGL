@@ -19,21 +19,22 @@ AssimpApp::~AssimpApp()
 
 void AssimpApp::InitScene()
 {
-	this->InitShader();
-	this->InitModel();
-	this->InitFont();
+	App::InitScene();
 
+	rs_depth_.SetEnable(GL_TRUE);
+	rs_blend_.SetEnable(GL_TRUE);
+	rs_blend_.SetBlendFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+void AssimpApp::InitMainCamera()
+{
 	main_camera_->InitViewProjection(kgl::CameraType::FREE, glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), 120.0f, 0.1f, 50.0f);
-
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void AssimpApp::InitModel()
 {
 	const char* model_path = "resources/model/xd_tux_0.3ds";
-	model_ = new kgl::Model(kgl::VERTEX_TYPE_PNT1, model_path);
+	model_ = new kgl::StaticModel(kgl::VERTEX_TYPE_PNT1, model_path);
 	std::size_t sz = model_->GetMeshCount();
 
 	for (std::size_t s = 0; s < sz; ++s)

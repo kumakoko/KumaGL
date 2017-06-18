@@ -5,59 +5,54 @@ namespace kgl
     class FrameBuffer
     {
     public:
-        //************************************
-        // Method:    FrameBuffer
-        // FullName:  kgl::FrameBuffer::FrameBuffer
-        // Access:    public 
-        // Returns:   
-        // Qualifier:
-        // 构造函数
-        //************************************
-        FrameBuffer();
+		/// <summary>
+		/// 构造函数，创建一个 <see cref="FrameBuffer"/> 类的对象实例时被调用.
+		/// </summary>
+		FrameBuffer();
 
-        //************************************
-        // Method:    ~FrameBuffer
-        // FullName:  kgl::FrameBuffer::~FrameBuffer
-        // Access:    virtual public 
-        // Returns:   
-        // Qualifier:
-        // 析构函数
-        //************************************
-        virtual ~FrameBuffer();
+		/// <summary>
+		/// 析构函数，删除一个<see cref="FrameBuffer"/>类的对象实例时被调用.
+		/// </summary>
+		virtual ~FrameBuffer();
 
-        //************************************
-        // Method:    Create
-        // FullName:  kgl::FrameBuffer::Create
-        // Access:    public 
-        // Returns:   void
-        // Qualifier:
-        // 创建frame buffer
-        //************************************
-        void Create();
+		/// <summary>
+		/// 创建一个frame buffer object
+		/// </summary>
+		void Create();
         
-        //************************************
-        // Method:    GetBufferID
-        // FullName:  kgl::FrameBuffer::GetBufferID
-        // Access:    public 
-        // Returns:   GLuint
-        // Qualifier: const
-        // 返回frame buffer对象ID
-        //************************************
-        inline GLuint GetBufferID() const
+		/// <summary>
+		/// 返回frame buffer object的ID
+		/// </summary>
+		/// <returns>返回frame buffer对象ID</returns>
+		inline GLuint GetBufferID() const
         {
             return fbo_;
         }
 
-        //************************************
-        // Method:    ReleaseBuffer
-        // FullName:  kgl::FrameBuffer::ReleaseBuffer
-        // Access:    public 
-        // Returns:   void
-        // Qualifier: 
-        // 释放frame buffer对象
-        //************************************
-        void ReleaseBuffer();
+		/// <summary>
+		/// 执行绑定
+		/// </summary>
+		inline void Bind()
+		{
+			glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
+		}
+
+		/// <summary>
+		/// 解除绑定
+		/// </summary>
+		inline void Unbind()
+		{
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
+
+		/// <summary>
+		/// 释放frame buffer对象
+		/// </summary>
+		void ReleaseBuffer();
     protected:
-        GLuint fbo_;
+		/// <summary>
+		/// frame buffer object的ID值，由OpenGL管线创建
+		/// </summary>
+		GLuint fbo_;
     };
 }

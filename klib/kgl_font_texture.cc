@@ -12,7 +12,7 @@ namespace kgl
 
         if (i != codepoint_map_.end())
         {
-            return i->second.UVRect;
+            return i->second.texture_uv_rect;
         }
         else
         {
@@ -32,30 +32,30 @@ namespace kgl
 
         if (i != codepoint_map_.end())
         {
-            i->second.UVRect.Left = u1;
-            i->second.UVRect.Top = v1;
-            i->second.UVRect.Right = u2;
-            i->second.UVRect.Bottom = v2;
-            i->second.AspectRatio = texture_aspect * (u2 - u1) / (v2 - v1);
-            i->second.BmpWidth = u2_pixel - u1_pixel;
-            i->second.BmpHeight = v2_pixel - v1_pixel;
-            i->second.Advance = advance;
-            i->second.BearingX = bearing_x;
-            i->second.BearingY = bearing_y;
+            i->second.texture_uv_rect.left = u1;
+            i->second.texture_uv_rect.top = v1;
+            i->second.texture_uv_rect.right = u2;
+            i->second.texture_uv_rect.bottom = v2;
+            i->second.aspect_ratio = texture_aspect * (u2 - u1) / (v2 - v1);
+            i->second.bmp_width = u2_pixel - u1_pixel;
+            i->second.bmp_height = v2_pixel - v1_pixel;
+            i->second.advance = advance;
+            i->second.bearing_x = bearing_x;
+            i->second.bearing_y = bearing_y;
         }
         else
         {
             FontGlyphInfo i;
-            i.UVRect.Left = u1;
-            i.UVRect.Top = v1;
-            i.UVRect.Right = u2;
-            i.UVRect.Bottom = v2;
-            i.AspectRatio = texture_aspect * (u2 - u1) / (v2 - v1);
-            i.BmpWidth = u2_pixel - u1_pixel;
-            i.BmpHeight = v2_pixel - v1_pixel;
-            i.Advance = advance;
-            i.BearingX = bearing_x;
-            i.BearingY = bearing_y;
+            i.texture_uv_rect.left = u1;
+            i.texture_uv_rect.top = v1;
+            i.texture_uv_rect.right = u2;
+            i.texture_uv_rect.bottom = v2;
+            i.aspect_ratio = texture_aspect * (u2 - u1) / (v2 - v1);
+            i.bmp_width = u2_pixel - u1_pixel;
+            i.bmp_height = v2_pixel - v1_pixel;
+            i.advance = advance;
+            i.bearing_x = bearing_x;
+            i.bearing_y = bearing_y;
             codepoint_map_.insert(CodePointMap::value_type(id,i));
         }
     }
@@ -63,7 +63,7 @@ namespace kgl
     float FontTexture::GetGlyphAspectRatio(uint32_t id) const
     {
         CodePointMap::const_iterator i = codepoint_map_.find(id);
-        return i != codepoint_map_.end() ? i->second.AspectRatio : 1.f;
+        return i != codepoint_map_.end() ? i->second.aspect_ratio : 1.f;
     }
 
     void FontTexture::SetGlyphAspectRatio(uint32_t id, float ratio)
@@ -72,7 +72,7 @@ namespace kgl
 
         if (i != codepoint_map_.end())
         {
-            i->second.AspectRatio = ratio;
+            i->second.aspect_ratio = ratio;
         }
     }
 
@@ -188,15 +188,15 @@ namespace kgl
         }
 
         kgl::TextureParams texture_param;
-        texture_param.WrapSMode = GL_CLAMP_TO_EDGE;
-        texture_param.WrapTMode = GL_CLAMP_TO_EDGE;
-        texture_param.MagFilterMode = GL_LINEAR;
-        texture_param.MinFilterMode = GL_LINEAR;
-        texture_param.InternalFormat = GL_RGBA;
-        texture_param.SrcImgPixelComponentType = GL_UNSIGNED_BYTE;
-        texture_param.SrcImgFormat = GL_RGBA;
-        texture_param.LoadChannel = SOIL_LOAD_RGBA;
-        texture_param.UseMipmap = false;
+        texture_param.wrap_s_mode = GL_CLAMP_TO_EDGE;
+        texture_param.wrap_t_mode = GL_CLAMP_TO_EDGE;
+        texture_param.mag_filter_mode = GL_LINEAR;
+        texture_param.min_filter_mode = GL_LINEAR;
+        texture_param.internal_format = GL_RGBA;
+        texture_param.src_img_px_component_type = GL_UNSIGNED_BYTE;
+        texture_param.src_img_format = GL_RGBA;
+        texture_param.load_channel = SOIL_LOAD_RGBA;
+        texture_param.used_mipmap = false;
 
         font_texture_ = std::make_shared<kgl::SourceTexture>();
         font_texture_->Create(static_cast<int>(width_), static_cast<int>(height_), texture_param);
@@ -311,11 +311,11 @@ namespace kgl
         CodePointMap::iterator i = codepoint_map_.begin(), iend = codepoint_map_.end(), iless = codepoint_map_.begin();
         while (i != iend)
         {
-            if (i->second.UseCount < iless->second.UseCount)
+            if (i->second.used_count < iless->second.used_count)
                 iless = i;
             ++i;
         }
-        return iless->second.CodePoint;
+        return iless->second.code_point;
     }
 
     // 移除指定的字符
@@ -324,8 +324,8 @@ namespace kgl
         CodePointMap::iterator it = codepoint_map_.find(id);
         if (it != codepoint_map_.end())
         {
-            img_char_left_ = it->second.UVRect.Left;
-            img_char_top_ = it->second.UVRect.Top;
+            img_char_left_ = static_cast<uint32_t>(it->second.texture_uv_rect.left);
+			img_char_top_ = static_cast<uint32_t>(it->second.texture_uv_rect.top);
             codepoint_map_.erase(it);
             ++left_blank_num_;
         }

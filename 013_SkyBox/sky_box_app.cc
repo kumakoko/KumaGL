@@ -17,41 +17,25 @@ SkyBoxApp::~SkyBoxApp()
 	floor_texture_.reset();
 }
 
-void SkyBoxApp::InitScene()
+void SkyBoxApp::InitModel()
 {
-	// 初始化shader
-	scene_obj_shader_ = new kgl::GPUProgram;
-	scene_obj_shader_->CreateFromFile("resources/shader/012_framebuffer_textured_obj_no_lighting_vs.glsl", "resources/shader/012_framebuffer_textured_obj_no_lighting_fs.glsl", nullptr);
-	
 	// 初始化纹理
 	kgl::TextureParams texture_param;
-	texture_param.WrapSMode = GL_REPEAT;
-	texture_param.WrapTMode = GL_REPEAT;
-	texture_param.MagFilterMode = GL_LINEAR;
-	texture_param.MinFilterMode = GL_LINEAR;
-	texture_param.InternalFormat = GL_RGB;
-	texture_param.SrcImgPixelComponentType = GL_UNSIGNED_BYTE;
-	texture_param.SrcImgFormat = GL_RGB;
-	texture_param.LoadChannel = SOIL_LOAD_RGB;
-	texture_param.UseMipmap = false;
+	texture_param.wrap_s_mode = GL_REPEAT;
+	texture_param.wrap_t_mode = GL_REPEAT;
+	texture_param.mag_filter_mode = GL_LINEAR;
+	texture_param.min_filter_mode = GL_LINEAR;
+	texture_param.internal_format = GL_RGB;
+	texture_param.src_img_px_component_type = GL_UNSIGNED_BYTE;
+	texture_param.src_img_format = GL_RGB;
+	texture_param.load_channel = SOIL_LOAD_RGB;
+	texture_param.used_mipmap = false;
 
 	floor_texture_ = std::dynamic_pointer_cast<kgl::SourceTexture>(kgl::KTextureManager::GetInstance()->CreateTextureFromFile(
 		"resources/image/floor.jpg", kgl::SOURCE_2D_TEXTURE, texture_param));
 	floor_ = kgl::PrimitiveTool::BuildTexturedXZPlane(0.f, 10.f, 10.f, 10);
 
-	// 初始化相机
-	main_camera_->InitViewProjection(kgl::CameraType::FREE, glm::vec3(0.0f, 3.0f, 8.0f), glm::vec3(0.0f, 0.0f, 0.0f), 120.0f, 0.1f, 500.0f);
-
 	sky_box_ = new kgl::SkyBox(main_camera_);
-
-	/*
-	const std::string& positive_x_file = "resources/image/sky_box/sp3/sp3right.jpg";
-	const std::string& negative_x_file = "resources/image/sky_box/sp3/sp3left.jpg";
-	const std::string& positive_y_file = "resources/image/sky_box/sp3/sp3top.jpg";
-	const std::string& negative_y_file = "resources/image/sky_box/sp3/sp3bottom.jpg";
-	const std::string& positive_z_file = "resources/image/sky_box/sp3/sp3front.jpg";
-	const std::string& negative_z_file = "resources/image/sky_box/sp3/sp3back.jpg";
-	*/
 
 	const std::string& positive_x_file = "resources/image/sky_box/sp3/sp3right.jpg";
 	const std::string& negative_x_file = "resources/image/sky_box/sp3/sp3left.jpg";
@@ -60,7 +44,27 @@ void SkyBoxApp::InitScene()
 	const std::string& positive_z_file = "resources/image/sky_box/sp3/sp3front.jpg";
 	const std::string& negative_z_file = "resources/image/sky_box/sp3/sp3back.jpg";
 
-	sky_box_->LoadSkyBox(positive_x_file,negative_x_file,positive_y_file,negative_y_file,positive_z_file,negative_z_file);
+	sky_box_->LoadSkyBox(positive_x_file, negative_x_file, positive_y_file, negative_y_file, positive_z_file, negative_z_file);
+}
+
+void SkyBoxApp::InitShader()
+{
+	// 初始化shader
+	scene_obj_shader_ = new kgl::GPUProgram;
+	scene_obj_shader_->CreateFromFile(
+		"resources/shader/012_framebuffer_textured_obj_no_lighting_vs.glsl", 
+		"resources/shader/012_framebuffer_textured_obj_no_lighting_fs.glsl", nullptr);
+}
+
+void SkyBoxApp::InitScene()
+{
+	App::InitScene();
+}
+
+void SkyBoxApp::InitMainCamera()
+{
+	main_camera_->InitViewProjection(kgl::CameraType::FREE, glm::vec3(0.0f, 3.0f, 8.0f),
+		glm::vec3(0.0f, 0.0f, 0.0f), 120.0f, 0.1f, 500.0f);
 }
 
 void SkyBoxApp::RenderFrame()

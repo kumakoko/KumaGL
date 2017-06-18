@@ -17,7 +17,7 @@ namespace kgl
     {
         GLuint fbo_;
         glGenFramebuffers(1, &fbo_);
-        glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
+        
     }
 
     void FrameBuffer::ReleaseBuffer()

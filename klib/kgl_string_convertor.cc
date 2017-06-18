@@ -4,8 +4,14 @@
 
 namespace kgl
 {
-    char StringConvertor::s_char_buffer_[kTmpBufferLen];
-    std::string StringConvertor::s_ansi_char_set;
+	/// <summary>
+	/// The s_char_buffer_{CC2D43FA-BBC4-448A-9D0B-7B57ADF2655C}
+	/// </summary>
+	char StringConvertor::s_char_buffer_[kTmpBufferLen];
+	/// <summary>
+	/// The s_char_buffer_{CC2D43FA-BBC4-448A-9D0B-7B57ADF2655C}
+	/// </summary>
+	std::string StringConvertor::s_ansi_char_set;
 
     void StringConvertor::InitCodePageInfo()
     {
@@ -55,7 +61,8 @@ namespace kgl
         return 0;
     }
 
-    int StringConvertor::UTF16LEtoUTF8(const wchar_t* utf16_str,char** utf8_str)
+
+	int StringConvertor::UTF16LEtoUTF8(const wchar_t* utf16_str, char** utf8_str)
     {
         // 首先计算出utf8的字符数,然后得出字节数
         size_t utf16_char_count = wcslen(utf16_str);

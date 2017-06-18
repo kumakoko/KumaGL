@@ -9,46 +9,31 @@ namespace kgl
 
     }
 
-    void RenderStateCullMode::Enable(bool enable)
-    {
-        if (enable)
-        {
-            glEnable(GL_CULL_FACE);
-        }
-        else
-        {
-            glDisable(GL_CULL_FACE);
-        }
-    }
-
-	void RenderStateCullMode::TakeSnapshotMode()
+	RenderStateCullMode::RenderStateCullMode(GLboolean enable, GLint cull_mode) :
+		enable_(enable), cull_mode_(cull_mode)
 	{
-		glGetIntegerv(GL_CULL_FACE_MODE, &taken_mode_snapshot_);
+
 	}
 
-	void RenderStateCullMode::UseSnapshotMode()
+	void RenderStateCullMode::TakeSnapshotState(RenderStateCullMode& rs_cull_mode)
 	{
-		glCullFace(taken_mode_snapshot_);
+		GLboolean enabled_snapshot = glIsEnabled(GL_CULL_FACE); // 取得当前时刻是否启用面拣选
+		GLint cull_mode_snapshot;
+		glGetIntegerv(GL_CULL_FACE_MODE, &cull_mode_snapshot); // 当前时刻取得面拣选模式
+		rs_cull_mode.SetEnable(enabled_snapshot);
+		rs_cull_mode.SetCullMode(cull_mode_snapshot);
 	}
 
-	void RenderStateCullMode::SetCullMode(GLenum func, GLboolean enabled)
+	void RenderStateCullMode::Use()
 	{
-		GLboolean used = glIsEnabled(GL_CULL_FACE);
-
-		if (GL_TRUE == used)
+		if (GL_TRUE == enable_)
 		{
-			if (enabled == GL_TRUE)
-				glCullFace(func);
-			else
-				glDisable(GL_CULL_FACE);
+			glEnable(GL_CULL_FACE);
+			glCullFace(cull_mode_);
 		}
 		else
 		{
-			if (enabled == GL_TRUE)
-			{
-				glEnable(GL_CULL_FACE);
-				glCullFace(func);
-			}
+			glDisable(GL_CULL_FACE);
 		}
 	}
 }

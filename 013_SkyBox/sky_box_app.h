@@ -1,6 +1,6 @@
-﻿// 展示一个简单的三角形
-#ifndef triangle_app_h__
-#define triangle_app_h__
+﻿// 展示天空盒的渲染技术
+#ifndef skybox_app_h__
+#define skybox_app_h__
 
 #include "../klib/kgl_lib_pch.h"
 #include "../klib/kgl_app.h"
@@ -18,11 +18,14 @@ public:
 	virtual ~SkyBoxApp();
 	virtual void InitScene();
 protected:
-	virtual void RenderFrame();
-	virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode);
-	virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos);
-	virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset);
-	virtual void ProcessInput();
+	virtual void RenderFrame() override;
+	virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
+	virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
+	virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
+	virtual void ProcessInput() override;
+	virtual void InitModel() override;
+	virtual void InitShader() override;
+	virtual void InitMainCamera() override;
 private:
 	kgl::SkyBox*				sky_box_ = nullptr;
 	kgl::GPUProgram*			scene_obj_shader_ = nullptr;
@@ -31,4 +34,4 @@ private:
 };
 
 
-#endif // triangle_app_h__
+#endif // skybox_app_h__

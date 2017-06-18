@@ -29,9 +29,6 @@ void FontApp::InitScene()
 	vs_string_stream << file_stream.rdbuf();
 	text_ = kgl::StringConvertor::UTF8toUTF16LE(vs_string_stream.str().c_str());
 	file_stream.close();
-
-	rs_blend_.Enable(true);
-	rs_blend_.SetBlendFunction(kgl::BF_SRC_ALPHA, kgl::BF_ONE_MINUS_SRC_ALPHA);
 }
 
 void FontApp::InitHelper()
@@ -55,20 +52,20 @@ void FontApp::InitHelper()
 	};
 
 	kgl::VertexAttribute va_position;
-	va_position.Index = 0;
-	va_position.Normalized = GL_FALSE;
-	va_position.Type = GL_FLOAT;
-	va_position.Size = 3; // 一个“顶点位置”的属性由3个分量组成
-	va_position.Stride = 5 * sizeof(GLfloat); // 每个顶点的步长
-	va_position.Pointer = nullptr;
+	va_position.index = 0;
+	va_position.normalized = GL_FALSE;
+	va_position.type = GL_FLOAT;
+	va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+	va_position.stride = 5 * sizeof(GLfloat); // 每个顶点的步长
+	va_position.pointer = nullptr;
 
 	kgl::VertexAttribute va_texture_coord;
-	va_texture_coord.Index = 1;
-	va_texture_coord.Normalized = GL_FALSE;
-	va_texture_coord.Type = GL_FLOAT;
-	va_texture_coord.Size = 2; // 一个“顶点坐标”的属性由3个分量组成
-	va_texture_coord.Stride = 5 * sizeof(GLfloat); // 每个顶点的步长
-	va_texture_coord.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat)); // 纹理坐标数据在字段中的起始指针处
+	va_texture_coord.index = 1;
+	va_texture_coord.normalized = GL_FALSE;
+	va_texture_coord.type = GL_FLOAT;
+	va_texture_coord.size = 2; // 一个“顶点坐标”的属性由3个分量组成
+	va_texture_coord.stride = 5 * sizeof(GLfloat); // 每个顶点的步长
+	va_texture_coord.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat)); // 纹理坐标数据在字段中的起始指针处
 
 	std::vector<kgl::VertexAttribute> vtx_attri_array;
 	vtx_attri_array.push_back(va_position);

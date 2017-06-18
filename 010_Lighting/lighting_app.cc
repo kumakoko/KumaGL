@@ -17,23 +17,14 @@ LightingApp::~LightingApp()
 
 void LightingApp::InitScene()
 {
-	this->InitCamera();
-	this->InitMaterial();
-	this->InitShader();
-	this->InitModel();
-	this->InitLight();
-	this->InitFont();
-
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	App::InitScene();
+	rs_depth_.SetEnable(true);
 }
 
 void LightingApp::InitModel()
 {
-	//const char* model_path = "resources/model/teaspoon.bpt";
 	const char* model_path = "resources/model/bun_zipper_res2.3ds";
-	model_ = new kgl::Model(kgl::VERTEX_TYPE_PN, model_path);
+	model_ = new kgl::StaticModel(kgl::VERTEX_TYPE_PN, model_path);
 	std::size_t sz = model_->GetMeshCount();
 
 	for (std::size_t s = 0; s < sz; ++s)
@@ -55,9 +46,11 @@ void LightingApp::InitShader()
 	lighting_shader_->CreateFromFile(vs_file_paths, fs_file_paths, gs_file_path, 3, 3, 0);
 }
 
-void LightingApp::InitCamera()
+void LightingApp::InitMainCamera()
 {
-	main_camera_->InitViewProjection(kgl::CameraType::FREE, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), 120.0f, 0.1f, 50.0f);
+	main_camera_->InitViewProjection(kgl::CameraType::FREE, 
+		glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), 120.0f, 0.1f, 50.0f);
+	main_camera_->SetCameraSpeed(0.005f);
 }
 
 void LightingApp::InitFont()
@@ -164,8 +157,6 @@ void LightingApp::RenderFrame()
 	lighting_shader_->Use();
 
 	glm::mat4 model_matrix;
-	//model_matrix = glm::translate(model_matrix, glm::vec3(0.0f, -0.1f, 0.0f));
-	//model_matrix = glm::rotate(model_matrix, 3.1415926f * 1.5f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model_matrix = glm::rotate(model_matrix, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(0.0f, 1.0f, 0.0f));
 
 	const glm::mat4& view_matrix = main_camera_->GetViewMatrix();
@@ -182,37 +173,25 @@ void LightingApp::RenderFrame()
 	lighting_shader_->ApplySpotLight(&spot_light_, "spot_light");
 	lighting_shader_->ApplyMaterial(&materials_[cur_mat_index_], "material");
 	
+	rs_depth_.SetEnable(true);
+
 	model_->Draw();
 
 	const std::wstring& help_toggle = is_help_on_ ? toggle_help_off_text_ : toggle_help_on_text_;
 	kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
 
-	font_renderer->AddToRendered(help_toggle, 0, 0,
-		glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-		glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-		glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-		glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), 1.0f);
+	glm::vec4 text_color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
+	font_renderer->AddToRendered(help_toggle, 0, 0,text_color, 1.0f);
 
 	if (is_help_on_)
 	{	
-		font_renderer->AddToRendered(camera_ctrl_text_, 0, 25,
-			glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-			glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-			glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-			glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), 1.0f);
-
-		font_renderer->AddToRendered(material_name_text_[cur_mat_index_], 0, 75,
-			glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-			glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-			glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-			glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), 1.0f);
-
-		font_renderer->AddToRendered(material_ctrl_text_, 0, 50,
-			glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-			glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-			glm::vec4(0.0f, 0.0f, 0.0f, 1.0f),
-			glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), 1.0f);
+		boost::format fmt("摄像机位置坐标： x = %f , y = %f , z = %f");
+		fmt % view_pos.x % view_pos.y % view_pos.z;
+		font_renderer->AddToRendered(camera_ctrl_text_, 0, 25,text_color, 1.0f);
+		font_renderer->AddToRendered(material_ctrl_text_, 0, 50,text_color, 1.0f);
+		font_renderer->AddToRendered(material_name_text_[cur_mat_index_], 0, 75, text_color, 1.0f);
+		font_renderer->AddToRendered(kgl::StringConvertor::ANSItoUTF16LE(fmt.str().c_str()), 0, 100, text_color, 1.0f);
 	}
 
 	font_renderer->Draw();

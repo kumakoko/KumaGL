@@ -92,7 +92,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cc" />
-    <ClCompile Include="texture_app .cc" />
+    <ClCompile Include="texture_app.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="texture_app.h" />

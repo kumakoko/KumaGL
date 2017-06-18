@@ -1,6 +1,6 @@
-﻿// 动态改变顶点缓冲区数据的应用示例
-#ifndef dynamic_vertex_buffer_app_h__
-#define dynamic_vertex_buffer_app_h__
+﻿// 动态改变纹理数据的应用示例
+#ifndef dynamic_texture_app_h__
+#define dynamic_texture_app_h__
 
 #include "../klib/kgl_lib_pch.h"
 #include "../klib/kgl_app.h"
@@ -24,4 +24,4 @@ private:
 	float					last_update_vb_time_; // 上一次更新顶点缓冲数据的时间
 };
 
-#endif // dynamic_vertex_buffer_app_h__
+#endif // dynamic_texture_app_h__

@@ -56,12 +56,12 @@ namespace kgl
         {
             const VertexAttribute& va = vtx_attri_arraty[i];
             glVertexAttribPointer(
-                va.Index,//0, 
-                va.Size,//3,
-                va.Type,//GL_FLOAT,
-                va.Normalized,//GL_FALSE,
-                va.Stride,//3 * sizeof(GLfloat),
-                va.Pointer//(GLvoid*)0
+                va.index,//0, 
+                va.size,//3,
+                va.type,//GL_FLOAT,
+                va.normalized,//GL_FALSE,
+                va.stride,//3 * sizeof(GLfloat),
+                va.pointer//(GLvoid*)0
                 );
             glEnableVertexAttribArray(i);
         }
@@ -113,12 +113,12 @@ namespace kgl
 		{
 			const VertexAttribute& va = vtx_attri_arraty[i];
 			glVertexAttribPointer(
-				va.Index,//0, 
-				va.Size,//3,
-				va.Type,//GL_FLOAT,
-				va.Normalized,//GL_FALSE,
-				va.Stride,//3 * sizeof(GLfloat),
-				va.Pointer//(GLvoid*)0
+				va.index,//0, 
+				va.size,//3,
+				va.type,//GL_FLOAT,
+				va.normalized,//GL_FALSE,
+				va.stride,//3 * sizeof(GLfloat),
+				va.pointer//(GLvoid*)0
 				);
 			glEnableVertexAttribArray(i);
 		}

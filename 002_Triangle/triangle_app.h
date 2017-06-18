@@ -12,8 +12,8 @@ class TriangleApp : public kgl::App
 public:
 	TriangleApp();
 	virtual ~TriangleApp();
-	virtual void InitScene() override;
 protected:
+	virtual void InitModel() override;
 	virtual void RenderFrame() override;
 private:
 	kgl::GPUProgram* gpu_program_;

@@ -6,36 +6,42 @@
 
 namespace kgl
 {
-    std::vector<VertexAttribute> FontPrimitive::s_vertex_attribute_array;
-    bool FontPrimitive::s_init_attribute = false;
+	/// <summary>
+	/// The s_vertex_attribute_array{CC2D43FA-BBC4-448A-9D0B-7B57ADF2655C}
+	/// </summary>
+	std::vector<VertexAttribute> FontPrimitive::s_vertex_attribute_array;
+	/// <summary>
+	/// The s_init_attribute{CC2D43FA-BBC4-448A-9D0B-7B57ADF2655C}
+	/// </summary>
+	bool FontPrimitive::s_init_attribute = false;
 
     FontPrimitive::FontPrimitive(int32_t char_count) :primitive_(nullptr), used_(false)
     {
         if (!s_init_attribute)
         {
             kgl::VertexAttribute va_position;
-            va_position.Index = 0;
-            va_position.Normalized = GL_FALSE;
-            va_position.Type = GL_FLOAT;
-            va_position.Size = 2; // 一个“顶点位置”的属性由3个分量组成
-            va_position.Stride = 8 * sizeof(GLfloat); // 每个顶点的步长为 
-            va_position.Pointer = nullptr;
+            va_position.index = 0;
+            va_position.normalized = GL_FALSE;
+            va_position.type = GL_FLOAT;
+            va_position.size = 2; // 一个“顶点位置”的属性由3个分量组成
+            va_position.stride = 8 * sizeof(GLfloat); // 每个顶点的步长为 
+			va_position.pointer = nullptr;
 
             kgl::VertexAttribute va_color;
-            va_color.Index = 1;
-            va_color.Normalized = GL_FALSE;
-            va_color.Type = GL_FLOAT;
-            va_color.Size = 4; // 一个“顶点颜色”的属性由3个分量组成
-            va_color.Stride = 8 * sizeof(GLfloat); // 每个位置的步长为 
-            va_color.Pointer = reinterpret_cast<GLvoid*> (2 * sizeof(GLfloat));
+            va_color.index = 1;
+            va_color.normalized = GL_FALSE;
+            va_color.type = GL_FLOAT;
+            va_color.size = 4; // 一个“顶点颜色”的属性由3个分量组成
+			va_color.stride = 8 * sizeof(GLfloat); // 每个位置的步长为 
+			va_color.pointer = reinterpret_cast<GLvoid*> (2 * sizeof(GLfloat));
 
             kgl::VertexAttribute va_texture_coord;
-            va_texture_coord.Index = 2;
-            va_texture_coord.Normalized = GL_FALSE;
-            va_texture_coord.Type = GL_FLOAT;
-            va_texture_coord.Size = 2; // 一个“顶点颜色”的属性由3个分量组成
-            va_texture_coord.Stride = 8 * sizeof(GLfloat); // 每个位置的步长为 
-            va_texture_coord.Pointer = reinterpret_cast<GLvoid*> (6 * sizeof(GLfloat));
+            va_texture_coord.index = 2;
+            va_texture_coord.normalized = GL_FALSE;
+            va_texture_coord.type = GL_FLOAT;
+            va_texture_coord.size = 2; // 一个“顶点颜色”的属性由3个分量组成
+			va_texture_coord.stride = 8 * sizeof(GLfloat); // 每个位置的步长为 
+            va_texture_coord.pointer = reinterpret_cast<GLvoid*> (6 * sizeof(GLfloat));
 
             s_vertex_attribute_array.push_back(va_position);
             s_vertex_attribute_array.push_back(va_color);

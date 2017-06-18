@@ -17,88 +17,70 @@ namespace kgl
             INT16
         };
     public:
-        //************************************
-        // Method:    Primitive
-        // FullName:  kgl::Primitive::Primitive
-        // Access:    public 
-        // Returns:   
-        // Qualifier:
-        //************************************
-        Primitive();
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Primitive"/> class.
+		/// </summary>
+		Primitive();
 
-        //************************************
-        // Method:    ~Primitive
-        // FullName:  kgl::Primitive::~Primitive
-        // Access:    public 
-        // Returns:   
-        // Qualifier:
-        //************************************
-        ~Primitive();
+		/// <summary>
+		/// Finalizes an instance of the <see cref="Primitive"/> class.
+		/// </summary>
+		~Primitive();
 
-        //************************************
-        // Method:    Create
-        // FullName:  kgl::Primitive::Create
-        // Access:    public 
-        // Returns:   void
-        // Qualifier:
-        // Parameter: GLenum primitive_mode
-        // Parameter: GLvoid * vertices
-        // Parameter: GLsizeiptr vertices_byte_count
-        // Parameter: GLenum vb_usage
-        // Parameter: IndexValueValue index_data_type
-        // Parameter: GLvoid * indices
-        // Parameter: GLsizeiptr indices_byte_count
-        // Parameter: GLenum ib_usage
-        // Parameter: const std::vector<VertexAttribute> & vtx_attri_arraty
-        //************************************
-        void Create(GLenum primitive_mode, GLvoid* vertices, GLsizeiptr vertices_byte_count, GLenum vb_usage,IndexValueValue index_data_type, GLvoid* indices, GLsizeiptr indices_byte_count, GLenum ib_usage, const std::vector<VertexAttribute>& vtx_attri_arraty);
+		/// <summary>
+		/// Creates the specified primitive_mode.
+		/// </summary>
+		/// <param name="primitive_mode">The primitive_mode.</param>
+		/// <param name="vertices">The vertices.</param>
+		/// <param name="vertices_byte_count">The vertices_byte_count.</param>
+		/// <param name="vb_usage">The vb_usage.</param>
+		/// <param name="index_data_type">The index_data_type.</param>
+		/// <param name="indices">The indices.</param>
+		/// <param name="indices_byte_count">The indices_byte_count.</param>
+		/// <param name="ib_usage">The ib_usage.</param>
+		/// <param name="vtx_attri_arraty">The vtx_attri_arraty.</param>
+		void Create(GLenum primitive_mode, GLvoid* vertices, GLsizeiptr vertices_byte_count, GLenum vb_usage, IndexValueValue index_data_type, GLvoid* indices, GLsizeiptr indices_byte_count, GLenum ib_usage, const std::vector<VertexAttribute>& vtx_attri_arraty);
         
-        // 不带索引缓冲区的圖元
-        void Create(GLenum primitive_mode, GLvoid* vertices, GLsizeiptr vertices_byte_count, GLint vertices_count, GLenum vb_usage, const std::vector<VertexAttribute>& vtx_attri_arraty);
+		/// <summary>
+		/// 创建不带索引缓冲区的圖元
+		/// </summary>
+		/// <param name="primitive_mode">The primitive_mode.</param>
+		/// <param name="vertices">The vertices.</param>
+		/// <param name="vertices_byte_count">The vertices_byte_count.</param>
+		/// <param name="vertices_count">The vertices_count.</param>
+		/// <param name="vb_usage">The vb_usage.</param>
+		/// <param name="vtx_attri_arraty">The vtx_attri_arraty.</param>
+		void Create(GLenum primitive_mode, GLvoid* vertices, GLsizeiptr vertices_byte_count, GLint vertices_count, GLenum vb_usage, const std::vector<VertexAttribute>& vtx_attri_arraty);
 
-        //************************************
-        // Method:    Draw
-        // FullName:  kgl::Primitive::DrawIndexed
-        // Access:    public 
-        // Returns:   void
-        // Qualifier: 绘制使用了索引缓冲区的图元
-        //************************************
-        void DrawIndexed();
+		/// <summary>
+		/// 绘制使用了索引缓冲区的图元
+		/// </summary>
+		void DrawIndexed();
 
-        //************************************
-        // Method:    Draw
-        // FullName:  kgl::Primitive::Draw
-        // Access:    public 
-        // Returns:   void
-        // Qualifier:  绘制未使用索引缓冲区的图元
-        //************************************
-        void Draw();
+		/// <summary>
+		/// 绘制未使用索引缓冲区的图元
+		/// </summary>
+		void Draw();
 
-		//************************************
-		// Method:    Draw
-		// FullName:  kgl::Primitive::Draw
-		// Access:    public 
-		// Returns:   void
-		// Qualifier:  绘制未使用索引缓冲区的图元，并且指定待绘制的起始slot和长度
-		// Parameter: const void * src_data
-		// Parameter: std::size_t src_data_byte_count
-		//************************************
+		/// <summary>
+		///  绘制未使用索引缓冲区的图元，并且指定待绘制的起始slot和长度
+		/// </summary>
+		/// <param name="first_slot">The first_slot.</param>
+		/// <param name="drawn_vertices_count">The drawn_vertices_count.</param>
 		void Draw(GLint first_slot, GLsizei drawn_vertices_count);
 
-        //************************************
-        // Method:    UpdateAllVertexData
-        // FullName:  kgl::Primitive::UpdateAllVertexData
-        // Access:    public 
-        // Returns:   void
-        // Qualifier:
-        // Parameter: const void * src_data
-        // Parameter: std::size_t src_data_byte_count
-        // Parameter: bool clear_all 更新之前需要把旧的数据全部清0吗？
-        //************************************
-        void UpdateAllVertexData(const void* src_data, std::size_t src_data_byte_count);
+		/// <summary>
+		/// Updates all vertex data.
+		/// </summary>
+		/// <param name="src_data">The src_data.</param>
+		/// <param name="src_data_byte_count">The src_data_byte_count.</param>
+		void UpdateAllVertexData(const void* src_data, std::size_t src_data_byte_count);
 
-        // 指定待绘制的顶点数，仅对Draw方法有效
-        inline void SetDrawnVerticesCount(int32_t count)
+		/// <summary>
+		/// 指定待绘制的顶点数，仅对Draw方法有效
+		/// </summary>
+		/// <param name="count">The count.</param>
+		inline void SetDrawnVerticesCount(int32_t count)
         {
             drawn_vertices_count_ = count;
         }

@@ -9,19 +9,15 @@ namespace kgl
     class CubemapTexture : public Texture
     {
 	public:
-		/************************************************************
-		 Method:    CubemapTexture
-		 FullName:  kgl::CubemapTexture::CubemapTexture
-		 Access:    public 
-		 Returns:   
-		 Parameter: const std::string & positive_x_file X方向上正方向贴图
-		 Parameter: const std::string & negative_x_file X方向上负方向贴图
-		 Parameter: const std::string & positive_y_file Y方向上正方向贴图
-		 Parameter: const std::string & negative_y_file Y方向上负方向贴图
-		 Parameter: const std::string & positive_z_file Z方向上正方向贴图
-		 Parameter: const std::string & negative_z_file Z方向上负方向贴图
-		 Details:
-		************************************************************/
+		/// <summary>
+		/// Initializes a new instance of the <see cref="CubemapTexture"/> class.
+		/// </summary>
+		/// <param name="positive_x_file">X方向上正方向贴图</param>
+		/// <param name="negative_x_file">X方向上负方向贴图.</param>
+		/// <param name="positive_y_file">Y方向上正方向贴图</param>
+		/// <param name="negative_y_file">Y方向上负方向贴图</param>
+		/// <param name="positive_z_file">Z方向上正方向贴图</param>
+		/// <param name="negative_z_file">Z方向上负方向贴图</param>
 		CubemapTexture(
 			const std::string& positive_x_file,
 			const std::string& negative_x_file,
@@ -30,44 +26,27 @@ namespace kgl
 			const std::string& positive_z_file,
 			const std::string& negative_z_file);
 
-		/************************************************************
-		 Method:    ~CubemapTexture
-		 FullName:  kgl::CubemapTexture::~CubemapTexture
-		 Access:    public 
-		 Returns:   
-		 Details:
-		************************************************************/
+		/// <summary>
+		/// Finalizes an instance of the <see cref="CubemapTexture"/> class.
+		/// </summary>
 		~CubemapTexture();
 
-		/************************************************************
-		 Method:    Load
-		 FullName:  kgl::CubemapTexture::Load
-		 Access:    public 
-		 Returns:   bool
-		 Qualifier:
-		 Details:
-		************************************************************/
+		/// <summary>
+		/// Loads this instance.
+		/// </summary>
+		/// <returns>bool.</returns>
 		bool Load();
 
-		/************************************************************
-		 Method:    Bind
-		 FullName:  kgl::CubemapTexture::Bind
-		 Access:    public 
-		 Returns:   void
-		 Qualifier:
-		 Parameter: GLenum TextureUnit
-		 Details:
-		************************************************************/
+		/// <summary>
+		/// Binds the specified texture unit.
+		/// </summary>
+		/// <param name="TextureUnit">The texture unit.</param>
 		void Bind(GLenum TextureUnit);
 
-		//************************************
-		// Method:    ActiveBind
-		// FullName:  kgl::Texture::ActiveBind
-		// Access:    virtual public 
-		// Returns:   void
-		// Qualifier: 激活并绑定本纹理到OpenGL管线
-		// Parameter: GLuint slot_index
-		//************************************
+		/// <summary>
+		/// Actives the bind.
+		/// </summary>
+		/// <param name="slot_index">激活并绑定本纹理到OpenGL管线</param>
 		virtual void ActiveBind(GLuint slot_index) override;
 	private:
 		std::string file_name_[6];

@@ -6,9 +6,9 @@ namespace kgl
 {
     FontGlyphInfo::FontGlyphInfo(uint32_t code,
         const FontUVRect& rect, float aspect, uint32_t w, uint32_t h,
-        int32_t bearing_x, int32_t bearing_y, uint32_t advance) :
-        CodePoint(code), UVRect(rect), AspectRatio(aspect), UseCount(0),
-        BmpWidth(w), BmpHeight(h), BearingX(bearing_x), BearingY(bearing_y), Advance(advance)
+        int32_t _bearing_x, int32_t _bearing_y, uint32_t _advance) :
+        code_point(code), texture_uv_rect(rect), aspect_ratio(aspect), used_count(0),
+        bmp_width(w), bmp_height(h), bearing_x(_bearing_x), bearing_y(_bearing_y), advance(_advance)
     {
     }
 }

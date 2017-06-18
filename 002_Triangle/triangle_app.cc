@@ -1,4 +1,4 @@
-// Õ¹Ê¾Ò»¸ö¼òµ¥µÄÈı½ÇĞÎ
+ï»¿// å±•ç¤ºä¸€ä¸ªç®€å•çš„ä¸‰è§’å½¢
 #include "triangle_app.h"
 #include "../klib/kgl_defines.h"
 
@@ -21,27 +21,15 @@ TriangleApp::~TriangleApp()
 void TriangleApp::InitScene()
 {
 	gpu_program_ = new kgl::GPUProgram;
-
-	std::vector<std::string> vs_src;
-	std::vector<std::string> fs_src;
-	std::vector<std::string> gs_src;
-
-	vs_src.push_back("resources/shader/test_vs.glsl");
-	vs_src.push_back("resources/shader/002_triangle_vs.glsl");
-	
-	fs_src.push_back("resources/shader/test_fs.glsl");
-	fs_src.push_back("resources/shader/002_triangle_fs.glsl");
-	
-	// gpu_program_->CreateFromFile("resources/shader/002_triangle_vs.glsl", "resources/shader/002_triangle_fs.glsl", nullptr);
-	gpu_program_->CreateFromFile(vs_src,fs_src,gs_src);
+	gpu_program_->CreateFromFile("resources/shader/002_triangle_vs.glsl", "resources/shader/002_triangle_fs.glsl", nullptr);
 	
 	GLfloat vertices[] = 
 	{
-		// Î»ÖÃ             // ÑÕÉ«
-		0.5f, 0.5f, 0.0f,   1.0f, 0.0f, 0.0f,// ÓÒÉÏ½Ç
-		0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // ÓÒÏÂ½Ç
-		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,  // ×óÏÂ½Ç
-		-0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f   // ×óÉÏ½Ç 
+		// ä½ç½®             // é¢œè‰²
+		0.5f, 0.5f, 0.0f,   1.0f, 0.0f, 0.0f,// å³ä¸Šè§’
+		0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // å³ä¸‹è§’
+		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,  // å·¦ä¸‹è§’
+		-0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f   // å·¦ä¸Šè§’ 
 	};
 
 	GLuint indices[] =
@@ -54,8 +42,8 @@ void TriangleApp::InitScene()
 	va_position.Index = 0;
 	va_position.Normalized = GL_FALSE;
 	va_position.Type = GL_FLOAT;
-	va_position.Size = 3; // Ò»¸ö¡°¶¥µãÎ»ÖÃ¡±µÄÊôĞÔÓÉ3¸ö·ÖÁ¿×é³É
-	va_position.Stride = 6 * sizeof(GLfloat); // Ã¿¸ö¶¥µãµÄ²½³¤Îª 
+	va_position.Size = 3; // ä¸€ä¸ªâ€œé¡¶ç‚¹ä½ç½®â€çš„å±æ€§ç”±3ä¸ªåˆ†é‡ç»„æˆ
+	va_position.Stride = 6 * sizeof(GLfloat); // æ¯ä¸ªé¡¶ç‚¹çš„æ­¥é•¿ä¸º 
 	va_position.Pointer = nullptr;
 	
 
@@ -63,8 +51,8 @@ void TriangleApp::InitScene()
 	va_color.Index = 1;
 	va_color.Normalized = GL_FALSE;
 	va_color.Type = GL_FLOAT;
-	va_color.Size = 3; // Ò»¸ö¡°¶¥µãÑÕÉ«¡±µÄÊôĞÔÓÉ3¸ö·ÖÁ¿×é³É
-	va_color.Stride = 6 * sizeof(GLfloat); // Ã¿¸öÎ»ÖÃµÄ²½³¤Îª 
+	va_color.Size = 3; // ä¸€ä¸ªâ€œé¡¶ç‚¹é¢œè‰²â€çš„å±æ€§ç”±3ä¸ªåˆ†é‡ç»„æˆ
+	va_color.Stride = 6 * sizeof(GLfloat); // æ¯ä¸ªä½ç½®çš„æ­¥é•¿ä¸º 
 	va_color.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
 	std::vector<kgl::VertexAttribute> vtx_attri_array;
@@ -77,10 +65,10 @@ void TriangleApp::InitScene()
 
 	GLfloat triangle_vertices[] =
 	{
-		// Î»ÖÃ             // ÑÕÉ«
-		-1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f,// ÓÒÏÂ½Ç
-		-0.6f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // ÓÒÏÂ½Ç
-		-1.0f, -0.6f, 0.0f, 0.0f, 0.0f, 1.0f,  // ×óÏÂ½Ç
+		// ä½ç½®             // é¢œè‰²
+		-1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f,// å³ä¸‹è§’
+		-0.6f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // å³ä¸‹è§’
+		-1.0f, -0.6f, 0.0f, 0.0f, 0.0f, 1.0f,  // å·¦ä¸‹è§’
 	};
 
 	GLuint triangle_indices[] =
@@ -91,15 +79,15 @@ void TriangleApp::InitScene()
 	va_position.Index = 0;
 	va_position.Normalized = GL_FALSE;
 	va_position.Type = GL_FLOAT;
-	va_position.Size = 3; // Ò»¸ö¡°¶¥µãÎ»ÖÃ¡±µÄÊôĞÔÓÉ3¸ö·ÖÁ¿×é³É
-	va_position.Stride = 6 * sizeof(GLfloat); // Ã¿¸ö¶¥µãµÄ²½³¤Îª 
+	va_position.Size = 3; // ä¸€ä¸ªâ€œé¡¶ç‚¹ä½ç½®â€çš„å±æ€§ç”±3ä¸ªåˆ†é‡ç»„æˆ
+	va_position.Stride = 6 * sizeof(GLfloat); // æ¯ä¸ªé¡¶ç‚¹çš„æ­¥é•¿ä¸º 
 	va_position.Pointer = nullptr;
 
 	va_color.Index = 1;
 	va_color.Normalized = GL_FALSE;
 	va_color.Type = GL_FLOAT;
-	va_color.Size = 3; // Ò»¸ö¡°¶¥µãÑÕÉ«¡±µÄÊôĞÔÓÉ3¸ö·ÖÁ¿×é³É
-	va_color.Stride = 6 * sizeof(GLfloat); // Ã¿¸öÎ»ÖÃµÄ²½³¤Îª 
+	va_color.Size = 3; // ä¸€ä¸ªâ€œé¡¶ç‚¹é¢œè‰²â€çš„å±æ€§ç”±3ä¸ªåˆ†é‡ç»„æˆ
+	va_color.Stride = 6 * sizeof(GLfloat); // æ¯ä¸ªä½ç½®çš„æ­¥é•¿ä¸º 
 	va_color.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
 
@@ -114,24 +102,24 @@ void TriangleApp::InitScene()
 
 	GLfloat triangle_2_vertices[] =
 	{
-		// Î»ÖÃ             // ÑÕÉ«
-		1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f,// ÓÒÏÂ½Ç
-		0.6f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // ÓÒÏÂ½Ç
-		1.0f, -0.6f, 0.0f, 0.0f, 0.0f, 1.0f,  // ×óÏÂ½Ç
+		// ä½ç½®             // é¢œè‰²
+		1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f,// å³ä¸‹è§’
+		0.6f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // å³ä¸‹è§’
+		1.0f, -0.6f, 0.0f, 0.0f, 0.0f, 1.0f,  // å·¦ä¸‹è§’
 	};
 
 	va_position.Index = 0;
 	va_position.Normalized = GL_FALSE;
 	va_position.Type = GL_FLOAT;
-	va_position.Size = 3; // Ò»¸ö¡°¶¥µãÎ»ÖÃ¡±µÄÊôĞÔÓÉ3¸ö·ÖÁ¿×é³É
-	va_position.Stride = 6 * sizeof(GLfloat); // Ã¿¸ö¶¥µãµÄ²½³¤Îª 
+	va_position.Size = 3; // ä¸€ä¸ªâ€œé¡¶ç‚¹ä½ç½®â€çš„å±æ€§ç”±3ä¸ªåˆ†é‡ç»„æˆ
+	va_position.Stride = 6 * sizeof(GLfloat); // æ¯ä¸ªé¡¶ç‚¹çš„æ­¥é•¿ä¸º 
 	va_position.Pointer = nullptr;
 
 	va_color.Index = 1;
 	va_color.Normalized = GL_FALSE;
 	va_color.Type = GL_FLOAT;
-	va_color.Size = 3; // Ò»¸ö¡°¶¥µãÑÕÉ«¡±µÄÊôĞÔÓÉ3¸ö·ÖÁ¿×é³É
-	va_color.Stride = 6 * sizeof(GLfloat); // Ã¿¸öÎ»ÖÃµÄ²½³¤Îª 
+	va_color.Size = 3; // ä¸€ä¸ªâ€œé¡¶ç‚¹é¢œè‰²â€çš„å±æ€§ç”±3ä¸ªåˆ†é‡ç»„æˆ
+	va_color.Stride = 6 * sizeof(GLfloat); // æ¯ä¸ªä½ç½®çš„æ­¥é•¿ä¸º 
 	va_color.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
 
@@ -146,24 +134,24 @@ void TriangleApp::InitScene()
 
 	GLfloat triangle_3_vertices[] =
 	{
-		// Î»ÖÃ             // ÑÕÉ«
-		1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f,// ÓÒÏÂ½Ç
-		0.6f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // ÓÒÏÂ½Ç
-		1.0f, 0.6f, 0.0f, 0.0f, 0.0f, 1.0f,  // ×óÏÂ½Ç
+		// ä½ç½®             // é¢œè‰²
+		1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f,// å³ä¸‹è§’
+		0.6f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // å³ä¸‹è§’
+		1.0f, 0.6f, 0.0f, 0.0f, 0.0f, 1.0f,  // å·¦ä¸‹è§’
 	};
 
 	va_position.Index = 0;
 	va_position.Normalized = GL_FALSE;
 	va_position.Type = GL_FLOAT;
-	va_position.Size = 3; // Ò»¸ö¡°¶¥µãÎ»ÖÃ¡±µÄÊôĞÔÓÉ3¸ö·ÖÁ¿×é³É
-	va_position.Stride = 6 * sizeof(GLfloat); // Ã¿¸ö¶¥µãµÄ²½³¤Îª 
+	va_position.Size = 3; // ä¸€ä¸ªâ€œé¡¶ç‚¹ä½ç½®â€çš„å±æ€§ç”±3ä¸ªåˆ†é‡ç»„æˆ
+	va_position.Stride = 6 * sizeof(GLfloat); // æ¯ä¸ªé¡¶ç‚¹çš„æ­¥é•¿ä¸º 
 	va_position.Pointer = nullptr;
 
 	va_color.Index = 1;
 	va_color.Normalized = GL_FALSE;
 	va_color.Type = GL_FLOAT;
-	va_color.Size = 3; // Ò»¸ö¡°¶¥µãÑÕÉ«¡±µÄÊôĞÔÓÉ3¸ö·ÖÁ¿×é³É
-	va_color.Stride = 6 * sizeof(GLfloat); // Ã¿¸öÎ»ÖÃµÄ²½³¤Îª 
+	va_color.Size = 3; // ä¸€ä¸ªâ€œé¡¶ç‚¹é¢œè‰²â€çš„å±æ€§ç”±3ä¸ªåˆ†é‡ç»„æˆ
+	va_color.Stride = 6 * sizeof(GLfloat); // æ¯ä¸ªä½ç½®çš„æ­¥é•¿ä¸º 
 	va_color.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
 	vtx_attri_array.clear();
@@ -177,24 +165,24 @@ void TriangleApp::InitScene()
 
 	GLfloat triangle_4_vertices[] =
 	{
-		// Î»ÖÃ             // ÑÕÉ«
-		-1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f,// ÓÒÏÂ½Ç
-		-0.6f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // ÓÒÏÂ½Ç
-		-1.0f, 0.6f, 0.0f, 0.0f, 0.0f, 1.0f,  // ×óÏÂ½Ç
+		// ä½ç½®             // é¢œè‰²
+		-1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f,// å³ä¸‹è§’
+		-0.6f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // å³ä¸‹è§’
+		-1.0f, 0.6f, 0.0f, 0.0f, 0.0f, 1.0f,  // å·¦ä¸‹è§’
 	};
 
 	va_position.Index = 0;
 	va_position.Normalized = GL_FALSE;
 	va_position.Type = GL_FLOAT;
-	va_position.Size = 3; // Ò»¸ö¡°¶¥µãÎ»ÖÃ¡±µÄÊôĞÔÓÉ3¸ö·ÖÁ¿×é³É
-	va_position.Stride = 6 * sizeof(GLfloat); // Ã¿¸ö¶¥µãµÄ²½³¤Îª 
+	va_position.Size = 3; // ä¸€ä¸ªâ€œé¡¶ç‚¹ä½ç½®â€çš„å±æ€§ç”±3ä¸ªåˆ†é‡ç»„æˆ
+	va_position.Stride = 6 * sizeof(GLfloat); // æ¯ä¸ªé¡¶ç‚¹çš„æ­¥é•¿ä¸º 
 	va_position.Pointer = nullptr;
 
 	va_color.Index = 1;
 	va_color.Normalized = GL_FALSE;
 	va_color.Type = GL_FLOAT;
-	va_color.Size = 3; // Ò»¸ö¡°¶¥µãÑÕÉ«¡±µÄÊôĞÔÓÉ3¸ö·ÖÁ¿×é³É
-	va_color.Stride = 6 * sizeof(GLfloat); // Ã¿¸öÎ»ÖÃµÄ²½³¤Îª 
+	va_color.Size = 3; // ä¸€ä¸ªâ€œé¡¶ç‚¹é¢œè‰²â€çš„å±æ€§ç”±3ä¸ªåˆ†é‡ç»„æˆ
+	va_color.Stride = 6 * sizeof(GLfloat); // æ¯ä¸ªä½ç½®çš„æ­¥é•¿ä¸º 
 	va_color.Pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
 	vtx_attri_array.clear();

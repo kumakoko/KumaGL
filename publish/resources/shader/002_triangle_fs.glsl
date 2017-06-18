@@ -1,8 +1,9 @@
-in vec3 FragmentColor;
+#version 330 core
+
+in vec3 output_color;
 out vec4 color;
 
 void main()
 {
-    // color = vec4(FragmentColor,1.0f);
-    color = MakeFragVec4(FragmentColor);
+    color = vec4(output_color,1.0f);
 }

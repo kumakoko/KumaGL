@@ -1,4 +1,4 @@
-// 动态改变顶点缓冲区数据的应用示例
+﻿// 动态改变顶点缓冲区数据的应用示例
 #include "../klib/kgl_lib_pch.h"
 #include "../klib/kgl_error.h"
 #include "../klib/kgl_string_convertor.h"

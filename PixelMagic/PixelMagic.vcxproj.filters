@@ -18,7 +18,7 @@
     <ClCompile Include="main.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="pixel_magic_app .cc">
+    <ClCompile Include="pixel_magic_app.cc">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

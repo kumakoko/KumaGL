@@ -1,4 +1,4 @@
-// 动态改变顶点缓冲区数据的应用示例
+﻿// 动态改变顶点缓冲区数据的应用示例
 #ifndef camera_app_h__
 #define camera_app_h__
 

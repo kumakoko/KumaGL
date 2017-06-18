@@ -1,4 +1,4 @@
-// 展示一个简单的三角形
+﻿// 展示一个简单的三角形
 
 #include "../klib/kgl_lib_pch.h"
 #include "../klib/kgl_error.h"

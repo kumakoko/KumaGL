@@ -1,4 +1,4 @@
-// 动态改变顶点缓冲区数据的应用示例
+﻿// 动态改变顶点缓冲区数据的应用示例
 #include "dynamic_texture_app.h"
 #include "../klib/kgl_defines.h"
 

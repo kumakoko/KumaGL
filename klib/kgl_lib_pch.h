@@ -1,4 +1,4 @@
-// 预编译头文件
+﻿// 预编译头文件
 #ifndef kgl_lib_pch_h__
 #define kgl_lib_pch_h__
 
@@ -17,9 +17,18 @@
 #include <cstdint>
 #include <functional>
 #include <set>
+#include <array>
+#include <type_traits>
+
+#include "AntTweakBar.h"
 
 #define GLEW_STATIC
 #include "GL/glew.h"
+#if defined(WIN32) || defined(_WIN32)
+#include "GL/wglew.h"
+#endif
+
+#include "tinyxml2.h"
 
 #include "GLFW/glfw3.h"
 #include "glm/glm.hpp"
@@ -44,5 +53,9 @@ extern "C"
 #include "boost/noncopyable.hpp"
 #include "boost/format.hpp"
 #include "boost/algorithm/string.hpp"
+
+#if defined(WIN32) || defined(_WIN32)
+#include <Windows.h>
+#endif
 
 #endif // kgl_lib_pch_h__

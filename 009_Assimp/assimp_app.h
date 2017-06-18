@@ -1,4 +1,4 @@
-// 简单的纹理应用示例
+﻿// 简单的纹理应用示例
 #ifndef assimp_app_h__
 #define assimp_app_h__
 
@@ -26,7 +26,6 @@ protected:
 private:
 	kgl::GPUProgramSPtr		model_shader_;
 	kgl::Model*				model_;
-	kgl::FontRenderer*		font_renderer_;
 };
 
 #endif // assimp_app_h__

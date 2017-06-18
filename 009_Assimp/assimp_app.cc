@@ -1,4 +1,4 @@
-// 简单的纹理应用示例
+﻿// 简单的纹理应用示例
 #include "assimp_app.h"
 #include "../klib/kgl_lib_pch.h"
 #include "../klib/kgl_defines.h"
@@ -6,13 +6,13 @@
 #include "../klib/kgl_vertex_type.h"
 #include "../klib/kgl_texture_manager.h"
 
-AssimpApp::AssimpApp() :model_(nullptr), font_renderer_(nullptr)
+AssimpApp::AssimpApp() :model_(nullptr)
 {
+
 }
 
 AssimpApp::~AssimpApp()
 {
-	KGL_SAFE_DELETE(font_renderer_);
 	KGL_SAFE_DELETE(model_);
 	model_shader_.reset();
 }
@@ -21,7 +21,7 @@ void AssimpApp::InitScene()
 {
 	this->InitShader();
 	this->InitModel();
-	// this->InitFont();
+	this->InitFont();
 
 	main_camera_->InitViewProjection(kgl::CameraType::FREE, glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), 120.0f, 0.1f, 50.0f);
 
@@ -53,9 +53,10 @@ void AssimpApp::InitShader()
 
 void AssimpApp::InitFont()
 {
-	font_renderer_ = new kgl::FontRenderer();
-	font_renderer_->CreateFontTexture("resources/font/fzss_gbk.ttf", "fzss24", 24, 512, 512);
-	font_renderer_->SetCurrentFont("fzss24");
+	kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
+	font_renderer->Initialize();
+	font_renderer->CreateFontTexture("resources/font/fzss_gbk.ttf", "fzss24", 24, 512, 512);
+	font_renderer->SetCurrentFont("fzss24");
 }
 
 void AssimpApp::RenderFrame()
@@ -75,11 +76,11 @@ void AssimpApp::RenderFrame()
 	model_shader_->ApplyMatrix(glm::value_ptr(model_matrix), "model_matrix");
 	model_shader_->ApplyMatrix(glm::value_ptr(view_matrix), "view_matrix");
 	model_shader_->ApplyMatrix(glm::value_ptr(projection_matrix), "projection_matrix");
-	model_shader_->ApplyTexture(kgl::TextureMgr::Instance()->GetTexture("resources/model/textures/tux_texture.png"), "texture_diffuse_1", 0);
+	model_shader_->ApplyTexture(kgl::KTextureManager::GetInstance()->GetTexture("resources/model/textures/tux_texture.png"), "texture_diffuse_1", 0);
 
 	model_->Draw();
 
-	// this->RenderText();
+	this->RenderText();
 }
 
 void AssimpApp::RenderText()
@@ -87,11 +88,11 @@ void AssimpApp::RenderText()
 	const glm::vec3& pos = main_camera_->GetPosition();
 	boost::wformat f(L"Camea position : (%f,%f,%f)");
 	f % pos.x % pos.y % pos.z;
-
 	glm::vec4 font_color(1.0f, 0.0f, 0.0f, 1.0f);
 
-	font_renderer_->AddToRendered(f.str(), 0, 0, font_color, font_color, font_color, font_color, 1.5f);
-	font_renderer_->Draw();
+	kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
+	font_renderer->AddToRendered(f.str(), 0, 0, font_color, font_color, font_color, font_color, 1.5f);
+	font_renderer->Draw();
 }
 
 void AssimpApp::ProcessInput()

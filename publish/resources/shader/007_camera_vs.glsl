@@ -12,7 +12,7 @@ uniform mat4 projection;
 
 void main()
 {
-	// 因为采用了列优先矩阵，所以采用右乘的方式
+    // 因为采用了列优先矩阵，所以采用右乘的方式
     gl_Position = projection * view * model * vec4(position, 1.0f);
     TexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
 }

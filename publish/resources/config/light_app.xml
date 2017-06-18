@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<Root>
+	<ToggleHelpOn>按下H键显示帮助</ToggleHelpOn>
+	<ToggleHelpOff>按下H键关闭帮助</ToggleHelpOff>
+	<CameraControl>持续按下W、S、A、D、U、J键，使得摄像机向前、后、左、右、上、下方向移动</CameraControl>
+</Root>

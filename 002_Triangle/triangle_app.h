@@ -1,4 +1,4 @@
-// Õ¹Ê¾Ò»¸ö¼òµ¥µÄÈı½ÇĞÎ
+ï»¿// å±•ç¤ºä¸€ä¸ªç®€å•çš„ä¸‰è§’å½¢
 #ifndef triangle_app_h__
 #define triangle_app_h__
 
@@ -12,9 +12,9 @@ class TriangleApp : public kgl::App
 public:
 	TriangleApp();
 	virtual ~TriangleApp();
-	virtual void InitScene();
+	virtual void InitScene() override;
 protected:
-	virtual void RenderFrame();
+	virtual void RenderFrame() override;
 private:
 	kgl::GPUProgram* gpu_program_;
 	kgl::Primitive*  rectangle_primitive_;

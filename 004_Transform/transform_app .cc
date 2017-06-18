@@ -1,4 +1,4 @@
-// 简单的纹理应用示例
+﻿// 简单的纹理应用示例
 #include "transform_app.h"
 #include "../klib/kgl_defines.h"
 

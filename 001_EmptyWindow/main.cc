@@ -1,4 +1,4 @@
-#include "../klib/kgl_lib_pch.h"
+﻿#include "../klib/kgl_lib_pch.h"
 #include "../klib/kgl_app.h"
 #include "../klib/kgl_error.h"
 #include "../klib/kgl_string_convertor.h"

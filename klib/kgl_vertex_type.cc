@@ -1,4 +1,4 @@
-// 顶点格式定义
+﻿// 顶点格式定义
 #include "kgl_lib_pch.h"
 #include "kgl_vertex_type.h"
 

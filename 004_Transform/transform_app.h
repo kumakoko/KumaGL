@@ -1,4 +1,4 @@
-// 简单的纹理应用示例
+﻿// 简单的纹理应用示例
 #ifndef transform_app_h__
 #define transform_app_h__
 

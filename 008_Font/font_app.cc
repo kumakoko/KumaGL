@@ -1,24 +1,26 @@
-// 简单的纹理应用示例
+﻿// 简单的纹理应用示例
 
 
 #include "font_app.h"
 #include "../klib/kgl_defines.h"
 #include "../klib/kgl_string_convertor.h"
+#include "../klib/kgl_font_renderer.h"
 
-FontApp::FontApp() :font_renderer_(nullptr)
+FontApp::FontApp()
 {
 }
 
 FontApp::~FontApp()
 {
-	KGL_SAFE_DELETE(font_renderer_);
+	
 }
 
 void FontApp::InitScene()
 {
-	font_renderer_ = new kgl::FontRenderer();
-	font_renderer_->CreateFontTexture("resources/font/fzss_gbk.ttf", "fzss24", 24, 512, 512);
-	font_renderer_->SetCurrentFont("fzss24");
+	kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
+	font_renderer->Initialize();
+	font_renderer->CreateFontTexture("resources/font/fzss_gbk.ttf", "fzss24", 24, 512, 512);
+	font_renderer->SetCurrentFont("fzss24");
 
 	// 打开文件，读入代码到流中，然后载入到内存，提交编译
 	std::ifstream file_stream;
@@ -28,8 +30,8 @@ void FontApp::InitScene()
 	text_ = kgl::StringConvertor::UTF8toUTF16LE(vs_string_stream.str().c_str());
 	file_stream.close();
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	rs_blend_.Enable(true);
+	rs_blend_.SetBlendFunction(kgl::BF_SRC_ALPHA, kgl::BF_ONE_MINUS_SRC_ALPHA);
 }
 
 void FontApp::InitHelper()
@@ -74,28 +76,24 @@ void FontApp::InitHelper()
 
 	helper_rectangle_ = new kgl::Primitive;
 	helper_rectangle_->Create(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
-
-	
 }
 
 void FontApp::RenderFrame()
 {
-	/*
-	helper_shader_->Use();
-	helper_shader_->ApplyTexture(font_renderer_->font_texture_->GetTexture(), "source_texture", 0);
-	helper_rectangle_->DrawIndexed();
-	*/
+	kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
+
 	boost::wformat wf(text_);
 	wf % glfwGetTime();
-	font_renderer_->AddToRendered(wf.str(), 0, 0,
+
+	font_renderer->AddToRendered(wf.str(), 0, 0,
 		glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), 
 		glm::vec4(0.0f, 1.0f, 0.0f, 1.0f),
 		glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
 		glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), 1.5f);
-	font_renderer_->AddToRendered(L"This is more than just a game", 0, 100,
+	font_renderer->AddToRendered(L"This is more than just a game", 0, 100,
 		glm::vec4(1.0f, 0.0f, 1.0f, 1.0f),
 		glm::vec4(0.0f, 1.0f, 0.0f, 1.0f),
 		glm::vec4(1.0f, 0.0f, 1.0f, 1.0f),
 		glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), 1.5f);
-	font_renderer_->Draw();
+	font_renderer->Draw();
 }

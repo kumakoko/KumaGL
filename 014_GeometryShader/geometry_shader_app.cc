@@ -42,7 +42,7 @@ void GeometryShaderApp::InitScene()
 	this->InitModel();
 
 	// 初始化相机
-	main_camera_->InitViewProjection(kgl::CameraType::FREE, glm::vec3(0.0f, 3.0f, 8.0f), glm::vec3(0.0f, 0.0f, 0.0f), 120.0f, 0.1f, 500.0f);
+	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 3.0f, 8.0f));
 }
 
 void GeometryShaderApp::RenderFrame()
@@ -84,7 +84,7 @@ void GeometryShaderApp::ProcessInput()
 
 	if (key_state_[GLFW_KEY_R])
 	{
-		main_camera_->ChangeHeading(0.01f);
+		main_camera_->ChangeYaw(0.01f);
 	}
 
 	if (key_state_[GLFW_KEY_UP])
@@ -99,12 +99,12 @@ void GeometryShaderApp::ProcessInput()
 
 	if (key_state_[GLFW_KEY_LEFT])
 	{
-		main_camera_->ChangeHeading(0.01f);
+		main_camera_->ChangeYaw(0.01f);
 	}
 
 	if (key_state_[GLFW_KEY_RIGHT])
 	{
-		main_camera_->ChangeHeading(-0.01f);
+		main_camera_->ChangeYaw(-0.01f);
 	}
 }
 

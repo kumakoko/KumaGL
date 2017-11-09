@@ -10,17 +10,18 @@ namespace kgl
 {
     FontRenderer::FontRenderer()
     {
-		rs_depth_not_enabled_.SetEnable(GL_FALSE); // 绘制文字时不使用深度测试，直接写入，同时不写入深度值到深度缓冲区
+        rs_depth_not_enabled_.SetEnable(GL_FALSE); // 绘制文字时不使用深度测试，直接写入，同时不写入深度值到深度缓冲区
+        rs_cull_draw_.SetEnable(GL_FALSE);
     }
 
-	void FontRenderer::Initialize()
-	{
-		current_font_texture_ = nullptr;
-		font_shader_ = new kgl::GPUProgram;
-		font_shader_->CreateFromFile("resources/shader/font_vs.glsl", "resources/shader/font_fs.glsl", nullptr);
-		view_port_width_ = 800.0f;
-		view_port_height_ = 600.0f;
-	}
+    void FontRenderer::Initialize()
+    {
+        current_font_texture_ = nullptr;
+        font_shader_ = new kgl::GPUProgram;
+        font_shader_->CreateFromFile("resources/shader/font_vs.glsl", "resources/shader/font_fs.glsl", nullptr);
+        view_port_width_ = 800.0f;
+        view_port_height_ = 600.0f;
+    }
 
     void FontRenderer::CreateFontTexture(const char* font_file_name, const char* texture_name,
         int32_t font_size, uint32_t texture_width, uint32_t texture_height)
@@ -77,11 +78,11 @@ namespace kgl
         KGL_SAFE_DELETE(font_shader_);
     }
 
-	void FontRenderer::AddToRendered(const std::wstring& text, int32_t start_x, int32_t start_y,
-		const glm::vec4& color,float scale)
-	{
-		this->AddToRendered(text, start_x, start_y, color,color, color, color, scale);
-	}
+    void FontRenderer::AddToRendered(const std::wstring& text, int32_t start_x, int32_t start_y,
+        const glm::vec4& color,float scale)
+    {
+        this->AddToRendered(text, start_x, start_y, color,color, color, color, scale);
+    }
 
     void FontRenderer::AddToRendered(const std::wstring& text, int32_t start_x, int32_t start_y, const glm::vec4& left_top_color,
         const glm::vec4& left_bottom_color,const glm::vec4& right_top_color, const glm::vec4& right_bottom_color,float scale )
@@ -177,15 +178,21 @@ namespace kgl
         p->SetFontTexture(current_font_texture_);
         p->UpdateData(&(font_vertices[0]), char_count * sz * 6, char_count * 6);
         used_primitive_array_.push_back(p);
-		unused_primitive_set_.erase(p);
+        unused_primitive_set_.erase(p);
     }
 
     void FontRenderer::Draw()
     {
-		RenderStateDepth::TakeSnapshotState(rs_depth_before_draw_);
+        // 绘制文字前用到的深度缓冲区状态对象，拣选模式，文字绘制完毕之后会重新使用回它
+        RenderStateCullMode cull_mode_before_draw;
+        RenderStateDepth depth_test_before_draw;
+        RenderStateCullMode::TakeSnapshotState(cull_mode_before_draw);
+        RenderStateDepth::TakeSnapshotState(depth_test_before_draw);
 
-		rs_depth_not_enabled_.Use();
-		rs_blend_.Use();
+        rs_depth_not_enabled_.Use();
+        rs_blend_.Use();
+        rs_cull_draw_.Use();
+
         font_shader_->Use();
 
         std::size_t sz = used_primitive_array_.size();
@@ -200,7 +207,8 @@ namespace kgl
         }
 
         used_primitive_array_.clear();
-		rs_depth_before_draw_.Use();
+        depth_test_before_draw.Use();
+        cull_mode_before_draw.Use();
     }
 
     FontPrimitive* FontRenderer::GetUnusedFontPrimitive(int32_t char_count)

@@ -27,7 +27,7 @@ namespace kgl
     http ://www.tuicool.com/articles/bU3yYn
     http ://blog.csdn.net/myarrow/article/details/7743338
     */
-    void Primitive::Create(GLenum primitive_mode, GLvoid* vertices, GLsizeiptr vertices_byte_count, GLenum vb_usage,
+    void Primitive::CreateIndexed(GLenum primitive_mode, GLvoid* vertices, GLsizeiptr vertices_byte_count, GLenum vb_usage,
         IndexValueValue index_data_type, GLvoid* indices, GLsizeiptr indices_byte_count, GLenum ib_usage, const std::vector<VertexAttribute>& vtx_attri_arraty)
     {
         primitive_mode_ = primitive_mode;

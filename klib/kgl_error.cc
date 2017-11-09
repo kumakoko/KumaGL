@@ -2,6 +2,7 @@
 #include "kgl_lib_pch.h"
 #include "kgl_error.h"
 #include "kgl_string_convertor.h"
+#include "kgl_message_box.h"
 
 namespace kgl
 {
@@ -61,28 +62,15 @@ namespace kgl
     void Error::Prompt() const 
     {
         std::wstring output = this->AssembleOutput() + L"\nQuit Program?";
-        ::ShowCursor(true);
-        int ret = MessageBox(NULL, output.c_str(), title_.c_str(), MB_YESNO | MB_ICONERROR );
-
-        if (ret == IDYES)
-        {
-            ret = MessageBox(NULL, L"Terminate now (exit(1)) ?", L"Eject! Eject!", MB_YESNO | MB_ICONQUESTION );
-
-            if (ret == IDYES) 
-            {
-                exit(1);
-            }
-            else
-            {
-                ::PostQuitMessage(0);
-            }
-        }    
+		MessageBox(output, title_);
     }
 
     void Error::Notify() const 
     {
+#if defined(WIN32) || defined(_WIN32)
         ::ShowCursor(true);
-        MessageBox(NULL, AssembleOutput().c_str(), title_.c_str(), MB_OK | MB_ICONERROR );
+#endif
+        MessageBox(AssembleOutput(),title_);
     }
 
 

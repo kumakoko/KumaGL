@@ -8,19 +8,11 @@ namespace kgl
 {
     Camera::Camera() 
     {
-        camera_mode_ = FREE;
-        camera_up_ = glm::vec3(0, 1, 0);
-        field_of_view = 45;
-        rotation_quaternion_ = glm::quat(1, 0, 0, 0);
-        camera_position_delta_ = glm::vec3(0, 0, 0);
-        camera_speed_ = 0.01f;
-        max_pitch_rate = 5;
-        max_heading_rate = 5;
-        move_camera_ = false;
-        is_dirty_ = true;
-
-        camera_pitch_ = 0.0f;
-        camera_yaw_ = 0.0f;
+        world_up_ = glm::vec3(0, 1, 0);
+        field_of_view_ = 45.0f;
+        camera_speed_ = 0.1f;
+        pitch_angle_ = 0.0f;
+        yaw_angle_ = 0.0f;
     }
 
     Camera::~Camera()
@@ -29,94 +21,68 @@ namespace kgl
 
     void Camera::Reset()
     {
-        camera_up_ = glm::vec3(0, 1, 0);
-        is_dirty_ = true;
+        world_up_ = glm::vec3(0.f, 1.f, 0.f);
+        is_view_matrix_changed_ = true;
+        is_projection_matrix_changed_ = true;
+        is_view_port_changed_ = true;
     }
 
     void Camera::Update()
     {
-        if (!is_dirty_)
-            return;
-
-        camera_direction_ = glm::normalize(camera_look_at_ - camera_position_);
-
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        glViewport(viewport_x_, viewport_y_, window_width_, window_height);
-
-        if (camera_mode_ == ORTHO)
+        if (is_view_port_changed_)
         {
-            projection_matrix_ = glm::ortho(-1.5f * float(aspect_), 1.5f * float(aspect_), -1.5f, 1.5f, -10.0f, 10.f);
-            is_dirty_ = false;
-        }
-        else if (camera_mode_ == FREE)
-        {
-            // 计算透视投影矩阵
-            projection_matrix_ = glm::perspective(field_of_view, aspect_, near_clip_, far_clip_);
-            
-            // 根据camera的向上向量(up vector)和向前向
-            // 量(forward vector),计算出摄像机的向右向量（right vector）
-            glm::vec3 right_axis = glm::cross(camera_direction_, camera_up_);
-            // 根据当前的绕向右向量的旋转角，以及向右向量，
-            // 得出这个绕向右向量旋转的旋转度四元数。
-            glm::quat pitch_quat = glm::angleAxis(camera_pitch_, right_axis);
-            
-            // 根据当前的绕向上向量的旋转角，以及向上向量，得出这个
-            // 绕向上向量旋转的旋转度四元数。
-            glm::quat heading_quat = glm::angleAxis(camera_yaw_, camera_up_);
-
-            // 联合两个旋转
-            glm::quat temp = glm::cross(pitch_quat, heading_quat);
-            temp = glm::normalize(temp);
-
-
-            // 让当前的朝向绕着temp旋转度旋转，得出新的朝向向量
-            camera_direction_ = glm::rotate(temp, camera_direction_);
-            
-            // 摄像机本身的位移发生了变化
-            camera_position_ += camera_position_delta_;
-            
-            // 沿着新的朝向方向和新的位置，计算出新的look at position
-            camera_look_at_ = camera_position_ + camera_direction_ * 1.0f;
-            
-            // 做个阻尼操作，让它平滑些
-            camera_yaw_ *= .5;
-            camera_pitch_ *= .5;
-            camera_position_delta_ = camera_position_delta_ * .8f;
-
-            is_dirty_ = false;
+            glViewport(viewport_x_, viewport_y_, window_width_, window_height);
+            is_view_port_changed_ = false;
         }
 
-        view_matrix_ = glm::lookAt(camera_position_, camera_look_at_, camera_up_);
-        model_matrix_ = glm::mat4(1.0f);
-        mvp_matrix_ = projection_matrix_ * view_matrix_ * model_matrix_;
-        glLoadMatrixf(glm::value_ptr(mvp_matrix_));
+        if (is_projection_matrix_changed_)
+        {
+            if (camera_mode_ == ORTHO)
+            {
+                // 计算正交投影矩阵
+                projection_matrix_ = glm::ortho(-1.5f * float(aspect_), 1.5f * float(aspect_), -1.5f, 1.5f, -10.0f, 10.f);
+            }
+            else
+            {
+                // 计算透视投影矩阵
+                projection_matrix_ = glm::perspective(field_of_view_, aspect_, near_clip_, far_clip_);
+            }
+
+            is_projection_matrix_changed_ = false;
+        }
+
+        if (is_view_matrix_changed_)
+        {
+            if (is_eular_angle_changed_)
+            {
+                this->UpdateCameraVectorsByEularAngle();
+                is_eular_angle_changed_ = false;
+            }
+
+            // 更新观察矩阵
+            view_matrix_ = glm::lookAt(position_, position_ + forward_, up_);
+            is_view_matrix_changed_ = false;
+        }
     }
 
     void Camera::SetMode(CameraType cam_mode) 
     {
         camera_mode_ = cam_mode;
-        camera_up_ = glm::vec3(0, 1, 0);
-        rotation_quaternion_ = glm::quat(1, 0, 0, 0);
-        is_dirty_ = true;
+        world_up_ = glm::vec3(0, 1, 0);
+        is_view_matrix_changed_ = true;
+        is_projection_matrix_changed_ = true;
     }
 
-    void Camera::SetPosition(glm::vec3 pos)
+    void Camera::SetPosition(const glm::vec3& pos)
     {
-        camera_position_ = pos;
-        is_dirty_ = true;
-    }
-
-    void Camera::SetLookAt(glm::vec3 pos)
-    {
-        camera_look_at_ = pos;
-        is_dirty_ = true;
+        position_ = pos;
+        is_view_matrix_changed_ = true;
     }
 
     void Camera::SetFOV(float fov) 
     {
-        field_of_view = fov;
-        is_dirty_ = true;
+        field_of_view_ = fov;
+        is_projection_matrix_changed_ = true;
     }
 
     void Camera::SetViewport(int loc_x, int loc_y, int width, int height) 
@@ -126,110 +92,129 @@ namespace kgl
         window_width_ = width;
         window_height = height;
         aspect_ = static_cast<float>(width) / static_cast<float>(height);
-        is_dirty_ = true;
+        is_projection_matrix_changed_ = true;
+        is_view_port_changed_ = true;
     }
 
     void Camera::SetClipping(float near_clip_distance, float far_clip_distance)
     {
         near_clip_ = near_clip_distance;
         far_clip_ = far_clip_distance;
-        is_dirty_ = true;
+        is_projection_matrix_changed_ = true;
     }
 
-	void  Camera::InitViewProjection(CameraType cam_mod, const glm::vec3& pos, const glm::vec3& look_at, float fov, float near_clip_distance, float far_clip_distance)
-	{
-		this->SetMode(cam_mod);
-		this->SetPosition(pos);
-		this->SetLookAt(look_at);
-		this->SetFOV(fov);
-		this->SetClipping(near_clip_distance, far_clip_distance);
-	}
+    void Camera::InitViewProjection(CameraType camera_mode, const glm::vec3& camera_pos, float pitch_angle /*= 0.0f*/, float yaw_angle /*= 0.0f*/, float fov /*= 120.f*/, float near_clip_distance /*= 0.1f*/, float far_clip_distance /*= 200.0f*/)
+    {
+        this->SetMode(camera_mode);
+        this->SetPosition(camera_pos);
+        this->SetPitchAngle(pitch_angle);
+        this->SetYawAngle(yaw_angle);
+        this->SetFOV(fov);
+        this->SetClipping(near_clip_distance, far_clip_distance);
+    }
+
+    void Camera::SetYawAngle(float yaw_angle)
+    {
+        yaw_angle_ = yaw_angle;
+        is_view_matrix_changed_ = true;
+        is_eular_angle_changed_ = true;
+    }
+
+    void Camera::SetPitchAngle(float pitch_angle)
+    {
+        pitch_angle_ = pitch_angle;
+        is_view_matrix_changed_ = true;
+        is_eular_angle_changed_ = true;
+    }
 
     void Camera::Move(CameraDirection dir)
     {
-        if (camera_mode_ == FREE) 
+        if (camera_mode_ == PERSPECTIVE) 
         {
-            switch (dir) {
+            switch (dir) 
+            {
             case UP:
-                camera_position_delta_ += camera_up_ * camera_speed_;
+                position_ += up_ * camera_speed_;
                 break;
             case DOWN:
-                camera_position_delta_ -= camera_up_ * camera_speed_;
+                position_ -= up_ * camera_speed_;
                 break;
             case LEFT:
-                camera_position_delta_ -= glm::cross(camera_direction_, camera_up_) * camera_speed_;
+                position_ -= right_ * camera_speed_;
                 break;
             case RIGHT:
-                camera_position_delta_ += glm::cross(camera_direction_, camera_up_) * camera_speed_;
+                position_ += right_ * camera_speed_;
                 break;
             case FORWARD:
-                camera_position_delta_ += camera_direction_ * camera_speed_;
+                position_ += forward_ * camera_speed_;
                 break;
             case BACK:
-                camera_position_delta_ -= camera_direction_ * camera_speed_;
+                position_ -= forward_ * camera_speed_;
                 break;
             }
 
-            is_dirty_ = true;
+            is_view_matrix_changed_ = true;
         }
     }
 
     void Camera::ChangePitch(float degrees) 
     {
-        if (degrees < -max_pitch_rate)
+        if (degrees < -max_pitch_degree_per_frame_)
         {
-            degrees = -max_pitch_rate;
+            degrees = -max_pitch_degree_per_frame_;
         }
-        else if (degrees > max_pitch_rate)
+        else if (degrees > max_pitch_degree_per_frame_)
         {
-            degrees = max_pitch_rate;
-        }
-
-        camera_pitch_ += degrees;
-
-        if (camera_pitch_ > 360.0f)
-        {
-            camera_pitch_ -= 360.0f;
-        }
-        else if (camera_pitch_ < -360.0f)
-        {
-            camera_pitch_ += 360.0f;
+            degrees = max_pitch_degree_per_frame_;
         }
 
-        is_dirty_ = true;
+        pitch_angle_ += degrees;
+
+        if (pitch_angle_ > 360.0f)
+        {
+            pitch_angle_ -= 360.0f;
+        }
+        else if (pitch_angle_ < -360.0f)
+        {
+            pitch_angle_ += 360.0f;
+        }
+
+        is_view_matrix_changed_ = true;
+        is_eular_angle_changed_ = true;
     }
 
-    void Camera::ChangeHeading(float degrees)
+    void Camera::ChangeYaw(float degrees)
     {
-        if (degrees < -max_heading_rate)
+        if (degrees < -max_yaw_degree_)
         {
-            degrees = -max_heading_rate;
+            degrees = -max_yaw_degree_;
         }
-        else if (degrees > max_heading_rate) 
+        else if (degrees > max_yaw_degree_)
         {
-            degrees = max_heading_rate;
+            degrees = max_yaw_degree_;
         }
 
-        if (camera_pitch_ > 90.0f && camera_pitch_ < 270.0f || (camera_pitch_ < -90.0f && camera_pitch_ > -270.0f))
+        if (pitch_angle_ > 90.0f && pitch_angle_ < 270.0f || (pitch_angle_ < -90.0f && pitch_angle_ > -270.0f))
         {
-            camera_yaw_ -= degrees;
+            yaw_angle_ -= degrees;
         }
         else 
         {
-            camera_yaw_ += degrees;
+            yaw_angle_ += degrees;
         }
 
-        if (camera_yaw_ > 360.0f)
+        if (yaw_angle_ > 360.0f)
         {
-            camera_yaw_ -= 360.0f;
+            yaw_angle_ -= 360.0f;
         }
 
-        else if (camera_yaw_ < -360.0f)
+        else if (yaw_angle_ < -360.0f)
         {
-            camera_yaw_ += 360.0f;
+            yaw_angle_ += 360.0f;
         }
 
-        is_dirty_ = true;
+        is_view_matrix_changed_ = true;
+        is_eular_angle_changed_ = true;
     }
 
     void Camera::GetViewport(int* loc_x, int* loc_y, int* width, int* height)
@@ -247,8 +232,24 @@ namespace kgl
             *height = window_height;
     }
 
-	glm::mat4 Camera::GetModelViewMatrix()
-	{
-		return glm::translate(view_matrix_, camera_position_);
-	}
+    void Camera::UpdateCameraVectorsByEularAngle()
+    {
+        /*
+        forward_.x = cosf(glm::radians(yaw_angle_)) * cosf(glm::radians(pitch_angle_));
+        forward_.y = sinf(glm::radians(pitch_angle_));
+        forward_.z = sinf(glm::radians(yaw_angle_)) * cosf(glm::radians(pitch_angle_));
+        */
+
+        forward_.z = cosf(glm::radians(yaw_angle_)) * cosf(glm::radians(pitch_angle_));
+        forward_.y = sinf(glm::radians(pitch_angle_));
+        forward_.x = sinf(glm::radians(yaw_angle_)) * cosf(glm::radians(pitch_angle_));
+
+        forward_ = glm::normalize(forward_);
+
+        // 根据摄像机的朝前向量和世界坐标系的向上向量，算出摄像机的朝右向量
+        // 在世界坐标系中，无论摄像机的朝前向量怎样指向，它和世界坐标系的向上
+        // 向量所构成的平面，摄像机的朝右向量必定垂直于它
+        right_ = glm::normalize(glm::cross(forward_, world_up_));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+        up_ = glm::normalize(glm::cross(right_, forward_));
+    }
 }

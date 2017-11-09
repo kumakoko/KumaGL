@@ -14,12 +14,17 @@ namespace kgl
 
     }
 
-    void Texture::CreateFromFile(const std::string& file_name, const TextureParams& texture_params)
+    void Texture::CreateFromFileObsolete(const std::string& file_name, const TextureParams& texture_params)
     {
 
     }
 
-    void Texture::Create(int width, int height, const TextureParams& texture_params)
+	void Texture::CreateFromFile(const std::string& file_name, const TextureParams& texture_params)
+	{
+
+	}
+
+    void Texture::Create(int32_t width, int32_t height, const TextureParams& texture_params)
     {
 
     }

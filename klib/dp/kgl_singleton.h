@@ -10,22 +10,22 @@ std::forward的源代码如下：
 template<class _Ty>
 struct identity
 {    
-	// map _Ty to type unchanged
-	typedef _Ty type;
+    // map _Ty to type unchanged
+    typedef _Ty type;
 
-	const _Ty& operator()(const _Ty& _Left) const
-	{
-		// apply identity operator to operand
-		return (_Left);
-	}
+    const _Ty& operator()(const _Ty& _Left) const
+    {
+        // apply identity operator to operand
+        return (_Left);
+    }
 };
 
 // TEMPLATE FUNCTION forward
 template<class _Ty> inline
 _Ty&& forward(typename identity<_Ty>::type& _Arg)
 {    
-	// forward _Arg, given explicitly specified type parameter
-	return ((_Ty&&)_Arg);
+    // forward _Arg, given explicitly specified type parameter
+    return ((_Ty&&)_Arg);
 }
 
 其含义是：
@@ -37,14 +37,14 @@ _Ty&& forward(typename identity<_Ty>::type& _Arg)
 
 
 引用折叠规则如下：
-X& + & => X&		(1)
-X&& + & => X&		(2)
-X& + && => X&		(3)
-X&& + && => X&&		(4)
+X& + & => X&        (1)
+X&& + & => X&       (2)
+X& + && => X&       (3)
+X&& + && => X&&     (4)
 
 outer(X&& t)
 {
-	inner(t)
+    inner(t)
 }
 
 inner(X&&)如2， 意思是把外部右值X&& t 传给函数 inner(X&&), 到了inner函数里， a就变认为是左值了，即 X&.给它变成
@@ -62,56 +62,56 @@ inner( _STD forward<_Ty>(t))
 
 namespace kgl
 {
-	namespace dp
-	{
-		template<typename T>
-		class Singleton
-		{
-		
-		public:
-			template<typename... Args>
-			static T* MakeInstance(Args&&... args)
-			{
-				if (nullptr == s_instance_)
-					s_instance_ = new T(std::forward<Args>(args)...);
+    namespace dp
+    {
+        template<typename T>
+        class Singleton
+        {
+        
+        public:
+            template<typename... Args>
+            static T* MakeInstance(Args&&... args)
+            {
+                if (nullptr == s_instance_)
+                    s_instance_ = new T(std::forward<Args>(args)...);
 
-				return s_instance_;
-			}
+                return s_instance_;
+            }
 
-			static T* GetInstance()
-			{
-				if (nullptr == s_instance_)
-					throw std::logic_error("The instance is not initialized,please initialize the instance by invoking static member function MakeInstance first!");
+            static T* GetInstance()
+            {
+                if (nullptr == s_instance_)
+                    throw std::logic_error("The instance is not initialized,please initialize the instance by invoking static member function MakeInstance first!");
 
-				return s_instance_;
-			}
+                return s_instance_;
+            }
 
-			static void DeleteInstance()
-			{
-				if (s_instance_ != nullptr)
-				{
-					delete s_instance_;
-					s_instance_ = nullptr;
-				}
-			}
+            static void DeleteInstance()
+            {
+                if (s_instance_ != nullptr)
+                {
+                    delete s_instance_;
+                    s_instance_ = nullptr;
+                }
+            }
 
-		private:
-			Singleton();
+        private:
+            Singleton();
 
-			// 将析构函数定义为私有，表明本类只允许从堆中创建对象实例
-			virtual ~Singleton();
+            // 将析构函数定义为私有，表明本类只允许从堆中创建对象实例
+            virtual ~Singleton();
 
-			// 不允许拷贝构造
-			Singleton(const Singleton& s);
-			Singleton& operator = (const Singleton& s);
+            // 不允许拷贝构造
+            Singleton(const Singleton& s);
+            Singleton& operator = (const Singleton& s);
 
-		private:
-			static T* s_instance_;
-		};
+        private:
+            static T* s_instance_;
+        };
 
-		template<typename T>
-		T* Singleton<T>::s_instance_ = nullptr;
-	}
+        template<typename T>
+        T* Singleton<T>::s_instance_ = nullptr;
+    }
 }
 
 #endif // kgl_singleton_h__

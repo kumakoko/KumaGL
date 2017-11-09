@@ -2,7 +2,6 @@
 #ifndef kgl_lib_pch_h__
 #define kgl_lib_pch_h__
 
-#include <windows.h>
 #include <vector>
 #include <list>
 #include <map>
@@ -20,7 +19,7 @@
 #include <array>
 #include <type_traits>
 
-#include "AntTweakBar.h"
+// #include "AntTweakBar.h"
 
 #define GLEW_STATIC
 #include "GL/glew.h"
@@ -43,12 +42,16 @@ extern "C"
 #include "ft2build.h"
 #include "freetype.h"
 #include "iconv.h"
+#include "FreeImage.h"
+#if defined(WIN32) || defined(_WIN32)
 #include "SOIL.h"
+#endif
 }
 
 #include "assimp/Importer.hpp"
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
+#include "assimp/matrix4x4.h"
 
 #include "boost/noncopyable.hpp"
 #include "boost/format.hpp"

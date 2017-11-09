@@ -4,6 +4,10 @@
 #include "kgl_font_texture.h"
 #include "kgl_string_convertor.h"
 
+#if defined(__APPLE__) && defined(__MACH__)
+#include "SOIL.h"
+#endif
+
 namespace kgl
 {
     const FontUVRect& FontTexture::GetGlyphTexCoords(uint32_t id) const
@@ -195,7 +199,6 @@ namespace kgl
         texture_param.internal_format = GL_RGBA;
         texture_param.src_img_px_component_type = GL_UNSIGNED_BYTE;
         texture_param.src_img_format = GL_RGBA;
-        texture_param.load_channel = SOIL_LOAD_RGBA;
         texture_param.used_mipmap = false;
 
         font_texture_ = std::make_shared<kgl::SourceTexture>();
@@ -325,7 +328,7 @@ namespace kgl
         if (it != codepoint_map_.end())
         {
             img_char_left_ = static_cast<uint32_t>(it->second.texture_uv_rect.left);
-			img_char_top_ = static_cast<uint32_t>(it->second.texture_uv_rect.top);
+            img_char_top_ = static_cast<uint32_t>(it->second.texture_uv_rect.top);
             codepoint_map_.erase(it);
             ++left_blank_num_;
         }

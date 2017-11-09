@@ -6,6 +6,11 @@
 #include "kgl_texture_manager.h"
 #include "kgl_defines.h"
 #include "kgl_debug_tool.h"
+#include "kgl_assimp_bridge.h"
+
+#if defined(__APPLE__) && defined(__MACH__)
+#include "SOIL.h"
+#endif
 
 namespace kgl
 {
@@ -31,11 +36,11 @@ namespace kgl
         meshes_[index]->SetShader(shader);
     }
 
-	void StaticModel::ApplyShaderToModel(GPUProgramSPtr shader)
-	{
-		for (GLuint i = 0; i < meshes_.size(); i++)
-			meshes_[i]->SetShader(shader);
-	}
+    void StaticModel::ApplyShaderToModel(GPUProgramSPtr shader)
+    {
+        for (GLuint i = 0; i < meshes_.size(); i++)
+            meshes_[i]->SetShader(shader);
+    }
 
     GPUProgramSPtr StaticModel::GetMeshShader(std::size_t index)
     {
@@ -62,45 +67,45 @@ namespace kgl
         }
 
         // this->directory = path.substr(0, path.find_last_of('/'));
-		// 从最上面的根节点开始处理起
+        // 从最上面的根节点开始处理起
         this->ProcessNode(scene,scene->mRootNode, glm::mat4());
     }
 
-	void StaticModel::ProcessNode(const aiScene* scene, const aiNode* node, const glm::mat4& parent_transform)
-	{
-		// 得到本节点相对于父空间的transform matrix
-		glm::mat4 node_transform;
-		AiMatrix4x4ToGlmMat4(node->mTransformation, node_transform);
+    void StaticModel::ProcessNode(const aiScene* scene, const aiNode* node, const glm::mat4& parent_transform)
+    {
+        // 得到本节点相对于父空间的transform matrix
+        glm::mat4 node_transform;
+        AiMatrix4x4ToGlmMat4(node->mTransformation, node_transform);
 
-		// 递归算出本节点相对于世界坐标的transform matrix
-		glm::mat4 global_transform = parent_transform * node_transform;
+        // 递归算出本节点相对于世界坐标的transform matrix
+        glm::mat4 global_transform = parent_transform * node_transform;
 
 #if defined(DEBUG) || defined(_DEBUG)
-		DebugTool::PrintGLMMatrix("Node Transform ", node_transform);
-		DebugTool::PrintGLMMatrix("Parents Transform ", parent_transform);
-		DebugTool::PrintGLMMatrix("Global Transform ", global_transform);
+        DebugTool::PrintGLMMatrix("Node Transform ", node_transform);
+        DebugTool::PrintGLMMatrix("Parents Transform ", parent_transform);
+        DebugTool::PrintGLMMatrix("Global Transform ", global_transform);
 #endif
 
         for (GLuint i = 0; i < node->mNumMeshes; i++)
         {
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 #if defined(DEBUG) || defined(_DEBUG)
-			boost::format f("=====>>> Process Mesh -- Mesh name: %s\n");
-			f % mesh->mName.C_Str();
-			DebugTool::OutputDebugMessage(f.str().c_str());
+            boost::format f("=====>>> Process Mesh -- Mesh name: %s\n");
+            f % mesh->mName.C_Str();
+            DebugTool::OutputDebugMessage(f.str().c_str());
 #endif
-			this->meshes_.push_back(this->ProcessMesh(scene, mesh, global_transform));
+            this->meshes_.push_back(this->ProcessMesh(scene, mesh, global_transform));
         }
 
         // 遞歸處理
         for (GLuint i = 0; i < node->mNumChildren; i++)
         {
 #if defined(DEBUG) || defined(_DEBUG)
-			boost::format f("=====>>> Process Node -- Node name: %s\n");
-			f % node->mName.C_Str();
-			DebugTool::OutputDebugMessage(f.str().c_str());
+            boost::format f("=====>>> Process Node -- Node name: %s\n");
+            f % node->mName.C_Str();
+            DebugTool::OutputDebugMessage(f.str().c_str());
 #endif
-			this->ProcessNode(scene, node->mChildren[i], global_transform);
+            this->ProcessNode(scene, node->mChildren[i], global_transform);
         }
     }
 
@@ -137,13 +142,13 @@ namespace kgl
 
         for (GLuint i = 0; i < mesh->mNumVertices; i++)
         {
-            v[i].P.x = mesh->mVertices[i].x;
-            v[i].P.y = mesh->mVertices[i].y;
-            v[i].P.z = mesh->mVertices[i].z;
+            v[i].position.x = mesh->mVertices[i].x;
+            v[i].position.y = mesh->mVertices[i].y;
+            v[i].position.z = mesh->mVertices[i].z;
 
-            v[i].N.x = mesh->mNormals[i].x;
-            v[i].N.y = mesh->mNormals[i].y;
-            v[i].N.z = mesh->mNormals[i].z;
+            v[i].normal.x = mesh->mNormals[i].x;
+            v[i].normal.y = mesh->mNormals[i].y;
+            v[i].normal.z = mesh->mNormals[i].z;
         }
 
         return reinterpret_cast<uint8_t*>(v);
@@ -211,16 +216,16 @@ namespace kgl
 
         for (GLuint i = 0; i < mesh->mNumVertices; i++)
         {
-            v[i].P.x = mesh->mVertices[i].x;
-            v[i].P.y = mesh->mVertices[i].y;
-            v[i].P.z = mesh->mVertices[i].z;
+            v[i].position.x = mesh->mVertices[i].x;
+            v[i].position.y = mesh->mVertices[i].y;
+            v[i].position.z = mesh->mVertices[i].z;
             
-            v[i].N.x = mesh->mNormals[i].x;
-            v[i].N.y = mesh->mNormals[i].y;
-            v[i].N.z = mesh->mNormals[i].z;
+            v[i].normal.x = mesh->mNormals[i].x;
+            v[i].normal.y = mesh->mNormals[i].y;
+            v[i].normal.z = mesh->mNormals[i].z;
             
-            v[i].T1.x = mesh->mTextureCoords[0][i].x;
-            v[i].T1.y = mesh->mTextureCoords[0][i].y;
+            v[i].tex_coord_1.x = mesh->mTextureCoords[0][i].x;
+            v[i].tex_coord_1.y = mesh->mTextureCoords[0][i].y;
         }
 
         return reinterpret_cast<uint8_t*>(v);
@@ -230,8 +235,8 @@ namespace kgl
     unsigned char* StaticModel::ReadVertexDataPNT3(const aiMesh* mesh, uint32_t* vertex_byte_count){ return nullptr; }
     unsigned char* StaticModel::ReadVertexDataPNT4(const aiMesh* mesh, uint32_t* vertex_byte_count){ return nullptr; }
 
-	StaticMesh* StaticModel::ProcessMesh(const aiScene* scene, aiMesh* mesh, const glm::mat4& model_transform)
-	{
+    StaticMesh* StaticModel::ProcessMesh(const aiScene* scene, aiMesh* mesh, const glm::mat4& model_transform)
+    {
         uint32_t vertex_byte_count = 0;
         uint8_t* vertex_data = this->ReadVertexData(vertex_type_, mesh, &vertex_byte_count);
 
@@ -259,7 +264,6 @@ namespace kgl
             texture_param.internal_format = GL_RGB;
             texture_param.src_img_px_component_type = GL_UNSIGNED_BYTE;
             texture_param.src_img_format = GL_RGB;
-            texture_param.load_channel = SOIL_LOAD_RGB;
             texture_param.used_mipmap = false;
 
             std::vector<TextureSPtr> diffuseMaps = this->LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse", texture_param);
@@ -271,12 +275,12 @@ namespace kgl
 
         StaticMesh* custom_mesh = new StaticMesh();
         custom_mesh->Setup(
-			vertex_type_,
-			vertex_data, 
-			vertex_byte_count,
-			&(index_array[0]),
-			index_array.size() * sizeof(uint32_t),
-			texture_array, model_transform);
+            vertex_type_,
+            vertex_data, 
+            vertex_byte_count,
+            &(index_array[0]),
+            index_array.size() * sizeof(uint32_t),
+            texture_array, model_transform);
 
         KGL_SAFE_DELETE_ARRAY(vertex_data);
         return custom_mesh;
@@ -307,205 +311,205 @@ namespace kgl
         return textures;
     }
 
-	void StaticModel::ApplyTextureToMesh(std::size_t mesh_index, TextureSPtr texture, const char* uniform_var_name, GLuint slot_index)
-	{
-		GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-		shader->ApplyTexture(texture, uniform_var_name, slot_index);
-	}
+    void StaticModel::ApplyTextureToMesh(std::size_t mesh_index, TextureSPtr texture, const char* uniform_var_name, GLuint slot_index)
+    {
+        GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+        shader->ApplyTexture(texture, uniform_var_name, slot_index);
+    }
 
-	void StaticModel::ApplyTextureToModel(TextureSPtr texture, const char* uniform_var_name, GLuint slot_index)
-	{
-		for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
-		{
-			GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-			shader->ApplyTexture(texture, uniform_var_name, slot_index);
-		}
-	}
+    void StaticModel::ApplyTextureToModel(TextureSPtr texture, const char* uniform_var_name, GLuint slot_index)
+    {
+        for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
+        {
+            GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+            shader->ApplyTexture(texture, uniform_var_name, slot_index);
+        }
+    }
 
-	void StaticModel::ApplyMatrixToMesh(std::size_t mesh_index, const GLfloat* matrix_data_pointer, const char* uniform_var_name, bool need_transpose)
-	{
-		GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-		shader->ApplyMatrix(matrix_data_pointer, uniform_var_name, need_transpose);
-	}
+    void StaticModel::ApplyMatrixToMesh(std::size_t mesh_index, const GLfloat* matrix_data_pointer, const char* uniform_var_name, bool need_transpose)
+    {
+        GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+        shader->ApplyMatrix(matrix_data_pointer, uniform_var_name, need_transpose);
+    }
 
-	void StaticModel::ApplyMatrixToModel(const GLfloat* matrix_data_pointer, const char* uniform_var_name, bool need_transpose)
-	{
-		for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
-		{
-			GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-			shader->ApplyMatrix(matrix_data_pointer, uniform_var_name, need_transpose);
-		}
-	}
+    void StaticModel::ApplyMatrixToModel(const GLfloat* matrix_data_pointer, const char* uniform_var_name, bool need_transpose)
+    {
+        for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
+        {
+            GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+            shader->ApplyMatrix(matrix_data_pointer, uniform_var_name, need_transpose);
+        }
+    }
 
-	void StaticModel::ApplyFloatToMesh(std::size_t mesh_index, GLfloat float_data, const char* uniform_var_name)
-	{
-		GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-		shader->ApplyFloat(float_data, uniform_var_name);
-	}
+    void StaticModel::ApplyFloatToMesh(std::size_t mesh_index, GLfloat float_data, const char* uniform_var_name)
+    {
+        GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+        shader->ApplyFloat(float_data, uniform_var_name);
+    }
 
-	void StaticModel::ApplyFloatToModel(GLfloat float_data, const char* uniform_var_name)
-	{
-		for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
-		{
-			GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-			shader->ApplyFloat(float_data, uniform_var_name);
-		}
-	}
+    void StaticModel::ApplyFloatToModel(GLfloat float_data, const char* uniform_var_name)
+    {
+        for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
+        {
+            GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+            shader->ApplyFloat(float_data, uniform_var_name);
+        }
+    }
 
-	void StaticModel::ApplyVector2ToMesh(std::size_t mesh_index, const GLfloat* vector2_data_pointer, const char* uniform_var_name)
-	{
-		GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-		shader->ApplyVector2(vector2_data_pointer, uniform_var_name);
-	}
+    void StaticModel::ApplyVector2ToMesh(std::size_t mesh_index, const GLfloat* vector2_data_pointer, const char* uniform_var_name)
+    {
+        GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+        shader->ApplyVector2(vector2_data_pointer, uniform_var_name);
+    }
 
-	void StaticModel::ApplyVector2ToModel(const GLfloat* vector2_data_pointer, const char* uniform_var_name)
-	{
-		for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
-		{
-			GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-			shader->ApplyVector2(vector2_data_pointer, uniform_var_name);
-		}
-	}
+    void StaticModel::ApplyVector2ToModel(const GLfloat* vector2_data_pointer, const char* uniform_var_name)
+    {
+        for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
+        {
+            GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+            shader->ApplyVector2(vector2_data_pointer, uniform_var_name);
+        }
+    }
 
-	void StaticModel::ApplyVector3ToMesh(std::size_t mesh_index, const GLfloat* vector3_data_pointer, const char* uniform_var_name)
-	{
-		GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-		shader->ApplyVector3(vector3_data_pointer, uniform_var_name);
-	}
+    void StaticModel::ApplyVector3ToMesh(std::size_t mesh_index, const GLfloat* vector3_data_pointer, const char* uniform_var_name)
+    {
+        GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+        shader->ApplyVector3(vector3_data_pointer, uniform_var_name);
+    }
 
-	void StaticModel::ApplyVector3ToModel(const GLfloat* vector3_data_pointer, const char* uniform_var_name)
-	{
-		for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
-		{
-			GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-			shader->ApplyVector3(vector3_data_pointer, uniform_var_name);
-		}
-	}
+    void StaticModel::ApplyVector3ToModel(const GLfloat* vector3_data_pointer, const char* uniform_var_name)
+    {
+        for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
+        {
+            GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+            shader->ApplyVector3(vector3_data_pointer, uniform_var_name);
+        }
+    }
 
-	void StaticModel::ApplyVector4ToMesh(std::size_t mesh_index, const GLfloat* vector4_data_pointer, const char* uniform_var_name)
-	{
-		GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-		shader->ApplyVector4(vector4_data_pointer, uniform_var_name);
-	}
+    void StaticModel::ApplyVector4ToMesh(std::size_t mesh_index, const GLfloat* vector4_data_pointer, const char* uniform_var_name)
+    {
+        GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+        shader->ApplyVector4(vector4_data_pointer, uniform_var_name);
+    }
 
-	void StaticModel::ApplyVector4ToModel(const GLfloat* vector4_data_pointer, const char* uniform_var_name)
-	{
-		for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
-		{
-			GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-			shader->ApplyVector4(vector4_data_pointer, uniform_var_name);
-		}
-	}
+    void StaticModel::ApplyVector4ToModel(const GLfloat* vector4_data_pointer, const char* uniform_var_name)
+    {
+        for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
+        {
+            GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+            shader->ApplyVector4(vector4_data_pointer, uniform_var_name);
+        }
+    }
 
-	void StaticModel::ApplyIntToMesh(std::size_t mesh_index, GLint int_data, const char* uniform_var_name)
-	{
-		GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-		shader->ApplyInt(int_data, uniform_var_name);
-	}
+    void StaticModel::ApplyIntToMesh(std::size_t mesh_index, GLint int_data, const char* uniform_var_name)
+    {
+        GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+        shader->ApplyInt(int_data, uniform_var_name);
+    }
 
-	void StaticModel::ApplyIntToModel(GLint int_data, const char* uniform_var_name)
-	{
-		for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
-		{
-			GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-			shader->ApplyInt(int_data, uniform_var_name);
-		}
-	}
+    void StaticModel::ApplyIntToModel(GLint int_data, const char* uniform_var_name)
+    {
+        for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
+        {
+            GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+            shader->ApplyInt(int_data, uniform_var_name);
+        }
+    }
 
-	void StaticModel::ApplyMaterialToMesh(std::size_t mesh_index, const Material* material, const char* uniform_var_name)
-	{
-		GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-		shader->ApplyMaterial(material, uniform_var_name);
-	}
+    void StaticModel::ApplyMaterialToMesh(std::size_t mesh_index, const Material* material, const char* uniform_var_name)
+    {
+        GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+        shader->ApplyMaterial(material, uniform_var_name);
+    }
 
-	void StaticModel::ApplyMaterialToModel(const Material* material, const char* uniform_var_name)
-	{
-		for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
-		{
-			GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-			shader->ApplyMaterial(material, uniform_var_name);
-		}
-	}
+    void StaticModel::ApplyMaterialToModel(const Material* material, const char* uniform_var_name)
+    {
+        for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
+        {
+            GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+            shader->ApplyMaterial(material, uniform_var_name);
+        }
+    }
 
-	void StaticModel::ApplyDirectionalLightToMesh(std::size_t mesh_index, const DirectionalLight* light, const char* uniform_var_name)
-	{
-		GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-		shader->ApplyDirectionalLight(light, uniform_var_name);
-	}
+    void StaticModel::ApplyDirectionalLightToMesh(std::size_t mesh_index, const DirectionalLight* light, const char* uniform_var_name)
+    {
+        GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+        shader->ApplyDirectionalLight(light, uniform_var_name);
+    }
 
-	void StaticModel::ApplyDirectionalLightToModel(const DirectionalLight* light, const char* uniform_var_name)
-	{
-		for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
-		{
-			GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-			shader->ApplyDirectionalLight(light, uniform_var_name);
-		}
-	}
+    void StaticModel::ApplyDirectionalLightToModel(const DirectionalLight* light, const char* uniform_var_name)
+    {
+        for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
+        {
+            GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+            shader->ApplyDirectionalLight(light, uniform_var_name);
+        }
+    }
 
-	void StaticModel::ApplyPointLightToMesh(std::size_t mesh_index, const PointLight* light, const char* uniform_var_name)
-	{
-		GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-		shader->ApplyPointLight(light, uniform_var_name);
-	}
+    void StaticModel::ApplyPointLightToMesh(std::size_t mesh_index, const PointLight* light, const char* uniform_var_name)
+    {
+        GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+        shader->ApplyPointLight(light, uniform_var_name);
+    }
 
-	void StaticModel::ApplyPointLightToModel(const PointLight* light, const char* uniform_var_name)
-	{
-		for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
-		{
-			GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-			shader->ApplyPointLight(light, uniform_var_name);
-		}
-	}
+    void StaticModel::ApplyPointLightToModel(const PointLight* light, const char* uniform_var_name)
+    {
+        for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
+        {
+            GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+            shader->ApplyPointLight(light, uniform_var_name);
+        }
+    }
 
-	void StaticModel::ApplySpotLightToMesh(std::size_t mesh_index, const SpotLight* light, const char* uniform_var_name)
-	{
-		GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-		shader->ApplySpotLight(light, uniform_var_name);
-	}
+    void StaticModel::ApplySpotLightToMesh(std::size_t mesh_index, const SpotLight* light, const char* uniform_var_name)
+    {
+        GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+        shader->ApplySpotLight(light, uniform_var_name);
+    }
 
-	void StaticModel::ApplySpotLightToModel(const SpotLight* light, const char* uniform_var_name)
-	{
-		for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
-		{
-			GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-			shader->ApplySpotLight(light, uniform_var_name);
-		}
-	}
+    void StaticModel::ApplySpotLightToModel(const SpotLight* light, const char* uniform_var_name)
+    {
+        for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
+        {
+            GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+            shader->ApplySpotLight(light, uniform_var_name);
+        }
+    }
 
-	void StaticModel::ApplyLocalTransformMatrixToMesh(std::size_t mesh_index, const char* uniform_var_name, bool need_transpose /*= false*/)
-	{
-		const GLfloat* matrix_data_pointer = glm::value_ptr(meshes_[mesh_index]->GetLocalTransformMatrix());
-		GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-		shader->ApplyMatrix(matrix_data_pointer, uniform_var_name, need_transpose);
-	}
+    void StaticModel::ApplyLocalTransformMatrixToMesh(std::size_t mesh_index, const char* uniform_var_name, bool need_transpose /*= false*/)
+    {
+        const GLfloat* matrix_data_pointer = glm::value_ptr(meshes_[mesh_index]->GetLocalTransformMatrix());
+        GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+        shader->ApplyMatrix(matrix_data_pointer, uniform_var_name, need_transpose);
+    }
 
-	void StaticModel::ApplyLocalTransformMatrixToModel(const char* uniform_var_name, bool need_transpose)
-	{
-		for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
-		{
-			const GLfloat* matrix_data_pointer = glm::value_ptr(meshes_[mesh_index]->GetLocalTransformMatrix());
-			GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-			shader->ApplyMatrix(matrix_data_pointer, uniform_var_name, need_transpose);
-		}
-	}
+    void StaticModel::ApplyLocalTransformMatrixToModel(const char* uniform_var_name, bool need_transpose)
+    {
+        for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
+        {
+            const GLfloat* matrix_data_pointer = glm::value_ptr(meshes_[mesh_index]->GetLocalTransformMatrix());
+            GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+            shader->ApplyMatrix(matrix_data_pointer, uniform_var_name, need_transpose);
+        }
+    }
 
-	void StaticModel::UseShaderForMesh(std::size_t mesh_index)
-	{
-		GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-		shader->Use();
-	}
+    void StaticModel::UseShaderForMesh(std::size_t mesh_index)
+    {
+        GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+        shader->Use();
+    }
 
-	void StaticModel::UseShader()
-	{
-		for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
-		{
-			GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
-			shader->Use();
-		}
-	}
+    void StaticModel::UseShader()
+    {
+        for (size_t mesh_index = 0; mesh_index < meshes_.size(); ++mesh_index)
+        {
+            GPUProgramSPtr shader = meshes_[mesh_index]->GetShader();
+            shader->Use();
+        }
+    }
 
-	void StaticModel::DrawSubset(std::size_t mesh_index)
-	{
-		meshes_[mesh_index]->Draw();
-	}
+    void StaticModel::DrawSubset(std::size_t mesh_index)
+    {
+        meshes_[mesh_index]->Draw();
+    }
 }

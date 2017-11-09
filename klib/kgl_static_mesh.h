@@ -8,186 +8,180 @@
 
 namespace kgl
 {
-	// aiMatrix和glm matrix都是列优先存储的形式
-	// 但aiMtrix不仅是逻辑上是列优先存储，同时在存储形式上也是列优先存储
-	// 而glm matrix则是逻辑上是列优先存储，但存储形式上却是使用类似于行优先存储的形式
-	// 详细见mesh文件中的注解
-	void AiMatrix4x4ToGlmMat4(const aiMatrix4x4& ai_matrix, glm::mat4& glm_matrix);
-
     class StaticMesh : public boost::noncopyable
     {
     public:
         StaticMesh();
         virtual ~StaticMesh();
 
-		/// <summary>
-		/// Setups the specified vertex_type.
-		/// </summary>
-		/// <param name="vertex_type">The vertex_type.</param>
-		/// <param name="vertex_data">The vertex_data.</param>
-		/// <param name="vertex_byte_count">The vertex_byte_count.</param>
-		/// <param name="index_data">The index_data.</param>
-		/// <param name="index_byte_count">The index_byte_count.</param>
-		/// <param name="texture_array">The texture_array.</param>
-		/// <param name="local_transform_matrix">本mesh的模型变换矩阵</param>
-		void Setup(VertexType vertex_type, const unsigned char* vertex_data, uint32_t vertex_byte_count, const uint32_t* index_data, uint32_t index_byte_count, const std::vector<TextureSPtr>& texture_array, const glm::mat4& local_transform_matrix);
+        /// <summary>
+        /// Setups the specified vertex_type.
+        /// </summary>
+        /// <param name="vertex_type">The vertex_type.</param>
+        /// <param name="vertex_data">The vertex_data.</param>
+        /// <param name="vertex_byte_count">The vertex_byte_count.</param>
+        /// <param name="index_data">The index_data.</param>
+        /// <param name="index_byte_count">The index_byte_count.</param>
+        /// <param name="texture_array">The texture_array.</param>
+        /// <param name="local_transform_matrix">本mesh的模型变换矩阵</param>
+        void Setup(VertexType vertex_type, const unsigned char* vertex_data, uint32_t vertex_byte_count, const uint32_t* index_data, uint32_t index_byte_count, const std::vector<TextureSPtr>& texture_array, const glm::mat4& local_transform_matrix);
         
-		/// <summary>
-		/// Draws this instance.
-		/// </summary>
-		void Draw();
+        /// <summary>
+        /// Draws this instance.
+        /// </summary>
+        void Draw();
 
-		/// <summary>
-		/// Sets the shader.
-		/// </summary>
-		/// <param name="shader">The shader.</param>
-		inline void SetShader(GPUProgramSPtr shader)
+        /// <summary>
+        /// Sets the shader.
+        /// </summary>
+        /// <param name="shader">The shader.</param>
+        inline void SetShader(GPUProgramSPtr shader)
         {
             shader_ = shader;
         }
 
-		/// <summary>
-		/// Gets the shader.
-		/// </summary>
-		/// <returns>GPUProgramSPtr.</returns>
-		inline GPUProgramSPtr GetShader()
+        /// <summary>
+        /// Gets the shader.
+        /// </summary>
+        /// <returns>GPUProgramSPtr.</returns>
+        inline GPUProgramSPtr GetShader()
         {
             return shader_;
         }
 
-		inline const glm::mat4& GetLocalTransformMatrix() const
-		{
-			return local_transform_matrix_;
-		}
+        inline const glm::mat4& GetLocalTransformMatrix() const
+        {
+            return local_transform_matrix_;
+        }
 
     protected:
-		/// <summary>
-		/// Clears this instance.
-		/// </summary>
-		void Clear();
+        /// <summary>
+        /// Clears this instance.
+        /// </summary>
+        void Clear();
 
-		/// <summary>
-		/// Setups the vertex attribute buffer.
-		/// </summary>
-		/// <param name="vertex_type">The vertex_type.</param>
-		void SetupVertexAttributeBuffer(VertexType vertex_type);
+        /// <summary>
+        /// Setups the vertex attribute buffer.
+        /// </summary>
+        /// <param name="vertex_type">The vertex_type.</param>
+        void SetupVertexAttributeBuffer(VertexType vertex_type);
 
-		/// <summary>
-		/// Setups the vertex attribute buffer p.
-		/// </summary>
-		void SetupVertexAttributeBufferP();
+        /// <summary>
+        /// Setups the vertex attribute buffer p.
+        /// </summary>
+        void SetupVertexAttributeBufferP();
 
-		/// <summary>
-		/// Setups the vertex attribute buffer PNTB t1.
-		/// </summary>
-		void SetupVertexAttributeBufferPNTBT1();
+        /// <summary>
+        /// Setups the vertex attribute buffer PNTB t1.
+        /// </summary>
+        void SetupVertexAttributeBufferPNTBT1();
 
-		/// <summary>
-		/// Setups the vertex attribute buffer PNTB t2.
-		/// </summary>
-		void SetupVertexAttributeBufferPNTBT2();
+        /// <summary>
+        /// Setups the vertex attribute buffer PNTB t2.
+        /// </summary>
+        void SetupVertexAttributeBufferPNTBT2();
 
-		/// <summary>
-		/// Setups the vertex attribute buffer PNTB t3.
-		/// </summary>
-		void SetupVertexAttributeBufferPNTBT3();
+        /// <summary>
+        /// Setups the vertex attribute buffer PNTB t3.
+        /// </summary>
+        void SetupVertexAttributeBufferPNTBT3();
 
-		/// <summary>
-		/// Setups the vertex attribute buffer PNTB t4.
-		/// </summary>
-		void SetupVertexAttributeBufferPNTBT4();
+        /// <summary>
+        /// Setups the vertex attribute buffer PNTB t4.
+        /// </summary>
+        void SetupVertexAttributeBufferPNTBT4();
 
-		/// <summary>
-		/// Setups the vertex attribute buffer pc.
-		/// </summary>
-		void SetupVertexAttributeBufferPC();
+        /// <summary>
+        /// Setups the vertex attribute buffer pc.
+        /// </summary>
+        void SetupVertexAttributeBufferPC();
 
-		/// <summary>
-		/// Setups the vertex attribute buffer pn.
-		/// </summary>
-		void SetupVertexAttributeBufferPN();
+        /// <summary>
+        /// Setups the vertex attribute buffer pn.
+        /// </summary>
+        void SetupVertexAttributeBufferPN();
 
-		/// <summary>
-		/// Setups the vertex attribute buffer PNTB.
-		/// </summary>
-		void SetupVertexAttributeBufferPNTB();
+        /// <summary>
+        /// Setups the vertex attribute buffer PNTB.
+        /// </summary>
+        void SetupVertexAttributeBufferPNTB();
 
-		/// <summary>
-		/// Setups the vertex attribute buffer pn t1.
-		/// </summary>
-		void SetupVertexAttributeBufferPNT1();
+        /// <summary>
+        /// Setups the vertex attribute buffer pn t1.
+        /// </summary>
+        void SetupVertexAttributeBufferPNT1();
 
-		/// <summary>
-		/// Setups the vertex attribute buffer pn t2.
-		/// </summary>
-		void SetupVertexAttributeBufferPNT2();
+        /// <summary>
+        /// Setups the vertex attribute buffer pn t2.
+        /// </summary>
+        void SetupVertexAttributeBufferPNT2();
 
-		/// <summary>
-		/// Setups the vertex attribute buffer pn t3.
-		/// </summary>
-		void SetupVertexAttributeBufferPNT3();
+        /// <summary>
+        /// Setups the vertex attribute buffer pn t3.
+        /// </summary>
+        void SetupVertexAttributeBufferPNT3();
 
-		/// <summary>
-		/// Setups the vertex attribute buffer pn t4.
-		/// </summary>
-		void SetupVertexAttributeBufferPNT4();
+        /// <summary>
+        /// Setups the vertex attribute buffer pn t4.
+        /// </summary>
+        void SetupVertexAttributeBufferPNT4();
 
 
     protected:
-		/// <summary>
-		///  顶点缓冲区首指针
-		/// </summary>
-		uint8_t*                    vertex_data_;
+        /// <summary>
+        ///  顶点缓冲区首指针
+        /// </summary>
+        uint8_t*                    vertex_data_;
 
-		/// <summary>
-		/// 顶点数据的字节数
-		/// </summary>
-		uint32_t                    vertex_byte_count_;
+        /// <summary>
+        /// 顶点数据的字节数
+        /// </summary>
+        uint32_t                    vertex_byte_count_;
 
-		/// <summary>
-		/// The index_data_
-		/// </summary>
-		uint32_t*                   index_data_;
+        /// <summary>
+        /// The index_data_
+        /// </summary>
+        uint32_t*                   index_data_;
 
-		/// <summary>
-		/// The index_byte_count_
-		/// </summary>
-		uint32_t                    index_byte_count_;
+        /// <summary>
+        /// The index_byte_count_
+        /// </summary>
+        uint32_t                    index_byte_count_;
 
-		/// <summary>
-		/// The texture_array_
-		/// </summary>
-		std::vector<TextureSPtr>    texture_array_;
+        /// <summary>
+        /// The texture_array_
+        /// </summary>
+        std::vector<TextureSPtr>    texture_array_;
 
-		/// <summary>
-		/// The vao_
-		/// </summary>
-		GLuint                      vao_;
+        /// <summary>
+        /// The vao_
+        /// </summary>
+        GLuint                      vao_;
 
-		/// <summary>
-		/// The vbo_
-		/// </summary>
-		GLuint                      vbo_;
+        /// <summary>
+        /// The vbo_
+        /// </summary>
+        GLuint                      vbo_;
 
-		/// <summary>
-		/// The ebo_
-		/// </summary>
-		GLuint                      ebo_;
+        /// <summary>
+        /// The ebo_
+        /// </summary>
+        GLuint                      ebo_;
 
-		/// <summary>
-		/// The vertex_type_
-		/// </summary>
-		VertexType                  vertex_type_;
+        /// <summary>
+        /// The vertex_type_
+        /// </summary>
+        VertexType                  vertex_type_;
 
-		/// <summary>
-		/// The shader_
-		/// </summary>
-		GPUProgramSPtr              shader_;
+        /// <summary>
+        /// The shader_
+        /// </summary>
+        GPUProgramSPtr              shader_;
 
-		/// <summary>
-		/// 模型自身的局部坐标
-		/// </summary>
-		glm::mat4					local_transform_matrix_;
+        /// <summary>
+        /// 模型自身的局部坐标
+        /// </summary>
+        glm::mat4                   local_transform_matrix_;
     };
 }
 #endif // kgl_static_mesh_h__

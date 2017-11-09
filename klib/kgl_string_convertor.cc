@@ -4,34 +4,18 @@
 
 namespace kgl
 {
-	/// <summary>
-	/// The s_char_buffer_{CC2D43FA-BBC4-448A-9D0B-7B57ADF2655C}
-	/// </summary>
-	char StringConvertor::s_char_buffer_[kTmpBufferLen];
-	/// <summary>
-	/// The s_char_buffer_{CC2D43FA-BBC4-448A-9D0B-7B57ADF2655C}
-	/// </summary>
-	std::string StringConvertor::s_ansi_char_set;
+    /// <summary>
+    /// The s_char_buffer_{CC2D43FA-BBC4-448A-9D0B-7B57ADF2655C}
+    /// </summary>
+    char StringConvertor::s_char_buffer_[kTmpBufferLen];
+    /// <summary>
+    /// The s_char_buffer_{CC2D43FA-BBC4-448A-9D0B-7B57ADF2655C}
+    /// </summary>
+    std::string StringConvertor::s_ansi_char_set;
 
     void StringConvertor::InitCodePageInfo()
     {
-        /*
-        for(int i=0; i<=65001; i++)
-        {
-            CPINFOEX cpinfo;
-
-            if (IsValidCodePage(i))
-            {
-                if (GetCPInfoEx(i, 0, &cpinfo))
-                {
-                    std::wstringstream wss;
-                    wss<<L"cpInfo.CodePage = "<<cpinfo.CodePage<<L" , cpInfo.CodePageName ="<<cpinfo.CodePageName<<std::endl;
-                    OutputDebugString(wss.str().c_str());
-                }
-            }
-        }
-        */
-
+#if defined(WIN32) || defined(_WIN32)
         switch(::GetACP()) // 获取当前的代码页
         {
         case 936:s_ansi_char_set = "gbk";break; //　简体中文
@@ -40,11 +24,14 @@ namespace kgl
         case 950:s_ansi_char_set = "big5";break; // 繁体中文
         default:s_ansi_char_set = "unknown";break;
         }
+#else
+        s_ansi_char_set = "gbk";
+#endif
     }
 
     int StringConvertor::CodeConvert( const char* from_charset, const char* to_charset, const char* in_buf, size_t in_len, char* out_buf, size_t* out_len )
     {
-        //const char *temp = in_buf;
+#if defined(WIN32) || defined(_WIN32)
         const char** pin = &in_buf;
         char** pout = &out_buf;
         memset(out_buf,0,*out_len); // 清空输出缓冲区的内容
@@ -53,16 +40,19 @@ namespace kgl
         
         if(cd == 0)  // 类型相同,转换失败
             return -1;
-        
-        if(iconv(cd,pin,&in_len,pout,out_len)==-1) 
+
+#if defined(WIN32) || defined(_WIN32)
+        if(iconv(cd,pin,&in_len,pout,out_len)==-1)
             return -1;
-        
+#endif
+
         iconv_close(cd);
+#endif
         return 0;
     }
 
 
-	int StringConvertor::UTF16LEtoUTF8(const wchar_t* utf16_str, char** utf8_str)
+    int StringConvertor::UTF16LEtoUTF8(const wchar_t* utf16_str, char** utf8_str)
     {
         // 首先计算出utf8的字符数,然后得出字节数
         size_t utf16_char_count = wcslen(utf16_str);

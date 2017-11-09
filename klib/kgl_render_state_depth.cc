@@ -4,36 +4,51 @@
 
 namespace kgl
 { 
-	RenderStateDepth::RenderStateDepth()
-	{
+    RenderStateDepth::RenderStateDepth()
+    {
 
-	}
+    }
 
-	RenderStateDepth::RenderStateDepth(GLboolean enable, GLenum test_func):
-	enable_(enable), depth_test_func_(test_func)
-	{
+    RenderStateDepth::RenderStateDepth(GLboolean enable, GLenum test_func):
+    enable_(enable), depth_test_func_(test_func)
+    {
 
-	}
+    }
 
-	void RenderStateDepth::Use()
-	{
-		if (GL_TRUE == enable_)
-		{
-			glEnable(GL_DEPTH_TEST);
-			glDepthFunc(depth_test_func_);
-		}
-		else
-		{
-			glDisable(GL_DEPTH_TEST);
-		}
-	}
+    void RenderStateDepth::Use()
+    {
+        if (GL_TRUE == enable_)
+        {
+            glEnable(GL_DEPTH_TEST);
+            glDepthFunc(depth_test_func_);
+        }
+        else
+        {
+            glDisable(GL_DEPTH_TEST);
+        }
+    }
 
-	void RenderStateDepth::TakeSnapshotState(RenderStateDepth& rs_depth)
-	{
-		GLboolean enabled_snapshot = glIsEnabled(GL_DEPTH_TEST); // 取得当前时刻是否启用的深度测试
-		GLenum test_func_snapshot;
-		glGetIntegerv(GL_DEPTH_FUNC, reinterpret_cast<GLint*>(&test_func_snapshot)); // 当前时刻取得深度测试函数值
-		rs_depth.SetEnable(enabled_snapshot);
-		rs_depth.SetDepthTestFunc(test_func_snapshot);
-	}
+    void RenderStateDepth::TakeSnapshotState(RenderStateDepth& rs_depth)
+    {
+        GLboolean enabled_snapshot = glIsEnabled(GL_DEPTH_TEST); // 取得当前时刻是否启用的深度测试
+        GLenum test_func_snapshot;
+        glGetIntegerv(GL_DEPTH_FUNC, reinterpret_cast<GLint*>(&test_func_snapshot)); // 当前时刻取得深度测试函数值
+        rs_depth.SetEnable(enabled_snapshot);
+        rs_depth.SetDepthTestFunc(test_func_snapshot);
+    }
+
+    const char* RenderStateDepth::GetTestFuncName(GLuint func)
+    {
+        switch (func)
+        {
+        case GL_LESS:return "GL_LESS";
+        case GL_EQUAL:return "GL_EQUAL";
+        case GL_LEQUAL:return "GL_LEQUAL";
+        case GL_GREATER:return "GL_GREATER";
+        case GL_NOTEQUAL:return "GL_NOTEQUAL";
+        case GL_GEQUAL:return "GL_GEQUAL";
+        case GL_ALWAYS:return "GL_ALWAYS";
+        default:return "Unknown Depth Test Function";
+        }
+    }
 }

@@ -12,69 +12,69 @@
 
 namespace kgl
 {
-	class SkyBox
-	{
-	public:
-		/************************************************************
-		// Method:    LoadSkyBox
-		// FullName:  kgl::SkyBox::LoadSkyBox
-		// Access:    public 
-		// Returns:   void
-		// Qualifier:
-		// Parameter: const std::string & positive_x_file
-		// Parameter: const std::string & negative_x_file
-		// Parameter: const std::string & positive_y_file
-		// Parameter: const std::string & negative_y_file
-		// Parameter: const std::string & positive_z_file
-		// Parameter: const std::string & negative_z_file
-		************************************************************/
-		void LoadSkyBox(const std::string& positive_x_file,const std::string& negative_x_file,
-			const std::string& positive_y_file,const std::string& negative_y_file,
-			const std::string& positive_z_file,const std::string& negative_z_file);
+    class SkyBox
+    {
+    public:
+        /************************************************************
+        // Method:    LoadSkyBox
+        // FullName:  kgl::SkyBox::LoadSkyBox
+        // Access:    public 
+        // Returns:   void
+        // Qualifier:
+        // Parameter: const std::string & positive_x_file
+        // Parameter: const std::string & negative_x_file
+        // Parameter: const std::string & positive_y_file
+        // Parameter: const std::string & negative_y_file
+        // Parameter: const std::string & positive_z_file
+        // Parameter: const std::string & negative_z_file
+        ************************************************************/
+        void LoadSkyBox(const std::string& positive_x_file,const std::string& negative_x_file,
+            const std::string& positive_y_file,const std::string& negative_y_file,
+            const std::string& positive_z_file,const std::string& negative_z_file);
 
-		/************************************************************
-		// Method:    Draw
-		// FullName:  kgl::SkyBox::Draw
-		// Access:    public 
-		// Returns:   void
-		// Qualifier:
-		// Parameter: CameraSPtr camera
-		************************************************************/
-		void Draw();
+        /************************************************************
+        // Method:    Draw
+        // FullName:  kgl::SkyBox::Draw
+        // Access:    public 
+        // Returns:   void
+        // Qualifier:
+        // Parameter: CameraSPtr camera
+        ************************************************************/
+        void Draw();
 
-		/************************************************************
-		// Method:    ReleaseSkyBox
-		// FullName:  kgl::SkyBox::ReleaseSkyBox
-		// Access:    public 
-		// Returns:   void
-		// Qualifier:
-		************************************************************/
-		void ReleaseSkyBox();
+        /************************************************************
+        // Method:    ReleaseSkyBox
+        // FullName:  kgl::SkyBox::ReleaseSkyBox
+        // Access:    public 
+        // Returns:   void
+        // Qualifier:
+        ************************************************************/
+        void ReleaseSkyBox();
 
-		/************************************************************
-		// Method:    ~SkyBox
-		// FullName:  kgl::SkyBox::~SkyBox
-		// Access:    public 
-		// Returns:   
-		// Qualifier:
-		************************************************************/
-		~SkyBox();
+        /************************************************************
+        // Method:    ~SkyBox
+        // FullName:  kgl::SkyBox::~SkyBox
+        // Access:    public 
+        // Returns:   
+        // Qualifier:
+        ************************************************************/
+        ~SkyBox();
 
-		/************************************************************
-		// Method:    SkyBox
-		// FullName:  kgl::SkyBox::SkyBox
-		// Access:    public 
-		// Returns:   
-		// Qualifier:
-		// Parameter: CameraSPtr camera
-		************************************************************/
-		SkyBox(CameraSPtr camera);
-	private:
-		CameraSPtr			camera_;
-		CubemapTextureSPtr	cubemap_texture_;
-		GPUProgramSPtr		gpu_program_;
-		StaticModel*				model_;
-	};
+        /************************************************************
+        // Method:    SkyBox
+        // FullName:  kgl::SkyBox::SkyBox
+        // Access:    public 
+        // Returns:   
+        // Qualifier:
+        // Parameter: CameraSPtr camera
+        ************************************************************/
+        SkyBox(CameraSPtr camera);
+    private:
+        CameraSPtr          camera_;
+        CubemapTextureSPtr  cubemap_texture_;
+        GPUProgramSPtr      gpu_program_;
+        StaticModel*                model_;
+    };
 }
 
 #endif // kgl_sky_box_h__

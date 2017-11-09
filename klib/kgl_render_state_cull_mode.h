@@ -14,64 +14,75 @@ namespace kgl
     class RenderStateCullMode
     {
     public:
-		/// <summary>
-		/// Initializes a new instance of the <see cref="RenderStateCullMode"/> class.
-		/// </summary>
-		RenderStateCullMode();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RenderStateCullMode"/> class.
+        /// </summary>
+        RenderStateCullMode();
 
-		RenderStateCullMode(GLboolean enable, GLint cull_mode);
+        RenderStateCullMode(GLboolean enable, GLint cull_mode);
 
-		/// <summary>
-		/// 设置本状态是否启用面拣选
-		/// </summary>
-		/// <param name="enable">GL_TRUE为启用，GL_FALSE为禁用.</param>
-		inline void SetEnable(GLboolean enable)
-		{
-			enable_ = enable;
-		}
-		
-		/// <summary>
-		/// 获取本状态是否启用面拣选
-		/// </summary>
-		/// <returns>GLboolean.</returns>
-		inline GLboolean GetEnable() const
-		{
-			return enable_;
-		}
+        /// <summary>
+        /// 设置本状态是否启用面拣选
+        /// </summary>
+        /// <param name="enable">GL_TRUE为启用，GL_FALSE为禁用.</param>
+        inline void SetEnable(GLboolean enable)
+        {
+            enable_ = enable;
+        }
+        
+        /// <summary>
+        /// 获取本状态是否启用面拣选
+        /// </summary>
+        /// <returns>GLboolean.</returns>
+        inline GLboolean GetEnable() const
+        {
+            return enable_;
+        }
 
-		/// <summary>
-		/// 保存一个当前的模式的快照，其实就是保存执行本方法时的函数拣选状态
-		/// </summary>
-		void TakeSnapshotMode();
+        /// <summary>
+        /// 使用
+        /// </summary>
+        void Use();
 
-		/// <summary>
-		/// 使用
-		/// </summary>
-		void Use();
+        /// <summary>
+        /// 指定把多边形的正面还是背面给剔除掉不渲染
+        /// </summary>
+        /// <param name="mode">GL_BACK或者GL_FRONT</param>
+        inline void SetCullMode(GLenum mode = GL_BACK)
+        {
+            cull_mode_ = mode;
+        }
 
-		/// <summary>
-		/// Sets the cull mode.
-		/// </summary>
-		/// <param name="mode">The function.</param>
-		inline void SetCullMode(GLenum mode)
-		{
-			cull_mode_ = mode;
-		}
-		
-		/// <summary>
-		/// Gets the cull mode.
-		/// </summary>
-		/// <returns>GLint.</returns>
-		inline GLint GetCullMode() const
-		{
-			return cull_mode_;
-		}
+        /// <summary>
+        /// 指定以顺时针顶点顺序为三角形的正面，还是相反，默认以逆时针定义
+        /// 为顶点的三角形的正面
+        /// </summary>
+        /// <param name="mode">The mode.</param>
+        inline void SetFrontFaceMode(GLenum mode = GL_CCW)
+        {
+            front_face_mode_ = mode;
+        }
+        
+        /// <summary>
+        /// Gets the cull mode.
+        /// </summary>
+        /// <returns>GLint.</returns>
+        inline GLint GetCullMode() const
+        {
+            return cull_mode_;
+        }
 
-		static void TakeSnapshotState(RenderStateCullMode& rs_cull_mode);
+        inline GLenum GetFrontFaceMode() const
+        {
+            return front_face_mode_;
+        }
 
-	private:
-		GLboolean enable_ = GL_TRUE;
-		GLint cull_mode_ = GL_FRONT;
+        static void TakeSnapshotState(RenderStateCullMode& rs_cull_mode);
+
+    private:
+        GLboolean enable_ = GL_TRUE;
+        GLint cull_mode_ = GL_BACK;
+        GLenum front_face_mode_ = GL_CCW;
     };
 }
 

@@ -132,6 +132,24 @@
     <ClInclude Include="kgl_static_model.h">
       <Filter>headers</Filter>
     </ClInclude>
+    <ClInclude Include="kgl_skinned_model.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_assimp_bridge.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_mesh.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_skinned_mesh.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_model.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_image_file_reader.h">
+      <Filter>headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kgl_lib_pch.cc">
@@ -234,6 +252,27 @@
       <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="kgl_static_model.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_skinned_model.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_assimp_bridge.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_mesh.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_skinned_mesh.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_model.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_message_box.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_image_file_reader.cc">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>

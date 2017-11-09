@@ -13,16 +13,16 @@ namespace kgl
 
     App::App() :window_handle_(nullptr)
     {
-		KFontRenderer::MakeInstance();
-		KTextureManager::MakeInstance();
+        KFontRenderer::MakeInstance();
+        KTextureManager::MakeInstance();
         s_instance_ = this;
         key_state_.reset();
     }
 
     App::~App()
     {
-		KFontRenderer::DeleteInstance();
-		KTextureManager::DeleteInstance();
+        KFontRenderer::DeleteInstance();
+        KTextureManager::DeleteInstance();
         main_camera_.reset();
         renderer_.reset();
 
@@ -35,51 +35,52 @@ namespace kgl
         std::vector<std::string> error_desc_array;
         std::vector<GLenum> error_code_array;
 
-        glfwInit();
-//      THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
+        int ret = glfwInit();
+		
+		if (!ret)
+		{
+			exit(EXIT_FAILURE);
+		}
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, context_version_major);
-//      THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
-
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, context_version_minor);
-//      THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
-        switch (profile)
-        {
-        case App::ANY:
-        {
-            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
-//          THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
-        }
-        break;
-        case App::CORE:
-        {
-            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-//          THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
-        }
-        break;
-        case App::COMPAT:
-        {
-            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
-//          THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
-        }
-        break;
-        }
+#if defined(__APPLE__) && defined(__MACH__)
+		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#elif defined(WIN32) || defined(_WIN32)
+		switch (profile)
+		{
+		case App::ANY:
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+			break;
+		case App::CORE:
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+			break;
+		case App::COMPAT:
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+			break;
+		}
+#endif
 
         glfwWindowHint(GLFW_RESIZABLE, wnd_resizable ? GL_TRUE : GL_FALSE);
-//      THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
         window_handle_ = glfwCreateWindow(wnd_width, wnd_height, wnd_title, nullptr, nullptr);
-//      THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
+
+		if (nullptr == window_handle_)
+		{
+            // THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
+            throw Error(L"无法创建GL窗口，程序必须退出", __FILE__, __LINE__);
+			//exit(EXIT_FAILURE);
+		}
 
         glfwMakeContextCurrent(window_handle_);
-//      THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
         // 设置各种回调函数
         glfwSetKeyCallback(window_handle_, App::KeyCallback);
         glfwSetCursorPosCallback(window_handle_, App::MouseCallback);
         glfwSetScrollCallback(window_handle_, App::ScrollCallback);
-		glfwSetWindowSizeCallback(window_handle_, App::SizeChangedCallback);
+        glfwSetWindowSizeCallback(window_handle_, App::SizeChangedCallback);
 
         // GLFW Options
         //glfwSetInputMode(window_handle_, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -105,42 +106,42 @@ namespace kgl
 
     void App::InitScene()
     {
-		this->InitMainCamera();
-		this->InitLight();
-		this->InitMaterial();
+        this->InitMainCamera();
+        this->InitLight();
+        this->InitMaterial();
 
-		// 因为model要使用到shader，所以务必要保证
-		// shader在Model前完成初始化
-		this->InitShader();
-		this->InitModel();		
-		this->InitFont();
+        // 因为model要使用到shader，所以务必要保证
+        // shader在Model前完成初始化
+        this->InitShader();
+        this->InitModel();      
+        this->InitFont();
     }
 
-	void App::InitMaterial()
-	{
-	}
+    void App::InitMaterial()
+    {
+    }
 
-	void App::InitModel()
-	{
-	}
+    void App::InitModel()
+    {
+    }
 
-	void App::InitShader()
-	{
-	}
+    void App::InitShader()
+    {
+    }
 
-	void App::InitLight()
-	{
-	}
+    void App::InitLight()
+    {
+    }
 
-	void App::InitMainCamera()
-	{
+    void App::InitMainCamera()
+    {
 
-	}
+    }
 
-	void App::InitFont()
-	{
-		
-	}
+    void App::InitFont()
+    {
+        
+    }
 
     void App::Run()
     {
@@ -166,7 +167,9 @@ namespace kgl
 
     void App::PreRenderFrame()
     {
-        renderer_->Clear();
+        glClearColor(0.35f, 0.53f, 0.7f, 1.0f);
+        glClearDepth(1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
     void App::RenderFrame()
@@ -197,10 +200,10 @@ namespace kgl
         s_instance_->OnScrollAction(window,  xoffset,  yoffset);
     }
 
-	void App::SizeChangedCallback(GLFWwindow* window, int width, int height)
-	{
-		s_instance_->OnSizeChangedAction(window, width, height);
-	}
+    void App::SizeChangedCallback(GLFWwindow* window, int width, int height)
+    {
+        s_instance_->OnSizeChangedAction(window, width, height);
+    }
 
     void App::OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode)
     {
@@ -226,10 +229,10 @@ namespace kgl
 
     }
 
-	void App::OnSizeChangedAction(GLFWwindow* window, int width, int height)
-	{
+    void App::OnSizeChangedAction(GLFWwindow* window, int width, int height)
+    {
 
-	}
+    }
 
     void App::ProcessInput()
     {

@@ -5,6 +5,10 @@
 #include "kgl_string_convertor.h"
 #include "kgl_source_texture.h"
 
+#if defined(__APPLE__) && defined(__MACH__)
+#include "SOIL.h"
+#endif
+
 namespace kgl
 {
     TextureManager::~TextureManager()
@@ -48,7 +52,7 @@ namespace kgl
         case SOURCE_2D_TEXTURE:
             {
                 SourceTextureSPtr p = std::make_shared<SourceTexture>();
-                p->CreateFromFile(name, params);
+                p->CreateFromFileObsolete(name, params);
                 std::string lower_name(name);
                 boost::to_lower(lower_name);
                 texture_map_[lower_name] = p;
@@ -74,5 +78,47 @@ namespace kgl
         }
 
         texture_map_.clear();
+    }
+
+    TextureParams TextureManager::MakeTextureParamsRGB(GLint wrap_mode, GLint filter_mode, GLint src_img_px_component_type, bool use_mipmap)
+    {
+        TextureParams texture_param;
+        texture_param.wrap_s_mode = wrap_mode;
+        texture_param.wrap_t_mode = wrap_mode;
+        texture_param.mag_filter_mode = filter_mode;
+        texture_param.min_filter_mode = filter_mode;
+        texture_param.internal_format = GL_RGB;
+        texture_param.src_img_px_component_type = src_img_px_component_type;
+        texture_param.src_img_format = GL_RGB;
+        texture_param.used_mipmap = use_mipmap;
+        return texture_param;
+    }
+
+    TextureParams TextureManager::MakeTextureParamsRGBA(GLint wrap_mode, GLint filter_mode, GLint src_img_px_component_type, bool use_mipmap)
+    {
+        TextureParams texture_param;
+        texture_param.wrap_s_mode = wrap_mode;
+        texture_param.wrap_t_mode = wrap_mode;
+        texture_param.mag_filter_mode = filter_mode;
+        texture_param.min_filter_mode = filter_mode;
+        texture_param.internal_format = GL_RGBA;
+        texture_param.src_img_px_component_type = src_img_px_component_type;
+        texture_param.src_img_format = GL_RGBA;
+        texture_param.used_mipmap = use_mipmap;
+        return texture_param;
+    }
+
+    TextureParams TextureManager::MakeTextureParams(GLint wrap_s_mode, GLint wrap_t_mode, GLint mag_filter_mode, GLint min_filter_mode, GLint internal_format, GLint src_img_px_component_type, GLint src_img_format, GLint load_chanel, bool use_mipmap)
+    {
+        TextureParams texture_param;
+        texture_param.wrap_s_mode = wrap_s_mode;
+        texture_param.wrap_t_mode = wrap_t_mode;
+        texture_param.mag_filter_mode = mag_filter_mode;
+        texture_param.min_filter_mode = min_filter_mode;
+        texture_param.internal_format = internal_format;
+        texture_param.src_img_px_component_type = src_img_px_component_type;
+        texture_param.src_img_format = src_img_format;
+        texture_param.used_mipmap = use_mipmap;
+        return texture_param;
     }
 }

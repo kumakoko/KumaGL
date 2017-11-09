@@ -33,7 +33,7 @@ namespace kgl
         std::vector<std::string> error_desc_array;
         std::vector<GLenum> error_code_array;
         glClearColor(0.35f, 0.53f, 0.7f, 1.0f);
-        // glClearColor(0.f, 0.f, 0.f, 1.0f);
+        glClearDepth(1.0f);
         // THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);

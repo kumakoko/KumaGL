@@ -21,8 +21,18 @@ TriangleApp::~TriangleApp()
 void TriangleApp::InitModel()
 {
 	gpu_program_ = new kgl::GPUProgram;
-	gpu_program_->CreateFromFile("resources/shader/002_triangle_vs.glsl", "resources/shader/002_triangle_fs.glsl", nullptr);
-	
+    const GLchar* vs_file_path = nullptr;
+    const GLchar* fs_file_path = nullptr;
+#if defined(WIN32) || defined(_WIN32)
+    vs_file_path = "resources/shader/002_triangle_vs.glsl";
+    fs_file_path = "resources/shader/002_triangle_fs.glsl";
+#elif defined(__APPLE__) && defined(__MACH__)
+    vs_file_path = "/Users/xiongxinke/Desktop/SvnChina/kgl/publish/resources/shader/002_triangle_vs.glsl";
+    fs_file_path = "/Users/xiongxinke/Desktop/SvnChina/kgl/publish/resources/shader/002_triangle_fs.glsl";
+#endif
+    gpu_program_->CreateFromFile(vs_file_path, fs_file_path, nullptr);
+
+
 	GLfloat vertices[] = 
 	{
 		// 位置             // 颜色
@@ -59,7 +69,7 @@ void TriangleApp::InitModel()
 	vtx_attri_array.push_back(va_color);
 
 	rectangle_primitive_ = new kgl::Primitive;
-	rectangle_primitive_->Create(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
+	rectangle_primitive_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
 
 
 	GLfloat triangle_vertices[] =
@@ -95,7 +105,7 @@ void TriangleApp::InitModel()
 	vtx_attri_array.push_back(va_color);
 
 	triangle_primitive_1_ = new kgl::Primitive;
-	triangle_primitive_1_->Create(GL_TRIANGLES, triangle_vertices, sizeof(triangle_vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, triangle_indices, sizeof(triangle_indices), GL_STATIC_DRAW, vtx_attri_array);
+	triangle_primitive_1_->CreateIndexed(GL_TRIANGLES, triangle_vertices, sizeof(triangle_vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, triangle_indices, sizeof(triangle_indices), GL_STATIC_DRAW, vtx_attri_array);
 
 	//=====================================================================================
 
@@ -127,7 +137,7 @@ void TriangleApp::InitModel()
 	vtx_attri_array.push_back(va_color);
 
 	triangle_primitive_2_ = new kgl::Primitive;
-	triangle_primitive_2_->Create(GL_TRIANGLES, triangle_2_vertices, sizeof(triangle_2_vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, triangle_indices, sizeof(triangle_indices), GL_STATIC_DRAW, vtx_attri_array);
+	triangle_primitive_2_->CreateIndexed(GL_TRIANGLES, triangle_2_vertices, sizeof(triangle_2_vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, triangle_indices, sizeof(triangle_indices), GL_STATIC_DRAW, vtx_attri_array);
 
 	//= == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
@@ -158,7 +168,7 @@ void TriangleApp::InitModel()
 	vtx_attri_array.push_back(va_color);
 
 	triangle_primitive_3_ = new kgl::Primitive;
-	triangle_primitive_3_->Create(GL_TRIANGLES, triangle_3_vertices, sizeof(triangle_3_vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, triangle_indices, sizeof(triangle_indices), GL_STATIC_DRAW, vtx_attri_array);
+	triangle_primitive_3_->CreateIndexed(GL_TRIANGLES, triangle_3_vertices, sizeof(triangle_3_vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, triangle_indices, sizeof(triangle_indices), GL_STATIC_DRAW, vtx_attri_array);
 
 	//= == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == == ==
 
@@ -189,7 +199,7 @@ void TriangleApp::InitModel()
 	vtx_attri_array.push_back(va_color);
 
 	triangle_primitive_4_ = new kgl::Primitive;
-	triangle_primitive_4_->Create(GL_TRIANGLES, triangle_4_vertices, sizeof(triangle_4_vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, triangle_indices, sizeof(triangle_indices), GL_STATIC_DRAW, vtx_attri_array);
+	triangle_primitive_4_->CreateIndexed(GL_TRIANGLES, triangle_4_vertices, sizeof(triangle_4_vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, triangle_indices, sizeof(triangle_indices), GL_STATIC_DRAW, vtx_attri_array);
 
 }
 

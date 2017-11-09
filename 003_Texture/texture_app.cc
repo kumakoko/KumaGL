@@ -4,6 +4,10 @@
 #include "texture_app.h"
 #include "../klib/kgl_defines.h"
 
+#if defined(__APPLE__) && defined(__MACH__)
+#include "../third_lib/soil/src/SOIL.h"
+#endif
+
 TextureApp::TextureApp() :gpu_program_(nullptr), rectangle_primitive_(nullptr)
 {
 }
@@ -18,8 +22,24 @@ TextureApp::~TextureApp()
 
 void TextureApp::InitModel()
 {
+    const GLchar* vs_file_path = nullptr;
+    const GLchar* fs_file_path = nullptr;
+    std::string texture_1_name;
+    std::string texture_2_name;
+#if defined(WIN32) || defined(_WIN32)
+    vs_file_path = "resources/shader/003_texture_vs.glsl";
+    fs_file_path = "resources/shader/003_texture_fs.glsl";
+    texture_1_name = "resources/image/coordinate.bmp";
+    texture_2_name = "resources/image/braynzar.jpg";
+#elif defined(__APPLE__) && defined(__MACH__)
+    vs_file_path = "/Users/xiongxinke/Desktop/SvnChina/kgl/publish/resources/shader/003_texture_vs.glsl";
+    fs_file_path = "/Users/xiongxinke/Desktop/SvnChina/kgl/publish/resources/shader/003_texture_fs.glsl";
+    texture_1_name = "/Users/xiongxinke/Desktop/SvnChina/kgl/publish/resources/image/coordinate.bmp";
+    texture_2_name = "/Users/xiongxinke/Desktop/SvnChina/kgl/publish/resources/image/braynzar.jpg";
+#endif
+    
 	gpu_program_ = new kgl::GPUProgram;
-	gpu_program_->CreateFromFile("resources/shader/003_texture_vs.glsl", "resources/shader/003_texture_fs.glsl", nullptr);
+	gpu_program_->CreateFromFile(vs_file_path, fs_file_path, nullptr);
 
 	kgl::TextureParams texture_param;
 	texture_param.wrap_s_mode = GL_REPEAT;
@@ -29,14 +49,13 @@ void TextureApp::InitModel()
 	texture_param.internal_format = GL_RGB;
 	texture_param.src_img_px_component_type = GL_UNSIGNED_BYTE;
 	texture_param.src_img_format = GL_RGB;
-	texture_param.load_channel = SOIL_LOAD_RGB;
 	texture_param.used_mipmap = false;
 
 	texture_1_ = std::make_shared<kgl::SourceTexture>();
-	texture_1_->CreateFromFile("resources/image/coordinate.bmp", texture_param);
+	texture_1_->CreateFromFile(texture_1_name, texture_param);
 
 	texture_2_ = std::make_shared<kgl::SourceTexture>();
-	texture_2_->CreateFromFile("resources/image/braynzar.jpg", texture_param);
+	texture_2_->CreateFromFile(texture_2_name, texture_param);
 
 	GLfloat vertices[] =
 	{
@@ -83,7 +102,7 @@ void TextureApp::InitModel()
 	vtx_attri_array.push_back(va_texture_coord);
 
 	rectangle_primitive_ = new kgl::Primitive;
-	rectangle_primitive_->Create(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
+	rectangle_primitive_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
 }
 
 void TextureApp::RenderFrame()

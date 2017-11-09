@@ -5,14 +5,22 @@
 #include "texture_app.h"
 
 
-void main()
+int main()
 {
 	TextureApp* app = nullptr;
 
 	try
 	{
-		app = new TextureApp();
-		app->InitWindow(800, 600, false, "003_Texture");
+        kgl::App::GLProfile profile = kgl::App::CORE;
+#if defined(WIN32) || defined(_WIN32)
+        int context_version_major = 3;
+        int context_version_minor = 3;
+#elif defined(__APPLE__) && defined(__MACH__)
+        int context_version_major = 3;
+        int context_version_minor = 3;
+#endif
+        app = new TextureApp();
+        app->InitWindow(800, 600, false, "003_Texture",context_version_major, context_version_minor, profile );
 		app->InitRenderer();
 		app->InitScene();
 		app->Run();
@@ -31,4 +39,5 @@ void main()
 	}
 
 	delete app;
+    return 0;
 }

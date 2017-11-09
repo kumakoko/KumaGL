@@ -12,7 +12,7 @@ void main()
 	try
 	{
 		app = new TransformApp();
-		app->InitWindow(800, 600, false, "004_Transform");
+		app->InitWindow(1024, 768, false, "004_Transform");
 		app->InitRenderer();
 		app->InitScene();
 		app->Run();

@@ -133,7 +133,7 @@ void PixelMagicApp::InitScene()
     vtx_attri_array.push_back(va_texture_coord_4);
 
     rectangle_primitive_ = new kgl::Primitive;
-    rectangle_primitive_->Create(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
+	rectangle_primitive_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
 }
 
 void PixelMagicApp::RenderFrame()
@@ -153,21 +153,21 @@ void PixelMagicApp::RenderFrame()
 void PixelMagicApp::RenderBeatHeart()
 {
     heart_beat_shader_->Use();
-    heart_beat_shader_->ApplyFloat(glfwGetTime(), "global_time");
+    heart_beat_shader_->ApplyFloat(static_cast<float>(glfwGetTime()), "global_time");
     heart_beat_shader_->ApplyVector2(glm::value_ptr(screen_resolution_), "screen_resolution");
 }
 
 void PixelMagicApp::RenderColorfulRing()
 {
     colorful_ring_shader_->Use();
-    colorful_ring_shader_->ApplyFloat(glfwGetTime(), "global_time");
+	colorful_ring_shader_->ApplyFloat(static_cast<float>(glfwGetTime()), "global_time");
     colorful_ring_shader_->ApplyVector2(glm::value_ptr(screen_resolution_), "screen_resolution");
 }
 
 void PixelMagicApp::RenderMobius()
 {
     mobius_shader_->Use();
-    mobius_shader_->ApplyFloat(glfwGetTime(), "global_time");
+	mobius_shader_->ApplyFloat(static_cast<float>(glfwGetTime()), "global_time");
     mobius_shader_->ApplyVector2(glm::value_ptr(screen_resolution_), "screen_resolution");
     mobius_shader_->ApplyVector2(glm::value_ptr(mouse_input_pos_), "mouse_input_pos");
 }
@@ -175,7 +175,7 @@ void PixelMagicApp::RenderMobius()
 void PixelMagicApp::RenderSun()
 {
     sun_shader_->Use();
-    sun_shader_->ApplyFloat(glfwGetTime(), "global_time");
+	sun_shader_->ApplyFloat(static_cast<float>(glfwGetTime()), "global_time");
     sun_shader_->ApplyVector2(glm::value_ptr(screen_resolution_), "screen_resolution");
     sun_shader_->ApplyVector2(glm::value_ptr(mouse_input_pos_), "mouse_input_pos");
     sun_shader_->ApplyTexture(texture_rock_, "texture_channel_1", 0);

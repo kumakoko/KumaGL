@@ -10,5 +10,5 @@ uniform sampler2D source_texture_1;
 
 void main()
 {             
-    color = texture(source_texture_1, fragment_tex_coord);
+    color = texture(source_texture_1, vec2(fragment_tex_coord.x,1.0-fragment_tex_coord.y));
 }

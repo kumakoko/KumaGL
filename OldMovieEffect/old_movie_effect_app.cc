@@ -86,7 +86,7 @@ void OldMovieEffectApp::InitScene()
     vtx_attri_array.push_back(va_texture_coord_1);
 
     rectangle_primitive_ = new kgl::Primitive;
-    rectangle_primitive_->Create(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
+	rectangle_primitive_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
 }
 
 void OldMovieEffectApp::RenderFrame()

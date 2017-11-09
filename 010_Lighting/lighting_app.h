@@ -35,7 +35,7 @@ private:
 	kgl::DirectionalLight			directional_light_;
 	kgl::PointLight					point_light_;
 	kgl::SpotLight					spot_light_;
-	kgl::StaticModel*						model_ = nullptr;
+	kgl::StaticModel*				model_ = nullptr;
 	kgl::RenderStateDrawMode		draw_mode_;
 	kgl::RenderStateDepth			rs_depth_;
 	std::wstring				    toggle_help_on_text_;

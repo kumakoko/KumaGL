@@ -83,10 +83,10 @@ void CameraApp::InitScene()
 	vtx_attri_array.push_back(va_texture_coord);
 
 	rectangle_primitive_ = new kgl::Primitive;
-	rectangle_primitive_->Create(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
+	rectangle_primitive_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
 
 	//---------------------------
-	main_camera_->InitViewProjection(kgl::CameraType::FREE, glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 0.0f, 10.0f),60.0f, 0.1f, 50.0f);
+	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 0.0f, 40.0f));
 }
 
 void CameraApp::RenderFrame()

@@ -18,7 +18,7 @@ LightingApp::~LightingApp()
 void LightingApp::InitScene()
 {
 	App::InitScene();
-	rs_depth_.SetEnable(true);
+	rs_depth_.SetEnable(GL_TRUE);
 }
 
 void LightingApp::InitModel()
@@ -48,8 +48,7 @@ void LightingApp::InitShader()
 
 void LightingApp::InitMainCamera()
 {
-	main_camera_->InitViewProjection(kgl::CameraType::FREE, 
-		glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), 120.0f, 0.1f, 50.0f);
+	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 0.0f, 1.0f));
 	main_camera_->SetCameraSpeed(0.005f);
 }
 
@@ -173,7 +172,7 @@ void LightingApp::RenderFrame()
 	lighting_shader_->ApplySpotLight(&spot_light_, "spot_light");
 	lighting_shader_->ApplyMaterial(&materials_[cur_mat_index_], "material");
 	
-	rs_depth_.SetEnable(true);
+	rs_depth_.Use();
 
 	model_->Draw();
 

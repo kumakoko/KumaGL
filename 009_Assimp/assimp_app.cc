@@ -28,7 +28,7 @@ void AssimpApp::InitScene()
 
 void AssimpApp::InitMainCamera()
 {
-	main_camera_->InitViewProjection(kgl::CameraType::FREE, glm::vec3(0.0f, 0.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f), 120.0f, 0.1f, 50.0f);
+	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 0.0f, 5.0f));
 }
 
 void AssimpApp::InitModel()
@@ -65,13 +65,14 @@ void AssimpApp::RenderFrame()
 	main_camera_->Update();
 
 	glm::mat4 model_matrix;
-	
-	//model_matrix = glm::translate(model_matrix, glm::vec3(0.0f, -0.75f, 0.0f));
 	model_matrix = glm::rotate(model_matrix, 3.1415926f * 1.5f, glm::vec3(1.0f, 0.0f, 0.0f));
 	model_matrix = glm::rotate(model_matrix, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(0.0f, 0.0f, 1.0f));
 	
 	const glm::mat4& view_matrix = main_camera_->GetViewMatrix();
 	const glm::mat4& projection_matrix = main_camera_->GetProjectionMatrix();
+
+	rs_blend_.Use();
+	rs_depth_.Use();
 
 	model_shader_->Use();
 	model_shader_->ApplyMatrix(glm::value_ptr(model_matrix), "model_matrix");
@@ -80,7 +81,6 @@ void AssimpApp::RenderFrame()
 	model_shader_->ApplyTexture(kgl::KTextureManager::GetInstance()->GetTexture("resources/model/textures/tux_texture.png"), "texture_diffuse_1", 0);
 
 	model_->Draw();
-
 	this->RenderText();
 }
 

@@ -92,7 +92,7 @@ void DynamicTextureApp::InitScene()
 	vtx_attri_array.push_back(va_texture_coord);
 
 	rectangle_primitive_ = new kgl::Primitive;
-	rectangle_primitive_->Create(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
+	rectangle_primitive_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
 
 	srand(static_cast<unsigned int>(glfwGetTime()));
 }
@@ -101,7 +101,7 @@ void DynamicTextureApp::RenderFrame()
 {
 	gpu_program_->Use();
 
-	float current_time = glfwGetTime();
+	float current_time = static_cast<float>(glfwGetTime());
 
 	// 2秒更新一次顶点缓冲区数据
 	if (current_time - last_update_vb_time_ > 2.0f)

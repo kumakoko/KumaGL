@@ -61,7 +61,7 @@ void DynamicVertexBufferApp::InitScene()
 	vtx_attri_array.push_back(va_color);
 
 	rectangle_primitive_ = new kgl::Primitive;
-	rectangle_primitive_->Create(GL_TRIANGLES, vertices_data_, sizeof(GLfloat) * VERTEX_DATA_COUNT, GL_DYNAMIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_DYNAMIC_DRAW, vtx_attri_array);
+	rectangle_primitive_->CreateIndexed(GL_TRIANGLES, vertices_data_, sizeof(GLfloat)* VERTEX_DATA_COUNT, GL_DYNAMIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_DYNAMIC_DRAW, vtx_attri_array);
 }
 
 void DynamicVertexBufferApp::RenderFrame()

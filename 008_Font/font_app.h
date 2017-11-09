@@ -16,13 +16,17 @@ public:
 	virtual ~FontApp();
 	virtual void InitScene();
 protected:
-	virtual void RenderFrame();
+	virtual void RenderFrame() override;
+	virtual void PreRenderFrame() override;
 	void InitHelper();
 private:
 	kgl::GPUProgram*		helper_shader_;
 	kgl::Primitive*			helper_rectangle_;
 	kgl::RenderStateBlend	rs_blend_;
-	std::wstring			text_;
+	std::wstring			text_1_;
+	std::wstring			text_2_;
+	std::wstring            text_3_;
+	std::wstring			text_jpn_;
 };
 
 #endif // font_app_h__

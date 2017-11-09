@@ -28,7 +28,7 @@ protected:
 	void RenderText();
 private:
 	kgl::GPUProgramSPtr			model_shader_;
-	kgl::StaticModel*					model_;
+	kgl::StaticModel*			model_;
 	kgl::RenderStateDepth		rs_depth_;
 	kgl::RenderStateBlend		rs_blend_;
 };

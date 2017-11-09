@@ -15,20 +15,25 @@ FontApp::~FontApp()
 	
 }
 
+void FontApp::PreRenderFrame()
+{
+	glClearColor(0.f, 0.f, 0.f, 1.0f);
+	glClearDepth(1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
 void FontApp::InitScene()
 {
 	kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
 	font_renderer->Initialize();
-	font_renderer->CreateFontTexture("resources/font/fzss_gbk.ttf", "fzss24", 24, 512, 512);
-	font_renderer->SetCurrentFont("fzss24");
+	font_renderer->CreateFontTexture("resources/font/fzss_gbk.ttf", "fzss30", 30, 512, 512);
+	font_renderer->CreateFontTexture("resources/font/wqy_wmh.ttf", "wqy_wmh36", 36, 512, 512);
+	font_renderer->CreateFontTexture("resources/font/fzkt_sim.ttf", "fzkt40", 40, 512, 512);
 
-	// 打开文件，读入代码到流中，然后载入到内存，提交编译
-	std::ifstream file_stream;
-	file_stream.open("resources/config/font_app.txt");
-	std::stringstream vs_string_stream;
-	vs_string_stream << file_stream.rdbuf();
-	text_ = kgl::StringConvertor::UTF8toUTF16LE(vs_string_stream.str().c_str());
-	file_stream.close();
+	text_1_ = kgl::StringConvertor::ANSItoUTF16LE("KumaGL计算机图形学学习框架");
+	text_2_ = kgl::StringConvertor::ANSItoUTF16LE("文泉驿微米黑36号字体");
+	text_3_ = kgl::StringConvertor::ANSItoUTF16LE("方正楷体40号字体");
+	text_jpn_ = kgl::StringConvertor::ANSItoUTF16LE("ちょっと待って。チビ丸");
 }
 
 void FontApp::InitHelper()
@@ -72,25 +77,31 @@ void FontApp::InitHelper()
 	vtx_attri_array.push_back(va_texture_coord);
 
 	helper_rectangle_ = new kgl::Primitive;
-	helper_rectangle_->Create(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
+	helper_rectangle_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
 }
 
 void FontApp::RenderFrame()
 {
 	kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
 
-	boost::wformat wf(text_);
-	wf % glfwGetTime();
+//	boost::wformat wf(text_);
+//	wf % glfwGetTime();
+	font_renderer->SetCurrentFont("fzss30");
 
-	font_renderer->AddToRendered(wf.str(), 0, 0,
+	font_renderer->AddToRendered(text_1_, 10, 0,
 		glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), 
 		glm::vec4(0.0f, 1.0f, 0.0f, 1.0f),
 		glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
-		glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), 1.5f);
-	font_renderer->AddToRendered(L"This is more than just a game", 0, 100,
-		glm::vec4(1.0f, 0.0f, 1.0f, 1.0f),
-		glm::vec4(0.0f, 1.0f, 0.0f, 1.0f),
-		glm::vec4(1.0f, 0.0f, 1.0f, 1.0f),
-		glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), 1.5f);
+		glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), 1.f);
+
+	font_renderer->SetCurrentFont("wqy_wmh36");
+	font_renderer->AddToRendered(text_2_, 10, 50,glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1.f);
+
+	font_renderer->SetCurrentFont("fzkt40");
+	font_renderer->AddToRendered(text_3_, 100, 100, glm::vec4(1.0f, 1.0f, 0.0f, 1.0f), 1.f);
+
+	font_renderer->SetCurrentFont("fzss30");
+	font_renderer->AddToRendered(text_jpn_, 100, 150, glm::vec4(0.0f, 1.0f, 1.0f, 1.0f), 1.f);
+	
 	font_renderer->Draw();
 }

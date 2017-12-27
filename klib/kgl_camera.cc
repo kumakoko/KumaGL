@@ -185,13 +185,13 @@ namespace kgl
 
     void Camera::ChangeYaw(float degrees)
     {
-        if (degrees < -max_yaw_degree_)
+        if (degrees < -max_yaw_degree_per_frame_)
         {
-            degrees = -max_yaw_degree_;
+            degrees = -max_yaw_degree_per_frame_;
         }
-        else if (degrees > max_yaw_degree_)
+        else if (degrees > max_yaw_degree_per_frame_)
         {
-            degrees = max_yaw_degree_;
+            degrees = max_yaw_degree_per_frame_;
         }
 
         if (pitch_angle_ > 90.0f && pitch_angle_ < 270.0f || (pitch_angle_ < -90.0f && pitch_angle_ > -270.0f))

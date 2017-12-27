@@ -16,6 +16,12 @@
     <Filter Include="dp">
       <UniqueIdentifier>{a7e99915-0054-472a-8100-b45b11cf9b09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\terrain">
+      <UniqueIdentifier>{e1fa304c-0603-4cd7-b655-f516c9decf2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers\terrain">
+      <UniqueIdentifier>{86aeeaa6-24ac-4ef4-bdeb-33cc5216b658}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -126,28 +132,49 @@
     <ClInclude Include="kgl_debug_tool.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="kgl_static_mesh.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="kgl_static_model.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="kgl_skinned_model.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="kgl_assimp_bridge.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="kgl_mesh.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="kgl_skinned_mesh.h">
-      <Filter>headers</Filter>
-    </ClInclude>
-    <ClInclude Include="kgl_model.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="kgl_image_file_reader.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_color_generator.h">
+      <Filter>headers\terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_perlin_noise.h">
+      <Filter>headers\terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_smooth_normals_generator.h">
+      <Filter>headers\terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_terrain_generator.h">
+      <Filter>headers\terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_terrain.h">
+      <Filter>headers\terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_terrain_renderer.h">
+      <Filter>headers\terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_indices_generator.h">
+      <Filter>headers\terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_standard_index_generator.h">
+      <Filter>headers\terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_flat_terrain_generator.h">
+      <Filter>headers\terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_gbuffer.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_basic_skinned_mesh.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_basic_static_mesh.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_transform.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -159,9 +186,6 @@
       <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="kgl_camera.cc">
-      <Filter>sources</Filter>
-    </ClCompile>
-    <ClCompile Include="kgl_renderer.cc">
       <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="kgl_error.cc">
@@ -248,31 +272,49 @@
     <ClCompile Include="kgl_debug_tool.cc">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="kgl_static_mesh.cc">
-      <Filter>sources</Filter>
-    </ClCompile>
-    <ClCompile Include="kgl_static_model.cc">
-      <Filter>sources</Filter>
-    </ClCompile>
-    <ClCompile Include="kgl_skinned_model.cc">
-      <Filter>sources</Filter>
-    </ClCompile>
     <ClCompile Include="kgl_assimp_bridge.cc">
-      <Filter>sources</Filter>
-    </ClCompile>
-    <ClCompile Include="kgl_mesh.cc">
-      <Filter>sources</Filter>
-    </ClCompile>
-    <ClCompile Include="kgl_skinned_mesh.cc">
-      <Filter>sources</Filter>
-    </ClCompile>
-    <ClCompile Include="kgl_model.cc">
       <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="kgl_message_box.cc">
       <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="kgl_image_file_reader.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_color_generator.cc">
+      <Filter>sources\terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_perlin_noise.cc">
+      <Filter>sources\terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_smooth_normals_generator.cc">
+      <Filter>sources\terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_terrain_generator.cc">
+      <Filter>sources\terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_terrain.cc">
+      <Filter>sources\terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_terrain_renderer.cc">
+      <Filter>sources\terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_standard_index_generator.cc">
+      <Filter>sources\terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_flat_terrain_generator.cc">
+      <Filter>sources\terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_gbuffer.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_basic_skinned_mesh.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_basic_static_mesh.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_transform.cc">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>

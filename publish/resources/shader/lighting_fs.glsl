@@ -46,7 +46,7 @@ LightingMaterial light_mat
 	// 计算全局环境光
     vec3 ambient = point_light.Ambient * light_mat.Ambient;
 
-    // 计算漫反射光照 
+    // 计算漫反射部分的光照 
     float diff = max(dot(fragment_normal_in_world, light_dir), 0.0);
     vec3 diffuse = point_light.Diffuse * (diff * light_mat.Diffuse);
     
@@ -62,7 +62,6 @@ LightingMaterial light_mat
     float attenuation = point_light.AttenuationConstant +
           point_light.AttenuationLinear * dist + point_light.AttenuationExp * dist * dist;
 		  
-    // return result_color / attenuation;
 	return result_color;
 }
 

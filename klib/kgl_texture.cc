@@ -4,19 +4,15 @@
 
 namespace kgl
 {
-    Texture::Texture() :type_(NONE)
+    Texture::Texture()
     {
 
     }
 
     Texture::~Texture()
     {
-
-    }
-
-    void Texture::CreateFromFileObsolete(const std::string& file_name, const TextureParams& texture_params)
-    {
-
+		type_ = TextureType::NONE;
+		valid_ = false;
     }
 
 	void Texture::CreateFromFile(const std::string& file_name, const TextureParams& texture_params)

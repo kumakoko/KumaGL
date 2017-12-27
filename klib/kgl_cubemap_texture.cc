@@ -4,6 +4,7 @@
 #include "kgl_error.h"
 #include "kgl_string_convertor.h"
 #include "kgl_defines.h"
+#include "kgl_image_file_reader.h"
 
 #if defined(__APPLE__) && defined(__MACH__)
 #include "SOIL.h"
@@ -55,14 +56,14 @@ namespace kgl
         int image_height = 0;
         unsigned char* image = nullptr;
 
+		ImageFileReader img_reader;
+
         // 装载并生成6个纹理
         for (unsigned int i = 0; i < 6; i++)
         {
-            image_width = 0;
-            image_height = 0;
-            image = SOIL_load_image(file_name_[i].c_str(),&image_width, &image_height, 0, SOIL_LOAD_RGB);
-
-            if (nullptr == image)
+			bool load_result = img_reader.LoadFromFile(file_name_[i]);
+			
+			if (!load_result)
             {
                 std::wstringstream wss;
                 wss << L"Can not load image file from " << StringConvertor::ANSItoUTF16LE(file_name_[i].c_str());
@@ -70,16 +71,17 @@ namespace kgl
             }
 
             // 注意这个参数，依次创建立方体纹理的六个面对应的纹理
-            glTexImage2D(types[i], 0, GL_RGB, image_width, image_height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+			glTexImage2D(types[i], 0, GL_RGB, img_reader.ImageWidth(), 
+				img_reader.ImageHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, img_reader.ImageData());
             glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
             glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
             glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-            SOIL_free_image_data(image);
         }
 
         glBindTexture(GL_TEXTURE_CUBE_MAP, 0); // 创建完毕之后要解绑定
+		valid_ = true;
         return true;
     }
 

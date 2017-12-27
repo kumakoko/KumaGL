@@ -28,7 +28,6 @@ void SkyBoxApp::InitModel()
 	texture_param.internal_format = GL_RGB;
 	texture_param.src_img_px_component_type = GL_UNSIGNED_BYTE;
 	texture_param.src_img_format = GL_RGB;
-	texture_param.load_channel = SOIL_LOAD_RGB;
 	texture_param.used_mipmap = false;
 
 	floor_texture_ = std::dynamic_pointer_cast<kgl::SourceTexture>(kgl::KTextureManager::GetInstance()->CreateTextureFromFile(
@@ -51,9 +50,11 @@ void SkyBoxApp::InitShader()
 {
 	// 初始化shader
 	scene_obj_shader_ = new kgl::GPUProgram;
+	/*
 	scene_obj_shader_->CreateFromFile(
-		"resources/shader/012_framebuffer_textured_obj_no_lighting_vs.glsl", 
-		"resources/shader/012_framebuffer_textured_obj_no_lighting_fs.glsl", nullptr);
+		"resources/shader/framework/sky_box_vs.glsl", 
+		"resources/shader/framework/sky_box_fs.glsl", nullptr);
+	*/
 }
 
 void SkyBoxApp::InitScene()
@@ -64,6 +65,8 @@ void SkyBoxApp::InitScene()
 void SkyBoxApp::InitMainCamera()
 {
 	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 3.0f, 8.0f));
+	main_camera_->SetMaxYawDegreePerFrame(1.0f);
+	main_camera_->SetMaxPitchDegreePerFrame(1.0f);
 }
 
 void SkyBoxApp::RenderFrame()
@@ -72,7 +75,7 @@ void SkyBoxApp::RenderFrame()
 	
 	// 绘制地板
 	sky_box_->Draw();
-
+	/*
 	// 绘制地板
 	glm::mat4 model_matrix;
 	const glm::mat4& view_matrix = main_camera_->GetViewMatrix();
@@ -85,6 +88,7 @@ void SkyBoxApp::RenderFrame()
 	scene_obj_shader_->ApplyTexture(floor_texture_, "source_texture_1", 0);
 
 	floor_->Draw();
+	*/
 }
 
 void SkyBoxApp::ProcessInput()
@@ -121,27 +125,27 @@ void SkyBoxApp::ProcessInput()
 
 	if (key_state_[GLFW_KEY_R])
 	{
-		main_camera_->ChangeYaw(0.01f);
+		main_camera_->ChangeYaw(1.f);
 	}
 
 	if (key_state_[GLFW_KEY_UP])
 	{
-		main_camera_->ChangePitch(0.01f);
+		main_camera_->ChangePitch(1.f);
 	}
 
 	if (key_state_[GLFW_KEY_DOWN])
 	{
-		main_camera_->ChangePitch(-0.01f);
+		main_camera_->ChangePitch(-1.f);
 	}
 
 	if (key_state_[GLFW_KEY_LEFT])
 	{
-		main_camera_->ChangeYaw(0.01f);
+		main_camera_->ChangeYaw(5.f);
 	}
 
 	if (key_state_[GLFW_KEY_RIGHT])
 	{
-		main_camera_->ChangeYaw(-0.01f);
+		main_camera_->ChangeYaw(-5.f);
 	}
 }
 

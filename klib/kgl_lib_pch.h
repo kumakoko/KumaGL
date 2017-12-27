@@ -17,7 +17,8 @@
 #include <functional>
 #include <set>
 #include <array>
-#include <type_traits>
+#include <cstdlib>
+//#include <type_traits>
 
 // #include "AntTweakBar.h"
 
@@ -43,9 +44,6 @@ extern "C"
 #include "freetype.h"
 #include "iconv.h"
 #include "FreeImage.h"
-#if defined(WIN32) || defined(_WIN32)
-#include "SOIL.h"
-#endif
 }
 
 #include "assimp/Importer.hpp"
@@ -56,6 +54,12 @@ extern "C"
 #include "boost/noncopyable.hpp"
 #include "boost/format.hpp"
 #include "boost/algorithm/string.hpp"
+#include "boost/multi_array.hpp"
+#include "boost/numeric/ublas/matrix.hpp"
+#include "boost/filesystem.hpp"
+
+namespace ublas = boost::numeric::ublas;
+namespace bfs = boost::filesystem;
 
 #if defined(WIN32) || defined(_WIN32)
 #include <Windows.h>

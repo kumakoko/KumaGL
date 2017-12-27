@@ -27,7 +27,7 @@ protected:
 	void RenderEmboss();
 	void RenderSaturation();
 private:
-	glm::vec2 screen_resolution_;
+	glm::vec2				screen_resolution_;
     kgl::GPUProgram*        color_to_gray_shader_ = nullptr;
 
 	/// <summary>

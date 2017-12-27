@@ -12,7 +12,7 @@ void main()
 	try
 	{
 		app = new AssimpApp();
-		app->InitWindow(800, 600, false, "009_Assimp");
+		app->InitWindow(1024, 768, false, "009_Assimp");
 		app->InitRenderer();
 		app->InitScene();
 		app->Run();

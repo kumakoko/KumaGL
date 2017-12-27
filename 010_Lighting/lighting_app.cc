@@ -24,13 +24,15 @@ void LightingApp::InitScene()
 void LightingApp::InitModel()
 {
 	const char* model_path = "resources/model/bun_zipper_res2.3ds";
-	model_ = new kgl::StaticModel(kgl::VERTEX_TYPE_PN, model_path);
-	std::size_t sz = model_->GetMeshCount();
+	model_ = new kgl::BasicStaticMesh;// (kgl::VERTEX_TYPE_PN, model_path);
+	model_->LoadMesh(std::string(model_path));
+	//std::size_t sz = model_->GetMeshCount();
 
+	/*
 	for (std::size_t s = 0; s < sz; ++s)
 	{
 		model_->ApplyShaderToMesh(s, lighting_shader_);
-	}
+	}*/
 }
 
 void LightingApp::InitShader()
@@ -48,7 +50,7 @@ void LightingApp::InitShader()
 
 void LightingApp::InitMainCamera()
 {
-	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 0.0f, 1.0f));
+	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 0.1f, 0.305f));
 	main_camera_->SetCameraSpeed(0.005f);
 }
 
@@ -174,7 +176,7 @@ void LightingApp::RenderFrame()
 	
 	rs_depth_.Use();
 
-	model_->Draw();
+	model_->Render();
 
 	const std::wstring& help_toggle = is_help_on_ ? toggle_help_off_text_ : toggle_help_on_text_;
 	kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();

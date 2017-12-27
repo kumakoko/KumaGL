@@ -8,7 +8,7 @@
 #include "../klib/kgl_source_texture.h"
 #include "../klib/kgl_material.h"
 #include "../klib/kgl_light.h"
-#include "../klib/kgl_static_model.h"
+#include "../klib/kgl_basic_static_mesh.h"
 #include "../klib/kgl_font_renderer.h"
 #include "../klib/kgl_render_state_draw_mode.h"
 #include "../klib/kgl_render_state_depth.h"
@@ -35,7 +35,7 @@ private:
 	kgl::DirectionalLight			directional_light_;
 	kgl::PointLight					point_light_;
 	kgl::SpotLight					spot_light_;
-	kgl::StaticModel*				model_ = nullptr;
+	kgl::BasicStaticMesh*			model_ = nullptr;
 	kgl::RenderStateDrawMode		draw_mode_;
 	kgl::RenderStateDepth			rs_depth_;
 	std::wstring				    toggle_help_on_text_;

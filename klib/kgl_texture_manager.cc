@@ -32,8 +32,12 @@ namespace kgl
         boost::to_lower(lower_name);
         std::map<std::string, TextureSPtr>::iterator it = texture_map_.find(lower_name);
 
-        if ( it == texture_map_.end())
-            return std::make_shared<Texture>();
+		if (it == texture_map_.end())
+		{
+			TextureSPtr texture = std::make_shared<Texture>();
+			texture_map_.insert(std::make_pair(lower_name, texture));
+			return texture;
+		}
 
         return it->second;
     }
@@ -52,7 +56,7 @@ namespace kgl
         case SOURCE_2D_TEXTURE:
             {
                 SourceTextureSPtr p = std::make_shared<SourceTexture>();
-                p->CreateFromFileObsolete(name, params);
+                p->CreateFromFile(name, params);
                 std::string lower_name(name);
                 boost::to_lower(lower_name);
                 texture_map_[lower_name] = p;

@@ -51,9 +51,9 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/glm_0_9_8_4/include;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/soil/src;../third_lib/freetype2_3_5/include;../third_lib/AntTweakBar_116/include;../third_lib/boost_1_64_0;../third_lib/FreeImage3_16_0/inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/glm_0_9_8_4/include;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/FreeImage3_16_0/inc;../third_lib/freetype2_3_5/include;../third_lib/AntTweakBar_116/include;../third_lib/boost_1_64_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>kgl_lib_pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
@@ -69,9 +69,9 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/glm_0_9_8_4/include;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/soil/src;../third_lib/freetype2_3_5/include;../third_lib/AntTweakBar_116/include;../third_lib/boost_1_64_0;../third_lib/FreeImage3_16_0/inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/glm_0_9_8_4/include;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/FreeImage3_16_0/inc;../third_lib/freetype2_3_5/include;../third_lib/AntTweakBar_116/include;../third_lib/boost_1_64_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>kgl_lib_pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
@@ -88,9 +88,15 @@
   <ItemGroup>
     <ClInclude Include="dp\kgl_events.h" />
     <ClInclude Include="dp\kgl_singleton.h" />
+    <ClInclude Include="kgl_basic_skinned_mesh.h" />
+    <ClInclude Include="kgl_basic_static_mesh.h" />
+    <ClInclude Include="kgl_flat_terrain_generator.h" />
+    <ClInclude Include="kgl_gbuffer.h" />
+    <ClInclude Include="kgl_indices_generator.h" />
     <ClInclude Include="kgl_app.h" />
     <ClInclude Include="kgl_assimp_bridge.h" />
     <ClInclude Include="kgl_camera.h" />
+    <ClInclude Include="kgl_color_generator.h" />
     <ClInclude Include="kgl_cubemap_texture.h" />
     <ClInclude Include="kgl_debug_tool.h" />
     <ClInclude Include="kgl_defines.h" />
@@ -107,8 +113,7 @@
     <ClInclude Include="kgl_lib_pch.h" />
     <ClInclude Include="kgl_light.h" />
     <ClInclude Include="kgl_material.h" />
-    <ClInclude Include="kgl_mesh.h" />
-    <ClInclude Include="kgl_model.h" />
+    <ClInclude Include="kgl_perlin_noise.h" />
     <ClInclude Include="kgl_primitive_tool.h" />
     <ClInclude Include="kgl_rendered_texture.h" />
     <ClInclude Include="kgl_renderer.h" />
@@ -116,16 +121,18 @@
     <ClInclude Include="kgl_render_state_cull_mode.h" />
     <ClInclude Include="kgl_render_state_depth.h" />
     <ClInclude Include="kgl_render_state_draw_mode.h" />
-    <ClInclude Include="kgl_skinned_mesh.h" />
-    <ClInclude Include="kgl_skinned_model.h" />
     <ClInclude Include="kgl_sky_box.h" />
+    <ClInclude Include="kgl_smooth_normals_generator.h" />
     <ClInclude Include="kgl_source_texture.h" />
     <ClInclude Include="kgl_sprite.h" />
-    <ClInclude Include="kgl_static_mesh.h" />
-    <ClInclude Include="kgl_static_model.h" />
+    <ClInclude Include="kgl_standard_index_generator.h" />
     <ClInclude Include="kgl_string_convertor.h" />
+    <ClInclude Include="kgl_terrain.h" />
+    <ClInclude Include="kgl_terrain_generator.h" />
+    <ClInclude Include="kgl_terrain_renderer.h" />
     <ClInclude Include="kgl_texture.h" />
     <ClInclude Include="kgl_texture_manager.h" />
+    <ClInclude Include="kgl_transform.h" />
     <ClInclude Include="kgl_vertex_attribute.h" />
     <ClInclude Include="kgl_primitive.h" />
     <ClInclude Include="kgl_vertex_type.h" />
@@ -133,10 +140,14 @@
   <ItemGroup>
     <ClCompile Include="kgl_app.cc" />
     <ClCompile Include="kgl_assimp_bridge.cc" />
+    <ClCompile Include="kgl_basic_skinned_mesh.cc" />
+    <ClCompile Include="kgl_basic_static_mesh.cc" />
     <ClCompile Include="kgl_camera.cc" />
+    <ClCompile Include="kgl_color_generator.cc" />
     <ClCompile Include="kgl_cubemap_texture.cc" />
     <ClCompile Include="kgl_debug_tool.cc" />
     <ClCompile Include="kgl_error.cc" />
+    <ClCompile Include="kgl_flat_terrain_generator.cc" />
     <ClCompile Include="kgl_font_glyph_info.cc" />
     <ClCompile Include="kgl_font_primitive.cc" />
     <ClCompile Include="kgl_font_renderer.cc" />
@@ -144,6 +155,7 @@
     <ClCompile Include="kgl_font_uv_rect.cc" />
     <ClCompile Include="kgl_font_vertex.cc" />
     <ClCompile Include="kgl_frame_buffer.cc" />
+    <ClCompile Include="kgl_gbuffer.cc" />
     <ClCompile Include="kgl_gpu_program.cc" />
     <ClCompile Include="kgl_image_file_reader.cc" />
     <ClCompile Include="kgl_lib_pch.cc">
@@ -154,26 +166,26 @@
     </ClCompile>
     <ClCompile Include="kgl_light.cc" />
     <ClCompile Include="kgl_material.cc" />
-    <ClCompile Include="kgl_mesh.cc" />
     <ClCompile Include="kgl_message_box.cc" />
-    <ClCompile Include="kgl_model.cc" />
+    <ClCompile Include="kgl_perlin_noise.cc" />
     <ClCompile Include="kgl_primitive_tool.cc" />
     <ClCompile Include="kgl_rendered_texture.cc" />
-    <ClCompile Include="kgl_renderer.cc" />
     <ClCompile Include="kgl_render_state_blend.cc" />
     <ClCompile Include="kgl_render_state_cull_mode.cc" />
     <ClCompile Include="kgl_render_state_depth.cc" />
     <ClCompile Include="kgl_render_state_draw_mode.cc" />
-    <ClCompile Include="kgl_skinned_mesh.cc" />
-    <ClCompile Include="kgl_skinned_model.cc" />
     <ClCompile Include="kgl_sky_box.cc" />
+    <ClCompile Include="kgl_smooth_normals_generator.cc" />
     <ClCompile Include="kgl_source_texture.cc" />
     <ClCompile Include="kgl_sprite.cc" />
-    <ClCompile Include="kgl_static_mesh.cc" />
-    <ClCompile Include="kgl_static_model.cc" />
+    <ClCompile Include="kgl_standard_index_generator.cc" />
     <ClCompile Include="kgl_string_convertor.cc" />
+    <ClCompile Include="kgl_terrain.cc" />
+    <ClCompile Include="kgl_terrain_generator.cc" />
+    <ClCompile Include="kgl_terrain_renderer.cc" />
     <ClCompile Include="kgl_texture.cc" />
     <ClCompile Include="kgl_texture_manager.cc" />
+    <ClCompile Include="kgl_transform.cc" />
     <ClCompile Include="kgl_vertex_attribute.cc" />
     <ClCompile Include="kgl_primitive.cc" />
     <ClCompile Include="kgl_vertex_type.cc" />

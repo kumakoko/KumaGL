@@ -43,7 +43,7 @@ namespace kgl
         /// <param name="bottom">矩形的最下边的y坐标</param>
         /// <param name="texture_repeart">貼圖的重複次數</param>
         /// <returns>返回图元对象的智能指针</returns>
-        static PrimitiveSPtr BuildNDCTexturedRectange(float left = -1.0f, float right = 1.0f, float top = 1.0f, float bottom = -1.0f, int texture_repeart = 1);
+        static PrimitiveSPtr BuildNDCTexturedRectange(float left = -1.0f, float right = 1.0f, float top = 1.0f, float bottom = -1.0f, int texture_repeat = 1);
 
         /// <summary>
         /// Builds the square.

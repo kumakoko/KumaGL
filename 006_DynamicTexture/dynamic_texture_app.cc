@@ -40,7 +40,6 @@ void DynamicTextureApp::InitScene()
 	texture_param.internal_format = GL_RGB;
 	texture_param.src_img_px_component_type = GL_UNSIGNED_BYTE;
 	texture_param.src_img_format = GL_RGB;
-	texture_param.load_channel = SOIL_LOAD_RGB;
 	texture_param.used_mipmap = false;
 
 	texture_1_ = std::make_shared<kgl::SourceTexture>();

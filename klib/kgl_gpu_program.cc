@@ -136,7 +136,7 @@ namespace kgl
     {
         std::string shader_code_string;
         const GLchar* shader_code_cstr = nullptr;
-        GLuint vs_handle_, fs_handle;
+        GLuint vs_handle, fs_handle , gs_handle;
         GLint success;
         GLchar info_log[512];
 
@@ -162,17 +162,16 @@ namespace kgl
             shader_code_string = vs_string_stream.str();
             shader_code_cstr = shader_code_string.c_str();
 
-            vs_handle_ = glCreateShader(GL_VERTEX_SHADER);
-            glShaderSource(vs_handle_, 1, &shader_code_cstr, NULL);
-            glCompileShader(vs_handle_);
-            glGetShaderiv(vs_handle_, GL_COMPILE_STATUS, &success);
+            vs_handle = glCreateShader(GL_VERTEX_SHADER);
+            glShaderSource(vs_handle, 1, &shader_code_cstr, NULL);
+            glCompileShader(vs_handle);
+            glGetShaderiv(vs_handle, GL_COMPILE_STATUS, &success);
 
             if (!success)
             {
-                glGetShaderInfoLog(vs_handle_, 512, NULL, info_log);
+                glGetShaderInfoLog(vs_handle, 512, NULL, info_log);
                 throw Error(StringConvertor::ANSItoUTF16LE(info_log), __FILE__, __LINE__);
             }
-
         }
 
         if (nullptr != fs_file_path)
@@ -211,7 +210,36 @@ namespace kgl
 
         if (nullptr != gs_file_path)
         {
+			shader_code_string.clear();
 
+			std::ifstream gs_file_stream;
+			gs_file_stream.open(gs_file_path);
+
+			if (!gs_file_stream.is_open())
+			{
+				std::wstringstream wss;
+				wss << L"Can not open shader file named " << StringConvertor::ANSItoUTF16LE(gs_file_path);
+				throw Error(wss.str(), __FILE__, __LINE__);
+			}
+
+			std::stringstream gs_string_stream;
+			gs_string_stream << gs_file_stream.rdbuf();
+
+			gs_file_stream.close();
+
+			shader_code_string = gs_string_stream.str();
+			shader_code_cstr = shader_code_string.c_str();
+
+			gs_handle = glCreateShader(GL_GEOMETRY_SHADER);
+			glShaderSource(gs_handle, 1, &shader_code_cstr, NULL);
+			glCompileShader(gs_handle);
+			glGetShaderiv(gs_handle, GL_COMPILE_STATUS, &success);
+
+			if (!success)
+			{
+				glGetShaderInfoLog(gs_handle, 512, NULL, info_log);
+				throw Error(StringConvertor::ANSItoUTF16LE(info_log), __FILE__, __LINE__);
+			}
         }
 
         // 链接shader代码
@@ -220,13 +248,18 @@ namespace kgl
 
         if (nullptr != vs_file_path)
         {
-            glAttachShader(this->program_handle_, vs_handle_);
+            glAttachShader(this->program_handle_, vs_handle);
         }
 
         if (nullptr != fs_file_path)
         {
             glAttachShader(this->program_handle_, fs_handle);
         }
+
+		if (nullptr != gs_file_path)
+		{
+			glAttachShader(this->program_handle_, gs_handle);
+		}
 
         glLinkProgram(this->program_handle_);
         glGetProgramiv(this->program_handle_, GL_LINK_STATUS, &success);
@@ -239,7 +272,7 @@ namespace kgl
         
         if (nullptr != vs_file_path)
         {
-            glDeleteShader(vs_handle_);
+            glDeleteShader(vs_handle);
         }
 
         if (nullptr != fs_file_path)
@@ -249,7 +282,7 @@ namespace kgl
 
         if (nullptr != gs_file_path)
         {
-            
+			glDeleteShader(gs_handle);
         }
     }
 
@@ -269,6 +302,22 @@ namespace kgl
         texture->ActiveBind(slot_index);
         glUniform1i(glGetUniformLocation(program_handle_, uniform_var_name), slot_index);
     }
+
+	void GPUProgram::ApplyTexture(TextureSPtr texture, GLint location, GLuint slot_index)
+	{
+		texture->ActiveBind(slot_index);
+		glUniform1i(location, slot_index);
+	}
+
+	void GPUProgram::ApplyTexture(const char* uniform_var_name, GLuint slot_index)
+	{
+		glUniform1i(glGetUniformLocation(program_handle_, uniform_var_name), slot_index);
+	}
+
+	void GPUProgram::ApplyTexture(GLint location, GLuint slot_index)
+	{
+		glUniform1i(location, slot_index);
+	}
 
     void GPUProgram::ApplyMatrix(const GLfloat* matrix_data_pointer, const char* uniform_var_name,bool need_transpose)
     {
@@ -317,17 +366,32 @@ namespace kgl
         glUniformMatrix4fv(location, 1, need_transpose ? GL_TRUE : GL_FALSE, matrix_data_pointer);
     }
 
+	void GPUProgram::ApplyMatrix(const GLfloat* matrix_data_pointer, GLint location, bool need_transpose)
+	{
+		glUniformMatrix4fv(location, 1, need_transpose ? GL_TRUE : GL_FALSE, matrix_data_pointer);
+	}
+
     void GPUProgram::ApplyFloat(GLfloat float_data, const char* uniform_var_name)
     {
         GLint location = glGetUniformLocation(program_handle_, uniform_var_name);
         glUniform1f(location, float_data);
     }
 
-    void GPUProgram::ApplyInt(GLint int_data, const char* uniform_var_name)
+	void GPUProgram::ApplyFloat(GLfloat float_data, GLint location)
+	{
+		glUniform1f(location, float_data);
+	}
+
+	void GPUProgram::ApplyInt(GLint int_data, GLint location)
     {
-        GLint location = glGetUniformLocation(program_handle_, uniform_var_name);
         glUniform1i(location, int_data);
     }
+
+	void GPUProgram::ApplyInt(GLint int_data, const char* uniform_var_name)
+	{
+		GLint location = glGetUniformLocation(program_handle_, uniform_var_name);
+		glUniform1i(location, int_data);
+	}
 
     void GPUProgram::ApplyVector2(const GLfloat* vector2_data_pointer, const char* uniform_var_name)
     {
@@ -335,17 +399,32 @@ namespace kgl
         glUniform2fv(location, 1,vector2_data_pointer);
     }
 
-    void GPUProgram::ApplyVector3(const GLfloat* vector3_data_pointer, const char* uniform_var_name)
+	void GPUProgram::ApplyVector2(const GLfloat* vector2_data_pointer, GLint location)
+	{
+		glUniform2fv(location, 1, vector2_data_pointer);
+	}
+
+	void GPUProgram::ApplyVector3(const GLfloat* vector3_data_pointer, const char* uniform_var_name)
+	{
+		GLint location = glGetUniformLocation(program_handle_, uniform_var_name);
+		glUniform3fv(location, 1, vector3_data_pointer);
+	}
+
+	void GPUProgram::ApplyVector3(const GLfloat* vector3_data_pointer, GLint location)
     {
-        GLint location = glGetUniformLocation(program_handle_, uniform_var_name);
         glUniform3fv(location, 1, vector3_data_pointer);
     }
 
-    void GPUProgram::ApplyVector4(const GLfloat* vector4_data_pointer, const char* uniform_var_name)
+	void GPUProgram::ApplyVector4(const GLfloat* vector4_data_pointer, GLint location)
     {
-        GLint location = glGetUniformLocation(program_handle_, uniform_var_name);
         glUniform4fv(location, 1, vector4_data_pointer);
     }
+
+	void GPUProgram::ApplyVector4(const GLfloat* vector4_data_pointer, const char* uniform_var_name)
+	{
+		GLint location = glGetUniformLocation(program_handle_, uniform_var_name);
+		glUniform4fv(location, 1, vector4_data_pointer);
+	}
 
     void GPUProgram::ApplyMaterial(const Material* material, const char* uniform_var_name)
     {
@@ -356,15 +435,66 @@ namespace kgl
         glUniform1f(glGetUniformLocation(program_handle_, (material_var_name + ".Shininess").c_str()),material->Shininess);
     }
 
+	void GPUProgram::ApplyMaterial(const Material* material, const MaterialUniformLocation& location)
+	{
+		glUniform3f(location.Ambient, material->Ambient.r, material->Ambient.g, material->Ambient.b);
+		glUniform3f(location.Diffuse, material->Diffuse.r, material->Diffuse.g, material->Diffuse.b);
+		glUniform3f(location.Specular, material->Specular.r, material->Specular.g, material->Specular.b);
+		glUniform1f(location.Shininess, material->Shininess);
+	}
+
+	MaterialUniformLocation GPUProgram::GetMaterialUniformLocation(const char* uniform_var_name) const
+	{
+		MaterialUniformLocation location;
+		std::string material_var_name(uniform_var_name);
+		location.Ambient = GetUniformLocation((material_var_name + ".Ambient").c_str());
+		location.Diffuse = GetUniformLocation((material_var_name + ".Diffuse").c_str());
+		location.Specular = GetUniformLocation( (material_var_name + ".Specular").c_str());
+		location.Shininess = GetUniformLocation((material_var_name + ".Shininess").c_str());
+		return location;
+	}
+
     void GPUProgram::ApplyDirectionalLight(const DirectionalLight* light, const char* uniform_var_name)
     {
         std::string light_var_name(uniform_var_name);
         glUniform3f(glGetUniformLocation(program_handle_, (light_var_name + ".Ambient").c_str()), light->Ambient.r, light->Ambient.g, light->Ambient.b);
         glUniform3f(glGetUniformLocation(program_handle_, (light_var_name + ".Diffuse").c_str()), light->Diffuse.r, light->Diffuse.g, light->Diffuse.b);
         glUniform3f(glGetUniformLocation(program_handle_, (light_var_name + ".Specular").c_str()), light->Specular.r, light->Specular.g, light->Specular.b);
-        // glUniform3f(glGetUniformLocation(program_handle_, (light_var_name + ".Shininess").c_str()), light->Position.x, light->Position.y, light->Position.z);
         glUniform3f(glGetUniformLocation(program_handle_, (light_var_name + ".Direction").c_str()), light->Direction.x, light->Direction.y, light->Direction.z);
     }
+
+	void ApplyDirectionalLight(const DirectionalLight* light, const DirLightUniformLocation& location)
+	{
+		glUniform3f(location.Ambient, light->Ambient.r, light->Ambient.g, light->Ambient.b);
+		glUniform3f(location.Diffuse, light->Diffuse.r, light->Diffuse.g, light->Diffuse.b);
+		glUniform3f(location.Specular, light->Specular.r, light->Specular.g, light->Specular.b);
+		glUniform3f(location.Direction, light->Direction.x, light->Direction.y, light->Direction.z);
+	}
+
+	DirLightUniformLocation GPUProgram::GetDirLightUniformLocation(const char* uniform_var_name) const
+	{
+		std::string light_var_name(uniform_var_name);
+		DirLightUniformLocation location;
+		location.Ambient = GetUniformLocation((light_var_name + ".Ambient").c_str());
+		location.Diffuse = GetUniformLocation((light_var_name + ".Diffuse").c_str());
+		location.Specular = GetUniformLocation((light_var_name + ".Specular").c_str());
+		location.Direction = GetUniformLocation((light_var_name + ".Direction").c_str());
+		return location;
+	}
+
+	PointLightUniformLocation GPUProgram::GetPointLightUniformLocation(const char* uniform_var_name) const
+	{
+		std::string light_var_name(uniform_var_name);
+		PointLightUniformLocation location;
+		location.Ambient = GetUniformLocation((light_var_name + ".Ambient").c_str());
+		location.Diffuse = GetUniformLocation((light_var_name + ".Diffuse").c_str());
+		location.Specular = GetUniformLocation((light_var_name + ".Specular").c_str());
+		location.Position = GetUniformLocation((light_var_name + ".Position").c_str());
+		location.AttenuationConstant = GetUniformLocation((light_var_name + ".AttenuationConstant").c_str());
+		location.AttenuationLinear = GetUniformLocation((light_var_name + ".AttenuationLinear").c_str());
+		location.AttenuationExp = GetUniformLocation((light_var_name + ".AttenuationExp").c_str());
+		return location;
+	}
 
     void GPUProgram::ApplyPointLight(const PointLight* light, const char* uniform_var_name)
     {
@@ -378,6 +508,17 @@ namespace kgl
         glUniform1f(glGetUniformLocation(program_handle_, (light_var_name + ".AttenuationExp").c_str()), light->AttenuationExp);
     }
 
+	void GPUProgram::ApplyPointLight(const PointLight* light, const PointLightUniformLocation& location)
+	{
+		glUniform3f(location.Ambient, light->Ambient.r, light->Ambient.g, light->Ambient.b);
+		glUniform3f(location.Diffuse, light->Diffuse.r, light->Diffuse.g, light->Diffuse.b);
+		glUniform3f(location.Specular, light->Specular.r, light->Specular.g, light->Specular.b);
+		glUniform3f(location.Position, light->Position.x, light->Position.y, light->Position.z);
+		glUniform1f(location.AttenuationConstant, light->AttenuationConstant);
+		glUniform1f(location.AttenuationLinear, light->AttenuationLinear);
+		glUniform1f(location.AttenuationExp, light->AttenuationExp);
+	}
+
     void GPUProgram::ApplySpotLight(const SpotLight* light, const char* uniform_var_name)
     {
         std::string light_var_name(uniform_var_name);
@@ -389,4 +530,66 @@ namespace kgl
         glUniform4f(glGetUniformLocation(program_handle_, (light_var_name + ".CutOffAndAttenuation").c_str()), light->CutOffAndAttenuation.x, light->CutOffAndAttenuation.y, light->CutOffAndAttenuation.z, light->CutOffAndAttenuation.w);
         glUniform1f(glGetUniformLocation(program_handle_, (light_var_name + ".Exponent").c_str()), light->Exponent);
     }
+
+	void GPUProgram::ApplySpotLight(const SpotLight* light, const SpotLightUniformLocation& location)
+	{
+		glUniform3f(location.Ambient, light->Ambient.r, light->Ambient.g, light->Ambient.b);
+		glUniform3f(location.Diffuse, light->Diffuse.r, light->Diffuse.g, light->Diffuse.b);
+		glUniform3f(location.Specular, light->Specular.r, light->Specular.g, light->Specular.b);
+		glUniform3f(location.Position, light->Position.x, light->Position.y, light->Position.z);
+		glUniform3f(location.Direction, light->Direction.x, light->Direction.y, light->Direction.z);
+		glUniform4f(location.CutOffAndAttenuation, light->CutOffAndAttenuation.x, light->CutOffAndAttenuation.y, light->CutOffAndAttenuation.z, light->CutOffAndAttenuation.w);
+		glUniform1f(location.Exponent, light->Exponent);
+	}
+
+	SpotLightUniformLocation GPUProgram::GetSpotLightUniformLocation(const char* uniform_var_name) const
+	{
+		std::string light_var_name(uniform_var_name);
+		SpotLightUniformLocation location;
+		location.Ambient = GetUniformLocation((light_var_name + ".Ambient").c_str());
+		location.Diffuse = GetUniformLocation((light_var_name + ".Diffuse").c_str());
+		location.Specular = GetUniformLocation((light_var_name + ".Specular").c_str());
+		location.Position = GetUniformLocation((light_var_name + ".Position").c_str());
+		location.Direction = GetUniformLocation((light_var_name + ".Direction").c_str());
+		location.CutOffAndAttenuation = GetUniformLocation((light_var_name + ".CutOffAndAttenuation").c_str());
+		location.Exponent = GetUniformLocation((light_var_name + ".Exponent").c_str());
+		return location;
+	}
+
+	GLint GPUProgram::GetUniformLocation(const char* uniform_var_name) const
+	{
+		GLint location = glGetUniformLocation(program_handle_, uniform_var_name);
+
+		if (-1 == location)
+		{
+			GLenum error_code = glGetError();
+
+			if (GL_INVALID_VALUE == error_code)
+			{
+				std::wstringstream wss;
+				wss << L"Error! GetUniformLocaiton by name: \n"
+					<< StringConvertor::ANSItoUTF16LE(uniform_var_name) << std::endl
+					<< L" is failed!\n\n"
+					<< L"Error code: GL_INVALID_VALUE\n"
+					<< L"It means the SHADER PROGRAME OBJECT whose ID = "
+					<< program_handle_
+					<< L" is not a value generated by OpenGL!";
+				throw Error(wss.str(), __FILE__, __LINE__);
+			}
+			else if (GL_INVALID_OPERATION == location)
+			{
+				std::wstringstream wss;
+				wss << L"Error! GetUniformLocaiton by name: \n"
+					<< StringConvertor::ANSItoUTF16LE(uniform_var_name) << std::endl
+					<< L" is failed!\n\n"
+					<< L"Error code: GL_INVALID_OPERATION\n"
+					<< L"It means the SHADER PROGRAME OBJECT whose ID = "
+					<< program_handle_
+					<< L" is not a is not a program object OR has not been successfully linked!";
+				throw Error(wss.str(), __FILE__, __LINE__);
+			}
+		}
+		
+		return location;
+	}
 }

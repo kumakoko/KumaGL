@@ -4,68 +4,122 @@
 
 namespace kgl
 {
-	class GLBitmap
-	{
-	private:
-		int				width_ = 0;
-		int             height_ = 0;
-		GLuint			rgb_mode_ = GL_RGB;
-		unsigned char*	buffer_ = nullptr;
-
-	public:
-		GLBitmap()
-		{
-			width_ = 0;
-			height_ = 0;
-			rgb_mode_ = GL_RGB;
-			buffer_ = nullptr;
-		}
-
-		GLBitmap(int width, int height, GLuint rgb_mode)
-		{
-			width_ = width;
-			height_ = height;
-			rgb_mode_ = rgb_mode;
-
-			switch (rgb_mode)
-			{
-			default:
-			case GL_RGB:
-				buffer_ = new unsigned char[width_*height_ * 3];
-				break;
-			case GL_RGBA:
-				buffer_ = new unsigned char[width_*height_ * 4];
-				break;
-			}
-		}
-
-		inline bool IsInvalid() const
-		{
-			return nullptr == buffer_;
-		}
-
-		inline int width()const{ return width_; }
-		inline int height()const { return height_; }
-		
-		inline const unsigned char* Buffer() const
-		{
-			return buffer_;
-		}
-		inline GLuint RgbMode()const { return rgb_mode_; }
-
-		void WriteRGB(int first_pixel_component_index, unsigned char r, unsigned char g, unsigned char b);
-
-		void WriteRGBA(int first_pixel_component_index, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
-	};
-
-	typedef std::shared_ptr<GLBitmap> GLBitmapSPtr;
-
 	class ImageFileReader
 	{
 	public:
 		ImageFileReader();
 		~ImageFileReader();
-		GLBitmapSPtr GetGLBitmapFromFile(const std::string& file_name, GLuint desired_rgb_mode);
+		
+		/// <summary>
+		/// Loads from file.
+		/// </summary>
+		/// <param name="file_name">The file_name.</param>
+		/// <returns>bool.</returns>
+		bool LoadFromFile(const std::string& file_name);
+
+		/// <summary>
+		/// Gets the image data.
+		/// </summary>
+		/// <returns>const unsigned char *.</returns>
+		const unsigned char* GetImageData() const
+		{
+			return image_data_;
+		}
+		
+		/// <summary>
+		/// Images the format.
+		/// </summary>
+		/// <returns>FREE_IMAGE_FORMAT.</returns>
+		inline FREE_IMAGE_FORMAT ImageFormat() const
+		{
+			return image_format_;
+		}
+
+		/// <summary>
+		/// Images the data.
+		/// </summary>
+		/// <returns>unsigned char *.</returns>
+		inline unsigned char* ImageData() const
+		{
+			return image_data_;
+		}
+
+		/// <summary>
+		/// Images the width.
+		/// </summary>
+		/// <returns>int.</returns>
+		inline int ImageWidth() const
+		{
+			return image_width_;
+		}
+
+		/// <summary>
+		/// Images the height.
+		/// </summary>
+		/// <returns>int.</returns>
+		inline int ImageHeight() const
+		{
+			return image_height_;
+		}
+
+		/// <summary>
+		/// BPPs this instance.
+		/// </summary>
+		/// <returns>int.</returns>
+		inline int BPP() const
+		{
+			return bits_per_pixel_;
+		}
+
+		/// <summary>
+		/// Images the pitch.
+		/// </summary>
+		/// <returns>int.</returns>
+		inline int ImagePitch() const
+		{
+			return image_pitch_;
+		}
+
+		/// <summary>
+		/// Releases this instance.
+		/// </summary>
+		void ReleaseImageData();
+
+	protected:
+		/// <summary>
+		/// The image_format_
+		/// </summary>
+		FREE_IMAGE_FORMAT image_format_ = FIF_UNKNOWN;
+
+		/// <summary>
+		/// The image_data_
+		/// </summary>
+		unsigned char* image_data_ = nullptr;
+
+		/// <summary>
+		/// The image_width_
+		/// </summary>
+		int image_width_ = 0;
+
+		/// <summary>
+		/// The image_height_
+		/// </summary>
+		int image_height_ = 0;
+
+		/// <summary>
+		/// The bits_per_pixel_
+		/// </summary>
+		int bits_per_pixel_ = 0;
+
+		/// <summary>
+		/// The image_pitch_
+		/// </summary>
+		int image_pitch_ = 0;
+
+		/// <summary>
+		/// The fi_bitmap_
+		/// </summary>
+		FIBITMAP* fi_bitmap_ = nullptr;
 	};
 }
 

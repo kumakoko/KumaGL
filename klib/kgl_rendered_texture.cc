@@ -15,11 +15,6 @@ namespace kgl
     {
     }
     
-    void RenderedTexture::CreateFromFileObsolete(const std::string& file_name, const TextureParams& texture_params)
-    {
-        throw Error(L"Does not support create rendered texture from file", __FILE__, __LINE__);
-    }
-
     void RenderedTexture::Create(int32_t width, int32_t height, const TextureParams& texture_params)
     {
         // https://www.opengl.org/sdk/docs/man/html/glTexImage2D.xhtml
@@ -67,6 +62,7 @@ namespace kgl
         glBindTexture(GL_TEXTURE_2D, 0);
         width_ = width;
         height_ = height;
+		valid_ = true;
     }
 
     int RenderedTexture::GetWidth() const
@@ -79,7 +75,6 @@ namespace kgl
         return height_;
     }
 
-    
     bool RenderedTexture::IsMipmap() const
     {
         return false;

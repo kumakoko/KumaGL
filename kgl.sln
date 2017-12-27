@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "klib", "klib\klib.vcxproj", "{9ADDC3CF-ED52-456E-8869-FBD492653F0F}"
 EndProject
@@ -79,11 +79,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "014_GeometryShader", "014_G
 		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TankForce", "TankForce\TankForce.vcxproj", "{39DD6D20-C5CF-4688-8FF8-7A83CCD87630}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageEffect", "ImageEffect\ImageEffect.vcxproj", "{EBA47407-FF9B-4B7B-A081-9844791A53E9}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
@@ -113,6 +108,16 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ripple", "Ripple\Ripple.vcxproj", "{65D8859B-2F83-44F1-B686-BE0A31DA358F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SkinnedMesh", "SkinnedMesh\SkinnedMesh.vcxproj", "{5E94FE0A-9186-4F2F-BEAF-5ACB9D57BD1F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "030_LowPolyTerrain", "030_LowPolyTerrain\030_LowPolyTerrain.vcxproj", "{43C4DA6A-12C2-48C4-A09A-DF082DC17BFA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "020_DeferredRendering", "020_DeferredLight\020_DeferredRendering.vcxproj", "{877423C7-2344-4BE2-AEC3-4066559D5A21}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
 	EndProjectSection
@@ -191,10 +196,6 @@ Global
 		{C8937E43-548F-4244-A66E-95B3B6B72F14}.Debug|Win32.Build.0 = Debug|Win32
 		{C8937E43-548F-4244-A66E-95B3B6B72F14}.Release|Win32.ActiveCfg = Release|Win32
 		{C8937E43-548F-4244-A66E-95B3B6B72F14}.Release|Win32.Build.0 = Release|Win32
-		{39DD6D20-C5CF-4688-8FF8-7A83CCD87630}.Debug|Win32.ActiveCfg = Debug|Win32
-		{39DD6D20-C5CF-4688-8FF8-7A83CCD87630}.Debug|Win32.Build.0 = Debug|Win32
-		{39DD6D20-C5CF-4688-8FF8-7A83CCD87630}.Release|Win32.ActiveCfg = Release|Win32
-		{39DD6D20-C5CF-4688-8FF8-7A83CCD87630}.Release|Win32.Build.0 = Release|Win32
 		{EBA47407-FF9B-4B7B-A081-9844791A53E9}.Debug|Win32.ActiveCfg = Debug|Win32
 		{EBA47407-FF9B-4B7B-A081-9844791A53E9}.Debug|Win32.Build.0 = Debug|Win32
 		{EBA47407-FF9B-4B7B-A081-9844791A53E9}.Release|Win32.ActiveCfg = Release|Win32
@@ -231,6 +232,14 @@ Global
 		{5E94FE0A-9186-4F2F-BEAF-5ACB9D57BD1F}.Debug|Win32.Build.0 = Debug|Win32
 		{5E94FE0A-9186-4F2F-BEAF-5ACB9D57BD1F}.Release|Win32.ActiveCfg = Release|Win32
 		{5E94FE0A-9186-4F2F-BEAF-5ACB9D57BD1F}.Release|Win32.Build.0 = Release|Win32
+		{43C4DA6A-12C2-48C4-A09A-DF082DC17BFA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{43C4DA6A-12C2-48C4-A09A-DF082DC17BFA}.Debug|Win32.Build.0 = Debug|Win32
+		{43C4DA6A-12C2-48C4-A09A-DF082DC17BFA}.Release|Win32.ActiveCfg = Release|Win32
+		{43C4DA6A-12C2-48C4-A09A-DF082DC17BFA}.Release|Win32.Build.0 = Release|Win32
+		{877423C7-2344-4BE2-AEC3-4066559D5A21}.Debug|Win32.ActiveCfg = Debug|Win32
+		{877423C7-2344-4BE2-AEC3-4066559D5A21}.Debug|Win32.Build.0 = Debug|Win32
+		{877423C7-2344-4BE2-AEC3-4066559D5A21}.Release|Win32.ActiveCfg = Release|Win32
+		{877423C7-2344-4BE2-AEC3-4066559D5A21}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

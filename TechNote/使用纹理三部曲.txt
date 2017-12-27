@@ -1,0 +1,15 @@
+// 纹理单元有32个，其编号值从GL_TEXTURE0
+// 到GL_TEXTURE31但实际可用的没有那么多
+
+下面这句代码表示激活编号为GL_TEXTURE0的纹理单元
+glActiveTexture(GL_TEXTURE0);
+
+// 把某一个id值为textureId的纹理对象
+// 绑定到当前处于激活状态的纹理单元
+glBindTexture(GL_TEXTURE_2D, textureId);
+
+// 告诉shader代码中的某个location值为uTextureUnitLocation
+// 的uniform变量，从纹理单元GL_TEXTURE0中读取纹理数据
+// 从纹理单元GL_TEXTURE0读取，则第二个参数填0
+// 从GL_TEXTURE1读取，第二个参数填1，以此类推
+glUniform1i(uTextureUnitLocation, 0);

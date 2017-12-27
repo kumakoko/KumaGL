@@ -7,7 +7,7 @@
 #include "../klib/kgl_gpu_program.h"
 #include "../klib/kgl_primitive.h"
 #include "../klib/kgl_source_texture.h"
-#include "../klib/kgl_static_model.h"
+#include "../klib/kgl_basic_static_mesh.h"
 #include "../klib/kgl_font_renderer.h"
 #include "../klib/kgl_render_state_blend.h"
 #include "../klib/kgl_render_state_depth.h"
@@ -28,7 +28,7 @@ protected:
 	void RenderText();
 private:
 	kgl::GPUProgramSPtr			model_shader_;
-	kgl::StaticModel*			model_;
+	kgl::BasicStaticMesh*		model_;
 	kgl::RenderStateDepth		rs_depth_;
 	kgl::RenderStateBlend		rs_blend_;
 };

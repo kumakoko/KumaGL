@@ -2,7 +2,6 @@
 #ifndef kgl_app_h__
 #define kgl_app_h__
 
-#include "kgl_renderer.h"
 #include "kgl_camera.h"
 
 namespace kgl
@@ -37,7 +36,7 @@ namespace kgl
         /// <param name="context_version_major">The context_version_major.</param>
         /// <param name="context_version_minor">The context_version_minor.</param>
         /// <param name="profile">The profile.</param>
-        virtual void InitWindow(int wnd_width, int wnd_height, bool wnd_resizable, const char* wnd_title, int context_version_major = 3, int context_version_minor = 3, App::GLProfile profile = App::CORE);
+        virtual void InitWindow(int32_t wnd_width, int32_t wnd_height, bool wnd_resizable, const char* wnd_title, int32_t context_version_major = 3, int32_t context_version_minor = 3, App::GLProfile profile = App::CORE);
         
         /// <summary>
         /// Initializes the renderer.
@@ -174,10 +173,11 @@ namespace kgl
         /// <param name="height">The height.</param>
         virtual void OnSizeChangedAction(GLFWwindow* window, int width, int height);
     protected:
-        GLFWwindow*         window_handle_;
-        RendererPtr         renderer_;
+        GLFWwindow*         window_handle_ = nullptr;
         CameraSPtr          main_camera_;
         std::bitset<384>    key_state_;     // 维护键盘是否按下的状态bit
+		int32_t				window_width_ = 0;
+		int32_t				window_height_ = 0;
     };
 }
 

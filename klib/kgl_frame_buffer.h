@@ -66,7 +66,7 @@ namespace kgl
         /// </summary>
         inline void EndWriting()
         {
-            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
         }
 
         inline RenderedTextureSPtr GetTexture()

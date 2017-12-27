@@ -28,19 +28,22 @@ void AssimpApp::InitScene()
 
 void AssimpApp::InitMainCamera()
 {
-	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 0.0f, 5.0f));
+	glm::vec3 camera_pos(0.0f, 0.0f, 500.0f);
+	float pitch_angle = 0.0f;
+	float yaw_angle = 180.0f;
+	float fov = 120.f;
+	float near_clip_distance = 0.1f;
+	float far_clip_distance = 1000.0f;
+
+	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE,camera_pos,
+		pitch_angle,yaw_angle, fov,near_clip_distance, far_clip_distance);
 }
 
 void AssimpApp::InitModel()
 {
-	const char* model_path = "resources/model/xd_tux_0.3ds";
-	model_ = new kgl::StaticModel(kgl::VERTEX_TYPE_PNT1, model_path);
-	std::size_t sz = model_->GetMeshCount();
-
-	for (std::size_t s = 0; s < sz; ++s)
-	{
-		model_->ApplyShaderToMesh(s, model_shader_);
-	}
+	const char* model_path = "resources/model/box/box.md2";
+	model_ = new kgl::BasicStaticMesh;
+	model_->LoadMesh(std::string(model_path));
 }
 
 void AssimpApp::InitShader()
@@ -54,9 +57,14 @@ void AssimpApp::InitShader()
 
 void AssimpApp::InitFont()
 {
+	const char* font_name = "resources/font/fzss_gbk.ttf";
+	const char* texture_name = "fzss24";
+	int32_t font_size = 24;
+	uint32_t texture_width = 512;
+	uint32_t texture_height = 512;
 	kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
 	font_renderer->Initialize();
-	font_renderer->CreateFontTexture("resources/font/fzss_gbk.ttf", "fzss24", 24, 512, 512);
+	font_renderer->CreateFontTexture(font_name, texture_name, font_size, texture_width, texture_height);
 	font_renderer->SetCurrentFont("fzss24");
 }
 
@@ -78,9 +86,9 @@ void AssimpApp::RenderFrame()
 	model_shader_->ApplyMatrix(glm::value_ptr(model_matrix), "model_matrix");
 	model_shader_->ApplyMatrix(glm::value_ptr(view_matrix), "view_matrix");
 	model_shader_->ApplyMatrix(glm::value_ptr(projection_matrix), "projection_matrix");
-	model_shader_->ApplyTexture(kgl::KTextureManager::GetInstance()->GetTexture("resources/model/textures/tux_texture.png"), "texture_diffuse_1", 0);
+	model_shader_->ApplyTexture("texture_diffuse_1", 0);
+	model_->Render();
 
-	model_->Draw();
 	this->RenderText();
 }
 

@@ -70,7 +70,7 @@ namespace kgl
         void Draw(GLint first_slot, GLsizei drawn_vertices_count);
 
         /// <summary>
-        /// Updates all vertex data.
+        /// 更新缓冲区中的所有顶点数据
         /// </summary>
         /// <param name="src_data">The src_data.</param>
         /// <param name="src_data_byte_count">The src_data_byte_count.</param>
@@ -85,18 +85,55 @@ namespace kgl
             drawn_vertices_count_ = count;
         }
 
+		/// <summary>
+		/// 获取顶点数量
+		/// </summary>
+		/// <returns>GLsizei.</returns>
+		inline GLsizei GetVerticesCount() const
+		{
+			return vertices_count_;
+		}
+
     private:
-        GLuint vertex_buffer_object_;
-        GLuint vertex_attribute_object_;
-        GLuint element_buffer_object_;
+		/// <summary>
+		/// The vertex_buffer_object_
+		/// </summary>
+		GLuint vertex_buffer_object_;
 
-        GLenum  primitive_mode_;
-        GLenum  indices_type_;
-        GLsizei indices_count_;
-        GLsizei vertices_count_;
+		/// <summary>
+		/// The vertex_attribute_object_
+		/// </summary>
+		GLuint vertex_attribute_object_;
 
-        // 指定待绘制的顶点数，仅对Draw方法有效
-        GLsizei drawn_vertices_count_;
+		/// <summary>
+		/// The element_buffer_object_
+		/// </summary>
+		GLuint element_buffer_object_;
+
+		/// <summary>
+		/// The primitive_mode_
+		/// </summary>
+		GLenum  primitive_mode_;
+
+		/// <summary>
+		/// The indices_type_
+		/// </summary>
+		GLenum  indices_type_;
+
+		/// <summary>
+		/// The indices_count_
+		/// </summary>
+		GLsizei indices_count_;
+
+		/// <summary>
+		/// 缓冲区中的顶点数
+		/// </summary>
+		GLsizei vertices_count_;
+
+		/// <summary>
+		/// 指定待绘制的顶点数，仅对Draw方法有效
+		/// </summary>
+		GLsizei drawn_vertices_count_;
     };
 
     typedef std::shared_ptr<Primitive> PrimitiveSPtr;

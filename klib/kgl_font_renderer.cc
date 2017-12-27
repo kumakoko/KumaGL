@@ -186,11 +186,14 @@ namespace kgl
         // 绘制文字前用到的深度缓冲区状态对象，拣选模式，文字绘制完毕之后会重新使用回它
         RenderStateCullMode cull_mode_before_draw;
         RenderStateDepth depth_test_before_draw;
+		RenderStateBlend blend_mode_before_draw;
+		RenderStateBlend::TakeSnapshotState(blend_mode_before_draw);
         RenderStateCullMode::TakeSnapshotState(cull_mode_before_draw);
         RenderStateDepth::TakeSnapshotState(depth_test_before_draw);
 
+		draw_mode_.SetCurrentDrawMode(DM_FILL);
         rs_depth_not_enabled_.Use();
-        rs_blend_.Use();
+		rs_blend_.Use();
         rs_cull_draw_.Use();
 
         font_shader_->Use();
@@ -209,6 +212,7 @@ namespace kgl
         used_primitive_array_.clear();
         depth_test_before_draw.Use();
         cull_mode_before_draw.Use();
+		blend_mode_before_draw.Use();
     }
 
     FontPrimitive* FontRenderer::GetUnusedFontPrimitive(int32_t char_count)

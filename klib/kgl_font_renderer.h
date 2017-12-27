@@ -10,6 +10,7 @@
 #include "kgl_render_state_depth.h"
 #include "kgl_render_state_blend.h"
 #include "kgl_render_state_cull_mode.h"
+#include "kgl_render_state_draw_mode.h"
 #include "dp/kgl_singleton.h"
 
 namespace kgl
@@ -139,12 +140,20 @@ namespace kgl
         /// </summary>
         RenderStateDepth rs_depth_not_enabled_;
 
-        RenderStateCullMode rs_cull_draw_;
+		/// <summary>
+		/// The rs_cull_draw_
+		/// </summary>
+		RenderStateCullMode rs_cull_draw_;
 
         /// <summary>
         /// 绘制文字时用到的混合状态对象
         /// </summary>
         RenderStateBlend rs_blend_;
+
+		/// <summary>
+		/// 绘制文字时用到的填充状态
+		/// </summary>
+		RenderStateDrawMode draw_mode_;
     };
 
     typedef dp::Singleton<FontRenderer> KFontRenderer;

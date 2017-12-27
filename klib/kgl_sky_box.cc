@@ -3,6 +3,7 @@
 #include "kgl_defines.h"
 #include "kgl_sky_box.h"
 #include "kgl_vertex_attribute.h"
+#include "kgl_vertex_type.h"
 #include "kgl_camera.h"
 #include "kgl_texture_manager.h"
 
@@ -33,22 +34,15 @@ namespace kgl
         gpu_program_->CreateFromFile("resources/shader/framework/sky_box_vs.glsl", "resources/shader/framework/sky_box_fs.glsl", nullptr);
 
         // 初始化模型。并把shader作用到模型中的每一个mesh上
-        const char* model_path = "resources/model/sphere.obj";
-        model_ = new kgl::StaticModel(kgl::VERTEX_TYPE_PN, model_path);
-
+        std::string model_path("resources/model/sphere.obj");
+		model_ = new kgl::BasicStaticMesh;
+		model_->LoadMesh(model_path);
         cubemap_texture_ = std::make_shared<CubemapTexture>(
             positive_x_file,negative_x_file,
             positive_y_file,negative_y_file,
             positive_z_file,negative_z_file);
 
         cubemap_texture_->Load();
-        
-        std::size_t sz = model_->GetMeshCount();
-
-        for (std::size_t s = 0; s < sz; ++s)
-        {
-            model_->ApplyShaderToMesh(s, gpu_program_);
-        }
     }
 
     void SkyBox::Draw()
@@ -65,6 +59,6 @@ namespace kgl
         gpu_program_->ApplyMatrix(glm::value_ptr(view_matrix), "view_matrix");
         gpu_program_->ApplyMatrix(glm::value_ptr(projection_matrix), "projection_matrix");
         gpu_program_->ApplyTexture(cubemap_texture_, "skybox_cubemap_texture", 0);
-        model_->Draw();
+		model_->Render();
     }
 }

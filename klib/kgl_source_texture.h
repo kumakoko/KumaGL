@@ -19,13 +19,6 @@ namespace kgl
         /// </summary>
         virtual ~SourceTexture();
 
-        /// <summary>
-        /// 根据给定的图片文件和纹理创建参数结构体，创建出一个source texture实例对象
-        /// </summary>
-        /// <param name="file_name">用以创建纹理的图片文件</param>
-        /// <param name="texture_params">用以创建纹理的纹理创建参数结构体</param>
-        virtual void CreateFromFileObsolete (const std::string& file_name, const TextureParams& texture_params) override;
-
 		virtual void CreateFromFile(const std::string& file_name, const TextureParams& texture_params) override;
 
         /// <summary>
@@ -80,17 +73,17 @@ namespace kgl
         /// <summary>
         /// 创建本纹理时，由OpenGL产生的，用以标识本纹理的texture id
         /// </summary>
-        GLuint texture_id_;
+        GLuint texture_id_ = 0;
 
         /// <summary>
         /// 本纹理的宽度
         /// </summary>
-        int width_;
+        int width_ = 0;
 
         /// <summary>
         /// 本纹理的高度
         /// </summary>
-        int height_;
+        int height_ = 0;
     };
 
     typedef std::shared_ptr<SourceTexture> SourceTextureSPtr;

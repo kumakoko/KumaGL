@@ -185,6 +185,24 @@ namespace kgl
             camera_speed_ = speed;
         }
 
+		/// <summary>
+		/// 设置每帧最大可以调整多大的yaw角
+		/// </summary>
+		/// <param name="max_degree">最大的yaw角</param>
+		inline void SetMaxYawDegreePerFrame(float max_degree)
+		{
+			max_yaw_degree_per_frame_ = max_degree;
+		}
+
+		/// <summary>
+		/// 设置每帧最大可以调整多大的pitch角
+		/// </summary>
+		/// <param name="max_degree">最大的pitch角</param>
+		inline void SetMaxPitchDegreePerFrame(float max_degree)
+		{
+			max_pitch_degree_per_frame_ = max_degree;
+		}
+
     private:
         /// <summary>
         /// 根据给定的欧拉角计算摄像机的forward，up，right向量，此三个响亮
@@ -317,7 +335,7 @@ namespace kgl
         /// <summary>
         /// 每一幀中最大的可以YAW操作的度數
         /// </summary>
-        float max_yaw_degree_ = 0.1f;
+        float max_yaw_degree_per_frame_ = 0.1f;
     };
 
     typedef std::shared_ptr<Camera> CameraSPtr;

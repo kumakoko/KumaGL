@@ -2,7 +2,8 @@
 #include "kgl_lib_pch.h"
 #include "kgl_primitive_tool.h"
 #include "kgl_vertex_attribute.h"
-#include "kgl_static_mesh.h"
+#include "kgl_vertex_type.h"
+#include "kgl_basic_static_mesh.h"
 
 namespace kgl
 {
@@ -231,7 +232,7 @@ namespace kgl
         return p;
     }
 
-    PrimitiveSPtr PrimitiveTool::BuildNDCTexturedRectange(float left, float right, float top, float bottom, int texture_repeart)
+    kgl::PrimitiveSPtr PrimitiveTool::BuildNDCTexturedRectange(float left /*= -1.0f*/, float right /*= 1.0f*/, float top /*= 1.0f*/, float bottom /*= -1.0f*/, int texture_repeat /*= 1*/)
     {
         /*
         GLfloat quadVertices[] = {
@@ -248,13 +249,13 @@ namespace kgl
         }; */
 
         GLfloat rectangle_vertices[24];
-        rectangle_vertices[0] = left; rectangle_vertices[1] = top; rectangle_vertices[2] = 0.f; rectangle_vertices[3] = 1.0f * texture_repeart;
+        rectangle_vertices[0] = left; rectangle_vertices[1] = top; rectangle_vertices[2] = 0.f; rectangle_vertices[3] = 1.0f * texture_repeat;
         rectangle_vertices[4] = left; rectangle_vertices[5] = bottom; rectangle_vertices[6] = 0.f; rectangle_vertices[7] = 0.f;
-        rectangle_vertices[8] = right; rectangle_vertices[9] = bottom; rectangle_vertices[10] = 1.0f * texture_repeart; rectangle_vertices[11] = 0.f;
+        rectangle_vertices[8] = right; rectangle_vertices[9] = bottom; rectangle_vertices[10] = 1.0f * texture_repeat; rectangle_vertices[11] = 0.f;
 
-        rectangle_vertices[12] = left; rectangle_vertices[13] = top; rectangle_vertices[14] = 0.f; rectangle_vertices[15] = 1.0f * texture_repeart;
-        rectangle_vertices[16] = right; rectangle_vertices[17] = bottom; rectangle_vertices[18] = 1.0f * texture_repeart; rectangle_vertices[19] = 0.f;
-        rectangle_vertices[20] = right; rectangle_vertices[21] = top; rectangle_vertices[22] = 1.0f * texture_repeart; rectangle_vertices[23] = 1.0f * texture_repeart;
+        rectangle_vertices[12] = left; rectangle_vertices[13] = top; rectangle_vertices[14] = 0.f; rectangle_vertices[15] = 1.0f * texture_repeat;
+        rectangle_vertices[16] = right; rectangle_vertices[17] = bottom; rectangle_vertices[18] = 1.0f * texture_repeat; rectangle_vertices[19] = 0.f;
+        rectangle_vertices[20] = right; rectangle_vertices[21] = top; rectangle_vertices[22] = 1.0f * texture_repeat; rectangle_vertices[23] = 1.0f * texture_repeat;
 
         VertexAttribute va_position;
         va_position.index = 0;
@@ -321,17 +322,17 @@ namespace kgl
                 int index = row * (quality + 1) + col;
 
                 // 顶点坐标
-                v.position.x = -1.0f / 2 + col*1.0f / quality;
-                v.position.y = 1.0f / 2 - row*1.0f / quality;
-                v.position.z = 0.0f;
+                v.Position.x = -1.0f / 2 + col*1.0f / quality;
+                v.Position.y = 1.0f / 2 - row*1.0f / quality;
+                v.Position.z = 0.0f;
 
                 // 纹理坐标
-				v.tex_coord_1.x = static_cast<float>(col) / static_cast<float>(quality);
-				v.tex_coord_1.y = static_cast<float>(row) / static_cast<float>(quality);
+				v.TextureCoord1.x = static_cast<float>(col) / static_cast<float>(quality);
+				v.TextureCoord1.y = static_cast<float>(row) / static_cast<float>(quality);
 
                 // 法线
-                v.normal.x = v.normal.y = 0.0f;
-                v.normal.z = is_clock_wise ? 1.0f : -1.0f;
+                v.Normal.x = v.Normal.y = 0.0f;
+                v.Normal.z = is_clock_wise ? 1.0f : -1.0f;
 
                 vertices.push_back(v);
             }
@@ -345,14 +346,14 @@ namespace kgl
             GLuint vtx_idx_2 = indices[i + 2];
 
             // 拿到组成三角形的三个顶点的坐标
-            glm::vec3& v0 = vertices[vtx_idx_0].position;
-            glm::vec3& v1 = vertices[vtx_idx_1].position;
-            glm::vec3& v2 = vertices[vtx_idx_2].position;
+            glm::vec3& v0 = vertices[vtx_idx_0].Position;
+            glm::vec3& v1 = vertices[vtx_idx_1].Position;
+            glm::vec3& v2 = vertices[vtx_idx_2].Position;
 
             // 拿到组成三角形的三个顶点的纹理贴图坐标
-            glm::vec2& uv0 = vertices[vtx_idx_0].tex_coord_1;
-            glm::vec2& uv1 = vertices[vtx_idx_1].tex_coord_1;
-            glm::vec2& uv2 = vertices[vtx_idx_2].tex_coord_1;
+            glm::vec2& uv0 = vertices[vtx_idx_0].TextureCoord1;
+            glm::vec2& uv1 = vertices[vtx_idx_1].TextureCoord1;
+            glm::vec2& uv2 = vertices[vtx_idx_2].TextureCoord1;
 
             // 拿到组成三角形两条边 v0->v1，v0->v2
             glm::vec3 delta_pos_1 = v1 - v0;
@@ -367,13 +368,13 @@ namespace kgl
             glm::vec3 tangent = (delta_pos_1 * delta_uv_2.y - delta_pos_2 * delta_uv_1.y)*r;
             glm::vec3 bitangent = (delta_pos_2 * delta_uv_1.x - delta_pos_1 * delta_uv_2.x)*r;
 
-            vertices[vtx_idx_0].tangent =
-            vertices[vtx_idx_1].tangent =
-            vertices[vtx_idx_2].tangent = tangent;
+            vertices[vtx_idx_0].Tangent =
+            vertices[vtx_idx_1].Tangent =
+            vertices[vtx_idx_2].Tangent = tangent;
 
-            vertices[vtx_idx_0].binormal =
-            vertices[vtx_idx_1].binormal =
-            vertices[vtx_idx_2].binormal = bitangent;
+            vertices[vtx_idx_0].Binormal =
+            vertices[vtx_idx_1].Binormal =
+            vertices[vtx_idx_2].Binormal = bitangent;
         }
 
         GLsizei stride = sizeof(VertexPNTBT1);

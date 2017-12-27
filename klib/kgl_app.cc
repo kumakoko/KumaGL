@@ -1,5 +1,4 @@
 ﻿// 应用程序类
-
 #include "kgl_lib_pch.h"
 #include "kgl_app.h"
 #include "kgl_error.h"
@@ -11,7 +10,7 @@ namespace kgl
 {
     App* App::s_instance_ = nullptr;
 
-    App::App() :window_handle_(nullptr)
+    App::App()
     {
         KFontRenderer::MakeInstance();
         KTextureManager::MakeInstance();
@@ -24,13 +23,11 @@ namespace kgl
         KFontRenderer::DeleteInstance();
         KTextureManager::DeleteInstance();
         main_camera_.reset();
-        renderer_.reset();
-
         glfwTerminate();
         s_instance_ = nullptr;
     }
 
-    void App::InitWindow(int wnd_width, int wnd_height, bool wnd_resizable, const char* wnd_title, int context_version_major, int context_version_minor, App::GLProfile profile)
+    void App::InitWindow(int32_t wnd_width, int32_t wnd_height, bool wnd_resizable, const char* wnd_title, int32_t context_version_major /*= 3*/, int32_t context_version_minor /*= 3*/, App::GLProfile profile /*= App::CORE*/)
     {
         std::vector<std::string> error_desc_array;
         std::vector<GLenum> error_code_array;
@@ -84,6 +81,8 @@ namespace kgl
 
         // GLFW Options
         //glfwSetInputMode(window_handle_, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		window_height_ = wnd_height;
+		window_width_ = wnd_width;
     }
 
     void App::InitRenderer()
@@ -91,16 +90,23 @@ namespace kgl
         std::vector<std::string> error_desc_array;
         std::vector<GLenum> error_code_array;
 
-        renderer_ = std::make_shared<Renderer>();
-        renderer_->Init(true);
+		glewExperimental = GL_TRUE; // : GL_FALSE;
+		GLenum r = glewInit();
+
+		if (r != GLEW_OK)
+		{
+			std::wstringstream wss;
+			wss << L"Failed to initialise GLEW" << std::endl;
+			wss << L"OpenGL Error code : " << glGetError() << std::endl;
+			throw Error(wss.str(), __FILE__, __LINE__);
+			return;
+		}
 
         main_camera_ = std::make_shared<Camera>();
         int viewport_with = 0;
         int viewport_heigth = 0;
 
         glfwGetFramebufferSize(window_handle_, &viewport_with, &viewport_heigth);
-//      THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
-        
         main_camera_->SetViewport(0, 0, viewport_with, viewport_heigth);
     }
 

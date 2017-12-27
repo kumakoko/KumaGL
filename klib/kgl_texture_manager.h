@@ -14,13 +14,15 @@ namespace kgl
         /// Finalizes an instance of the <see cref="TextureManager"/> class.
         /// </summary>
         ~TextureManager();
+
         /// <summary>
         /// Determines whether [is texture exist] [the specified name].
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>bool.</returns>
         bool IsTextureExist(const std::string& name);
-        /// <summary>
+        
+		/// <summary>
         /// Gets the texture.
         /// </summary>
         /// <param name="name">The name.</param>

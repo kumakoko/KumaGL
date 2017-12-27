@@ -12,7 +12,7 @@ void main()
 	try
 	{
 		app = new GeometryShaderApp();
-		app->InitWindow(1400, 900, false, "014_GeometryShader");
+		app->InitWindow(1024, 768, false, "014_GeometryShader");
 		app->InitRenderer();
 		app->InitScene();
 		app->Run();

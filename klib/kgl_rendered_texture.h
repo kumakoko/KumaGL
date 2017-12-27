@@ -30,13 +30,7 @@ namespace kgl
         /// </summary>
         virtual ~RenderedTexture();
 
-        /// <summary>
-        /// Creates from file.
-        /// </summary>
-        /// <param name="file_name">The file_name.</param>
-        /// <param name="texture_params">The texture_params.</param>
-        virtual void CreateFromFileObsolete (const std::string& file_name, const TextureParams& texture_params) override;
-
+       
         /// <summary>
         /// Creates the specified width.
         /// </summary>

@@ -18,71 +18,69 @@ namespace kgl
         VERTEX_TYPE_PNT2,
         VERTEX_TYPE_PNT3,
         VERTEX_TYPE_PNT4,
-
         VERTEX_TYPE_PNBONET1
     };
 
     struct VertexP //position
     {
-        glm::vec3 position;
+        glm::vec3 Position;
     };
 
     struct VertexPC : public VertexP //position color
     {
-        glm::vec4 color;
+        glm::vec4 Color;
     };
 
     struct VertexPN : public VertexP // position normal
     {
-        glm::vec3 normal;
+        glm::vec3 Normal;
     };
 
     struct VertexPNTB : public VertexPN // position normal tangent binormal
     {
-        glm::vec3 tangent;
-        glm::vec3 binormal;
+        glm::vec3 Tangent;
+        glm::vec3 Binormal;
     };
 
     struct VertexPNTBT1 : public VertexPNTB // position normal tangent binormal texture_uv1
     {
-        glm::vec2 tex_coord_1;
+        glm::vec2 TextureCoord1;
     };
 
     struct VertexPNTBT2 : public VertexPNTBT1
     {
-        glm::vec2 tex_coord_2;
+        glm::vec2 TextureCoord2;
     };
 
     struct VertexPNTBT3 : public VertexPNTBT2
     {
-        glm::vec2 tex_coord_3;
+        glm::vec2 TextureCoord3;
     };
 
     struct VertexPNTBT4 : public VertexPNTBT3
     {
-        glm::vec2 tex_coord_4;
+        glm::vec2 TextureCoord4;
     };
 
     struct VertexPNT1 : public VertexPN // position normal texture1
     {
-        glm::vec2 tex_coord_1;
+        glm::vec2 TextureCoord1;
     };
 
     struct VertexPNT2 : public VertexPNT1 // position normal texture2
     {
-        glm::vec2 tex_coord_2;
+        glm::vec2 TextureCoord2;
     };
 
     struct VertexPNT3 : public VertexPNT2 // position normal texture2
     {
-        glm::vec2 tex_coord_3;
+        glm::vec2 TextureCoord3;
     };
 
     struct VertexPNT4 : public VertexPNT3 // position normal texture2
     {
-        glm::vec2 tex_coord_4;
+        glm::vec2 TextureCoord4;
     };
-
 
     struct VertexBoneData
     {

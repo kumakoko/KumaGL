@@ -40,7 +40,7 @@ namespace kgl
 
     void FrameBuffer::StartWriting(const glm::vec4& clear_color, GLbitfield clear_mask)
     {
-        glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
+		glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
         glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
         glClear(clear_mask);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -59,7 +59,7 @@ namespace kgl
         }
 
         // 要绑定rendered texture到本frame buffer前，首先要... 
-        glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
+		glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
         
         glBindTexture(GL_TEXTURE_2D, rendered_texture->GetTextureID());
 
@@ -92,7 +92,7 @@ namespace kgl
 
         // 这句代码必须放在检查frame buffer完整性之前，
         // 否则就会得到frame buffer不完整的信息
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
         
         GLenum check_resut = glCheckFramebufferStatus(GL_FRAMEBUFFER);
         

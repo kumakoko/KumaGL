@@ -1,0 +1,12 @@
+Mac SOIL踩坑记
+SOIL即Simple OpenGL Image Library，是一个跨平台的支持多个格式图片加载的库，主要作用是加载图片成为OpenGL的texture。该库最后的更新时间是2008年7月7日，因此现在Mac上使用又踩到了几个坑。
+
+http://www.lonesock.net/soil.html下载源文件，在src和lib目录下分别已经存在了用于编译链接的SOIL.h头文件和libSOIL.a静态库文件，将它们加入工程编译链接时Xcode报错：
+
+Undefined symbols for architecture x86_64
+
+可见libSOIL.a并不是x86_64的库文件，需要重新编译生成。cd进入SOIL/projects/makefile目录，运行make命令编译报错：
+
+error: unable to open output file ‘obj/image_helper.o’: ‘No such file or directory’
+
+在makefile目录下新建obj目录重新make可以重新编译生成libSOIL.a库文件了，但此时库文件仍是32位的，修改makefile文件，加入编译选项-m64，重新编译生成即可。

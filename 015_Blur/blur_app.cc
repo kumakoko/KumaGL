@@ -18,10 +18,9 @@ BlurApp::~BlurApp()
 
 void BlurApp::InitModel()
 {
-	const char* model_path = "resources/model/liberty.3ds";
-	model_ = new kgl::StaticModel(kgl::VERTEX_TYPE_PN, model_path);
-	std::size_t sz = model_->GetMeshCount();
-	model_->ApplyShaderToModel(model_shader_);
+	std::string model_path("resources/model/liberty.3ds");
+	model_ = new kgl::BasicStaticMesh;
+	model_->LoadMesh(model_path);
 	rs_depth_.Use();
 }
 
@@ -79,6 +78,7 @@ void BlurApp::RenderFrame()
 
 	rs_depth_.SetEnable(true);
 
+	/*
 	for (size_t mesh_index = 0; mesh_index < model_->GetMeshCount(); ++mesh_index)
 	{
 		model_->UseShaderForMesh(mesh_index);
@@ -90,7 +90,7 @@ void BlurApp::RenderFrame()
 		model_->ApplyDirectionalLightToMesh(mesh_index, &directional_light_, "directional_light");
 		model_->ApplyMaterialToMesh(mesh_index, &material_, "material");
 		model_->DrawSubset(mesh_index);
-	}
+	}*/
 }
 
 void BlurApp::ProcessInput()

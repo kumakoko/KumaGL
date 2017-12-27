@@ -10,7 +10,7 @@
 #include "../klib/kgl_render_state_cull_mode.h"
 #include "../klib/kgl_render_state_depth.h"
 #include "../klib/kgl_sky_box.h"
-#include "../klib/kgl_static_model.h"
+#include "../klib/kgl_basic_static_mesh.h"
 #include "../klib/kgl_light.h"
 
 class BlurApp : public kgl::App
@@ -34,7 +34,7 @@ private:
 	/// <summary>
 	/// The model_
 	/// </summary>
-	kgl::StaticModel* model_ = nullptr;
+	kgl::BasicStaticMesh* model_ = nullptr;
 
 	/// <summary>
 	/// The model_shader_

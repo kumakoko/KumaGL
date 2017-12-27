@@ -11,5 +11,13 @@ namespace kgl
         glm::vec3   Specular;
         float       Shininess;
     };
+
+	struct MaterialUniformLocation
+	{
+		GLint Ambient;
+		GLint Diffuse;
+		GLint Specular;
+		GLint Shininess;
+	};
 }
 #endif // kgl_material_h__

@@ -8,7 +8,7 @@
 #include "kgl_render_state_cull_mode.h"
 #include "kgl_render_state_depth.h"
 #include "kgl_camera.h"
-#include "kgl_static_model.h"
+#include "kgl_basic_static_mesh.h"
 
 namespace kgl
 {
@@ -73,7 +73,7 @@ namespace kgl
         CameraSPtr          camera_;
         CubemapTextureSPtr  cubemap_texture_;
         GPUProgramSPtr      gpu_program_;
-        StaticModel*                model_;
+		BasicStaticMesh*	model_;
     };
 }
 

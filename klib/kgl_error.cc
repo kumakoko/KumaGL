@@ -62,7 +62,7 @@ namespace kgl
     void Error::Prompt() const 
     {
         std::wstring output = this->AssembleOutput() + L"\nQuit Program?";
-		MessageBox(output, title_);
+		MessageBox(title_, output);
     }
 
     void Error::Notify() const 
@@ -70,7 +70,7 @@ namespace kgl
 #if defined(WIN32) || defined(_WIN32)
         ::ShowCursor(true);
 #endif
-        MessageBox(AssembleOutput(),title_);
+		MessageBox(title_, AssembleOutput());
     }
 
 

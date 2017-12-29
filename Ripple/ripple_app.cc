@@ -53,9 +53,9 @@ void RippleApp::RenderWater()
 }
 
 
-void RippleApp::InitMaterial()
+void RippleApp::InitMaterials()
 {
-	App::InitMaterial();
+	App::InitMaterials();
 }
 
 void RippleApp::InitModel()
@@ -63,14 +63,14 @@ void RippleApp::InitModel()
 	
 }
 
-void RippleApp::InitShader()
+void RippleApp::InitShaders()
 {
 
 }
 
-void RippleApp::InitLight()
+void RippleApp::InitLights()
 {
-	App::InitLight();
+	App::InitLights();
 }
 
 void RippleApp::InitMainCamera()

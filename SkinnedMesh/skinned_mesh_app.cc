@@ -30,7 +30,7 @@ void SkinnedMeshApp::InitMainCamera()
 	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 0.0f, 5.0f));
 }
 
-void SkinnedMeshApp::InitLight()
+void SkinnedMeshApp::InitLights()
 {
 	
 }
@@ -40,7 +40,7 @@ void SkinnedMeshApp::InitModel()
 	
 }
 
-void SkinnedMeshApp::InitShader()
+void SkinnedMeshApp::InitShaders()
 {
 	
 }

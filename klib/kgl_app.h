@@ -86,36 +86,43 @@ namespace kgl
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         static void SizeChangedCallback(GLFWwindow* window, int width, int height);
+
+		/// <summary>
+		/// GLFWs the error callback.
+		/// </summary>
+		/// <param name="error_code">The error_code.</param>
+		/// <param name="err_str">The err_str.</param>
+		static void GLFWErrorCallback(int error_code, const char* err_str);
     protected:
         static App* s_instance_;
     protected:
         /// <summary>
-        /// Initializes the material.
+        /// 初始化场景中使用到的材质结构
         /// </summary>
-        virtual void InitMaterial();
+        virtual void InitMaterials();
 
         /// <summary>
-        /// Initializes the model.
+        /// 初始化场景中的模型
         /// </summary>
         virtual void InitModel();
 
         /// <summary>
-        /// Initializes the shader.
+        /// 初始化场景中的各个shader
         /// </summary>
-        virtual void InitShader();
+        virtual void InitShaders();
 
         /// <summary>
-        /// Initializes the light.
+        /// 初始化场景中的各个动态实时光源
         /// </summary>
-        virtual void InitLight();
+        virtual void InitLights();
 
         /// <summary>
-        /// Initializes the main camera.
+        /// 初始化场景的主摄像机
         /// </summary>
         virtual void InitMainCamera();
 
         /// <summary>
-        /// Initializes the font.
+        /// 初始化字体库
         /// </summary>
         virtual void InitFont();
 
@@ -130,7 +137,7 @@ namespace kgl
         virtual void PreRenderFrame();
 
         /// <summary>
-        /// Renders the frame.
+        /// 渲染每一帧
         /// </summary>
         virtual void RenderFrame();
 
@@ -172,6 +179,17 @@ namespace kgl
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         virtual void OnSizeChangedAction(GLFWwindow* window, int width, int height);
+
+		/// <summary>
+		/// Called when [GLFW error callback].
+		/// </summary>
+		/// <param name="error_code">The error_code.</param>
+		/// <param name="err_str">The err_str.</param>
+		virtual void OnGLFWErrorCallback(int error_code, const char* err_str);
+
+		const char* GetGLErrorDescription(GLenum err);
+
+		void CheckGLError();
     protected:
         GLFWwindow*         window_handle_ = nullptr;
         CameraSPtr          main_camera_;

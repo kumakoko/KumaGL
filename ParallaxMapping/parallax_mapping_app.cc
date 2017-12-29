@@ -187,7 +187,7 @@ void ParallaxMappingApp::InitModel()
 	this->InitNDCScreeenRectangle();
 }
 
-void ParallaxMappingApp::InitShader()
+void ParallaxMappingApp::InitShaders()
 {
 	const char* vs_file = "parallax_mapping_vs.glsl";
 	const char* fs_file = "parallax_mapping_fs.glsl";
@@ -205,7 +205,7 @@ void ParallaxMappingApp::InitMainCamera()
 	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 0.0f, -400.0f));
 }
 
-void ParallaxMappingApp::InitLight()
+void ParallaxMappingApp::InitLights()
 {
 	directional_light_.Ambient = glm::vec3(1.0f, 1.0f, 1.0f);
 	directional_light_.Diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -213,7 +213,7 @@ void ParallaxMappingApp::InitLight()
 	directional_light_.Specular = glm::vec3(1.0f, 1.0f, 1.0f);
 }
 
-void ParallaxMappingApp::InitMaterial()
+void ParallaxMappingApp::InitMaterials()
 {
 	// 白银材质
 	material_.Ambient = glm::vec3(0.19225f, 0.19225f, 0.19225f);

@@ -101,9 +101,9 @@ void DepthTestApp::RenderText()
 	font_renderer->Draw();
 }
 
-void DepthTestApp::InitMaterial()
+void DepthTestApp::InitMaterials()
 {
-	App::InitMaterial();
+	App::InitMaterials();
 }
 
 void DepthTestApp::InitModel()
@@ -121,7 +121,7 @@ void DepthTestApp::InitModel()
 	texture_wood_box_->CreateFromFile("resources/image/wood_box.jpg", texture_param);
 }
 
-void DepthTestApp::InitShader()
+void DepthTestApp::InitShaders()
 {
 	square_shader_ = new kgl::GPUProgram;	
 	const char* vs_file = "resources/shader/depth_test_draw_square_vs.glsl";
@@ -129,9 +129,9 @@ void DepthTestApp::InitShader()
 	square_shader_->CreateFromFile(vs_file,fs_file , nullptr);
 }
 
-void DepthTestApp::InitLight()
+void DepthTestApp::InitLights()
 {
-	App::InitLight();
+	App::InitLights();
 }
 
 void DepthTestApp::InitMainCamera()

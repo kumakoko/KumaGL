@@ -31,10 +31,10 @@ protected:
 	virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
 	virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
 	virtual void ProcessInput() override;
-	virtual void InitMaterial() override;
+	virtual void InitMaterials() override;
 	virtual void InitModel() override;
-	virtual void InitShader() override;
-	virtual void InitLight() override;
+	virtual void InitShaders() override;
+	virtual void InitLights() override;
 	virtual void InitMainCamera() override;
 	virtual void InitFont() override;
 private:

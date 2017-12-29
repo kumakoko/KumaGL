@@ -20,7 +20,7 @@ TransformApp::~TransformApp()
 	moon_.reset();
 }
 
-void TransformApp::InitMaterial()
+void TransformApp::InitMaterials()
 {
 
 }
@@ -43,15 +43,15 @@ void TransformApp::InitModel()
 	moon_ = kgl::PrimitiveTool::BuildSphere(30, true);
 }
 
-void TransformApp::InitShader()
+void TransformApp::InitShaders()
 {
 	object_shader_ = new kgl::GPUProgram;
 	object_shader_->CreateFromFile("resources/shader/003_transform_draw_vs.glsl", "resources/shader/003_transform_draw_fs.glsl", nullptr);
 }
 
-void TransformApp::InitLight()
+void TransformApp::InitLights()
 {
-	App::InitLight();
+	App::InitLights();
 }
 
 void TransformApp::InitMainCamera()

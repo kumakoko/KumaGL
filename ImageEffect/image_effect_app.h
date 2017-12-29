@@ -19,7 +19,7 @@ protected:
 	virtual void RenderFrame() override;
 	virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
 	virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
-	virtual void InitShader() override;
+	virtual void InitShaders() override;
 	virtual void InitModel() override;
 	virtual void InitFont() override;
 	virtual void ProcessInput() override;

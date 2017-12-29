@@ -11,249 +11,267 @@ DeferredRenderingApp::DeferredRenderingApp()
 
 DeferredRenderingApp::~DeferredRenderingApp()
 {
-	KGL_SAFE_DELETE(geometry_render_pass_);
-	KGL_SAFE_DELETE(point_light_render_pass_);
-	KGL_SAFE_DELETE(empty_render_pass_);
-	KGL_SAFE_DELETE(m_box);
-	KGL_SAFE_DELETE(m_bsphere);
-	KGL_SAFE_DELETE(m_quad);
+	KGL_SAFE_DELETE(box_mesh_);
+	KGL_SAFE_DELETE(light_sphere_mesh_);
+	KGL_SAFE_DELETE(gbuffer_);
+	KGL_SAFE_DELETE(geometry_process_shader_);
+	KGL_SAFE_DELETE(lighting_shader_);
+	KGL_SAFE_DELETE(light_sphere_shader_);
+	screen_rectangle_.reset();
 }
 
 void DeferredRenderingApp::InitScene()
 {
+	this->InitBoxMeshPositions();
 	App::InitScene();
 	rs_depth_.SetEnable(GL_TRUE);
 
 	// 初始化G-buffer
 	gbuffer_ = new kgl::GBuffer;
 	gbuffer_->Initialise(window_width_, window_height_);
-
-	// 初始化几何渲染阶段
-	this->InitGeometryRenderPass();
-
-	// 初始化点光源光照计算阶段
-	this->InitPointLightRenderPass();
-	this->InitEmptyRenderPass();
-	this->InitBoxPositions();
-}
-
-void DeferredRenderingApp::InitGeometryRenderPass()
-{
-	geometry_render_pass_ = new GeometryRenderPass;
-	geometry_render_pass_->Init();
-}
-
-void DeferredRenderingApp::ExecuteGeometryRenderPass()
-{
-	float current_time = (GLfloat)glfwGetTime() * 0.5f;
-	// geometry pass才更新depth buffer，其他的pass不更新
-	glDepthMask(GL_TRUE);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
-
-	const glm::mat4& view_matrix = main_camera_->GetViewMatrix();
-	const glm::mat4& projection_matrix = main_camera_->GetProjectionMatrix();
-	glm::mat4 wvp_matrix;
-	glm::mat4 rotation_matrix;
-	glm::mat4 translation_matrix;
-	glm::mat4 world_matrix;
-
-	for (unsigned int i = 0; i < box_positions_.size(); i++)
-	{
-		rotation_matrix = glm::rotate(current_time, glm::vec3(0.0f, 1.0f, 0.0f));
-		translation_matrix = glm::translate(box_positions_[i]);
-		world_matrix = translation_matrix * rotation_matrix;
-		wvp_matrix = projection_matrix * view_matrix * world_matrix;
-		
-		geometry_render_pass_->Enable();
-		geometry_render_pass_->SetWVP(wvp_matrix);
-		geometry_render_pass_->SetWorldMatrix(world_matrix);
-		geometry_render_pass_->SetColorTextureUnit(COLOR_TEXTURE_UNIT_INDEX);
-		m_box->Render();
-	}
-
-	// When we get here the depth buffer is already populated and the stencil pass
-	// depends on it, but it does not write to it.
-	glDepthMask(GL_FALSE);
+	
+	// 初始化NDC矩形图元
+	screen_rectangle_ = kgl::PrimitiveTool::BuildNDCTexturedRectange();
 }
 
 void DeferredRenderingApp::InitModel()
 {
 	std::string model_path = "resources/model/box2/box.obj";
-	m_box = new kgl::BasicStaticMesh;
-	m_box->LoadMesh(model_path);
-
-	model_path = "resources/model/quad.obj";
-	m_quad = new kgl::BasicStaticMesh;
-	m_quad->LoadMesh(model_path);
+	box_mesh_ = new kgl::BasicStaticMesh;
+	box_mesh_->LoadMesh(model_path);
 
 	model_path = "resources/model/sphere.obj";
-	m_bsphere = new kgl::BasicStaticMesh;
-	m_bsphere->LoadMesh(model_path);
+	light_sphere_mesh_ = new kgl::BasicStaticMesh;
+	light_sphere_mesh_->LoadMesh(model_path);
 }
 
-void DeferredRenderingApp::InitShader()
+void DeferredRenderingApp::InitShaders()
 {
+	const GLchar* vs_file = "resources/shader/020_dr_geometry_pass_vs.glsl";
+	const GLchar* fs_file = "resources/shader/020_dr_geometry_pass_fs.glsl";
+	geometry_process_shader_ = new kgl::GPUProgram;
+	geometry_process_shader_->CreateFromFile(vs_file, fs_file, nullptr);
+	
+	vs_file = "resources/shader/020_dr_shading_vs.glsl";
+	fs_file = "resources/shader/020_dr_shading_fs.glsl";
+	lighting_shader_ = new kgl::GPUProgram;
+	lighting_shader_->CreateFromFile(vs_file, fs_file, nullptr);
+
+	vs_file = "resources/shader/020_light_sphere_vs.glsl";
+	fs_file = "resources/shader/020_light_sphere_fs.glsl";
+	light_sphere_shader_ = new kgl::GPUProgram;
+	light_sphere_shader_->CreateFromFile(vs_file, fs_file, nullptr);
 }
 
 void DeferredRenderingApp::InitMainCamera()
 {
-	glm::vec3 camera_pos(0.0f, 2.0f, 36.0f);
+	glm::vec3 camera_pos(-0.1f, 2.577f, 20.596f);
+	float pitch_angle = -18.5f;
+	float move_speed = 0.1f;
+	float max_yaw_degree_per_frame = 1.0f;
+	float max_pitch_degree_per_frame = 1.0f;
 	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, camera_pos);
-	main_camera_->SetCameraSpeed(0.1f);
+	main_camera_->SetCameraSpeed(move_speed);
+	main_camera_->SetMaxYawDegreePerFrame(max_yaw_degree_per_frame);
+	main_camera_->SetMaxPitchDegreePerFrame(max_pitch_degree_per_frame);
+	main_camera_->SetPitchAngle(pitch_angle);
 }
 
 void DeferredRenderingApp::InitFont()
 {
+	const char* font_name = "resources/font/wqy_wmh.ttf";
+	std::string font_texture_name("wqyht24");
+	int32_t font_size = 24;
+	uint32_t font_texture_width = 512;
+	uint32_t font_texture_height = 512;
 	kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
 	font_renderer->Initialize();
-	font_renderer->CreateFontTexture("resources/font/fzkt_sim.ttf", "fzktsim24", 24, 512, 512);
-	font_renderer->SetCurrentFont("fzktsim24");
+	font_renderer->CreateFontTexture(font_name, font_texture_name.c_str(), font_size, font_texture_width, font_texture_height);
+	font_renderer->SetCurrentFont(font_texture_name);
 
 	toggle_help_on_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下H键显示帮助");
 	toggle_help_off_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下H键关闭帮助");
 	camera_ctrl_text_ = kgl::StringConvertor::ANSItoUTF16LE("持续按下W、S、A、D、U、J键，使得摄像机向前、后、左、右、上、下方向移动");
-	material_ctrl_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下左右箭头键，切换模型使用的材质");
 }
 
-void DeferredRenderingApp::InitMaterial()
+void DeferredRenderingApp::InitMaterials()
 {
 }
 
-void DeferredRenderingApp::InitLight()
+void DeferredRenderingApp::InitLights()
 {
-	point_lights_[0].Ambient = glm::vec3(0.0f, 0.0f, 0.0f);
-	point_lights_[0].Diffuse = glm::vec3(0.0f, 1.0f, 0.0f);
-	point_lights_[0].Position = glm::vec3(0.0f, 1.5f, 5.0f);
-	point_lights_[0].Specular = glm::vec3(0.0f, 0.0f, 0.0f);
-	point_lights_[0].AttenuationConstant = 0.0f;
-	point_lights_[0].AttenuationLinear = 0.0f;
-	point_lights_[0].AttenuationExp = 0.3f;
+	const unsigned int NR_LIGHTS = 30;
+	point_lights_.reserve(NR_LIGHTS);
+	
+	srand(time(nullptr));
 
-	point_lights_[1].Ambient = glm::vec3(0.0f, 0.0f, 0.0f);
-	point_lights_[1].Diffuse = glm::vec3(1.0f, 0.0f, 0.0f);
-	point_lights_[1].Position = glm::vec3(2.0f, 0.0f, 5.0f);
-	point_lights_[1].Specular = glm::vec3(0.0f, 0.0f, 0.0f);
-	point_lights_[1].AttenuationConstant = 0.0f;
-	point_lights_[1].AttenuationLinear = 0.0f;
-	point_lights_[1].AttenuationExp = 0.3f;
+	kgl::PointLight point_light;
+	point_light.AttenuationConstant = 0.1f;
+	point_light.AttenuationLinear = 0.25f;
+	point_light.AttenuationExp = 0.25f;
+	point_light.Ambient = glm::vec3(0.f);
+	point_light.Specular = glm::vec3(0.1f);
 
-	point_lights_[1].Ambient = glm::vec3(0.0f, 0.0f, 0.0f);
-	point_lights_[1].Diffuse = glm::vec3(0.0f, 0.0f, 1.0f);
-	point_lights_[1].Position = glm::vec3(0.0f, 0.0f, 3.0f);
-	point_lights_[1].Specular = glm::vec3(0.0f, 0.0f, 0.0f);
-	point_lights_[1].AttenuationConstant = 0.0f;
-	point_lights_[1].AttenuationLinear = 0.0f;
-	point_lights_[1].AttenuationExp = 0.3f;
-}
+	for (int i = 0; i < 3; ++i)
+	{
+		//计算点光源的position和颜色
+		point_light.Position.x = -2.5f;
+		point_light.Position.y = -5.0f;
+		point_light.Position.z = -5.0f + i * 5.0f;
 
-float DeferredRenderingApp::CalcPointLightBoundSphere(const kgl::PointLight& point_light)
-{
-	// 常数衰减因子 + 线性衰减因子 * 距离 + 指数衰减因子 * 距离 * 距离 = 256 * 颜色分量中最大的值 * diffuse光的亮度
-	// 常数衰减因子：point_light.AttenuationConstant
-	// 线性衰减因子：point_light.AttenuationLinear
-	// 颜色分量中最大的值： max_channel
-	// diffuse光的亮度： diffuse_intensity
-	// 解一元二次方程，求得距离值
+		point_light.Diffuse.r = ((rand() % 100) / 200.0f) + 0.5f; // 把颜色值控制在 0.5 到 1.0 之间
+		point_light.Diffuse.g = ((rand() % 100) / 200.0f) + 0.5f; 
+		point_light.Diffuse.b = ((rand() % 100) / 200.0f) + 0.5f; 
 
-	float diffuse_intensity = glm::length(point_light.Diffuse);
-	float max_channel = fmax(point_light.Diffuse.x, point_light.Diffuse.y);
-	max_channel = fmax(max_channel, point_light.Diffuse.z);
+		point_lights_.push_back(point_light);
 
-	float ret = (-point_light.AttenuationLinear + 
-		sqrtf(point_light.AttenuationLinear * point_light.AttenuationLinear - 4.0f * point_light.AttenuationExp * 
-		(point_light.AttenuationConstant - 256.f * max_channel * diffuse_intensity))) / (2.0f * point_light.AttenuationExp);
+		//计算点光源的position和颜色
+		point_light.Position.x = 2.5f;
+		point_light.Position.y = -5.0f;
+		point_light.Position.z = -5.0f + i * 5.0f;
 
-	return ret;
-}
+		point_light.Diffuse.r = ((rand() % 100) / 200.0f) + 0.5f; // 把颜色值控制在 0.5 到 1.0 之间
+		point_light.Diffuse.g = ((rand() % 100) / 200.0f) + 0.5f;
+		point_light.Diffuse.b = ((rand() % 100) / 200.0f) + 0.5f;
 
-void DeferredRenderingApp::InitPointLightRenderPass()
-{
-	point_light_render_pass_ = new PointLightRenderPass;
-	point_light_render_pass_->Init();
-}
+		point_lights_.push_back(point_light);
 
-void DeferredRenderingApp::ExecutePointLightRenderPass(const kgl::PointLight* point_light, const glm::mat4& world_matrix, const glm::mat4& view_matrix, const glm::mat4& projection_matrix)
-{
-	gbuffer_->BindForLightPass();
-	point_light_render_pass_->Enable();
-	point_light_render_pass_->SetViewInWorldPos(main_camera_->GetPosition());
+		//计算点光源的position和颜色
+		point_light.Position.x = 7.5f;
+		point_light.Position.y = -5.0f;
+		point_light.Position.z = -5.0f + i * 5.0f;
 
-	glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
-	glDisable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glBlendEquation(GL_FUNC_ADD);
-	glBlendFunc(GL_ONE, GL_ONE);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_FRONT);
+		point_light.Diffuse.r = ((rand() % 100) / 200.0f) + 0.5f; // 把颜色值控制在 0.5 到 1.0 之间
+		point_light.Diffuse.g = ((rand() % 100) / 200.0f) + 0.5f;
+		point_light.Diffuse.b = ((rand() % 100) / 200.0f) + 0.5f;
 
-	glm::mat4 wvp_matrix = projection_matrix * view_matrix * world_matrix;
+		point_lights_.push_back(point_light);
 
-	point_light_render_pass_->SetWVPMatrix(wvp_matrix);
-	point_light_render_pass_->SetPointLight(point_light);
-	// 存储着片元的位置，第一层漫反射颜色，法线三种信息的G-buffer，分别对应于texture unit 0，1，2
-	point_light_render_pass_->SetPositionTextureUnit(kgl::GBuffer::GBUFFER_TEXTURE_TYPE_POSITION);
-	point_light_render_pass_->SetColorTextureUnit(kgl::GBuffer::GBUFFER_TEXTURE_TYPE_DIFFUSE);
-	point_light_render_pass_->SetNormalTextureUnit(kgl::GBuffer::GBUFFER_TEXTURE_TYPE_NORMAL);
-	point_light_render_pass_->SetScreenSize(window_width_, window_height_);
-	m_bsphere->Render();
+		//计算点光源的position和颜色
+		point_light.Position.x = -7.5f;
+		point_light.Position.y = -5.0f;
+		point_light.Position.z = -5.0f + i * 5.0f;
 
-	glCullFace(GL_BACK);
-	glDisable(GL_BLEND);
-}
+		point_light.Diffuse.r = ((rand() % 100) / 200.0f) + 0.5f; // 把颜色值控制在 0.5 到 1.0 之间
+		point_light.Diffuse.g = ((rand() % 100) / 200.0f) + 0.5f;
+		point_light.Diffuse.b = ((rand() % 100) / 200.0f) + 0.5f;
 
-void DeferredRenderingApp::ExecuteFinalRenderPass()
-{
-	gbuffer_->BindForFinalPass();
-	glBlitFramebuffer(0, 0, window_width_, window_height_,
-		0, 0, window_width_, window_height_, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+		point_lights_.push_back(point_light);
+	}
+
+	for (size_t i = 0; i < box_positions_.size(); ++i)
+	{
+		//计算点光源的position和颜色
+		point_light.Position = box_positions_[i];
+		point_light.Position.y += 2.5f;
+
+		point_light.Diffuse.r = ((rand() % 100) / 200.0f) + 0.5f; // 把颜色值控制在 0.5 到 1.0 之间
+		point_light.Diffuse.g = ((rand() % 100) / 200.0f) + 0.5f; 
+		point_light.Diffuse.b = ((rand() % 100) / 200.0f) + 0.5f; 
+
+		point_lights_.push_back(point_light);
+
+		point_light.Position = box_positions_[i];
+		point_light.Position.y -= 2.5f;
+
+		point_lights_.push_back(point_light);
+	}
 }
 
 void DeferredRenderingApp::PreRenderFrame()
 {
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClearDepth(1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //glClearColor(0.35f, 0.53f, 0.7f, 1.0f);
+	 glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	 glClearDepth(1.0f);
+	 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void DeferredRenderingApp::RenderFrame()
 {
+	float current_time = (GLfloat)glfwGetTime() * 0.5f;
+	
+	rs_depth_.Use();
 	main_camera_->Update();
 	const glm::vec3& view_pos = main_camera_->GetPosition();
 	const glm::mat4& view_matrix = main_camera_->GetViewMatrix();
 	const glm::mat4& projection_matrix = main_camera_->GetProjectionMatrix();
-	glm::mat4 point_light_world_matrix;
-	gbuffer_->StartFrame();
-	ExecuteGeometryRenderPass();
+	glm::mat4 world_matrix;
 
-	glEnable(GL_STENCIL_TEST);
+	// 1 开始几何阶段的处理 =====================================================================
+	gbuffer_->StartGeometryRenderPass();
+	
+	geometry_process_shader_->Use();
+	geometry_process_shader_->ApplyMatrix(glm::value_ptr(projection_matrix), "u_projection_matrix");
+	geometry_process_shader_->ApplyMatrix(glm::value_ptr(view_matrix), "u_view_matrix");
 
-	for (uint32_t i = 0; i < POINT_LIGHT_COUNT; i++) 
+	/* 因为BasicStaticMesh内部已经默认地在Render函数内部active bind了模型中指
+	   定的纹理了，并且指定的texture unit是0.所以不需要在这里显式地去调用并制定
+	geometry_process_shader_->ApplyTexture("texture_diffuse1", 0);
+	*/
+	for (unsigned int i = 0; i < box_positions_.size(); i++)
 	{
-		glm::mat4 scale_matrix = glm::scale(glm::vec3(0.5f, 0.5f, 0.5f));
-		point_light_world_matrix = glm::translate(point_lights_[i].Position);
-		point_light_world_matrix = point_light_world_matrix * scale_matrix;
-//		ExecutePointLightStencilPass(&point_lights_[i], point_light_world_matrix, view_matrix, projection_matrix);
-//		ExecutePointLightRenderPass(&point_lights_[i], point_light_world_matrix, view_matrix, projection_matrix);
+		world_matrix = glm::scale(glm::vec3(1.0f)) * 
+			           glm::translate(box_positions_[i]) * 
+					   glm::rotate(current_time, glm::vec3(0.0f, 1.0f, 0.0f));
+		geometry_process_shader_->ApplyMatrix(glm::value_ptr(world_matrix), "u_world_matrix");
+		box_mesh_->Render();
 	}
 
-	glDisable(GL_STENCIL_TEST);
+	gbuffer_->EndPass();
 
-//	DSDirectionalLightPass();
+	// 2 开始光照阶段的处理 =====================================================================
 
-	ExecuteFinalRenderPass();
+	gbuffer_->StartLightingRenderPass();
 
+	lighting_shader_->Use();
+	lighting_shader_->ApplyTexture("u_pos_in_gbuffer", 0);    // 分别从G-Buffer读取物体的位置，法线和反射信息
+	lighting_shader_->ApplyTexture("u_normal_in_gbuffer", 1);
+	lighting_shader_->ApplyTexture("u_albedo_in_gbuffer", 2);
+
+	for (unsigned int i = 0; i < point_lights_.size(); i++)
+	{
+		lighting_shader_->ApplyPointLight(&point_lights_[i], ("u_point_lights[" + std::to_string(i) + "]").c_str());
+	}
+
+	lighting_shader_->ApplyVector3(glm::value_ptr(view_pos), "u_view_pos");
+
+	// 把光照计算结果绘制到一个NDC和屏幕大小的offscreen矩形上 ======================================
+	screen_rectangle_->Draw();
+
+	// 3 ====================================================================================
+	gbuffer_->Blit();
+
+	// 4 在场景中渲染处表示灯光的小球 ============================================================
+	light_sphere_shader_->Use();
+	light_sphere_shader_->ApplyMatrix(glm::value_ptr(projection_matrix),"projection");
+	light_sphere_shader_->ApplyMatrix(glm::value_ptr(view_matrix),"view");
+
+	for (unsigned int i = 0; i < point_lights_.size(); i++)
+	{
+		world_matrix = glm::mat4();
+		world_matrix = glm::translate(world_matrix, point_lights_[i].Position);
+		world_matrix = glm::scale(world_matrix, glm::vec3(0.05f));
+		light_sphere_shader_->ApplyMatrix(glm::value_ptr(world_matrix),"model");
+		light_sphere_shader_->ApplyVector3(glm::value_ptr(point_lights_[i].Diffuse), "lightColor");
+		light_sphere_mesh_->Render();
+	}
+
+	this->RenderHelpText(view_pos);
+}
+
+void DeferredRenderingApp::RenderHelpText(const glm::vec3& view_pos)
+{
 	const std::wstring& help_toggle = is_help_on_ ? toggle_help_off_text_ : toggle_help_on_text_;
 	kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
-	glm::vec4 text_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	glm::vec4 text_color = glm::vec4(1.0f, 0.0f, 1.0f, 1.0f);
 	font_renderer->AddToRendered(help_toggle, 0, 0, text_color, 1.0f);
 
 	if (is_help_on_)
 	{
-		boost::format fmt("摄像机位置坐标： x = %f , y = %f , z = %f");
-		fmt % view_pos.x % view_pos.y % view_pos.z;
+		boost::format fmt("摄像机位置坐标：(%-8.3f,%-8.3f,%-8.3f) pitch角:%-8.3f Yaw角:%-8.3f");
+		fmt % view_pos.x % view_pos.y % view_pos.z % main_camera_->GetPitchAngle() % main_camera_->GetYawAngle();
 		font_renderer->AddToRendered(camera_ctrl_text_, 0, 25, text_color, 1.0f);
-		font_renderer->AddToRendered(kgl::StringConvertor::ANSItoUTF16LE(fmt.str().c_str()), 0, 100, text_color, 1.0f);
+		font_renderer->AddToRendered(kgl::StringConvertor::ANSItoUTF16LE(fmt.str().c_str()), 0, 50, text_color, 1.0f);
 	}
 
 	font_renderer->Draw();
@@ -290,44 +308,31 @@ void DeferredRenderingApp::ProcessInput()
 	{
 		main_camera_->Move(kgl::CameraDirection::UP);
 	}
+
+	if (key_state_[GLFW_KEY_UP])
+	{
+		main_camera_->ChangePitch(0.5f);
+	}
+
+	if (key_state_[GLFW_KEY_DOWN])
+	{
+		main_camera_->ChangePitch(-0.5f);
+	}
+
+	if (key_state_[GLFW_KEY_LEFT])
+	{
+		main_camera_->ChangeYaw(0.5f);
+	}
+
+	if (key_state_[GLFW_KEY_RIGHT])
+	{
+		main_camera_->ChangeYaw(-0.5f);
+	}
 }
 
 void DeferredRenderingApp::OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	App::OnKeyAction(window, key, scancode, action, mode);
-
-	if (key == GLFW_KEY_LEFT && action == GLFW_RELEASE)
-	{
-		if (cur_mat_index_ == 0)
-		{
-			cur_mat_index_ = materials_.size() - 1;
-			return;
-		}
-		cur_mat_index_--;
-	}
-
-	if (key == GLFW_KEY_RIGHT && action == GLFW_RELEASE)
-	{
-		cur_mat_index_++;
-
-		if (cur_mat_index_ >= materials_.size())
-			cur_mat_index_ = 0;
-	}
-
-	if (GLFW_KEY_F == key && action == GLFW_RELEASE)
-	{
-		draw_mode_.SetCurrentDrawMode(kgl::DM_FILL);
-	}
-
-	if (GLFW_KEY_L == key && action == GLFW_RELEASE)
-	{
-		draw_mode_.SetCurrentDrawMode(kgl::DM_LINE);
-	}
-
-	if (GLFW_KEY_P == key && action == GLFW_RELEASE)
-	{
-		draw_mode_.SetCurrentDrawMode(kgl::DM_POINT);
-	}
 
 	if (GLFW_KEY_H == key && action == GLFW_RELEASE)
 	{
@@ -335,40 +340,17 @@ void DeferredRenderingApp::OnKeyAction(GLFWwindow* window, int key, int scancode
 	}
 }
 
-void DeferredRenderingApp::InitEmptyRenderPass()
+void DeferredRenderingApp::InitBoxMeshPositions()
 {
-	empty_render_pass_ = new EmptyRenderPass;
-	empty_render_pass_->Init();
-}
+	box_positions_.reserve(9);
+	box_positions_.push_back(glm::vec3(-5.0, -5.0, -5.0));
+	box_positions_.push_back(glm::vec3(0.0, -5.0, -5.0));
+	box_positions_.push_back(glm::vec3(5.0, -5.0, -5.0));
+	box_positions_.push_back(glm::vec3(-5.0, -5.0, 0.0));
+	box_positions_.push_back(glm::vec3(0.0, -5.0, 0.0));
+	box_positions_.push_back(glm::vec3(5.0, -5.0, 0.0));
+	box_positions_.push_back(glm::vec3(-5.0, -5.0, 5.0));
+	box_positions_.push_back(glm::vec3(0.0, -5.0, 5.0));
+	box_positions_.push_back(glm::vec3(5.0, -5.0, 5.0));
 
-void DeferredRenderingApp::ExecutePointLightStencilPass(const kgl::PointLight* point_light, const glm::mat4& world_matrix, const glm::mat4& view_matrix, const glm::mat4& projection_matrix)
-{
-	empty_render_pass_->Enable();
-
-	// 关闭颜色和深度缓冲区的写入，启用模板缓冲区
-	gbuffer_->BindForStencilPass();
-	glEnable(GL_DEPTH_TEST); // 启动深度测试
-	glDisable(GL_CULL_FACE); // 关闭面拣选
-	glClear(GL_STENCIL_BUFFER_BIT); // 仅清理模板缓冲区
-
-	// We need the stencil test to be enabled but we want it
-	// to succeed always. Only the depth test matters.
-	glStencilFunc(GL_ALWAYS, 0, 0);
-
-	glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP);
-	glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_DECR_WRAP, GL_KEEP);
-
-	glm::mat4 wvp_matrix = projection_matrix * view_matrix * world_matrix;
-	empty_render_pass_->SetWVPMatrix(wvp_matrix);
-	m_bsphere->Render();
-}
-
-void DeferredRenderingApp::InitBoxPositions()
-{
-	box_positions_.resize(5);
-	box_positions_[0] = glm::vec3(0.0f, 0.0f, 5.0f);
-	box_positions_[1] = glm::vec3(6.0f, 1.0f, 10.0f);
-	box_positions_[2] = glm::vec3(-5.0f, -1.0f, 12.0f);
-	box_positions_[3] = glm::vec3(4.0f, 4.0f, 15.0f);
-	box_positions_[4] = glm::vec3(-4.0f, 2.0f, 20.0f);
 }

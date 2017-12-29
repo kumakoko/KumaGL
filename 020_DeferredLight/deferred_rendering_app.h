@@ -9,126 +9,165 @@
 #include "../klib/kgl_material.h"
 #include "../klib/kgl_light.h"
 #include "../klib/kgl_font_renderer.h"
-#include "../klib/kgl_render_state_draw_mode.h"
 #include "../klib/kgl_render_state_depth.h"
-#include "../klib/kgl_render_state_blend.h"
 #include "../klib/kgl_gbuffer.h"
 #include "../klib/kgl_basic_static_mesh.h"
-
-#include "geometry_render_pass.h"
-#include "point_light_render_pass.h"
-#include "empty_render_pass.h"
 
 class DeferredRenderingApp : public kgl::App
 {
 private:
 	static const uint32_t POINT_LIGHT_COUNT = 3;
 public:
+	/// <summary>
+	/// <see cref="DeferredRenderingApp"/> 类构造函数.
+	/// </summary>
 	DeferredRenderingApp();
+
+	/// <summary>
+	/// <see cref="DeferredRenderingApp"/> 类析构函数.
+	/// </summary>
 	virtual ~DeferredRenderingApp();
-	virtual void InitScene();
+	
+	/// <summary>
+	/// 初始化场景，继承实现自基类App
+	/// </summary>
+	virtual void InitScene() override;
 protected:
+	/// <summary>
+	/// 在渲染每一帧前的操作，继承实现自基类App
+	/// </summary>
 	virtual void PreRenderFrame() override;
+
+	/// <summary>
+	/// 渲染每一帧，继承实现自基类App
+	/// </summary>
 	virtual void RenderFrame() override;
+
+	/// <summary>
+	/// 处理用户输入的函数，继承实现自基类App
+	/// </summary>
 	virtual void ProcessInput() override;
+
+	/// <summary>
+	/// Called when [key action].
+	/// </summary>
+	/// <param name="window">GLFW框架的窗口类指针</param>
+	/// <param name="key">键盘鼠标按键值</param>
+	/// <param name="scancode">键盘扫描码</param>
+	/// <param name="action">The action.</param>
+	/// <param name="mode">The mode.</param>
 	virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
-	virtual void InitMaterial() override;
+
+	/// <summary>
+	/// 初始化场景中用到的材质
+	/// </summary>
+	virtual void InitMaterials() override;
+
+	/// <summary>
+	/// 初始化场景中的模型
+	/// </summary>
 	virtual void InitModel() override;
-	virtual void InitShader() override;
-	virtual void InitLight() override;
+
+	/// <summary>
+	/// 初始化场景中的各个shader
+	/// </summary>
+	virtual void InitShaders() override;
+
+	/// <summary>
+	/// 初始化场景中的各个动态实时光源
+	/// </summary>
+	virtual void InitLights() override;
+
+	/// <summary>
+	/// 初始化场景的主摄像机
+	/// </summary>
 	virtual void InitMainCamera() override;
+
+	/// <summary>
+	/// 初始化字体库
+	/// </summary>
 	virtual void InitFont() override;
 private:
 	/// <summary>
-	/// 初始化延迟渲染中的渲染几何信息的渲染阶段
+	/// 初始化盒子模型的位置
 	/// </summary>
-	void InitGeometryRenderPass();
+	void InitBoxMeshPositions();
 
 	/// <summary>
-	/// 执行延迟渲染中的渲染几何信息的渲染阶段
+	/// 绘制帮助文档
 	/// </summary>
-	void ExecuteGeometryRenderPass();
-
-	/// <summary>
-	/// 始化延迟渲染中的执行点光源的渲染阶段
-	/// </summary>
-	void InitPointLightRenderPass();
-
-	/// <summary>
-	/// Executes the point light render pass.
-	/// </summary>
-	/// <param name="point_light">The point_light.</param>
-	/// <param name="world_matrix">The world_matrix.</param>
-	/// <param name="view_matrix">The view_matrix.</param>
-	/// <param name="projection_matrix">The projection_matrix.</param>
-	void ExecutePointLightRenderPass(const kgl::PointLight* point_light, const glm::mat4& world_matrix, const glm::mat4& view_matrix, const glm::mat4& projection_matrix);
-
-	/// <summary>
-	/// Initializes the empty render pass.
-	/// </summary>
-	void InitEmptyRenderPass();
-
-	/// <summary>
-	/// Executes the point light stencil pass.
-	/// </summary>
-	/// <param name="point_light">The point_light.</param>
-	/// <param name="world_matrix">The world_matrix.</param>
-	/// <param name="view_matrix">The view_matrix.</param>
-	/// <param name="projection_matrix">The projection_matrix.</param>
-	void ExecutePointLightStencilPass(const kgl::PointLight* point_light, const glm::mat4& world_matrix, const glm::mat4& view_matrix, const glm::mat4& projection_matrix);
-
-	/// <summary>
-	/// Executes the final render pass.
-	/// </summary>
-	void ExecuteFinalRenderPass();
-
-	float CalcPointLightBoundSphere(const kgl::PointLight& point_light);
-
-	/// <summary>
-	/// Initializes the box positions.
-	/// </summary>
-	void InitBoxPositions();
+	/// <param name="view_pos">摄像机在世界空间中的坐标</param>
+	void RenderHelpText(const glm::vec3& view_pos);
 private:
 	/// <summary>
 	/// 用来进行延迟渲染操作用的G-buffer
 	/// </summary>
 	kgl::GBuffer* gbuffer_ = nullptr;
+
+	/// <summary>
+	/// 处理几何信息的shader
+	/// </summary>
+	kgl::GPUProgram* geometry_process_shader_ = nullptr;
+
+	/// <summary>
+	/// 计算光照的shader
+	/// </summary>
+	kgl::GPUProgram* lighting_shader_ = nullptr;
+
+	/// <summary>
+	/// 用来绘制表示光源的小方盒子的shader
+	/// </summary>
+	kgl::GPUProgram* light_sphere_shader_ = nullptr;
+
+	/// <summary>
+	/// 点光源结构体数组
+	/// </summary>
+	std::vector<kgl::PointLight> point_lights_;
 	
-	kgl::RenderStateDrawMode		draw_mode_;
-	kgl::RenderStateDepth			rs_depth_;
-
 	/// <summary>
-	/// 延迟渲染中的渲染几何信息的渲染阶段
+	/// 深度状态类
 	/// </summary>
-	GeometryRenderPass* geometry_render_pass_ = nullptr;
-
-	/// <summary>
-	/// 延迟渲染中的点光源光照计算的渲染阶段
-	/// </summary>
-	PointLightRenderPass* point_light_render_pass_ = nullptr;
-
-	/// <summary>
-	/// The empty_render_pass_
-	/// </summary>
-	EmptyRenderPass* empty_render_pass_ = nullptr;
+	kgl::RenderStateDepth rs_depth_;
 
 	/// <summary>
 	/// 用于多次渲染的模型位置点
 	/// </summary>
 	std::vector<glm::vec3> box_positions_;
 
+	/// <summary>
+	/// 帮助文档打开时的帮助内容字符串
+	/// </summary>
 	std::wstring toggle_help_on_text_;
+
+	/// <summary>
+	/// 帮助文档关闭时的帮助内容字符串
+	/// </summary>
 	std::wstring toggle_help_off_text_;
+
+	/// <summary>
+	/// 显示摄像机位置信息的字符串
+	/// </summary>
 	std::wstring camera_ctrl_text_;
-	std::wstring material_ctrl_text_;
-	std::vector<std::wstring> material_name_text_;
-	std::vector<kgl::Material> materials_;			// 程序中用到材质
-	uint32_t cur_mat_index_ = 0;
+	
+	/// <summary>
+	/// 帮助是否打开
+	/// </summary>
 	bool is_help_on_ = false;
-	kgl::PointLight point_lights_[POINT_LIGHT_COUNT];
-	kgl::BasicStaticMesh* m_box = nullptr;
-	kgl::BasicStaticMesh* m_bsphere = nullptr;
-	kgl::BasicStaticMesh* m_quad = nullptr;
+
+	/// <summary>
+	/// 盒子模型
+	/// </summary>
+	kgl::BasicStaticMesh* box_mesh_ = nullptr;
+
+	/// <summary>
+	/// 表征光源的球状模型
+	/// </summary>
+	kgl::BasicStaticMesh* light_sphere_mesh_ = nullptr;
+
+	/// <summary>
+	/// 基于NDC坐标的，占满了整个屏幕的矩形图元
+	/// </summary>
+	kgl::PrimitiveSPtr screen_rectangle_;
 };
 
 #endif // deferred_rendering_app_h__

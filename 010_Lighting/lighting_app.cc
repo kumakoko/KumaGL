@@ -35,7 +35,7 @@ void LightingApp::InitModel()
 	}*/
 }
 
-void LightingApp::InitShader()
+void LightingApp::InitShaders()
 {
 	lighting_shader_ = std::make_shared<kgl::GPUProgram>();
 	std::vector<std::string> vs_file_paths;
@@ -67,7 +67,7 @@ void LightingApp::InitFont()
 	material_ctrl_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下左右箭头键，切换模型使用的材质");
 }
 
-void LightingApp::InitMaterial()
+void LightingApp::InitMaterials()
 {
 	kgl::Material m;
 
@@ -128,7 +128,7 @@ void LightingApp::InitMaterial()
 	material_name_text_.push_back(kgl::StringConvertor::ANSItoUTF16LE("材质：祖母绿宝石"));
 }
 
-void LightingApp::InitLight()
+void LightingApp::InitLights()
 {
 	directional_light_.Ambient = glm::vec3(0.2f, 0.2f, 0.2f);
 	directional_light_.Diffuse = glm::vec3(0.2f, 0.2f, 0.2f);

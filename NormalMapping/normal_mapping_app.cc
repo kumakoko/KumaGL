@@ -96,9 +96,9 @@ void NormalMappingApp::RenderText()
 	font_renderer->Draw();
 }
 
-void NormalMappingApp::InitMaterial()
+void NormalMappingApp::InitMaterials()
 {
-	App::InitMaterial();
+	App::InitMaterials();
 }
 
 void NormalMappingApp::InitModel()
@@ -113,7 +113,7 @@ void NormalMappingApp::InitModel()
 	normal_map_texture_->CreateFromFile("resources/image/stone_wall_normal_map.png", texture_param);
 }
 
-void NormalMappingApp::InitShader()
+void NormalMappingApp::InitShaders()
 {
 	normal_mapping_shader_ = std::make_shared<kgl::GPUProgram>();
 	std::vector<std::string> vs_file_paths;
@@ -125,7 +125,7 @@ void NormalMappingApp::InitShader()
 	normal_mapping_shader_->CreateFromFile(vs_file_paths, fs_file_paths, gs_file_path, 3, 3, 0);
 }
 
-void NormalMappingApp::InitLight()
+void NormalMappingApp::InitLights()
 {
 	point_light_.Ambient = glm::vec3(1.0f, 1.0f, 1.0f); // 环境光分量
 	point_light_.Diffuse = glm::vec3(1.0f, 1.0f, 1.0f); // 漫反射分量

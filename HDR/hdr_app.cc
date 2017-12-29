@@ -31,9 +31,9 @@ void HDRApp::RenderFrame()
 
 }
 
-void HDRApp::InitMaterial()
+void HDRApp::InitMaterials()
 {
-	App::InitMaterial();
+	App::InitMaterials();
 }
 
 void HDRApp::InitModel()
@@ -41,12 +41,12 @@ void HDRApp::InitModel()
 	
 }
 
-void HDRApp::InitShader()
+void HDRApp::InitShaders()
 {
 	
 }
 
-void HDRApp::InitLight()
+void HDRApp::InitLights()
 {
 	
 }

@@ -26,10 +26,10 @@ protected:
 	virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
 	virtual void ProcessInput() override;
 	virtual void InitModel() override;
-	virtual void InitShader() override;
+	virtual void InitShaders() override;
 	virtual void InitMainCamera() override;
-	virtual void InitLight() override;
-	virtual void InitMaterial() override;
+	virtual void InitLights() override;
+	virtual void InitMaterials() override;
 private:
 	/// <summary>
 	/// The model_

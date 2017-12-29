@@ -46,7 +46,7 @@ void AssimpApp::InitModel()
 	model_->LoadMesh(std::string(model_path));
 }
 
-void AssimpApp::InitShader()
+void AssimpApp::InitShaders()
 {
 	const GLchar* vs_file_path = "resources/shader/009_assimp_vs.glsl";
 	const GLchar* fs_file_path = "resources/shader/009_assimp_fs.glsl";

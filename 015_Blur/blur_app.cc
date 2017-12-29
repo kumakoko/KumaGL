@@ -24,7 +24,7 @@ void BlurApp::InitModel()
 	rs_depth_.Use();
 }
 
-void BlurApp::InitShader()
+void BlurApp::InitShaders()
 {
 	model_shader_ = std::make_shared<kgl::GPUProgram>();
 	std::vector<std::string> vs_file_paths;
@@ -47,7 +47,7 @@ void BlurApp::InitMainCamera()
 	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 0.0f, -400.0f),0.f,0.f);
 }
 
-void BlurApp::InitLight()
+void BlurApp::InitLights()
 {
 	directional_light_.Ambient = glm::vec3(1.0f, 1.0f, 1.0f);
 	directional_light_.Diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -55,7 +55,7 @@ void BlurApp::InitLight()
 	directional_light_.Specular = glm::vec3(1.0f, 1.0f, 1.0f);
 }
 
-void BlurApp::InitMaterial()
+void BlurApp::InitMaterials()
 {
 	// 白银材质
 	material_.Ambient = glm::vec3(0.19225f, 0.19225f, 0.19225f);

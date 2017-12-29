@@ -53,9 +53,9 @@ protected:
 	/// <summary>
 	/// Initializes the shader.
 	/// </summary>
-	virtual void InitShader() override;
+	virtual void InitShaders() override;
 
-	virtual void InitLight() override;
+	virtual void InitLights() override;
 
 	/// <summary>
 	/// Initializes the main camera.

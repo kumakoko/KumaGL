@@ -21,33 +21,9 @@
     <ClCompile Include="deferred_rendering_app.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="directional_light_render_pass.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="geometry_render_pass.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="point_light_render_pass.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="empty_render_pass.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="deferred_rendering_app.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="directional_light_render_pass.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="geometry_render_pass.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="point_light_render_pass.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="empty_render_pass.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

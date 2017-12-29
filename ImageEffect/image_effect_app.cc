@@ -16,7 +16,7 @@ ImageEffectApp::~ImageEffectApp()
 	main_texture_.reset();
 }
 
-void ImageEffectApp::InitShader()
+void ImageEffectApp::InitShaders()
 {
 	color_to_gray_shader_ = new kgl::GPUProgram;
 	color_to_gray_shader_->CreateFromFile(

@@ -68,11 +68,11 @@ void LowPolyTerrainApp::InitModel()
 }
 
 
-void LowPolyTerrainApp::InitShader()
+void LowPolyTerrainApp::InitShaders()
 {
 }
 
-void LowPolyTerrainApp::InitLight()
+void LowPolyTerrainApp::InitLights()
 {
 	light_.Bias = glm::vec2(0.3f, 0.8f);
 	// light_.Color = glm::vec4(1.0f, 0.95f, 0.95f,1.0f);
@@ -82,7 +82,6 @@ void LowPolyTerrainApp::InitLight()
 
 void LowPolyTerrainApp::InitMainCamera()
 {
-	// main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 40.0f, 0.0f),-90.0f);
 	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(30.0f, 40.0f, 35.0f), 0.0f);
 	main_camera_->SetMaxYawDegreePerFrame(1.0f);
 	main_camera_->SetMaxPitchDegreePerFrame(1.0f);

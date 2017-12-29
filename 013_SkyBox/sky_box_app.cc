@@ -46,7 +46,7 @@ void SkyBoxApp::InitModel()
 	sky_box_->LoadSkyBox(positive_x_file, negative_x_file, positive_y_file, negative_y_file, positive_z_file, negative_z_file);
 }
 
-void SkyBoxApp::InitShader()
+void SkyBoxApp::InitShaders()
 {
 	// 初始化shader
 	scene_obj_shader_ = new kgl::GPUProgram;

@@ -102,9 +102,9 @@ void FrameBufferApp::RenderFrame()
 	screen_->Draw();
 }
 
-void FrameBufferApp::InitMaterial()
+void FrameBufferApp::InitMaterials()
 {
-	App::InitMaterial();
+	App::InitMaterials();
 }
 
 void FrameBufferApp::InitModel()
@@ -130,7 +130,7 @@ void FrameBufferApp::InitModel()
 	floor_texture_->CreateFromFile("resources/image/wood_box.jpg", texture_param);
 }
 
-void FrameBufferApp::InitShader()
+void FrameBufferApp::InitShaders()
 {
 	const char* vs_file = "resources/shader/003_transform_draw_vs.glsl";
 	const char* fs_file = "resources/shader/003_transform_draw_fs.glsl";
@@ -143,9 +143,9 @@ void FrameBufferApp::InitShader()
 	screen_shader_->CreateFromFile(vs_file, fs_file, nullptr);
 }
 
-void FrameBufferApp::InitLight()
+void FrameBufferApp::InitLights()
 {
-	App::InitLight();
+	App::InitLights();
 }
 
 void FrameBufferApp::InitMainCamera()

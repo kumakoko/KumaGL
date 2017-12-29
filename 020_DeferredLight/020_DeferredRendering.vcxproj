@@ -94,18 +94,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="deferred_rendering_app.cc" />
-    <ClCompile Include="directional_light_render_pass.cc" />
-    <ClCompile Include="empty_render_pass.cc" />
-    <ClCompile Include="geometry_render_pass.cc" />
     <ClCompile Include="main.cc" />
-    <ClCompile Include="point_light_render_pass.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="deferred_rendering_app.h" />
-    <ClInclude Include="directional_light_render_pass.h" />
-    <ClInclude Include="empty_render_pass.h" />
-    <ClInclude Include="geometry_render_pass.h" />
-    <ClInclude Include="point_light_render_pass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

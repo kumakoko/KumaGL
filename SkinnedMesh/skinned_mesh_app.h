@@ -27,10 +27,10 @@ protected:
 	virtual void RenderFrame() override;
 	virtual void ProcessInput() override;
 	virtual void InitModel() override;
-	virtual void InitShader() override;
+	virtual void InitShaders() override;
 	virtual void InitFont() override;
 	virtual void InitMainCamera() override;
-	virtual void InitLight() override;
+	virtual void InitLights() override;
 	void RenderText();
 private:
 	kgl::GPUProgramSPtr			model_shader_;

@@ -24,7 +24,7 @@ protected:
 	virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
 	virtual void ProcessInput() override;
 	virtual void InitModel() override;
-	virtual void InitShader() override;
+	virtual void InitShaders() override;
 	virtual void InitMainCamera() override;
 private:
 	kgl::SkyBox*				sky_box_ = nullptr;

@@ -69,7 +69,7 @@ void GeometryShaderApp::InitModel()
 }
 
 
-void GeometryShaderApp::InitShader()
+void GeometryShaderApp::InitShaders()
 {
 	// 初始化shader
 	colored_polygon_shader_ = std::make_shared<kgl::GPUProgram>();

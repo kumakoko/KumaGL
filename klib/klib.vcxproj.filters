@@ -36,9 +36,6 @@
     <ClInclude Include="kgl_camera.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="kgl_renderer.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="kgl_error.h">
       <Filter>headers</Filter>
     </ClInclude>

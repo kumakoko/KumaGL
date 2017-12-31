@@ -1,5 +1,19 @@
-// 图像读取器
+/**************************************************************************************************************************
+Copyright(C) 2014-2017 www.xionggf.com
 
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the 
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the 
+Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE 
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+**************************************************************************************************************************/
 #include "kgl_lib_pch.h"
 #include "kgl_image_file_reader.h"
 
@@ -58,156 +72,4 @@ namespace kgl
 		image_height_ = FreeImage_GetHeight(fi_bitmap_);
 		return true;
 	}
-
-	/*
-	GLBitmapSPtr ImageFileReader::GetGLBitmapFromFile(const std::string& file_name, GLuint desired_rgb_mode)
-	{
-		GLuint tex = 0;
-		int i,j,k;
-		int w, h;
-		int bpp;
-		unsigned char* bits = nullptr;
-		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
-		FIBITMAP* fibmp = nullptr;
-
-		// 获取到文件格式
-		fif = FreeImage_GetFileType(file_name.c_str(), 0);
-
-		if (FIF_UNKNOWN == fif)
-		{
-			fif = FreeImage_GetFIFFromFilename(file_name.c_str());
-
-			if (FIF_UNKNOWN == fif)
-				return std::make_shared<GLBitmap>(); // 返回一个空指针
-		}
-
-		if (FreeImage_FIFSupportsReading(fif))
-			fibmp = FreeImage_Load(fif, file_name.c_str(), 0);
-
-		int pitch = FreeImage_GetPitch(fibmp);// 从freeimage bitmap info中取出图片跨度
-		bits = FreeImage_GetBits(fibmp); // 从freeimage bitmap info中取出字节数据
-		bpp = FreeImage_GetBPP(fibmp);// 从freeimage bitmap info中取出字节数据取出bit per pixel数据
-		RGBQUAD *palette = nullptr;
-
-		w = FreeImage_GetWidth(fibmp);
-		h = FreeImage_GetHeight(fibmp);
-
-		switch (bpp)
-		{
-		case 8:
-		{
-			if (!(palette = FreeImage_GetPalette(fibmp)))
-				return std::make_shared<GLBitmap>();
-
-			GLBitmapSPtr gl_bmp = std::make_shared<GLBitmap>(w, h, desired_rgb_mode);
-			GLint actual_mode = gl_bmp->RgbMode();
-
-			if (GL_RGB == actual_mode)
-			{
-				for (i = 0; i < h; ++i)
-				{
-					for (j = 0; j < w; ++j)
-					{
-						int index = (i*w + j) * 3;
-						gl_bmp->WriteRGB(index, palette[i*pitch + j].rgbRed,
-							palette[i*pitch + j].rgbGreen,palette[i*pitch + j].rgbBlue);
-					}
-				}
-			}
-			else if (GL_RGBA == actual_mode)
-			{
-				for (i = 0; i < h; ++i)
-				{
-					for (j = 0; j < w; ++j)
-					{
-						k = bits[i*pitch + j];
-						int index = (i*w + j) * 4;
-						gl_bmp->WriteRGBA(index, palette[k].rgbRed, palette[k].rgbGreen, palette[k].rgbBlue, 0xFF);
-					}
-				}
-			}
-
-			FreeImage_Unload(fibmp);
-			return gl_bmp;
-		}
-		break;
-		case 24:
-		{
-			GLBitmapSPtr gl_bmp = std::make_shared<GLBitmap>(w, h, desired_rgb_mode);
-			GLint actual_mode = gl_bmp->RgbMode();
-
-			if (GL_RGB == actual_mode)
-			{
-				for (i = 0; i < h; ++i)
-				{
-					for (j = 0; j < w; ++j)
-					{
-						int index = (i*w + j) * 3;
-						gl_bmp->WriteRGB(index, bits[i*pitch + j * 3 + 2],
-							bits[i*pitch + j * 3 + 1], bits[i*pitch + j * 3 + 0]);
-					}
-				}
-			}
-			else if (GL_RGBA == actual_mode)
-			{
-				for (i = 0; i < h; ++i)
-				{
-					for (j = 0; j < w; ++j)
-					{
-						int index = (w + j) * 4;
-						gl_bmp->WriteRGBA(index, bits[i*pitch + j * 3 + 2],
-							bits[i*pitch + j * 3 + 1], bits[i*pitch + j * 3 + 0], 0xFF);
-					}
-				}
-			}
-
-			FreeImage_Unload(fibmp);
-			return gl_bmp;
-		}
-		break;
-		case 32:
-		{
-			GLBitmapSPtr gl_bmp = std::make_shared<GLBitmap>(w, h, desired_rgb_mode);
-			GLint actual_mode = gl_bmp->RgbMode();
-
-			if (GL_RGB == actual_mode)
-			{
-				for (i = 0; i < h; ++i)
-				{
-					for (j = 0; j < w; ++j)
-					{
-						int index = (i*w + j) * 3;
-						gl_bmp->WriteRGB(index, bits[i*pitch + j * 4 + 2],
-							bits[i*pitch + j * 4 + 1], bits[i*pitch + j * 4 + 0]);
-					}
-				}
-			}
-			else if (GL_RGBA == actual_mode)
-			{
-				for (i = 0; i < h; ++i)
-				{
-					for (j = 0; j < w; ++j)
-					{
-						int index = (i*w + j) * 4;
-						gl_bmp->WriteRGBA(index,
-							bits[i*pitch + j * 4 + 2], bits[i*pitch + j * 4 + 1],
-							bits[i*pitch + j * 4 + 0], bits[i*pitch + j * 4 + 3]);
-					}
-				}
-			}
-
-			FreeImage_Unload(fibmp);
-			return gl_bmp;
-		}
-		break;
-		default:
-			FreeImage_Unload(fibmp);
-			return  std::make_shared<GLBitmap>();;
-		}
-
-		FreeImage_Unload(fibmp);
-		return std::make_shared<GLBitmap>();;
-	}
-
-	*/
 }

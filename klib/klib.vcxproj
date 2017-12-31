@@ -116,7 +116,6 @@
     <ClInclude Include="kgl_perlin_noise.h" />
     <ClInclude Include="kgl_primitive_tool.h" />
     <ClInclude Include="kgl_rendered_texture.h" />
-    <ClInclude Include="kgl_renderer.h" />
     <ClInclude Include="kgl_render_state_blend.h" />
     <ClInclude Include="kgl_render_state_cull_mode.h" />
     <ClInclude Include="kgl_render_state_depth.h" />

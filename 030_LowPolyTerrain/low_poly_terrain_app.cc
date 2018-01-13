@@ -76,7 +76,7 @@ void LowPolyTerrainApp::InitModel()
 		perlin_noise_, color_generator_, main_camera_, indices_generator_);
 
 	const int WORLD_SIZE = 100;
-	terrain_ = flat_terrain_generator_->generateTerrain(WORLD_SIZE);
+	terrain_ = flat_terrain_generator_->GenerateTerrain(WORLD_SIZE);
 
 	// ====================================================
 

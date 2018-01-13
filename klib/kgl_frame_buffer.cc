@@ -58,7 +58,6 @@ namespace kgl
 		glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
         glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
         glClear(clear_mask);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
     void FrameBuffer::AttachRenderedTexture(RenderedTextureSPtr rendered_texture,bool use_depth)

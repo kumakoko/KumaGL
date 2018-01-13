@@ -25,25 +25,25 @@ namespace kgl
 {
 	namespace low_poly_terrain
 	{
-		FlatTerrainGenerator::FlatTerrainGenerator(PerlinNoiseSPtr perlinNoise, ColorGeneratorSPtr colourGen, CameraSPtr camera, IndicesGeneratorSPtr indicesGenerator) :
-			TerrainGenerator(perlinNoise, colourGen,camera)
+		FlatTerrainGenerator::FlatTerrainGenerator(PerlinNoiseSPtr perlin_noise, ColorGeneratorSPtr color_gen, CameraSPtr camera, IndicesGeneratorSPtr indices_generator) :
+			TerrainGenerator(perlin_noise, color_gen, camera)
 		{
 			const char* vs_file = "resources/shader/low_poly_terrain/flat_terrain_vs.glsl";
 			const char* fs_file = "resources/shader/low_poly_terrain/flat_terrain_fs.glsl";
 			GPUProgramSPtr shader = std::make_shared<GPUProgram>();
 			shader->CreateFromFile(vs_file, fs_file, nullptr);
-			this->indicesGenerator = indicesGenerator;
-			this->renderer = std::make_shared<TerrainRenderer>(shader, camera, true);
+			this->indices_generator_ = indices_generator;
+			this->renderer_ = std::make_shared<TerrainRenderer>(shader, camera, true);
 		}
 
-		TerrainSPtr FlatTerrainGenerator::createTerrain(const ublas::matrix<float>& heights, const ublas::matrix<glm::vec4>& colours)
+		kgl::low_poly_terrain::TerrainSPtr FlatTerrainGenerator::CreateTerrain(const ublas::matrix<float>& heights, const ublas::matrix<glm::vec4>& colours)
 		{
 			ublas::matrix<glm::vec3> normals;
 			std::vector<int> indices;
 			std::vector<float> vertices;
 
-			SmoothNormalsGenerator::generateNormals(heights, normals);
-			indicesGenerator->generateIndexBuffer(heights.size1(), indices);
+			SmoothNormalsGenerator::GenerateNormals(heights, normals);
+			indices_generator_->GenerateIndexBuffer(heights.size1(), indices);
 			PrimitiveSPtr primitive = std::make_shared<Primitive>();
 
 			for (int z = 0; z < heights.size1(); z++) 
@@ -105,7 +105,12 @@ namespace kgl
 			primitive->CreateIndexed(GL_TRIANGLES, &(vertices[0]), sizeof(float)*vertices.size(), GL_STATIC_DRAW, 
 				kgl::Primitive::UINT32, &(indices[0]), sizeof(int)*indices.size(), GL_STATIC_DRAW, vtx_attri_array);
 
-			return std::make_shared<Terrain>(primitive, renderer);
+			return std::make_shared<Terrain>(primitive, renderer_);
+		}
+
+		void FlatTerrainGenerator::CleanUp()
+		{
+			renderer_->cleanUp();
 		}
 	}
 }

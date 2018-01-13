@@ -42,7 +42,7 @@ namespace kgl
 			/// </summary>
 			/// <param name="vertex_count">待生成索引值的顶点个数值</param>
 			/// <param name="indices_array">存储顶点索引</param>
-			virtual void generateIndexBuffer(int vertex_count, std::vector<int>& indices_array) = 0;
+			virtual void GenerateIndexBuffer(int vertex_count, std::vector<int>& indices_array) = 0;
 		};
 
 		typedef std::shared_ptr<IndicesGenerator> IndicesGeneratorSPtr;

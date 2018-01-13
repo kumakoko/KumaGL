@@ -50,7 +50,7 @@ namespace kgl
 			value = glm::clamp((value - half_spread_) * (1.f / spread_), 0.f, 0.9999f);
 			int firstBiome = (int)glm::floor(value / part_);
 			float blend = (value - (firstBiome * part_)) / part_;
-			// 仅对顶点颜色中的RGB分量进行插�?
+			// 仅对顶点颜色中的RGB分量进行插值
 			glm::vec3 color_1(biome_colors_[firstBiome].r, biome_colors_[firstBiome].g, biome_colors_[firstBiome].b);
 			glm::vec3 color_2(biome_colors_[firstBiome+1].r, biome_colors_[firstBiome+1].g, biome_colors_[firstBiome+1].b);
 			glm::vec3 mix_factor(blend, blend, blend);

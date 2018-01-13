@@ -111,9 +111,15 @@ namespace kgl
         /// </summary>
         GLuint fbo_ = 0;
 
-        GLuint rbo_depth_ = 0;
+		/// <summary>
+		/// The rbo_depth_
+		/// </summary>
+		GLuint rbo_depth_ = 0;
 
-        GLuint rbo_stencil_ = 0;
+		/// <summary>
+		/// The rbo_stencil_
+		/// </summary>
+		GLuint rbo_stencil_ = 0;
 
         /// <summary>
         /// 

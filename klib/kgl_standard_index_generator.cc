@@ -21,7 +21,7 @@ namespace kgl
 {
 	namespace low_poly_terrain
 	{
-		void StandardIndexGenerator::generateIndexBuffer(int vertex_count, std::vector<int>& indices_array)
+		void StandardIndexGenerator::GenerateIndexBuffer(int vertex_count, std::vector<int>& indices_array)
 		{
 			int index_count = (vertex_count - 1) * (vertex_count - 1) * 6;
 			indices_array.resize(index_count);
@@ -36,12 +36,12 @@ namespace kgl
 					int top_right = top_left + 1;
 					int bottom_left = ((row + 1) * vertex_count) + col;
 					int bottom_right = bottom_left + 1;
-					pointer = storeQuad(indices_array, pointer, top_left, top_right, bottom_left, bottom_right);
+					pointer = StoreQuad(indices_array, pointer, top_left, top_right, bottom_left, bottom_right);
 				}
 			}
 		}
 
-		int StandardIndexGenerator::storeQuad(std::vector<int>& indices, int pointer, int top_left, int top_right, int bottom_left, int bottom_right)
+		int StandardIndexGenerator::StoreQuad(std::vector<int>& indices, int pointer, int top_left, int top_right, int bottom_left, int bottom_right)
 		{
 			indices[pointer++] = top_left;
 			indices[pointer++] = bottom_left;

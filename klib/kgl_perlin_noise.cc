@@ -38,7 +38,7 @@ namespace kgl
 			this->roughness_ = roughness;
 		}
 
-		float PerlinNoise::getPerlinNoise(int x, int y)
+		float PerlinNoise::GetPerlinNoise(int x, int y)
 		{
 			float total = 0;
 			float d = (float)pow(2.f, octaves_ - 1);
@@ -47,44 +47,44 @@ namespace kgl
 			{
 				float freq = (float)(powf(2, i) / d);
 				float amp = (float)powf(roughness_, i) * amplitude_;
-				total += getInterpolatedNoise(x * freq, y * freq) * amp;
+				total += GetInterpolatedNoise(x * freq, y * freq) * amp;
 			}
 			return total;
 		}
 
-		float PerlinNoise::getSmoothNoise(int x, int y) 
+		float PerlinNoise::GetSmoothNoise(int x, int y) 
 		{
 			// 四个角的噪声值，四个边的噪声值，中心点的噪声�?
-			float corners = (getNoise(x - 1, y - 1) + getNoise(x + 1, y - 1) + getNoise(x - 1, y + 1)
-				+ getNoise(x + 1, y + 1)) / 16.f;
-			float sides = (getNoise(x - 1, y) + getNoise(x + 1, y) + getNoise(x, y - 1) + getNoise(x, y + 1)) / 8.f;
-			float center = getNoise(x, y) / 4.f;
+			float corners = (GetNoise(x - 1, y - 1) + GetNoise(x + 1, y - 1) + GetNoise(x - 1, y + 1)
+				+ GetNoise(x + 1, y + 1)) / 16.f;
+			float sides = (GetNoise(x - 1, y) + GetNoise(x + 1, y) + GetNoise(x, y - 1) + GetNoise(x, y + 1)) / 8.f;
+			float center = GetNoise(x, y) / 4.f;
 			return corners + sides + center;
 		}
 
-		float PerlinNoise::getNoise(int x, int y)
+		float PerlinNoise::GetNoise(int x, int y)
 		{
 			srand(x * 49632 + y * 325176 + seed_);
 			return rand() * 2.f - 1.f;
 		}
 
-		float PerlinNoise::getInterpolatedNoise(float x, float y)
+		float PerlinNoise::GetInterpolatedNoise(float x, float y)
 		{
 			int intX = (int)x;
 			float fracX = x - intX;
 			int intY = (int)y;
 			float fracY = y - intY;
 
-			float v1 = getSmoothNoise(intX, intY);
-			float v2 = getSmoothNoise(intX + 1, intY);
-			float v3 = getSmoothNoise(intX, intY + 1);
-			float v4 = getSmoothNoise(intX + 1, intY + 1);
-			float i1 = interpolate(v1, v2, fracX);
-			float i2 = interpolate(v3, v4, fracX);
-			return interpolate(i1, i2, fracY);
+			float v1 = GetSmoothNoise(intX, intY);
+			float v2 = GetSmoothNoise(intX + 1, intY);
+			float v3 = GetSmoothNoise(intX, intY + 1);
+			float v4 = GetSmoothNoise(intX + 1, intY + 1);
+			float i1 = Interpolate(v1, v2, fracX);
+			float i2 = Interpolate(v3, v4, fracX);
+			return Interpolate(i1, i2, fracY);
 		}
 
-		float PerlinNoise::interpolate(float a, float b, float blend)
+		float PerlinNoise::Interpolate(float a, float b, float blend)
 		{
 			double theta = blend * glm::pi<double>();
 			float f = (float)((1.0 - cos(theta)) * 0.5f);

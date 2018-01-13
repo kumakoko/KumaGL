@@ -104,6 +104,8 @@ namespace kgl
         /// <param name="is_clock_wise">The is_clock_wise.</param>
         /// <returns>PrimitiveSPtr.</returns>
         static PrimitiveSPtr BuildPNTBT1Square(unsigned int quality, bool is_clock_wise);
+
+		static PrimitiveSPtr BuildNDCTextureNormalCube();
     };
 }
 #endif // kgl_primitive_tool_h__

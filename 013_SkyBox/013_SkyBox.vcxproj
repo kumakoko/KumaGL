@@ -56,13 +56,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glm_0_9_8_4/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/FreeImage3_16_0/inc;../third_lib/freetype2_3_5/include;../third_lib/boost_1_64_0;../third_lib/AntTweakBar_116/include;../klib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glm_0_9_8_4/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/FreeImage_3_17_0/Dist/x32;../third_lib/freetype2_3_5/include;../third_lib/boost_1_64_0;../third_lib/AntTweakBar_116/include;../klib</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\third_lib\FreeImage3_16_0\lib;..\third_lib\freetype2_3_5\lib;..\third_lib\glew_2_0_0\lib\Release\Win32;..\third_lib\glfw_3_2_1_win32\lib-vc2013;..\third_lib\assimp_3_1_1\lib32;..\third_lib\AntTweakBar_116\lib;..\third_lib\boost_1_64_0\stage\lib;..\third_lib\vld\lib\Win32;..\third_lib\iconv\prebuilt;..\third_lib\soil\lib\Debug;..\bin</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../third_lib/FreeImage_3_17_0/Dist/x32;..\third_lib\freetype2_3_5\lib;..\third_lib\glew_2_0_0\lib\Release\Win32;..\third_lib\glfw_3_2_1_win32\lib-vc2013;..\third_lib\assimp_3_1_1\lib32;..\third_lib\AntTweakBar_116\lib;..\third_lib\boost_1_64_0\stage\lib;..\third_lib\vld\lib\Win32;..\third_lib\iconv\prebuilt;..\third_lib\soil\lib\Debug;..\bin</AdditionalLibraryDirectories>
       <AdditionalDependencies>FreeImage.lib;opengl32.lib;AntTweakBar.lib;freetype253MT_D.lib;glew32s.lib;glfw3dll.lib;vld.lib;libiconv.lib;assimp-vc120-mt.lib;SOIL.lib;klib_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
       <AdditionalOptions>/ignore:4099  /NODEFAULTLIB:"libcmt.lib"   /NODEFAULTLIB:"libcmtd.lib" %(AdditionalOptions)</AdditionalOptions>
@@ -78,7 +78,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glm_0_9_8_4/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/FreeImage3_16_0/inc;../third_lib/freetype2_3_5/include;../third_lib/boost_1_64_0;../third_lib/AntTweakBar_116/include;../klib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glm_0_9_8_4/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/FreeImage_3_17_0/Dist/x32;../third_lib/freetype2_3_5/include;../third_lib/boost_1_64_0;../third_lib/AntTweakBar_116/include;../klib</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -86,7 +86,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>..\third_lib\FreeImage3_16_0\lib;..\third_lib\freetype2_3_5\lib;..\third_lib\glew_2_0_0\lib\Release\Win32;..\third_lib\glfw_3_2_1_win32\lib-vc2013;..\third_lib\assimp_3_1_1\lib32;..\third_lib\AntTweakBar_116\lib;..\third_lib\boost_1_64_0\stage\lib;..\third_lib\iconv\prebuilt;..\third_lib\vld\lib\Win32;..\third_lib\soil\lib\Release;..\bin</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../third_lib/FreeImage_3_17_0/Dist/x32;..\third_lib\freetype2_3_5\lib;..\third_lib\glew_2_0_0\lib\Release\Win32;..\third_lib\glfw_3_2_1_win32\lib-vc2013;..\third_lib\assimp_3_1_1\lib32;..\third_lib\AntTweakBar_116\lib;..\third_lib\boost_1_64_0\stage\lib;..\third_lib\iconv\prebuilt;..\third_lib\vld\lib\Win32;..\third_lib\soil\lib\Release;..\bin</AdditionalLibraryDirectories>
       <AdditionalDependencies>FreeImage.lib;opengl32.lib;AntTweakBar.lib;freetype253MT.lib;glew32s.lib;glfw3dll.lib;vld.lib;libiconv.lib;assimp-vc120-mt.lib;SOIL.lib;klib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
       <AdditionalOptions>/ignore:4099  /NODEFAULTLIB:"libcmt.lib"   /NODEFAULTLIB:"libcmtd.lib" %(AdditionalOptions)</AdditionalOptions>

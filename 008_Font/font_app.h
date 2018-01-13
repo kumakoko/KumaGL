@@ -32,7 +32,6 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 #include "../klib/kgl_lib_pch.h"
 #include "../klib/kgl_app.h"
-#include "../klib/kgl_gpu_program.h"
 #include "../klib/kgl_primitive.h"
 #include "../klib/kgl_source_texture.h"
 #include "../klib/kgl_render_state_blend.h"
@@ -48,7 +47,6 @@ protected:
 	virtual void PreRenderFrame() override;
 	void InitHelper();
 private:
-	kgl::GPUProgram*		helper_shader_;
 	kgl::Primitive*			helper_rectangle_;
 	kgl::RenderStateBlend	rs_blend_;
 	std::wstring			text_1_;

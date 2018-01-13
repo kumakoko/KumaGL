@@ -53,7 +53,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/glm_0_9_8_4/include;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/FreeImage3_16_0/inc;../third_lib/freetype2_3_5/include;../third_lib/AntTweakBar_116/include;../third_lib/boost_1_64_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/glm_0_9_8_4/include;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/FreeImage_3_17_0/Dist/x32;../third_lib/freetype2_3_5/include;../third_lib/AntTweakBar_116/include;../third_lib/boost_1_64_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>kgl_lib_pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
@@ -71,7 +71,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/glm_0_9_8_4/include;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/FreeImage3_16_0/inc;../third_lib/freetype2_3_5/include;../third_lib/AntTweakBar_116/include;../third_lib/boost_1_64_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/glm_0_9_8_4/include;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/FreeImage_3_17_0/Dist/x32;../third_lib/freetype2_3_5/include;../third_lib/AntTweakBar_116/include;../third_lib/boost_1_64_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>kgl_lib_pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>

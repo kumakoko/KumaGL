@@ -114,55 +114,55 @@ namespace kgl
             drawn_vertices_count_ = count;
         }
 
-		/// <summary>
-		/// 获取顶点数量
-		/// </summary>
-		/// <returns>GLsizei.</returns>
-		inline GLsizei GetVerticesCount() const
-		{
-			return vertices_count_;
-		}
+        /// <summary>
+        /// 获取顶点数量
+        /// </summary>
+        /// <returns>GLsizei.</returns>
+        inline GLsizei GetVerticesCount() const
+        {
+            return vertices_count_;
+        }
 
     private:
-		/// <summary>
-		/// The vertex_buffer_object_
-		/// </summary>
-		GLuint vertex_buffer_object_;
+        /// <summary>
+        /// The vertex_buffer_object_
+        /// </summary>
+        GLuint vertex_buffer_object_;
 
-		/// <summary>
-		/// The vertex_attribute_object_
-		/// </summary>
-		GLuint vertex_attribute_object_;
+        /// <summary>
+        /// The vertex_attribute_object_
+        /// </summary>
+        GLuint vertex_attribute_object_;
 
-		/// <summary>
-		/// The element_buffer_object_
-		/// </summary>
-		GLuint element_buffer_object_;
+        /// <summary>
+        /// The element_buffer_object_
+        /// </summary>
+        GLuint element_buffer_object_;
 
-		/// <summary>
-		/// The primitive_mode_
-		/// </summary>
-		GLenum  primitive_mode_;
+        /// <summary>
+        /// The primitive_mode_
+        /// </summary>
+        GLenum  primitive_mode_;
 
-		/// <summary>
-		/// The indices_type_
-		/// </summary>
-		GLenum  indices_type_;
+        /// <summary>
+        /// The indices_type_
+        /// </summary>
+        GLenum  indices_type_;
 
-		/// <summary>
-		/// The indices_count_
-		/// </summary>
-		GLsizei indices_count_;
+        /// <summary>
+        /// The indices_count_
+        /// </summary>
+        GLsizei indices_count_;
 
-		/// <summary>
-		/// 缓冲区中的顶点数
-		/// </summary>
-		GLsizei vertices_count_;
+        /// <summary>
+        /// 缓冲区中的顶点数
+        /// </summary>
+        GLsizei vertices_count_;
 
-		/// <summary>
-		/// 指定待绘制的顶点数，仅对Draw方法有效
-		/// </summary>
-		GLsizei drawn_vertices_count_;
+        /// <summary>
+        /// 指定待绘制的顶点数，仅对Draw方法有效
+        /// </summary>
+        GLsizei drawn_vertices_count_;
     };
 
     typedef std::shared_ptr<Primitive> PrimitiveSPtr;

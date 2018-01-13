@@ -49,7 +49,7 @@ namespace kgl
 			/// </summary>
 			/// <param name="vertexCount">The vertex count.</param>
 			/// <param name="indices_array">The indices_array.</param>
-			virtual void generateIndexBuffer(int vertexCount, std::vector<int>& indices_array) override;
+			virtual void GenerateIndexBuffer(int vertex_count, std::vector<int>& indices_array) override;
 		private:
 			/// <summary>
 			/// 六个顶点索引值分别对应于左上角，左下角，右下角；左上角，右下角，右上角
@@ -68,7 +68,7 @@ namespace kgl
 			/// <param name="bottom_left">The bottom_left.</param>
 			/// <param name="bottom_right">The bottom_right.</param>
 			/// <returns>int.</returns>
-			int storeQuad(std::vector<int>& indices, int pointer, int top_left, int top_right, int bottom_left, int bottom_right);
+			int StoreQuad(std::vector<int>& indices, int pointer, int top_left, int top_right, int bottom_left, int bottom_right);
 		};
 
 		typedef std::shared_ptr<StandardIndexGenerator> StandardIndexGeneratorSPtr;

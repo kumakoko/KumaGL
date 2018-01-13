@@ -1,4 +1,32 @@
-﻿// 展示使用HDR的技术
+﻿/*!
+ * \file hdr_app.h
+ * \date 2018/01/02 9:50
+ *
+ * \author www.xionggf.com
+ * Contact: sun_of_lover@sina.com
+ *
+ * \brief  展示使用HDR的技术
+ *
+ * TODO: long description
+ *
+ * \note
+*/
+/**************************************************************************************************************************
+Copyright(C) 2014-2018 www.xionggf.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the 
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the 
+Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE 
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+**************************************************************************************************************************/
 #ifndef frame_buffer_app_h__
 #define frame_buffer_app_h__
 
@@ -6,11 +34,11 @@
 #include "../klib/kgl_app.h"
 #include "../klib/kgl_gpu_program.h"
 #include "../klib/kgl_primitive.h"
-#include "../klib/kgl_source_texture.h"
 #include "../klib/kgl_render_state_cull_mode.h"
 #include "../klib/kgl_render_state_depth.h"
 #include "../klib/kgl_rendered_texture.h"
 #include "../klib/kgl_frame_buffer.h"
+#include "../klib/kgl_source_texture.h"
 
 struct HDRLightStruct 
 {
@@ -37,7 +65,82 @@ protected:
 	virtual void InitLights() override;
 	virtual void InitMainCamera() override;
 	virtual void InitFont() override;
+	void RenderHelpText(const glm::vec3& view_pos);
 private:
+	/// <summary>
+	/// 用来执行hdr光照计算所用到的frame buffer
+	/// </summary>
+	kgl::FrameBuffer* hdr_buffer_ = nullptr;
+
+	/// <summary>
+	/// 执行光照计算的shader
+	/// </summary>
+	kgl::GPUProgram* lighting_shader_ = nullptr;
+
+	/// <summary>
+	/// 执行hdr色调映射的shader
+	/// </summary>
+	kgl::GPUProgram* hdr_shader_ = nullptr;
+	
+	/// <summary>
+	/// 深度状态
+	/// </summary>
+	kgl::RenderStateDepth rs_depth_;
+	
+	/// <summary>
+	/// 场景中的模板纹理
+	/// </summary>
+	kgl::SourceTextureSPtr wood_texture_;
+
+	/// <summary>
+	/// 基于NDC坐标的，占满了整个屏幕的矩形图元
+	/// </summary>
+	kgl::PrimitiveSPtr screen_rectangle_;
+	
+	/// <summary>
+	/// 用来表示场景的盒子图元
+	/// </summary>
+	kgl::PrimitiveSPtr cube_;
+
+	/// <summary>
+	/// 灯光的位置
+	/// </summary>
+	std::vector<glm::vec3> light_positions_;
+	
+	/// <summary>
+	/// 灯光的颜色
+	/// </summary>
+	std::vector<glm::vec3> light_colors_;
+
+	/// <summary>
+	/// 是否启用hdr效果
+	/// </summary>
+	bool use_hdr_ = true;
+
+	/// <summary>
+	/// HDR曝光值
+	/// </summary>
+	float exposure_ = 2.0f;
+
+	/// <summary>
+	/// 提示如何关闭帮助文档的信息字符串
+	/// </summary>
+	std::wstring toggle_help_off_text_;
+
+	/// <summary>
+	///  提示如何打开帮助文档的信息字符串
+	/// </summary>
+	std::wstring toggle_help_on_text_;
+
+	/// <summary>
+	/// 摄像机相关信息的字符串
+	/// </summary>
+	std::wstring camera_ctrl_text_;
+
+	/// <summary>
+	/// 帮助文档是否处于打开状态
+	/// </summary>
+	bool is_help_on_ = true;
 };
 
 

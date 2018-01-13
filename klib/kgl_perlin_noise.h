@@ -38,7 +38,7 @@ namespace kgl
 		{
 		private:
 			/// <summary>
-			/// 用来获取得噪声值的随机数种子，该值是由另一个随机数发生器生�?
+			/// 用来获取得噪声值的随机数种子，该值是由另一个随机数发生器生成
 			/// </summary>
 			int seed_;
 
@@ -53,17 +53,17 @@ namespace kgl
 			int octaves_;
 
 			/// <summary>
-			/// 振动幅�?
+			/// 振动幅度
 			/// </summary>
 			float amplitude_;
 
 		public:
 			/// <summary>
-			/// <see cref="PerlinNoise"/> 类的构造函�?
+			/// <see cref="PerlinNoise"/> 类的构造函数
 			/// </summary>
 			/// <param name="seed">获取得噪声值的随机数种子/param>
 			/// <param name="octaves">粗糙程度</param>
-			/// <param name="amplitude">振动幅�?/param>
+			/// <param name="amplitude">振动幅度/param>
 			/// <param name="roughness">The roughness.</param>
 			PerlinNoise(int seed, int octaves, float amplitude, float roughness);
 
@@ -76,30 +76,30 @@ namespace kgl
 			PerlinNoise(int octaves, float amplitude, float roughness);
 
 			/// <summary>
-			/// 获取得噪声值的随机数种�?
+			/// 获取得噪声值的随机数种子
 			/// </summary>
-			/// <returns>获取得噪声值的随机数种�?/returns>
-			inline int getSeed() const
+			/// <returns>获取得噪声值的随机数种子/returns>
+			inline int GetSeed() const
 			{
 				return seed_;
 			}
 
 			/// <summary>
-			/// 获取振动幅�?
+			/// 获取振动幅度
 			/// </summary>
-			/// <returns>振动幅�?/returns>
-			inline float getAmplitude() const
+			/// <returns>振动幅度/returns>
+			inline float GetAmplitude() const
 			{
 				return amplitude_;
 			}
 
 			/// <summary>
-			/// 得到给定坐标点对应的perlin噪声�?
+			/// 得到给定坐标点对应的perlin噪声
 			/// </summary>
 			/// <param name="x">The x.</param>
 			/// <param name="y">The y.</param>
 			/// <returns>float.</returns>
-			float getPerlinNoise(int x, int y);
+			float GetPerlinNoise(int x, int y);
 
 		private:
 			/// <summary>
@@ -108,7 +108,7 @@ namespace kgl
 			/// <param name="x">The x.</param>
 			/// <param name="y">The y.</param>
 			/// <returns>float.</returns>
-			float getSmoothNoise(int x, int y);
+			float GetSmoothNoise(int x, int y);
 
 			/// <summary>
 			/// Gets the noise.
@@ -116,7 +116,7 @@ namespace kgl
 			/// <param name="x">The x.</param>
 			/// <param name="y">The y.</param>
 			/// <returns>float.</returns>
-			float getNoise(int x, int y);
+			float GetNoise(int x, int y);
 
 			/// <summary>
 			/// Gets the interpolated noise.
@@ -124,7 +124,7 @@ namespace kgl
 			/// <param name="x">The x.</param>
 			/// <param name="y">The y.</param>
 			/// <returns>float.</returns>
-			float getInterpolatedNoise(float x, float y);
+			float GetInterpolatedNoise(float x, float y);
 
 			/// <summary>
 			/// Interpolates the specified a.
@@ -133,7 +133,7 @@ namespace kgl
 			/// <param name="b">The b.</param>
 			/// <param name="blend">The blend.</param>
 			/// <returns>float.</returns>
-			float interpolate(float a, float b, float blend);
+			float Interpolate(float a, float b, float blend);
 
 		};
 

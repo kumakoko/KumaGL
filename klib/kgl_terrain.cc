@@ -33,14 +33,14 @@ namespace kgl
 			renderer_ = renderer;
 		}
 
-		int Terrain::getVertexCount() const
-		{
+		int Terrain::GetVertexCount() const
+{
 			return primitive_->GetVerticesCount();
 		}
 
 		void Terrain::Render(const LowPolyTerrainLight& light)
 		{
-			renderer_->render(this, light);
+			renderer_->Render(this, light);
 		}
 	}
 }

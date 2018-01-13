@@ -22,52 +22,42 @@ namespace kgl
 {
 	namespace low_poly_terrain
 	{
-
-		TerrainRenderer::TerrainRenderer(GPUProgramSPtr shader, CameraSPtr camera, bool usesIndices)
+		TerrainRenderer::TerrainRenderer(GPUProgramSPtr shader, CameraSPtr camera, bool uses_indices)
 		{
-			this->shader = shader;
-			this->camera = camera;
-			this->hasIndices = usesIndices;
+			this->shader_ = shader;
+			this->camera_ = camera;
+			this->has_indices_ = uses_indices;
 		}
 
 		TerrainRenderer::~TerrainRenderer()
 		{
-			this->shader.reset();
+			this->shader_.reset();
 		}
 
-		void TerrainRenderer::render(Terrain* terrain, const LowPolyTerrainLight& light)
+		void TerrainRenderer::Render(Terrain* terrain, const LowPolyTerrainLight& light)
 		{
-			prepare(terrain, light);
+			Prepare(terrain, light);
 			terrain->primitive_->DrawIndexed();
 		}
 
 		void TerrainRenderer::cleanUp()
 		{
-			//shader.cleanUp();
+
 		}
 
-		void TerrainRenderer::prepare(Terrain* terrain, const LowPolyTerrainLight& light)
+		void TerrainRenderer::Prepare(Terrain* terrain, const LowPolyTerrainLight& light)
 		{
-			shader->Use();
-			shader->ApplyVector3(glm::value_ptr(light.Direction), "light_direction");
-			shader->ApplyVector3(glm::value_ptr(light.Color), "light_color");
-			shader->ApplyVector2(glm::value_ptr(light.Bias), "light_bias");
-			shader->ApplyMatrix(glm::value_ptr(camera->GetViewMatrix()), "view_matrix");
-			shader->ApplyMatrix(glm::value_ptr(camera->GetProjectionMatrix()), "projection_matrix");
+			shader_->Use();
+			shader_->ApplyVector3(glm::value_ptr(light.Direction), "u_light_direction");
+			shader_->ApplyVector3(glm::value_ptr(light.Color), "u_light_color");
+			shader_->ApplyVector2(glm::value_ptr(light.Bias), "u_light_bias");
+			shader_->ApplyMatrix(glm::value_ptr(camera_->GetViewMatrix()), "u_view_matrix");
+			shader_->ApplyMatrix(glm::value_ptr(camera_->GetProjectionMatrix()), "u_projection_matrix");
 		}
 
-		/**
-		* End the rendering process by unbinding the VAO and stopping the shader
-		* program.
-		*
-		* @param terrain
-		*/
-		void TerrainRenderer::finish(Terrain* terrain)
+		void TerrainRenderer::Finish(Terrain* terrain)
 		{
-			/*
-			terrain.getVao().unbind();
-			shader.stop();
-			*/
+
 		}
 	}
 }

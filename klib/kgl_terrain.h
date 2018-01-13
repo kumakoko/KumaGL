@@ -75,7 +75,7 @@ namespace kgl
 			/// Gets the vertex count.
 			/// </summary>
 			/// <returns>int.</returns>
-			int getVertexCount() const;
+			int GetVertexCount() const;
 
 			/// <summary>
 			/// Renders the specified light.

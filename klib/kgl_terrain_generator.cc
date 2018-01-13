@@ -28,16 +28,16 @@ namespace kgl
 			this->camera_;
 		}
 
-		TerrainSPtr TerrainGenerator::generateTerrain(int gridSize)
+		kgl::low_poly_terrain::TerrainSPtr TerrainGenerator::GenerateTerrain(int gridSize)
 		{
 			ublas::matrix<float> heights;
 			ublas::matrix<glm::vec4> colours;
-			generateHeights(gridSize, perlin_noise_,heights);
-			color_generator_->GenerateColours(heights, perlin_noise_->getAmplitude(), colours);
-			return createTerrain(heights, colours);
+			GenerateHeights(gridSize, perlin_noise_,heights);
+			color_generator_->GenerateColours(heights, perlin_noise_->GetAmplitude(), colours);
+			return CreateTerrain(heights, colours);
 		}
 
-		void TerrainGenerator::generateHeights(int gridSize, PerlinNoiseSPtr perlinNoise, ublas::matrix<float>& heights)
+		void TerrainGenerator::GenerateHeights(int gridSize, PerlinNoiseSPtr perlinNoise, ublas::matrix<float>& heights)
 		{
 			heights.resize(gridSize + 1, gridSize + 1, false);
 
@@ -45,7 +45,7 @@ namespace kgl
 			{
 				for (int x = 0; x < heights.size2(); x++)
 				{
-					heights(z, x) = perlinNoise->getPerlinNoise(x, z);
+					heights(z, x) = perlinNoise->GetPerlinNoise(x, z);
 				}
 			}
 		}

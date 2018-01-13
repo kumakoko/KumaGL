@@ -14,6 +14,35 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+
+/*
+actually, FreeImage has a fix color order, optionally specified by the FREEIMAGE_COLORORDER option at compile time. 
+This option may be set to either FREEIMAGE_COLORORDER_BGR (0) or FREEIMAGE_COLORORDER_RGB (1). If not specified at compile time,
+the actual color order setting is determined from the target system's endianess, which in turn is determined from your compiler's
+built-in BYTE_ORDER macro.
+
+So, by default, you'll have RGB color order on big-endian systems and BGR on little-endian systems.
+Function FreeImage_ConvertToRawBits does not change color order during conversion, expect if the target
+raw image is requested to be a 16-bit image (by setting parameter bpp to 16). Since FreeImage supports two 
+16-bit image types (555 and 565 types), as with FreeImage_Allocate, the red, green and blue masks are not much
+more than a 555 or 565 sub-type specifier for a 16-bit image.
+
+If you actually need RGBA color ordering for all your images, making a special build with FREEIMAGE_COLORORDER set to 
+FREEIMAGE_COLORORDER_RGB will make sense (personally, I do the same with one of my projects). However, for FreeImage it 
+would be great to have some sort of color-reordering functions as well.
+
+One function could actually reorder RGB channels inplace. Another good idea would be to modify FreeImage_ConvertToRawBits 
+(and also FreeImage_ConvertFromRawBits[Ex] with parameter copySource set to TRUE only) so that it will honor the values passed 
+to red_mask, green_mask and blue_mask.
+RFC, has anyone some more comments on this?
+
+
+Hi Carsten,
+FreeImage already has an internal utility called 'SwapRedBlue32'.
+We could export this function and extend it to any kind of RGB[A] format (thus providing RGB[A] / BGR[A] conversion support).
+=> unless adding an internal flag to remember the internal color model, it would be up to the user to do the in-place conversion after loading or before saving.
+*/
+
 #include "kgl_lib_pch.h"
 #include "kgl_image_file_reader.h"
 

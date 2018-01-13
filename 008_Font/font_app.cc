@@ -51,9 +51,6 @@ void FontApp::InitScene()
 
 void FontApp::InitHelper()
 {
-	helper_shader_ = new kgl::GPUProgram;
-	helper_shader_->CreateFromFile("resources/shader/font_helper_vs.glsl", "resources/shader/font_helper_fs.glsl", nullptr);
-
 	GLfloat vertices[] =
 	{
 		// 位置               // 纹理映射坐标

@@ -5,26 +5,26 @@
  * \author xiongxinke
  * Contact: user@company.com
  *
- * \brief 
+ * \brief
  *
  * TODO: long description
  *
  * \note Generates smooth normals for all the vertices in a terrain.
-*/
+ */
 /**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
-modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the 
+modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the
 Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
 Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE 
-WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
 #ifndef kgl_smooth_normals_generator_h__
@@ -32,29 +32,39 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 #include "kgl_defines.h"
 
-
 namespace kgl
 {
 	namespace low_poly_terrain
 	{
-		class SmoothNormalsGenerator {
+		class SmoothNormalsGenerator
+		{
+		public:
+			/// <summary>
+			/// Generates smooth normals for every vertex in the terrain, based on the
+			/// terrain heights. The normal at each vertex is basically the average of
+			/// the normals of all the surrounding faces.
+			/// </summary>
+			/// <param name="heights">The heights of all the vertices</param>
+			/// <param name="generated_normal_matrix">The normals of all the vertices</param>
+			static void GenerateNormals(const ublas::matrix<float>& heights, ublas::matrix<glm::vec3>& generated_normal_matrix);
+		private:
+			/// <summary>
+			/// Calculates the normal.
+			/// </summary>
+			/// <param name="x">The x.</param>
+			/// <param name="z">The z.</param>
+			/// <param name="heights">The heights.</param>
+			/// <returns>glm.vec3.</returns>
+			static glm::vec3 CalculateNormal(int x, int z, const ublas::matrix<float>& heights);
 
-			/**
-			* Generates smooth normals for every vertex in the terrain, based on the
-			* terrain heights. The normal at each vertex is basically the average of
-			* the normals of all the surrounding faces.
-			*
-			* @param heights - The heights of all the vertices.
-			* @return The normals of all the vertices.
-			*/
-		public: 
-			static void generateNormals(const ublas::matrix<float>& heights, ublas::matrix<glm::vec3>& generated_normal_matrix);
-
-		private :
-			static glm::vec3 calculateNormal(int x, int z, const ublas::matrix<float>& heights);
-
-			static float getHeight(int x, int z, const ublas::matrix<float>& heights);
-
+			/// <summary>
+			/// Gets the height.
+			/// </summary>
+			/// <param name="x">The x.</param>
+			/// <param name="z">The z.</param>
+			/// <param name="heights">The heights.</param>
+			/// <returns>float.</returns>
+			static float GetHeight(int x, int z, const ublas::matrix<float>& heights);
 		};
 	}
 }

@@ -42,49 +42,42 @@ namespace kgl
     {
         RGB,
         RGBA,
-        RGBA16F
+        RGBA16F,
+		DEPTH_COMPONENT
     };
 
     class RenderedTexture : public Texture
     {
     public:
         /// <summary>
-        /// Initializes a new instance of the <see cref="RenderedTexture"/> class.
+        /// 初始化一个<see cref="RenderedTexture"/> 类实例对象.
         /// </summary>
-        /// <param name="used_type">The used_type.</param>
+        /// <param name="used_type">Rendered Texture的使用类型，也就是纹理格式类型</param>
         RenderedTexture(RenderedTexelType used_type);
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="RenderedTexture"/> class.
+        ///  <see cref="RenderedTexture"/>类的析构函数.
         /// </summary>
         virtual ~RenderedTexture();
 
-       
         /// <summary>
-        /// Creates the specified width.
+        /// 根据指定的高宽创建纹理
         /// </summary>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="texture_params">The texture_params.</param>
+        /// <param name="width">纹理的宽</param>
+        /// <param name="height">纹理的高</param>
+        /// <param name="texture_params">纹理创建参数</param>
         void Create(int32_t width, int32_t height, const TextureParams& texture_params) override;
 
         /// <summary>
-        /// Creates the specified texture_width.
+        /// 获取纹理的宽
         /// </summary>
-        /// <param name="texture_width">The texture_width.</param>
-        /// <param name="texture_height">The texture_height.</param>
-        //void Create(int32_t texture_width, int32_t texture_height);
-
-        /// <summary>
-        /// Gets the width.
-        /// </summary>
-        /// <returns>int.</returns>
+        /// <returns>纹理的宽</returns>
         virtual int GetWidth() const override;
 
         /// <summary>
-        /// Gets the height.
+        /// 获取纹理的高
         /// </summary>
-        /// <returns>int.</returns>
+        /// <returns>纹理的高</returns>
         virtual int GetHeight() const override;
 
         /// <summary>
@@ -109,6 +102,12 @@ namespace kgl
             return texel_type_;
         }
 
+		/// <summary>
+		/// 根据使用类型，决定返回的用于frame buffer的attachment的类型
+		/// </summary>
+		/// <returns>返回的用于frame buffer的attachment的类型</returns>
+		GLenum GetAttachmentForFrameBuffer();
+		
     protected:
         RenderedTexelType texel_type_;
         GLuint            texture_id_ = 0;

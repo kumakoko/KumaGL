@@ -29,6 +29,7 @@ namespace kgl
 
 	App::App()
 	{
+		
 		KFontRenderer::MakeInstance();
 		KTextureManager::MakeInstance();
 		s_instance_ = this;
@@ -37,6 +38,9 @@ namespace kgl
 
 	App::~App()
 	{
+		if (nullptr != tw_gui_bar_)
+			TwTerminate();
+
 		KFontRenderer::DeleteInstance();
 		KTextureManager::DeleteInstance();
 		main_camera_.reset();
@@ -44,7 +48,8 @@ namespace kgl
 		s_instance_ = nullptr;
 	}
 
-	void App::InitWindow(int32_t wnd_width, int32_t wnd_height, bool wnd_resizable, const char* wnd_title, int32_t context_version_major /*= 3*/, int32_t context_version_minor /*= 3*/, App::GLProfile profile /*= App::CORE*/)
+	void App::InitWindow(int32_t wnd_width, int32_t wnd_height, bool wnd_resizable, const char* wnd_title, int32_t context_version_major /*= 3*/, 
+		int32_t context_version_minor /*= 3*/, App::GLProfile profile /*= App::CORE*/)
 	{
 		std::vector<std::string> error_desc_array;
 		std::vector<GLenum> error_code_array;
@@ -86,9 +91,7 @@ namespace kgl
 
 		if (nullptr == window_handle_)
 		{
-			// THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 			throw Error(L"无法创建GL窗口，程序必须退出", __FILE__, __LINE__);
-			//exit(EXIT_FAILURE);
 		}
 
 		glfwMakeContextCurrent(window_handle_);
@@ -98,11 +101,49 @@ namespace kgl
 		glfwSetCursorPosCallback(window_handle_, App::MouseCallback);
 		glfwSetScrollCallback(window_handle_, App::ScrollCallback);
 		glfwSetWindowSizeCallback(window_handle_, App::SizeChangedCallback);
+		glfwSetMouseButtonCallback(window_handle_, App::MouseButtonCallback);
+		
+		// - Directly redirect GLFW mouse position events to AntTweakBar
+		//glfwSetMousePosCallback((GLFWmouseposfun)TwEventMousePosGLFW);
+		// - Directly redirect GLFW mouse wheel events to AntTweakBar
+		//glfwSetMouseWheelCallback((GLFWmousewheelfun)TwEventMouseWheelGLFW);
+		// - Directly redirect GLFW key events to AntTweakBar
+		//glfwSetKeyCallback((GLFWkeyfun)TwEventKeyGLFW);
+		// - Directly redirect GLFW char events to AntTweakBar
+		//glfwSetCharCallback((GLFWcharfun)TwEventCharGLFW);
 
 		// GLFW Options
 		//glfwSetInputMode(window_handle_, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		window_height_ = wnd_height;
 		window_width_ = wnd_width;
+
+		gl_profile_ = profile;
+	}
+
+	void App::InitGuiSystem(bool use_gui, const char* bar_title)
+	{
+		if (!use_gui)
+			return;
+
+		TwGraphAPI graph_api = TW_OPENGL;
+
+		if (App::CORE == gl_profile_)
+			graph_api = TW_OPENGL_CORE;
+
+		// 初始化AntTweakBar，使用OpenGL的话这第二个参数务必为nullptr
+		int init_ret = TwInit(TW_OPENGL_CORE, nullptr);
+
+		if (0 == init_ret)
+		{
+			std::wstringstream wss;
+			wss << L"无法初始化AntTweakBar" << std::endl;
+			wss << L"错误描述：" << StringConvertor::ANSItoUTF16LE(TwGetLastError()) << std::endl;
+			wss << L"程序必须退出";
+			throw Error(wss.str(), __FILE__, __LINE__);
+		}
+
+		tw_gui_bar_ = TwNewBar(nullptr == bar_title ? " " : bar_title);
+		TwWindowSize(window_width_, window_height_);
 	}
 
 	void App::InitRenderer()
@@ -189,7 +230,7 @@ namespace kgl
 		while (true)
 		{
 			const GLenum err = glGetError();
-			
+
 			if (GL_NO_ERROR == err)
 				break;
 
@@ -264,6 +305,32 @@ namespace kgl
 		s_instance_->OnGLFWErrorCallback(error_code, err_str);
 	}
 
+	void App::MouseButtonCallback(GLFWwindow* window, int received_event, int button, int action)
+	{
+		s_instance_->OnMouseButtonAction(window, received_event, button, action);
+	}
+
+	void App::CharCallback(GLFWwindow *window, unsigned int x)
+	{
+		s_instance_->OnCharAction(window, x);
+	}
+
+	void App::OnCharAction(GLFWwindow *window, unsigned int x)
+	{
+		if (nullptr != tw_gui_bar_)
+		{
+			TwEventCharGLFW(x, GLFW_PRESS);
+		}
+	}
+
+	void App::OnMouseButtonAction(GLFWwindow* window, int received_event, int button, int action)
+	{
+		if (nullptr != tw_gui_bar_)
+		{
+			TwEventMouseButtonGLFW(button, action);
+		}
+	}
+
 	void App::OnGLFWErrorCallback(int error_code, const char* err_str)
 	{
 		std::wstring error_code_str;
@@ -302,21 +369,27 @@ namespace kgl
 			else if (action == GLFW_PRESS)
 				key_state_.set(key);
 		}
+
+		if (nullptr != tw_gui_bar_)
+			TwEventKeyGLFW(key, action);
 	}
 
 	void App::OnMouseAction(GLFWwindow* window, double xpos, double ypos)
 	{
-
+		if (nullptr != tw_gui_bar_)
+			TwEventMousePosGLFW(xpos, ypos);
 	}
 
 	void App::OnScrollAction(GLFWwindow* window, double xoffset, double yoffset)
 	{
-
+		if (nullptr != tw_gui_bar_)
+			TwEventMouseWheelGLFW(static_cast<int>(xoffset));
 	}
 
 	void App::OnSizeChangedAction(GLFWwindow* window, int width, int height)
 	{
-
+		if (nullptr != tw_gui_bar_)
+			TwWindowSize(width, height);
 	}
 
 	void App::ProcessInput()

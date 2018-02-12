@@ -47,7 +47,7 @@ void SkyBoxApp::InitModel()
 
 	floor_texture_ = std::dynamic_pointer_cast<kgl::SourceTexture>(kgl::KTextureManager::GetInstance()->CreateTextureFromFile(
 		"resources/image/floor.jpg", kgl::SOURCE_2D_TEXTURE, texture_param));
-	floor_ = kgl::PrimitiveTool::BuildTexturedXZPlane(0.f, 10.f, 10.f, 10);
+	
 
 	sky_box_ = new kgl::SkyBox(main_camera_);
 

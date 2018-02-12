@@ -199,6 +199,7 @@ namespace kgl
 				{
 					dir.append("/").append(texture_name.data);
 					kgl::TextureParams texture_param = kgl::TextureManager::MakeTextureParamsRGB(GL_REPEAT, GL_LINEAR);
+					texture_param.min_filter_mode = GL_LINEAR_MIPMAP_LINEAR;
 					texture_param.used_mipmap = true;
 					textures_[i] = kgl::KTextureManager::GetInstance()->CreateTextureFromFile(dir, kgl::SOURCE_2D_TEXTURE, texture_param);
 				}

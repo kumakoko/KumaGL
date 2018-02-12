@@ -36,9 +36,11 @@ int main()
         int context_version_minor = 3;
         kgl::App::GLProfile profile = kgl::App::CORE;
 #endif
+		const char* title = "002_Triangle";
 		app = new TriangleApp();
-		app->InitWindow(800, 600, false, "002_Triangle",context_version_major, context_version_minor, profile );
+		app->InitWindow(1024, 768, false, title, context_version_major, context_version_minor, profile);
 		app->InitRenderer();
+		app->InitGuiSystem(true, title);
 		app->InitScene();
 		app->Run();
 	}

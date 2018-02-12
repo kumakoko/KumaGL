@@ -37,7 +37,54 @@ namespace kgl
     {
         glGenFramebuffers(1, &fbo_);
         RenderedTextureSPtr rendered_texture =std::make_shared<RenderedTexture>(t);
-        rendered_texture->Create(frame_width, frame_height,TextureParams());
+		TextureParams tp;
+
+		switch (t)
+		{
+		default:
+		case RenderedTexelType::RGB:
+			tp.wrap_s_mode = GL_CLAMP_TO_BORDER;
+			tp.wrap_t_mode = GL_CLAMP_TO_BORDER;
+			tp.mag_filter_mode = GL_NEAREST;
+			tp.min_filter_mode = GL_NEAREST;
+			tp.internal_format = GL_RGB;
+			tp.src_img_format = GL_RGB;
+			tp.src_img_px_component_type = GL_UNSIGNED_BYTE;
+			break;
+		case RenderedTexelType::RGBA:
+			tp.wrap_s_mode = GL_CLAMP_TO_BORDER;
+			tp.wrap_t_mode = GL_CLAMP_TO_BORDER;
+			tp.mag_filter_mode = GL_NEAREST;
+			tp.min_filter_mode = GL_NEAREST;
+			tp.internal_format = GL_RGBA;
+			tp.src_img_format = GL_RGBA;
+			tp.src_img_px_component_type = GL_UNSIGNED_BYTE;
+			break;
+		case RenderedTexelType::RGBA16F:
+			tp.wrap_s_mode = GL_CLAMP_TO_BORDER;
+			tp.wrap_t_mode = GL_CLAMP_TO_BORDER;
+			tp.mag_filter_mode = GL_NEAREST;
+			tp.min_filter_mode = GL_NEAREST;
+			tp.internal_format = GL_RGBA16F;
+			tp.src_img_format = GL_RGBA;
+			tp.src_img_px_component_type = GL_FLOAT; // 浮点纹理  
+			break;
+		case RenderedTexelType::DEPTH_COMPONENT:
+			tp.wrap_s_mode = GL_CLAMP_TO_BORDER;
+			tp.wrap_t_mode = GL_CLAMP_TO_BORDER;
+			tp.mag_filter_mode = GL_NEAREST;
+			tp.min_filter_mode = GL_NEAREST;
+			tp.internal_format = GL_DEPTH_COMPONENT;
+			tp.src_img_format = GL_DEPTH_COMPONENT;
+			tp.src_img_px_component_type = GL_FLOAT;
+
+			// GL_NEAREST_MIPMAP_NEAREST、GL_LINEAR_MIPMAP_NEAREST、GL_NEAREST_MIPMAP_LINEAR、
+			// GL_LINEAR_MIPMAP_LINEAR。名字结构的第一部分控制纹素的构造，表示当前采用纹理的构造方式；
+			// 第二部分控制 mipmap 级之间采样模式，NEAREST 表示只使用最近的 mipmap 级，LINEAR 则表示最近的两个 
+			// mipmap 线性插值。
+		}
+
+        rendered_texture->Create(frame_width, frame_height,tp);
         this->AttachRenderedTexture(rendered_texture,use_depth);
     }
 
@@ -53,12 +100,30 @@ namespace kgl
             glDeleteRenderbuffers(1, &rbo_stencil_);
     }
 
-    void FrameBuffer::StartWriting(const glm::vec4& clear_color, GLbitfield clear_mask)
+	void FrameBuffer::StartWriting(const glm::vec4& clear_color, GLbitfield clear_mask, const IRect* rect)
     {
 		glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
         glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
         glClear(clear_mask);
+
+		if (nullptr != rect)
+		{
+			glViewport(rect->TopLeftX(),rect->TopLeftY(),rect->Width(),rect->Height());
+		}
     }
+
+	/// <summary>
+	/// Ends the writtng.
+	/// </summary>
+	void FrameBuffer::EndWriting(const IRect* rect)
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		if (nullptr != rect)
+		{
+			glViewport(rect->TopLeftX(), rect->TopLeftY(), rect->Width(), rect->Height());
+		}
+	}
 
     void FrameBuffer::AttachRenderedTexture(RenderedTextureSPtr rendered_texture,bool use_depth)
     {
@@ -79,7 +144,7 @@ namespace kgl
 
         // 把创建出来的texture id绑定到frame buffer上
         glFramebufferTexture2D(GL_FRAMEBUFFER,
-                               GL_COLOR_ATTACHMENT0,
+			                   rendered_texture->GetAttachmentForFrameBuffer(),
                                GL_TEXTURE_2D,
                                rendered_texture_->GetTextureID(),
                                0);

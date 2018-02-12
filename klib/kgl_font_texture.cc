@@ -119,17 +119,17 @@ namespace kgl
     void FontTexture::Load(const char* name)
     {
         font_name_ = name;
-        FT_Library ft_lib;
+		
         std::wostringstream wss;
 
         //初始化库 
-        if (FT_Init_FreeType(&ft_lib))
+		if (FT_Init_FreeType(&ft_libaray_))
         {
             wss << L"Init freetype lib failed" << std::endl;
             throw Error(wss.str(), __FILE__, __LINE__);
         }
 
-        if (FT_New_Face(ft_lib, font_name_.c_str(), 0, &ft_face_))
+		if (FT_New_Face(ft_libaray_, font_name_.c_str(), 0, &ft_face_))
         {
             wss << L"Can not open the tff file named by:" << std::endl;
             wss << StringConvertor::ANSItoUTF16LE(name) << std::endl;
@@ -218,8 +218,9 @@ namespace kgl
 
     void FontTexture::Unload()
     {
+		KGL_SAFE_DELETE_ARRAY(image_data_);
         font_texture_.reset();
-        // FT_Done_FreeType(ft_libaray_);
+        FT_Done_FreeType(ft_libaray_);
     }
 
     const FontGlyphInfo* FontTexture::GetGlyphInfo(uint32_t id) const

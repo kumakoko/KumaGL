@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <TINYXML2_HEADER>../third_lib/tinyxml2/inc</TINYXML2_HEADER>
+    <ASSIMP_HEADER>../third_lib/assimp_3_1_1/include</ASSIMP_HEADER>
+    <GLFW_HEADER>../third_lib/glfw_3_2_1_win32/include/</GLFW_HEADER>
+    <GLEW_HEADER>../third_lib/glew_2_0_0/include/</GLEW_HEADER>
+    <GLM_HEADER>../third_lib/glm_0_9_8_4/include;</GLM_HEADER>
+    <ICONV_HEADER>../third_lib/iconv/include</ICONV_HEADER>
+    <VLD_HEADER>../third_lib/vld/include</VLD_HEADER>
+    <FREEIMAGE_HEADER>../third_lib/FreeImage_3_17_0/Dist/x32</FREEIMAGE_HEADER>
+    <FREETYPE_HEADER>../third_lib/freetype2_3_5/include</FREETYPE_HEADER>
+    <ANTWEAKBAR_HEADER>../third_lib/AntTweakBar_116/include</ANTWEAKBAR_HEADER>
+    <BOOST_HEADER>../third_lib/boost_1_64_0</BOOST_HEADER>
+    <FREEIMAGE_LIB>../third_lib/FreeImage_3_17_0/Dist/x32</FREEIMAGE_LIB>
+    <FREETYPE_LIB>../third_lib/freetype2_3_5/lib</FREETYPE_LIB>
+    <GLEW_LIB>../third_lib/glew_2_0_0/lib/Release/Win32</GLEW_LIB>
+    <GLFW_LIB>../third_lib/glfw_3_2_1_win32/lib-vc2013</GLFW_LIB>
+    <ICONV_LIB>../third_lib/iconv/prebuilt</ICONV_LIB>
+    <VLD_LIB>../third_lib/vld/lib/Win32</VLD_LIB>
+    <ASSIMP_LIB>../third_lib/assimp_3_1_1/lib32</ASSIMP_LIB>
+    <ANTWEAKBAR_LIB>../third_lib/AntTweakBar_116/lib</ANTWEAKBAR_LIB>
+    <BOOST_LIB>..\third_lib\boost_1_64_0\stage\lib</BOOST_LIB>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="TINYXML2_HEADER">
+      <Value>$(TINYXML2_HEADER)</Value>
+    </BuildMacro>
+    <BuildMacro Include="ASSIMP_HEADER">
+      <Value>$(ASSIMP_HEADER)</Value>
+    </BuildMacro>
+    <BuildMacro Include="GLFW_HEADER">
+      <Value>$(GLFW_HEADER)</Value>
+    </BuildMacro>
+    <BuildMacro Include="GLEW_HEADER">
+      <Value>$(GLEW_HEADER)</Value>
+    </BuildMacro>
+    <BuildMacro Include="GLM_HEADER">
+      <Value>$(GLM_HEADER)</Value>
+    </BuildMacro>
+    <BuildMacro Include="ICONV_HEADER">
+      <Value>$(ICONV_HEADER)</Value>
+    </BuildMacro>
+    <BuildMacro Include="VLD_HEADER">
+      <Value>$(VLD_HEADER)</Value>
+    </BuildMacro>
+    <BuildMacro Include="FREEIMAGE_HEADER">
+      <Value>$(FREEIMAGE_HEADER)</Value>
+    </BuildMacro>
+    <BuildMacro Include="FREETYPE_HEADER">
+      <Value>$(FREETYPE_HEADER)</Value>
+    </BuildMacro>
+    <BuildMacro Include="ANTWEAKBAR_HEADER">
+      <Value>$(ANTWEAKBAR_HEADER)</Value>
+    </BuildMacro>
+    <BuildMacro Include="BOOST_HEADER">
+      <Value>$(BOOST_HEADER)</Value>
+    </BuildMacro>
+    <BuildMacro Include="FREEIMAGE_LIB">
+      <Value>$(FREEIMAGE_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="FREETYPE_LIB">
+      <Value>$(FREETYPE_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="GLEW_LIB">
+      <Value>$(GLEW_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="GLFW_LIB">
+      <Value>$(GLFW_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="ICONV_LIB">
+      <Value>$(ICONV_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="VLD_LIB">
+      <Value>$(VLD_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="ASSIMP_LIB">
+      <Value>$(ASSIMP_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="ANTWEAKBAR_LIB">
+      <Value>$(ANTWEAKBAR_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="BOOST_LIB">
+      <Value>$(BOOST_LIB)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

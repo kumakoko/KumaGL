@@ -30,50 +30,34 @@ namespace kgl
     {
     }
     
-    void RenderedTexture::Create(int32_t width, int32_t height, const TextureParams& texture_params)
-    {
-        // https://www.opengl.org/sdk/docs/man/html/glTexImage2D.xhtml
-        // GLenum attachment_type;
-        glGenTextures(1, &texture_id_);
-        glBindTexture(GL_TEXTURE_2D, texture_id_);
+	void RenderedTexture::Create(int32_t width, int32_t height, const TextureParams& texture_params)
+	{
+		// https://www.opengl.org/sdk/docs/man/html/glTexImage2D.xhtml
+		glGenTextures(1, &texture_id_);
+		glBindTexture(GL_TEXTURE_2D, texture_id_);
 
-        GLint internal_format = GL_RGB;
-        GLenum texel_format = GL_RGB;
-        GLenum texel_bit_type = GL_UNSIGNED_BYTE;
+		glTexImage2D(
+			GL_TEXTURE_2D,
+			0,
+			texture_params.internal_format,			// 指定在显卡中的内部格式
+			width,									// 纹理的宽度
+			height,									// 纹理的高度
+			0,
+			texture_params.src_img_format,             // 指定纹理像素格式为RGB
+			texture_params.src_img_px_component_type,  // 指明每个颜色分量使用一个字节
+			nullptr);
 
-        switch (texel_type_)
-        {
-        default:
-        case RenderedTexelType::RGB:
-            internal_format = GL_RGB;
-            texel_format = GL_RGB;
-            texel_bit_type = GL_UNSIGNED_BYTE;
-            break;
-        case RenderedTexelType::RGBA:
-            internal_format = GL_RGBA;
-            texel_format = GL_RGBA;
-            texel_bit_type = GL_UNSIGNED_BYTE;
-            break;
-        case RenderedTexelType::RGBA16F:
-            internal_format = GL_RGBA16F;
-            texel_format = GL_RGBA;
-            texel_bit_type = GL_FLOAT; // 浮点纹理  
-            break;
-        }
-        
-        glTexImage2D( 
-            GL_TEXTURE_2D,
-            0,     
-            internal_format, // 使用GL_RGB，表明指定texture中的颜色分量为3个
-            width,           // 纹理的宽度
-            height,          // 纹理的高度
-            0,
-            texel_format,    // 指定纹理像素格式为RGB
-            texel_bit_type,  // 指明每个颜色分量使用一个字节
-            nullptr);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texture_params.min_filter_mode);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, texture_params.mag_filter_mode);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, texture_params.wrap_s_mode);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, texture_params.wrap_t_mode);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		if (RenderedTexelType::DEPTH_COMPONENT == texel_type_)
+		{
+			float border_color[] = { 1.0, 1.0, 1.0, 1.0 };
+			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border_color);
+		}
+
         glBindTexture(GL_TEXTURE_2D, 0);
         width_ = width;
         height_ = height;
@@ -102,4 +86,12 @@ namespace kgl
         glActiveTexture(texture_unit);
         glBindTexture(GL_TEXTURE_2D, texture_id_);
     }
+
+	GLenum RenderedTexture::GetAttachmentForFrameBuffer()
+	{
+		if (texel_type_ == RenderedTexelType::DEPTH_COMPONENT)
+			return GL_DEPTH_ATTACHMENT;
+		else
+			return GL_COLOR_ATTACHMENT0;
+	}
 }

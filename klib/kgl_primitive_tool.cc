@@ -181,72 +181,7 @@ namespace kgl
         return p;
     }
 
-    PrimitiveSPtr PrimitiveTool::BuildTexturedXZPlane(float y_height, float x_scale, float z_scale, int texture_repeart)
-    {
-        // 實質上就是立方體的top表面
-        GLfloat plane_vertices[] = 
-        {
-            -0.5f, 0.0f, -0.5f, 0.0f, 1.0f, // top-left
-            0.5f, 0.0f, 0.5f, 1.0f, 0.0f, // bottom-right
-            0.5f, 0.0f, -0.5f, 1.0f, 1.0f, // top-right     
-            0.5f, 0.0f, 0.5f, 1.0f, 0.0f, // bottom-right
-            -0.5f, 0.0f, -0.5f, 0.0f, 1.0f, // top-left
-            -0.5f, 0.0f, 0.5f, 0.0f, 0.0f  // bottom-left        
-        };
-        
-        // 赋值计算
-        for (int i = 0; i < 6; ++i)
-        {
-            plane_vertices[i * 5 + 0] = plane_vertices[i * 5 + 0] * x_scale; // 调整x值
-            plane_vertices[i * 5 + 1] = y_height; // 调整y值
-            plane_vertices[i * 5 + 2] = plane_vertices[i * 5 + 2] * z_scale;
-
-            /*
-            plane_vertices[i * 5 + 3] = plane_vertices[i * 5 + 3] == 0.0f ?
-                static_cast<float>(-texture_repeart) * 0.5f + 0.5f: static_cast<float>(texture_repeart) * 0.5f + 0.5f;
-            plane_vertices[i * 5 + 4] = plane_vertices[i * 5 + 4] == 0.0f ?
-                static_cast<float>(-texture_repeart) * 0.5f + 0.5f : static_cast<float>(texture_repeart)* 0.5f + 0.5f;
-            */
-            plane_vertices[i * 5 + 3] = plane_vertices[i * 5 + 3] * texture_repeart;
-            plane_vertices[i * 5 + 4] = plane_vertices[i * 5 + 4] * texture_repeart;
-        }
-        /*
-        // 倍乘以纹理坐标
-        plane_vertices[4] = plane_vertices[4] * texture_repeart;
-        plane_vertices[4] = plane_vertices[4] * texture_repeart;
-        plane_vertices[9] = plane_vertices[9] * texture_repeart;
-        plane_vertices[13] = plane_vertices[13] * texture_repeart;
-        plane_vertices[14] = plane_vertices[14] * texture_repeart;
-        plane_vertices[18] = plane_vertices[18] * texture_repeart;
-        plane_vertices[19] = plane_vertices[19] * texture_repeart;
-        plane_vertices[23] = plane_vertices[23] * texture_repeart;
-        */
-        VertexAttribute va_position;
-        va_position.index = 0;
-        va_position.normalized = GL_FALSE;
-        va_position.type = GL_FLOAT;
-        va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
-        va_position.stride = 5 * sizeof(GLfloat); // 每个顶点的步长为 
-        va_position.pointer = nullptr;
-
-        VertexAttribute va_texture;
-        va_texture.index = 1;
-        va_texture.normalized = GL_FALSE;
-        va_texture.type = GL_FLOAT;
-        va_texture.size = 2; // 一个“顶点纹理坐标”的属性由2个分量组成
-        va_texture.stride = 5 * sizeof(GLfloat); // 每个位置的步长为 
-        va_texture.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
-
-        std::vector<VertexAttribute> vtx_attri_array;
-        vtx_attri_array.clear();
-        vtx_attri_array.push_back(va_position);
-        vtx_attri_array.push_back(va_texture);
-
-        PrimitiveSPtr p = std::make_shared<Primitive>();
-        p->Create(GL_TRIANGLES, plane_vertices, sizeof(plane_vertices), 6, GL_STATIC_DRAW, vtx_attri_array);
-        return p;
-    }
-
+ 
     kgl::PrimitiveSPtr PrimitiveTool::BuildNDCTexturedRectange(float left /*= -1.0f*/, float right /*= 1.0f*/, float top /*= 1.0f*/, float bottom /*= -1.0f*/, int texture_repeat /*= 1*/)
     {
         /*
@@ -813,4 +748,58 @@ namespace kgl
 		return p;
 	}
 
+	kgl::PrimitiveSPtr PrimitiveTool::BuildNormalTexturedXZPlane(float size,float y_offset)
+	{
+		float vertices[] =
+		{
+			// 位置坐标             // 法线             // 第一层纹理坐标
+			size, y_offset, size, 0.0f, 1.0f, 0.0f, size, 0.0f,
+			-size, y_offset, size, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+			-size, y_offset, -size, 0.0f, 1.0f, 0.0f, 0.0f, size,
+
+			size, y_offset, size, 0.0f, 1.0f, 0.0f, size, 0.0f,
+			-size, y_offset, -size, 0.0f, 1.0f, 0.0f, 0.0f, size,
+			size, y_offset, -size, 0.0f, 1.0f, 0.0f, size, size
+		};
+
+		GLsizei stride = 8 * sizeof(GLfloat);
+
+		VertexAttribute va_position;
+		va_position.index = 0;
+		va_position.normalized = GL_FALSE;
+		va_position.type = GL_FLOAT;
+		va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+		va_position.stride = stride; // 每个顶点的步长为 
+		va_position.pointer = nullptr;
+
+		VertexAttribute va_normal;
+		va_normal.index = 1;
+		va_normal.normalized = GL_TRUE;
+		va_normal.type = GL_FLOAT;
+		va_normal.size = 3; // 一个“法线”的属性由3个分量组成
+		va_normal.stride = stride; // 每个顶点的步长为 
+		va_normal.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
+
+		VertexAttribute va_texture;
+		va_texture.index = 2;
+		va_texture.normalized = GL_FALSE;
+		va_texture.type = GL_FLOAT;
+		va_texture.size = 2; // 一个“顶点纹理坐标”的属性由2个分量组成
+		va_texture.stride = stride; // 每个位置的步长为 
+		va_texture.pointer = reinterpret_cast<GLvoid*> (6 * sizeof(GLfloat));
+
+		std::vector<VertexAttribute> vtx_attri_array;
+		vtx_attri_array.clear();
+		vtx_attri_array.push_back(va_position);
+		vtx_attri_array.push_back(va_normal);
+		vtx_attri_array.push_back(va_texture);
+
+		PrimitiveSPtr p = std::make_shared<Primitive>();
+		GLenum primitive_mode = GL_TRIANGLES;
+		GLsizeiptr vertices_byte_count = sizeof(float) * 6 * 8;
+		GLint vertices_count = 6;
+		GLenum vb_usage = GL_STATIC_DRAW;
+		p->Create(GL_TRIANGLES, vertices, vertices_byte_count, vertices_count, vb_usage, vtx_attri_array);
+		return p;
+	}
 }

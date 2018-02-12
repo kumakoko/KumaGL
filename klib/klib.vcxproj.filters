@@ -174,6 +174,21 @@
     <ClInclude Include="kgl_transform.h">
       <Filter>headers</Filter>
     </ClInclude>
+    <ClInclude Include="kgl_render_pass.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_rectangle.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_aabb.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_plane.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_view_frustum.h">
+      <Filter>headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kgl_lib_pch.cc">
@@ -312,6 +327,18 @@
       <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="kgl_transform.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_render_pass.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_aabb.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_plane.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_view_frustum.cc">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>

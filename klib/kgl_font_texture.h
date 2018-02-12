@@ -356,6 +356,8 @@ namespace kgl
         /// The texture_name_
         /// </summary>
         std::string texture_name_;
+
+		FT_Library ft_libaray_;
     };
 }
 #endif // kgl_font_texture_h__

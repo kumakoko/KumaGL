@@ -31,18 +31,12 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #define kgl_frame_buffer_h__
 
 #include "kgl_rendered_texture.h"
+#include "kgl_rectangle.h"
 
 namespace kgl
 {
     class FrameBuffer
     {
-    private:
-        enum RenderBufferType
-        {
-            Color,
-            Depth,
-            Account // frame buffer object所绑定的render buffer的种类个数
-        };
     public:
         /// <summary>
         /// 构造函数，创建一个 <see cref="FrameBuffer"/> 类的对象实例时被调用.
@@ -84,20 +78,18 @@ namespace kgl
         /// </summary>
         void ReleaseBuffer();
 
-        /// <summary>
-        /// Starts the writing.
-        /// </summary>
-        /// <param name="clear_color">The clear_color.</param>
-        /// <param name="clear_mask">The clear_mask.</param>
-        void StartWriting(const glm::vec4& clear_color, GLbitfield clear_mask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		/// <summary>
+		/// 开始往本frame buffer中写入
+		/// </summary>
+		/// <param name="clear_color">整体清空frame buffer所用到的颜色</param>
+		/// <param name="clear_mask">The clear_mask.</param>
+		/// <param name="rect">要清空的视口的大小</param>
+		void StartWriting(const glm::vec4& clear_color, GLbitfield clear_mask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT, const IRect* rect = nullptr);
         
         /// <summary>
         /// Ends the writtng.
         /// </summary>
-        inline void EndWriting()
-        {
-			glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        }
+		void EndWriting(const IRect* rect = nullptr);
 
         inline RenderedTextureSPtr GetTexture()
         {

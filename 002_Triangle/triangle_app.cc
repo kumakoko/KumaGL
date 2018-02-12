@@ -33,6 +33,46 @@ TriangleApp::~TriangleApp()
 	KGL_SAFE_DELETE(triangle_primitive_4_);
 }
 
+void TriangleApp::InitGuiSystem(bool use_gui, const char* bar_title)
+{
+	App::InitGuiSystem(use_gui, bar_title);
+
+	if (!use_gui)
+		return;
+
+	GLFWvidmode mode;   // GLFW video mode
+	
+	/*
+	 time = 0, dt;// Current time and enlapsed time
+	 turn = 0;    // Model turn counter
+	 speed = 0.3; // Model rotation speed
+	 wire = 0;       // Draw model in wireframe?
+	 bgColor = { 0.1f, 0.2f, 0.4f };         // Background color 
+	 cubeColor = { 255, 0, 0, 128 }; // Model color (32bits RGBA)
+	 */
+	bgColor[0] = 0.1f; bgColor[1] = 0.2f; bgColor[2] = 0.4f;
+	cubeColor[0] = 255; cubeColor[1] = 0; cubeColor[2] = 0; cubeColor[3] = 128;
+	TwDefine(" GLOBAL help='This example shows how to integrate AntTweakBar with GLFW and OpenGL.' "); // Message added to the help bar.
+
+	// Add 'speed' to 'bar': it is a modifable (RW) variable of type TW_TYPE_DOUBLE. Its key shortcuts are [s] and [S].
+	TwAddVarRW(tw_gui_bar_, "speed", TW_TYPE_DOUBLE, &speed,
+		" label='Rot speed' min=0 max=2 step=0.01 keyIncr=s keyDecr=S help='Rotation speed (turns/second)' ");
+
+	// Add 'wire' to 'bar': it is a modifable variable of type TW_TYPE_BOOL32 (32 bits boolean). Its key shortcut is [w].
+	TwAddVarRW(tw_gui_bar_, "wire", TW_TYPE_BOOL32, &wire,
+		" label='Wireframe mode' key=w help='Toggle wireframe display mode.' ");
+
+	// Add 'time' to 'bar': it is a read-only (RO) variable of type TW_TYPE_DOUBLE, with 1 precision digit
+	TwAddVarRO(tw_gui_bar_, "time", TW_TYPE_DOUBLE, &time, " label='Time' precision=1 help='Time (in seconds).' ");
+
+	// Add 'bgColor' to 'bar': it is a modifable variable of type TW_TYPE_COLOR3F (3 floats color)
+	TwAddVarRW(tw_gui_bar_, "bgColor", TW_TYPE_COLOR3F, &bgColor[0], " label='Background color' ");
+
+	// Add 'cubeColor' to 'bar': it is a modifable variable of type TW_TYPE_COLOR32 (32 bits color) with alpha
+	TwAddVarRW(tw_gui_bar_, "cubeColor", TW_TYPE_COLOR32, &cubeColor[0],
+		" label='Cube color' alpha help='Color and transparency of the cube.' ");
+}
+
 void TriangleApp::InitModel()
 {
 	gpu_program_ = new kgl::GPUProgram;
@@ -146,7 +186,6 @@ void TriangleApp::InitModel()
 	va_color.stride = 6 * sizeof(GLfloat); // 每个位置的步长为 
 	va_color.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
-
 	vtx_attri_array.clear();
 	vtx_attri_array.push_back(va_position);
 	vtx_attri_array.push_back(va_color);
@@ -216,14 +255,29 @@ void TriangleApp::InitModel()
 	triangle_primitive_4_ = new kgl::Primitive;
 	triangle_primitive_4_->CreateIndexed(GL_TRIANGLES, triangle_4_vertices, sizeof(triangle_4_vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, triangle_indices, sizeof(triangle_indices), GL_STATIC_DRAW, vtx_attri_array);
 
+
+	// - Directly redirect GLFW mouse button events to AntTweakBar
+//	glfwSetMouseButtonCallback((GLFWmousebuttonfun)TwEventMouseButtonGLFW);
+	// - Directly redirect GLFW mouse position events to AntTweakBar
+//	glfwSetMousePosCallback((GLFWmouseposfun)TwEventMousePosGLFW);
+	// - Directly redirect GLFW mouse wheel events to AntTweakBar
+//	glfwSetMouseWheelCallback((GLFWmousewheelfun)TwEventMouseWheelGLFW);
+	// - Directly redirect GLFW key events to AntTweakBar
+//	glfwSetKeyCallback((GLFWkeyfun)TwEventKeyGLFW);
+	// - Directly redirect GLFW char events to AntTweakBar
+//	glfwSetCharCallback((GLFWcharfun)TwEventCharGLFW);
+
 }
 
 void TriangleApp::RenderFrame()
 {
+	time = glfwGetTime();
 	gpu_program_->Use();
 	rectangle_primitive_->DrawIndexed();
 	triangle_primitive_1_->DrawIndexed();
 	triangle_primitive_2_->DrawIndexed();
 	triangle_primitive_3_->DrawIndexed();
 	triangle_primitive_4_->DrawIndexed();
+
+	TwDraw();
 }

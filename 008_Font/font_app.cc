@@ -40,8 +40,8 @@ void FontApp::InitScene()
 	kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
 	font_renderer->Initialize();
 	font_renderer->CreateFontTexture("resources/font/fzss_gbk.ttf", "fzss30", 30, 512, 512);
-	font_renderer->CreateFontTexture("resources/font/wqy_wmh.ttf", "wqy_wmh36", 36, 512, 512);
-	font_renderer->CreateFontTexture("resources/font/fzkt_sim.ttf", "fzkt40", 40, 512, 512);
+//	font_renderer->CreateFontTexture("resources/font/wqy_wmh.ttf", "wqy_wmh36", 36, 512, 512);
+//	font_renderer->CreateFontTexture("resources/font/fzkt_sim.ttf", "fzkt40", 40, 512, 512);
 
 	text_1_ = kgl::StringConvertor::ANSItoUTF16LE("KumaGL计算机图形学学习框架");
 	text_2_ = kgl::StringConvertor::ANSItoUTF16LE("文泉驿微米黑36号字体");
@@ -93,17 +93,14 @@ void FontApp::InitHelper()
 void FontApp::RenderFrame()
 {
 	kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
-
-//	boost::wformat wf(text_);
-//	wf % glfwGetTime();
 	font_renderer->SetCurrentFont("fzss30");
-
+	
 	font_renderer->AddToRendered(text_1_, 10, 0,
 		glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), 
 		glm::vec4(0.0f, 1.0f, 0.0f, 1.0f),
 		glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
 		glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), 1.f);
-
+/*
 	font_renderer->SetCurrentFont("wqy_wmh36");
 	font_renderer->AddToRendered(text_2_, 10, 50,glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1.f);
 
@@ -112,6 +109,6 @@ void FontApp::RenderFrame()
 
 	font_renderer->SetCurrentFont("fzss30");
 	font_renderer->AddToRendered(text_jpn_, 100, 150, glm::vec4(0.0f, 1.0f, 1.0f, 1.0f), 1.f);
-	
+*/
 	font_renderer->Draw();
 }

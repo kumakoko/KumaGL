@@ -54,22 +54,29 @@ namespace kgl
         /// </summary>
         virtual ~App();
 
-        /// <summary>
-        /// Initializes the window.
-        /// </summary>
-        /// <param name="wnd_width">The wnd_width.</param>
-        /// <param name="wnd_height">The wnd_height.</param>
-        /// <param name="wnd_resizable">The wnd_resizable.</param>
-        /// <param name="wnd_title">The wnd_title.</param>
-        /// <param name="context_version_major">The context_version_major.</param>
-        /// <param name="context_version_minor">The context_version_minor.</param>
-        /// <param name="profile">The profile.</param>
-        virtual void InitWindow(int32_t wnd_width, int32_t wnd_height, bool wnd_resizable, const char* wnd_title, int32_t context_version_major = 3, int32_t context_version_minor = 3, App::GLProfile profile = App::CORE);
+		/// <summary>
+		/// 初始化主窗口
+		/// </summary>
+		/// <param name="wnd_width">窗口的宽度</param>
+		/// <param name="wnd_height">窗口的高度</param>
+		/// <param name="wnd_resizable">窗口可以调整大小吗</param>
+		/// <param name="wnd_title">窗口的标题</param>
+		/// <param name="context_version_major">GL设备上下文的主版本</param>
+		/// <param name="context_version_minor">GL设备上下文的次版本</param>
+		/// <param name="profile">GL的profile.</param>
+		virtual void InitWindow(int32_t wnd_width, int32_t wnd_height, bool wnd_resizable, const char* wnd_title, int32_t context_version_major = 3, int32_t context_version_minor = 3, App::GLProfile profile = App::CORE);
         
         /// <summary>
-        /// Initializes the renderer.
+        /// 初始化OpenGL渲染器
         /// </summary>
         virtual void InitRenderer();
+
+		/// <summary>
+		/// 初始化GUI系统
+		/// </summary>
+		/// <param name="use_gui">是否使用GUI BAR</param>
+		/// <param name="bar_title">BAR的标题</param>
+		virtual void InitGuiSystem(bool use_gui, const char* bar_title = nullptr);
 
         /// <summary>
         /// Initializes the scene.
@@ -114,6 +121,15 @@ namespace kgl
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         static void SizeChangedCallback(GLFWwindow* window, int width, int height);
+		
+		/// <summary>
+		/// 点击鼠标时的事件响应
+		/// </summary>
+		/// <param name="window">接受消息的window窗口实例指针</param>
+		/// <param name="received_event">窗口接受到的事件</param>
+		/// <param name="button">鼠标上的按键</param>
+		/// <param name="action">按键动作，要么是GLFW_PRESS，要么是GLFW_RELEASE</param>
+		static void MouseButtonCallback(GLFWwindow* window, int received_event, int button, int action);
 
 		/// <summary>
 		/// GLFWs the error callback.
@@ -121,6 +137,8 @@ namespace kgl
 		/// <param name="error_code">The error_code.</param>
 		/// <param name="err_str">The err_str.</param>
 		static void GLFWErrorCallback(int error_code, const char* err_str);
+		
+		static void CharCallback(GLFWwindow *window, unsigned int x);
     protected:
         static App* s_instance_;
     protected:
@@ -209,11 +227,20 @@ namespace kgl
         virtual void OnSizeChangedAction(GLFWwindow* window, int width, int height);
 
 		/// <summary>
+		/// Called when [character action].
+		/// </summary>
+		/// <param name="window">The window.</param>
+		/// <param name="x">The x.</param>
+		virtual void OnCharAction(GLFWwindow *window, unsigned int x);
+
+		/// <summary>
 		/// Called when [GLFW error callback].
 		/// </summary>
 		/// <param name="error_code">The error_code.</param>
 		/// <param name="err_str">The err_str.</param>
 		virtual void OnGLFWErrorCallback(int error_code, const char* err_str);
+
+		virtual void OnMouseButtonAction(GLFWwindow* window, int received_event, int button, int action);
 
 		const char* GetGLErrorDescription(GLenum err);
 
@@ -224,6 +251,8 @@ namespace kgl
         std::bitset<384>    key_state_;     // 维护键盘是否按下的状态bit
 		int32_t				window_width_ = 0;
 		int32_t				window_height_ = 0;
+		TwBar*				tw_gui_bar_ = nullptr;
+		GLProfile			gl_profile_ = GLProfile::ANY;
     };
 }
 

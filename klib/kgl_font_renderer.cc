@@ -187,6 +187,7 @@ namespace kgl
             x += (glyph_info->advance) / view_port_width_ * scale;
         }
 
+		
         FontPrimitive* p = this->GetUnusedFontPrimitive(char_count);
         std::size_t sz = sizeof(FontVertex);
         p->SetUse(true);

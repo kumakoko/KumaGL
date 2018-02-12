@@ -34,9 +34,11 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="KGL.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="KGL.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -53,7 +55,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/glm_0_9_8_4/include;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/FreeImage_3_17_0/Dist/x32;../third_lib/freetype2_3_5/include;../third_lib/AntTweakBar_116/include;../third_lib/boost_1_64_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(ANTWEAKBAR_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>kgl_lib_pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
@@ -71,7 +73,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/glm_0_9_8_4/include;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/FreeImage_3_17_0/Dist/x32;../third_lib/freetype2_3_5/include;../third_lib/AntTweakBar_116/include;../third_lib/boost_1_64_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(ANTWEAKBAR_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>kgl_lib_pch.h</PrecompiledHeaderFile>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
@@ -88,6 +90,7 @@
   <ItemGroup>
     <ClInclude Include="dp\kgl_events.h" />
     <ClInclude Include="dp\kgl_singleton.h" />
+    <ClInclude Include="kgl_aabb.h" />
     <ClInclude Include="kgl_basic_skinned_mesh.h" />
     <ClInclude Include="kgl_basic_static_mesh.h" />
     <ClInclude Include="kgl_flat_terrain_generator.h" />
@@ -114,8 +117,11 @@
     <ClInclude Include="kgl_light.h" />
     <ClInclude Include="kgl_material.h" />
     <ClInclude Include="kgl_perlin_noise.h" />
+    <ClInclude Include="kgl_plane.h" />
     <ClInclude Include="kgl_primitive_tool.h" />
+    <ClInclude Include="kgl_rectangle.h" />
     <ClInclude Include="kgl_rendered_texture.h" />
+    <ClInclude Include="kgl_render_pass.h" />
     <ClInclude Include="kgl_render_state_blend.h" />
     <ClInclude Include="kgl_render_state_cull_mode.h" />
     <ClInclude Include="kgl_render_state_depth.h" />
@@ -135,8 +141,10 @@
     <ClInclude Include="kgl_vertex_attribute.h" />
     <ClInclude Include="kgl_primitive.h" />
     <ClInclude Include="kgl_vertex_type.h" />
+    <ClInclude Include="kgl_view_frustum.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="kgl_aabb.cc" />
     <ClCompile Include="kgl_app.cc" />
     <ClCompile Include="kgl_assimp_bridge.cc" />
     <ClCompile Include="kgl_basic_skinned_mesh.cc" />
@@ -167,8 +175,10 @@
     <ClCompile Include="kgl_material.cc" />
     <ClCompile Include="kgl_message_box.cc" />
     <ClCompile Include="kgl_perlin_noise.cc" />
+    <ClCompile Include="kgl_plane.cc" />
     <ClCompile Include="kgl_primitive_tool.cc" />
     <ClCompile Include="kgl_rendered_texture.cc" />
+    <ClCompile Include="kgl_render_pass.cc" />
     <ClCompile Include="kgl_render_state_blend.cc" />
     <ClCompile Include="kgl_render_state_cull_mode.cc" />
     <ClCompile Include="kgl_render_state_depth.cc" />
@@ -188,6 +198,7 @@
     <ClCompile Include="kgl_vertex_attribute.cc" />
     <ClCompile Include="kgl_primitive.cc" />
     <ClCompile Include="kgl_vertex_type.cc" />
+    <ClCompile Include="kgl_view_frustum.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

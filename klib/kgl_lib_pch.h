@@ -94,4 +94,6 @@ namespace bfs = boost::filesystem;
 #include <Windows.h>
 #endif
 
+#include "AntTweakBar.h"
+
 #endif // kgl_lib_pch_h__

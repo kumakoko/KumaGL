@@ -51,18 +51,14 @@ namespace kgl
         /// <returns>回图元对象的智能指针</returns>
         static PrimitiveSPtr BuildTexturedCube();
 
+		/// <summary>
+		/// 创建一个带有一层纹理映射坐标的，有法线的，和XZ平面平行的平面
+		/// </summary>
+		/// <param name="size">平面的大小</param>
+		/// <param name="y_offset">和Y轴原点的偏移量</param>
+		/// <returns>回图元对象的智能指针</returns>
+		static PrimitiveSPtr BuildNormalTexturedXZPlane(float size, float y_offset);
 
-        /// <summary>
-        /// 生成一个带一层纹理坐标的平面，本平面在初始生成是和XZ平面平行。
-        /// 本平面也是使用顺时针进行排列
-        /// </summary>
-        /// <param name="y_height">y轴方向上的高度值</param>
-        /// <param name="x_scale">x轴方向上的缩放值.</param>
-        /// <param name="z_scale">z轴方向上的缩放值</param>
-        /// <param name="texture_repeart">T貼圖的重複次數</param>
-        /// <returns>返回图元对象的智能指针</returns>
-        static PrimitiveSPtr BuildTexturedXZPlane(float y_height = 0.0f, float x_scale = 1.0f, float z_scale = 1.0f, int texture_repeart = 1);
-        
         /// <summary>
         /// 创建一个基于NDC坐标系的，带一层纹理的矩形
         /// </summary>

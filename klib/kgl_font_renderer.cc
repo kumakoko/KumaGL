@@ -71,22 +71,17 @@ namespace kgl
 
     FontRenderer::~FontRenderer()
     {
-        std::set<FontPrimitive*, FontPrimitiveGreater>::iterator it = unused_primitive_set_.begin();
-
-        for (; it != unused_primitive_set_.end(); ++it)
+        for (auto unused_primitive : unused_primitive_set_)
         {
-            FontPrimitive* p = *(it);
-            KGL_SAFE_DELETE(p);
+            KGL_SAFE_DELETE(unused_primitive);
         }
 
         unused_primitive_set_.clear();
         used_primitive_array_.clear();
 
-        std::map<std::string, FontTexture*>::iterator i = font_texture_map_.begin();
-
-        for (; i != font_texture_map_.end(); ++i)
+        for (auto kv : font_texture_map_)//; i != font_texture_map_.end(); ++i)
         {
-            FontTexture* t = i->second;
+            FontTexture* t = kv.second;
             KGL_SAFE_DELETE(t);
         }
 

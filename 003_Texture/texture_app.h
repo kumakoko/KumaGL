@@ -39,16 +39,16 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class TextureApp : public kgl::App
 {
 public:
-	TextureApp();
-	virtual ~TextureApp();
+    TextureApp();
+    virtual ~TextureApp();
 protected:
-	virtual void InitModel() override;
-	virtual void RenderFrame() override ;
+    virtual void InitModel() override;
+    virtual void RenderFrame() override ;
 private:
-	kgl::GPUProgram*		gpu_program_ = nullptr;
-	kgl::Primitive*			rectangle_primitive_ = nullptr;
-	kgl::SourceTextureSPtr	texture_1_;
-	kgl::SourceTextureSPtr	texture_2_;
+    kgl::GPUProgram*        gpu_program_ = nullptr;
+    kgl::Primitive*         rectangle_primitive_ = nullptr;
+    kgl::SourceTextureSPtr  texture_1_;
+    kgl::SourceTextureSPtr  texture_2_;
 };
 
 #endif // texture_app_h__

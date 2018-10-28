@@ -102,7 +102,7 @@ namespace kgl
         CameraSPtr          camera_;
         CubemapTextureSPtr  cubemap_texture_;
         GPUProgramSPtr      gpu_program_;
-		BasicStaticMesh*	model_;
+        BasicStaticMesh*    model_;
     };
 }
 

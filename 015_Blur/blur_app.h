@@ -44,45 +44,45 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class BlurApp : public kgl::App
 {
 public:
-	BlurApp();
-	virtual ~BlurApp();
-	virtual void InitScene();
+    BlurApp();
+    virtual ~BlurApp();
+    virtual void InitScene();
 protected:
-	virtual void RenderFrame() override;
-	virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
-	virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
-	virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
-	virtual void ProcessInput() override;
-	virtual void InitModel() override;
-	virtual void InitShaders() override;
-	virtual void InitMainCamera() override;
-	virtual void InitLights() override;
-	virtual void InitMaterials() override;
+    virtual void RenderFrame() override;
+    virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
+    virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
+    virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
+    virtual void ProcessInput() override;
+    virtual void InitModel() override;
+    virtual void InitShaders() override;
+    virtual void InitMainCamera() override;
+    virtual void InitLights() override;
+    virtual void InitMaterials() override;
 private:
-	/// <summary>
-	/// The model_
-	/// </summary>
-	kgl::BasicStaticMesh* model_ = nullptr;
+    /// <summary>
+    /// The model_
+    /// </summary>
+    kgl::BasicStaticMesh* model_ = nullptr;
 
-	/// <summary>
-	/// The model_shader_
-	/// </summary>
-	kgl::GPUProgramSPtr model_shader_;
+    /// <summary>
+    /// The model_shader_
+    /// </summary>
+    kgl::GPUProgramSPtr model_shader_;
 
-	/// <summary>
-	/// The rs_depth_
-	/// </summary>
-	kgl::RenderStateDepth rs_depth_;
+    /// <summary>
+    /// The rs_depth_
+    /// </summary>
+    kgl::RenderStateDepth rs_depth_;
 
-	/// <summary>
-	/// The directional_light_
-	/// </summary>
-	kgl::DirectionalLight directional_light_;
+    /// <summary>
+    /// The directional_light_
+    /// </summary>
+    kgl::DirectionalLight directional_light_;
 
-	/// <summary>
-	/// The material_
-	/// </summary>
-	kgl::Material material_;
+    /// <summary>
+    /// The material_
+    /// </summary>
+    kgl::Material material_;
 };
 
 

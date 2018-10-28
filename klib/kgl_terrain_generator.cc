@@ -19,35 +19,35 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	namespace low_poly_terrain
-	{
-		TerrainGenerator::TerrainGenerator(PerlinNoiseSPtr perlinNoise, ColorGeneratorSPtr colourGen, CameraSPtr camera)
-		{
-			this->perlin_noise_ = perlinNoise;
-			this->color_generator_ = colourGen;
-			this->camera_;
-		}
+    namespace low_poly_terrain
+    {
+        TerrainGenerator::TerrainGenerator(PerlinNoiseSPtr perlinNoise, ColorGeneratorSPtr colourGen, CameraSPtr camera)
+        {
+            this->perlin_noise_ = perlinNoise;
+            this->color_generator_ = colourGen;
+            this->camera_;
+        }
 
-		kgl::low_poly_terrain::TerrainSPtr TerrainGenerator::GenerateTerrain(int gridSize)
-		{
-			ublas::matrix<float> heights;
-			ublas::matrix<glm::vec4> colours;
-			GenerateHeights(gridSize, perlin_noise_,heights);
-			color_generator_->GenerateColours(heights, perlin_noise_->GetAmplitude(), colours);
-			return CreateTerrain(heights, colours);
-		}
+        kgl::low_poly_terrain::TerrainSPtr TerrainGenerator::GenerateTerrain(int gridSize)
+        {
+            ublas::matrix<float> heights;
+            ublas::matrix<glm::vec4> colours;
+            GenerateHeights(gridSize, perlin_noise_,heights);
+            color_generator_->GenerateColours(heights, perlin_noise_->GetAmplitude(), colours);
+            return CreateTerrain(heights, colours);
+        }
 
-		void TerrainGenerator::GenerateHeights(int gridSize, PerlinNoiseSPtr perlinNoise, ublas::matrix<float>& heights)
-		{
-			heights.resize(gridSize + 1, gridSize + 1, false);
+        void TerrainGenerator::GenerateHeights(int gridSize, PerlinNoiseSPtr perlinNoise, ublas::matrix<float>& heights)
+        {
+            heights.resize(gridSize + 1, gridSize + 1, false);
 
-			for (int z = 0; z < heights.size1(); z++)
-			{
-				for (int x = 0; x < heights.size2(); x++)
-				{
-					heights(z, x) = perlinNoise->GetPerlinNoise(x, z);
-				}
-			}
-		}
-	}
+            for (int z = 0; z < heights.size1(); z++)
+            {
+                for (int x = 0; x < heights.size2(); x++)
+                {
+                    heights(z, x) = perlinNoise->GetPerlinNoise(x, z);
+                }
+            }
+        }
+    }
 }

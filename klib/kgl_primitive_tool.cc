@@ -277,8 +277,8 @@ namespace kgl
                 v.Position.z = 0.0f;
 
                 // 纹理坐标
-				v.TextureCoord1.x = static_cast<float>(col) / static_cast<float>(quality);
-				v.TextureCoord1.y = static_cast<float>(row) / static_cast<float>(quality);
+                v.TextureCoord1.x = static_cast<float>(col) / static_cast<float>(quality);
+                v.TextureCoord1.y = static_cast<float>(row) / static_cast<float>(quality);
 
                 // 法线
                 v.Normal.x = v.Normal.y = 0.0f;
@@ -659,147 +659,147 @@ namespace kgl
     }
 
 
-	PrimitiveSPtr PrimitiveTool::BuildNDCTextureNormalCube()
-	{
-		float vertices[] =
-		{
-			// back face
-			-1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, // bottom-left
-			1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f, // top-right
-			1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f, // bottom-right         
-			1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f, // top-right
-			-1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, // bottom-left
-			-1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, // top-left
-			// front face
-			-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom-left
-			1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, // bottom-right
-			1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, // top-right
-			1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, // top-right
-			-1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // top-left
-			-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom-left
-			// left face
-			-1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-right
-			-1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top-left
-			-1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-left
-			-1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-left
-			-1.0f, -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // bottom-right
-			-1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-right
-			// right face
-			1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-left
-			1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right
-			1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top-right         
-			1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right
-			1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-left
-			1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // bottom-left     
-			// bottom face
-			-1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f, // top-right
-			1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f, // top-left
-			1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, // bottom-left
-			1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, // bottom-left
-			-1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f, // bottom-right
-			-1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f, // top-right
-			// top face
-			-1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, // top-left
-			1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom-right
-			1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // top-right     
-			1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom-right
-			-1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, // top-left
-			-1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f  // bottom-left        
-		};
+    PrimitiveSPtr PrimitiveTool::BuildNDCTextureNormalCube()
+    {
+        float vertices[] =
+        {
+            // back face
+            -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, // bottom-left
+            1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f, // top-right
+            1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f, // bottom-right         
+            1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f, // top-right
+            -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, // bottom-left
+            -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, // top-left
+            // front face
+            -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom-left
+            1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, // bottom-right
+            1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, // top-right
+            1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, // top-right
+            -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // top-left
+            -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom-left
+            // left face
+            -1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-right
+            -1.0f, 1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top-left
+            -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-left
+            -1.0f, -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-left
+            -1.0f, -1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // bottom-right
+            -1.0f, 1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-right
+            // right face
+            1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-left
+            1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right
+            1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top-right         
+            1.0f, -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right
+            1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-left
+            1.0f, -1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, // bottom-left     
+            // bottom face
+            -1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f, // top-right
+            1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f, // top-left
+            1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, // bottom-left
+            1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f, // bottom-left
+            -1.0f, -1.0f, 1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f, // bottom-right
+            -1.0f, -1.0f, -1.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f, // top-right
+            // top face
+            -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, // top-left
+            1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom-right
+            1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // top-right     
+            1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom-right
+            -1.0f, 1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, // top-left
+            -1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f  // bottom-left        
+        };
 
-		GLsizei stride = 8 * sizeof(GLfloat);
+        GLsizei stride = 8 * sizeof(GLfloat);
 
-		VertexAttribute va_position;
-		va_position.index = 0;
-		va_position.normalized = GL_FALSE;
-		va_position.type = GL_FLOAT;
-		va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
-		va_position.stride = stride; // 每个顶点的步长为 
-		va_position.pointer = nullptr;
+        VertexAttribute va_position;
+        va_position.index = 0;
+        va_position.normalized = GL_FALSE;
+        va_position.type = GL_FLOAT;
+        va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+        va_position.stride = stride; // 每个顶点的步长为 
+        va_position.pointer = nullptr;
 
-		VertexAttribute va_normal;
-		va_normal.index = 1;
-		va_normal.normalized = GL_TRUE;
-		va_normal.type = GL_FLOAT;
-		va_normal.size = 3; // 一个“法线”的属性由3个分量组成
-		va_normal.stride = stride; // 每个顶点的步长为 
-		va_normal.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
+        VertexAttribute va_normal;
+        va_normal.index = 1;
+        va_normal.normalized = GL_TRUE;
+        va_normal.type = GL_FLOAT;
+        va_normal.size = 3; // 一个“法线”的属性由3个分量组成
+        va_normal.stride = stride; // 每个顶点的步长为 
+        va_normal.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
-		VertexAttribute va_texture;
-		va_texture.index = 2;
-		va_texture.normalized = GL_FALSE;
-		va_texture.type = GL_FLOAT;
-		va_texture.size = 2; // 一个“顶点纹理坐标”的属性由2个分量组成
-		va_texture.stride = stride; // 每个位置的步长为 
-		va_texture.pointer = reinterpret_cast<GLvoid*> (6 * sizeof(GLfloat));
+        VertexAttribute va_texture;
+        va_texture.index = 2;
+        va_texture.normalized = GL_FALSE;
+        va_texture.type = GL_FLOAT;
+        va_texture.size = 2; // 一个“顶点纹理坐标”的属性由2个分量组成
+        va_texture.stride = stride; // 每个位置的步长为 
+        va_texture.pointer = reinterpret_cast<GLvoid*> (6 * sizeof(GLfloat));
 
-		std::vector<VertexAttribute> vtx_attri_array;
-		vtx_attri_array.clear();
-		vtx_attri_array.push_back(va_position);
-		vtx_attri_array.push_back(va_normal);
-		vtx_attri_array.push_back(va_texture);
+        std::vector<VertexAttribute> vtx_attri_array;
+        vtx_attri_array.clear();
+        vtx_attri_array.push_back(va_position);
+        vtx_attri_array.push_back(va_normal);
+        vtx_attri_array.push_back(va_texture);
 
-		PrimitiveSPtr p = std::make_shared<Primitive>();
-		GLenum primitive_mode = GL_TRIANGLES;
-		GLsizeiptr vertices_byte_count = sizeof(float) * 36 * 8;
-		GLint vertices_count = 36;
-		GLenum vb_usage = GL_STATIC_DRAW;
-		p->Create(GL_TRIANGLES, vertices, vertices_byte_count, vertices_count, vb_usage, vtx_attri_array);
-		return p;
-	}
+        PrimitiveSPtr p = std::make_shared<Primitive>();
+        GLenum primitive_mode = GL_TRIANGLES;
+        GLsizeiptr vertices_byte_count = sizeof(float) * 36 * 8;
+        GLint vertices_count = 36;
+        GLenum vb_usage = GL_STATIC_DRAW;
+        p->Create(GL_TRIANGLES, vertices, vertices_byte_count, vertices_count, vb_usage, vtx_attri_array);
+        return p;
+    }
 
-	kgl::PrimitiveSPtr PrimitiveTool::BuildNormalTexturedXZPlane(float size,float y_offset)
-	{
-		float vertices[] =
-		{
-			// 位置坐标             // 法线             // 第一层纹理坐标
-			size, y_offset, size, 0.0f, 1.0f, 0.0f, size, 0.0f,
-			-size, y_offset, size, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-			-size, y_offset, -size, 0.0f, 1.0f, 0.0f, 0.0f, size,
+    kgl::PrimitiveSPtr PrimitiveTool::BuildNormalTexturedXZPlane(float size,float y_offset)
+    {
+        float vertices[] =
+        {
+            // 位置坐标             // 法线             // 第一层纹理坐标
+            size, y_offset, size, 0.0f, 1.0f, 0.0f, size, 0.0f,
+            -size, y_offset, size, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+            -size, y_offset, -size, 0.0f, 1.0f, 0.0f, 0.0f, size,
 
-			size, y_offset, size, 0.0f, 1.0f, 0.0f, size, 0.0f,
-			-size, y_offset, -size, 0.0f, 1.0f, 0.0f, 0.0f, size,
-			size, y_offset, -size, 0.0f, 1.0f, 0.0f, size, size
-		};
+            size, y_offset, size, 0.0f, 1.0f, 0.0f, size, 0.0f,
+            -size, y_offset, -size, 0.0f, 1.0f, 0.0f, 0.0f, size,
+            size, y_offset, -size, 0.0f, 1.0f, 0.0f, size, size
+        };
 
-		GLsizei stride = 8 * sizeof(GLfloat);
+        GLsizei stride = 8 * sizeof(GLfloat);
 
-		VertexAttribute va_position;
-		va_position.index = 0;
-		va_position.normalized = GL_FALSE;
-		va_position.type = GL_FLOAT;
-		va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
-		va_position.stride = stride; // 每个顶点的步长为 
-		va_position.pointer = nullptr;
+        VertexAttribute va_position;
+        va_position.index = 0;
+        va_position.normalized = GL_FALSE;
+        va_position.type = GL_FLOAT;
+        va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+        va_position.stride = stride; // 每个顶点的步长为 
+        va_position.pointer = nullptr;
 
-		VertexAttribute va_normal;
-		va_normal.index = 1;
-		va_normal.normalized = GL_TRUE;
-		va_normal.type = GL_FLOAT;
-		va_normal.size = 3; // 一个“法线”的属性由3个分量组成
-		va_normal.stride = stride; // 每个顶点的步长为 
-		va_normal.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
+        VertexAttribute va_normal;
+        va_normal.index = 1;
+        va_normal.normalized = GL_TRUE;
+        va_normal.type = GL_FLOAT;
+        va_normal.size = 3; // 一个“法线”的属性由3个分量组成
+        va_normal.stride = stride; // 每个顶点的步长为 
+        va_normal.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
 
-		VertexAttribute va_texture;
-		va_texture.index = 2;
-		va_texture.normalized = GL_FALSE;
-		va_texture.type = GL_FLOAT;
-		va_texture.size = 2; // 一个“顶点纹理坐标”的属性由2个分量组成
-		va_texture.stride = stride; // 每个位置的步长为 
-		va_texture.pointer = reinterpret_cast<GLvoid*> (6 * sizeof(GLfloat));
+        VertexAttribute va_texture;
+        va_texture.index = 2;
+        va_texture.normalized = GL_FALSE;
+        va_texture.type = GL_FLOAT;
+        va_texture.size = 2; // 一个“顶点纹理坐标”的属性由2个分量组成
+        va_texture.stride = stride; // 每个位置的步长为 
+        va_texture.pointer = reinterpret_cast<GLvoid*> (6 * sizeof(GLfloat));
 
-		std::vector<VertexAttribute> vtx_attri_array;
-		vtx_attri_array.clear();
-		vtx_attri_array.push_back(va_position);
-		vtx_attri_array.push_back(va_normal);
-		vtx_attri_array.push_back(va_texture);
+        std::vector<VertexAttribute> vtx_attri_array;
+        vtx_attri_array.clear();
+        vtx_attri_array.push_back(va_position);
+        vtx_attri_array.push_back(va_normal);
+        vtx_attri_array.push_back(va_texture);
 
-		PrimitiveSPtr p = std::make_shared<Primitive>();
-		GLenum primitive_mode = GL_TRIANGLES;
-		GLsizeiptr vertices_byte_count = sizeof(float) * 6 * 8;
-		GLint vertices_count = 6;
-		GLenum vb_usage = GL_STATIC_DRAW;
-		p->Create(GL_TRIANGLES, vertices, vertices_byte_count, vertices_count, vb_usage, vtx_attri_array);
-		return p;
-	}
+        PrimitiveSPtr p = std::make_shared<Primitive>();
+        GLenum primitive_mode = GL_TRIANGLES;
+        GLsizeiptr vertices_byte_count = sizeof(float) * 6 * 8;
+        GLint vertices_count = 6;
+        GLenum vb_usage = GL_STATIC_DRAW;
+        p->Create(GL_TRIANGLES, vertices, vertices_byte_count, vertices_count, vb_usage, vtx_attri_array);
+        return p;
+    }
 }

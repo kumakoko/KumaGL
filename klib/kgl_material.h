@@ -41,12 +41,12 @@ namespace kgl
         float       Shininess;
     };
 
-	struct MaterialUniformLocation
-	{
-		GLint Ambient;
-		GLint Diffuse;
-		GLint Specular;
-		GLint Shininess;
-	};
+    struct MaterialUniformLocation
+    {
+        GLint Ambient;
+        GLint Diffuse;
+        GLint Specular;
+        GLint Shininess;
+    };
 }
 #endif // kgl_material_h__

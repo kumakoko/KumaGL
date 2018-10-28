@@ -214,23 +214,23 @@ namespace kgl
             camera_speed_ = speed;
         }
 
-		/// <summary>
-		/// 设置每帧最大可以调整多大的yaw角
-		/// </summary>
-		/// <param name="max_degree">最大的yaw角</param>
-		inline void SetMaxYawDegreePerFrame(float max_degree)
-		{
-			max_yaw_degree_per_frame_ = max_degree;
-		}
+        /// <summary>
+        /// 设置每帧最大可以调整多大的yaw角
+        /// </summary>
+        /// <param name="max_degree">最大的yaw角</param>
+        inline void SetMaxYawDegreePerFrame(float max_degree)
+        {
+            max_yaw_degree_per_frame_ = max_degree;
+        }
 
-		/// <summary>
-		/// 设置每帧最大可以调整多大的pitch角
-		/// </summary>
-		/// <param name="max_degree">最大的pitch角</param>
-		inline void SetMaxPitchDegreePerFrame(float max_degree)
-		{
-			max_pitch_degree_per_frame_ = max_degree;
-		}
+        /// <summary>
+        /// 设置每帧最大可以调整多大的pitch角
+        /// </summary>
+        /// <param name="max_degree">最大的pitch角</param>
+        inline void SetMaxPitchDegreePerFrame(float max_degree)
+        {
+            max_pitch_degree_per_frame_ = max_degree;
+        }
 
     private:
         /// <summary>

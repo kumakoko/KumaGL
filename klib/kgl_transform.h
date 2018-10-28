@@ -32,13 +32,13 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	struct Orientation
-	{
-		glm::vec3 m_scale;
-		glm::vec3 m_rotation;
-		glm::vec3 m_pos;
-		Orientation();
-	};
+    struct Orientation
+    {
+        glm::vec3 m_scale;
+        glm::vec3 m_rotation;
+        glm::vec3 m_pos;
+        Orientation();
+    };
 }
 
 #endif // kgl_transform_h__

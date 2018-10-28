@@ -45,99 +45,99 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class ShadowMappingApp : public kgl::App
 {
 public:
-	ShadowMappingApp();
-	virtual ~ShadowMappingApp();
-	virtual void InitScene();
+    ShadowMappingApp();
+    virtual ~ShadowMappingApp();
+    virtual void InitScene();
 protected:
-	virtual void PreRenderFrame() override;
-	virtual void RenderFrame() override;
-	virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
-	virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
-	virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
-	virtual void ProcessInput() override;
-	virtual void InitModel() override;
-	virtual void InitShaders() override;
-	virtual void InitLights() override;
-	virtual void InitMainCamera() override;
-	virtual void InitFont() override;
-	void RenderHelpText(const glm::vec3& view_pos);
-	void RenderSceneDepthToBuffer();
-	void RenderSceneWithShadow();
-	void RenderDebugScreen();
-	void CreateFrameBufferForDepth();
+    virtual void PreRenderFrame() override;
+    virtual void RenderFrame() override;
+    virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
+    virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
+    virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
+    virtual void ProcessInput() override;
+    virtual void InitModel() override;
+    virtual void InitShaders() override;
+    virtual void InitLights() override;
+    virtual void InitMainCamera() override;
+    virtual void InitFont() override;
+    void RenderHelpText(const glm::vec3& view_pos);
+    void RenderSceneDepthToBuffer();
+    void RenderSceneWithShadow();
+    void RenderDebugScreen();
+    void CreateFrameBufferForDepth();
 private:
-	/// <summary>
-	/// The shadow_mapping_pass_
-	/// </summary>
-	RenderPassShadowMapping* shadow_mapping_pass_ = nullptr;
+    /// <summary>
+    /// The shadow_mapping_pass_
+    /// </summary>
+    RenderPassShadowMapping* shadow_mapping_pass_ = nullptr;
 
-	/// <summary>
-	/// The shadow_mapping_depth_pass_
-	/// </summary>
-	RenderPassShadowMappingDepth* shadow_mapping_depth_pass_ = nullptr;
+    /// <summary>
+    /// The shadow_mapping_depth_pass_
+    /// </summary>
+    RenderPassShadowMappingDepth* shadow_mapping_depth_pass_ = nullptr;
 
-	/// <summary>
-	/// 用来执行阴影计算所用到的frame buffer
-	/// </summary>
-	kgl::FrameBuffer* shadow_depth_buffer_ = nullptr;
+    /// <summary>
+    /// 用来执行阴影计算所用到的frame buffer
+    /// </summary>
+    kgl::FrameBuffer* shadow_depth_buffer_ = nullptr;
 
-	/// <summary>
-	/// 深度状态
-	/// </summary>
-	kgl::RenderStateDepth rs_depth_;
+    /// <summary>
+    /// 深度状态
+    /// </summary>
+    kgl::RenderStateDepth rs_depth_;
 
-	/// <summary>
-	/// The floor_
-	/// </summary>
-	kgl::PrimitiveSPtr floor_;
+    /// <summary>
+    /// The floor_
+    /// </summary>
+    kgl::PrimitiveSPtr floor_;
 
-	/// <summary>
-	/// The box_
-	/// </summary>
-	kgl::PrimitiveSPtr box_;
+    /// <summary>
+    /// The box_
+    /// </summary>
+    kgl::PrimitiveSPtr box_;
 
-	/// <summary>
-	/// 用来绘制帧缓冲区内容的图元
-	/// </summary>
-	kgl::PrimitiveSPtr debug_screen_;
+    /// <summary>
+    /// 用来绘制帧缓冲区内容的图元
+    /// </summary>
+    kgl::PrimitiveSPtr debug_screen_;
 
-	kgl::SourceTextureSPtr wood_texture_;
+    kgl::SourceTextureSPtr wood_texture_;
 
-	kgl::SourceTextureSPtr stone_texture_;
+    kgl::SourceTextureSPtr stone_texture_;
 
-	kgl::RenderStateCullMode cull_mode_draw_box_;
+    kgl::RenderStateCullMode cull_mode_draw_box_;
 
-	kgl::RenderStateCullMode cull_mode_draw_floor_;
+    kgl::RenderStateCullMode cull_mode_draw_floor_;
 
-	kgl::RenderStateCullMode draw_fb_to_scr_cull_;
-	
-	kgl::RenderStateDepth draw_fb_to_scr_depth_;
+    kgl::RenderStateCullMode draw_fb_to_scr_cull_;
+    
+    kgl::RenderStateDepth draw_fb_to_scr_depth_;
 
-	kgl::GPUProgram* debug_screen_shader_ = nullptr;
-	/// <summary>
-	/// 提示如何关闭帮助文档的信息字符串
-	/// </summary>
-	std::wstring toggle_help_off_text_;
+    kgl::GPUProgram* debug_screen_shader_ = nullptr;
+    /// <summary>
+    /// 提示如何关闭帮助文档的信息字符串
+    /// </summary>
+    std::wstring toggle_help_off_text_;
 
-	/// <summary>
-	///  提示如何打开帮助文档的信息字符串
-	/// </summary>
-	std::wstring toggle_help_on_text_;
+    /// <summary>
+    ///  提示如何打开帮助文档的信息字符串
+    /// </summary>
+    std::wstring toggle_help_on_text_;
 
-	/// <summary>
-	/// 摄像机相关信息的字符串
-	/// </summary>
-	std::wstring camera_ctrl_text_;
+    /// <summary>
+    /// 摄像机相关信息的字符串
+    /// </summary>
+    std::wstring camera_ctrl_text_;
 
-	/// <summary>
-	/// 帮助文档是否处于打开状态
-	/// </summary>
-	bool is_help_on_ = true;
+    /// <summary>
+    /// 帮助文档是否处于打开状态
+    /// </summary>
+    bool is_help_on_ = true;
 
-	/// <summary>
-	/// 是否开启顶点偏移和多采样以优化阴影质量
-	/// </summary>
-	bool use_bias_sample_shadow_ = true;
+    /// <summary>
+    /// 是否开启顶点偏移和多采样以优化阴影质量
+    /// </summary>
+    bool use_bias_sample_shadow_ = true;
 };
 
 

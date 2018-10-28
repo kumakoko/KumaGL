@@ -20,27 +20,27 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	namespace low_poly_terrain
-	{
-		Terrain::~Terrain()
-		{
-			renderer_.reset();
-		}
+    namespace low_poly_terrain
+    {
+        Terrain::~Terrain()
+        {
+            renderer_.reset();
+        }
 
-		Terrain::Terrain(PrimitiveSPtr primitive, TerrainRendererSPtr renderer)
-		{
-			primitive_ = primitive;
-			renderer_ = renderer;
-		}
+        Terrain::Terrain(PrimitiveSPtr primitive, TerrainRendererSPtr renderer)
+        {
+            primitive_ = primitive;
+            renderer_ = renderer;
+        }
 
-		int Terrain::GetVertexCount() const
+        int Terrain::GetVertexCount() const
 {
-			return primitive_->GetVerticesCount();
-		}
+            return primitive_->GetVerticesCount();
+        }
 
-		void Terrain::Render(const LowPolyTerrainLight& light)
-		{
-			renderer_->Render(this, light);
-		}
-	}
+        void Terrain::Render(const LowPolyTerrainLight& light)
+        {
+            renderer_->Render(this, light);
+        }
+    }
 }

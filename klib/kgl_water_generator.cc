@@ -153,34 +153,34 @@ namespace kgl
 	 * The offsets are then stored in an array as bytes (not converted to bytes,
 	 * but simply cast to bytes) and returned. The size of each grid square must
 	 * be an integer value for this to work, otherwise the offsets wouldn't be
-	 * able to be represented correctly as bytes.
-	 *
-	 * @param currentVertex
-	 *            - The index of the current vertex in the current grid square
-	 *            (A number between 0 and 3).
-	 * @param vertexPositions
-	 *            - The 4 corner positions of the current grid square, stored in
-	 *            the following order: 0 = top left, 1 = bottom left, 2 = top
-	 *            right, 3 = bottom right
-	 * @param vertex1
-	 *            - The index of one of the other vertices in the triangle
-	 *            (number between 0 and 3).
-	 * @param vertex2
-	 *            - The index of the other vertex in the triangle (number
-	 *            between 0 and 3).
-	 * @return
-	 */
-	void WaterGenerator::getIndicators(int currentVertex, const std::vector<glm::vec2>& vertexPositions, int vertex1, int vertex2, std::array<uint8_t, 4>& buffer)
-	{
-		const glm::vec2 currentVertexPos = vertexPositions[currentVertex];
-		const glm::vec2 vertex1Pos = vertexPositions[vertex1];
-		const glm::vec2 vertex2Pos = vertexPositions[vertex2];
-		glm::vec2 offset1 = vertex1Pos - currentVertexPos;//glm::vec2.sub(vertex1Pos, currentVertexPos, null);
-		glm::vec2 offset2 = vertex2Pos - currentVertexPos;//glm::vec2.sub(vertex2Pos, currentVertexPos, null);
-		//return new byte[] { (byte)offset1.x, (byte)offset1.y, (byte)offset2.x, (byte)offset2.y };
-		buffer[0] = static_cast<uint8_t>(offset1.x);
-		buffer[1] = static_cast<uint8_t>(offset1.y);
-		buffer[2] = static_cast<uint8_t>(offset2.x);
-		buffer[3] = static_cast<uint8_t>(offset2.y);
-	}
+     * able to be represented correctly as bytes.
+     *
+     * @param currentVertex
+     *            - The index of the current vertex in the current grid square
+     *            (A number between 0 and 3).
+     * @param vertexPositions
+     *            - The 4 corner positions of the current grid square, stored in
+     *            the following order: 0 = top left, 1 = bottom left, 2 = top
+     *            right, 3 = bottom right
+     * @param vertex1
+     *            - The index of one of the other vertices in the triangle
+     *            (number between 0 and 3).
+     * @param vertex2
+     *            - The index of the other vertex in the triangle (number
+     *            between 0 and 3).
+     * @return
+     */
+    void WaterGenerator::getIndicators(int currentVertex, const std::vector<glm::vec2>& vertexPositions, int vertex1, int vertex2, std::array<uint8_t, 4>& buffer)
+    {
+        const glm::vec2 currentVertexPos = vertexPositions[currentVertex];
+        const glm::vec2 vertex1Pos = vertexPositions[vertex1];
+        const glm::vec2 vertex2Pos = vertexPositions[vertex2];
+        glm::vec2 offset1 = vertex1Pos - currentVertexPos;//glm::vec2.sub(vertex1Pos, currentVertexPos, null);
+        glm::vec2 offset2 = vertex2Pos - currentVertexPos;//glm::vec2.sub(vertex2Pos, currentVertexPos, null);
+        //return new byte[] { (byte)offset1.x, (byte)offset1.y, (byte)offset2.x, (byte)offset2.y };
+        buffer[0] = static_cast<uint8_t>(offset1.x);
+        buffer[1] = static_cast<uint8_t>(offset1.y);
+        buffer[2] = static_cast<uint8_t>(offset2.x);
+        buffer[3] = static_cast<uint8_t>(offset2.y);
+    }
 }

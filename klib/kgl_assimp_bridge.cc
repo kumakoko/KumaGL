@@ -60,31 +60,31 @@ OpenGL开发者通常使用一种内部矩阵布局，叫做列优先矩阵(Colu
 打印出数据来的话，就会发现，GLM的矩阵，实质上是列优先的逻辑，但是却看起来像行优先的存储方式
 这也就是为什么要使用glm::value_ptr函数去处理GLM矩阵以获取数据首指针的缘故
 */
-	void AiMatrix4x4ToGlmMat4(const aiMatrix4x4& ai_matrix, glm::mat4& glm_matrix)
-	{
-		glm_matrix[0][0] = ai_matrix[0][0]; glm_matrix[0][1] = ai_matrix[1][0]; glm_matrix[0][2] = ai_matrix[2][0]; glm_matrix[0][3] = ai_matrix[3][0];
-		glm_matrix[1][0] = ai_matrix[0][1]; glm_matrix[1][1] = ai_matrix[1][1]; glm_matrix[1][2] = ai_matrix[2][1]; glm_matrix[1][3] = ai_matrix[3][1];
-		glm_matrix[2][0] = ai_matrix[0][2]; glm_matrix[2][1] = ai_matrix[1][2]; glm_matrix[2][2] = ai_matrix[2][2]; glm_matrix[2][3] = ai_matrix[3][2];
-		glm_matrix[3][0] = ai_matrix[0][3]; glm_matrix[3][1] = ai_matrix[1][3]; glm_matrix[3][2] = ai_matrix[2][3]; glm_matrix[3][3] = ai_matrix[3][3];
-	}
+    void AiMatrix4x4ToGlmMat4(const aiMatrix4x4& ai_matrix, glm::mat4& glm_matrix)
+    {
+        glm_matrix[0][0] = ai_matrix[0][0]; glm_matrix[0][1] = ai_matrix[1][0]; glm_matrix[0][2] = ai_matrix[2][0]; glm_matrix[0][3] = ai_matrix[3][0];
+        glm_matrix[1][0] = ai_matrix[0][1]; glm_matrix[1][1] = ai_matrix[1][1]; glm_matrix[1][2] = ai_matrix[2][1]; glm_matrix[1][3] = ai_matrix[3][1];
+        glm_matrix[2][0] = ai_matrix[0][2]; glm_matrix[2][1] = ai_matrix[1][2]; glm_matrix[2][2] = ai_matrix[2][2]; glm_matrix[2][3] = ai_matrix[3][2];
+        glm_matrix[3][0] = ai_matrix[0][3]; glm_matrix[3][1] = ai_matrix[1][3]; glm_matrix[3][2] = ai_matrix[2][3]; glm_matrix[3][3] = ai_matrix[3][3];
+    }
 
-	void AiMatrix3x3ToGlmMat4(const aiMatrix3x3& ai_matrix, glm::mat4& glm_matrix)
-	{
-		glm_matrix[0][0] = ai_matrix.a1; glm_matrix[0][1] = ai_matrix.b1; glm_matrix[0][2] = ai_matrix.c1; glm_matrix[0][3] = 0.0f;
-		glm_matrix[1][0] = ai_matrix.a2; glm_matrix[1][1] = ai_matrix.b2; glm_matrix[1][2] = ai_matrix.c2; glm_matrix[1][3] = 0.0f;
-		glm_matrix[2][0] = ai_matrix.a3; glm_matrix[2][1] = ai_matrix.b3; glm_matrix[2][2] = ai_matrix.c3; glm_matrix[2][3] = 0.0f;
-		glm_matrix[3][0] = 0.0f        ; glm_matrix[3][1] = 0.0f        ; glm_matrix[3][2] = 0.0f        ; glm_matrix[3][3] = 1.0f;
-	}
+    void AiMatrix3x3ToGlmMat4(const aiMatrix3x3& ai_matrix, glm::mat4& glm_matrix)
+    {
+        glm_matrix[0][0] = ai_matrix.a1; glm_matrix[0][1] = ai_matrix.b1; glm_matrix[0][2] = ai_matrix.c1; glm_matrix[0][3] = 0.0f;
+        glm_matrix[1][0] = ai_matrix.a2; glm_matrix[1][1] = ai_matrix.b2; glm_matrix[1][2] = ai_matrix.c2; glm_matrix[1][3] = 0.0f;
+        glm_matrix[2][0] = ai_matrix.a3; glm_matrix[2][1] = ai_matrix.b3; glm_matrix[2][2] = ai_matrix.c3; glm_matrix[2][3] = 0.0f;
+        glm_matrix[3][0] = 0.0f        ; glm_matrix[3][1] = 0.0f        ; glm_matrix[3][2] = 0.0f        ; glm_matrix[3][3] = 1.0f;
+    }
 
-	void AiVector3DToGlmVec3(const aiVector3D& ai_vector, glm::vec3 glm_vector)
-	{
-		glm_vector.x = ai_vector.x;
-		glm_vector.y = ai_vector.y;
-		glm_vector.z = ai_vector.z;
-	}
+    void AiVector3DToGlmVec3(const aiVector3D& ai_vector, glm::vec3 glm_vector)
+    {
+        glm_vector.x = ai_vector.x;
+        glm_vector.y = ai_vector.y;
+        glm_vector.z = ai_vector.z;
+    }
 
-	glm::vec3  AiVector3DToGlmVec3(const aiVector3D& ai_vector)
-	{
-		return glm::vec3(ai_vector.x, ai_vector.y, ai_vector.z);
-	}
+    glm::vec3  AiVector3DToGlmVec3(const aiVector3D& ai_vector)
+    {
+        return glm::vec3(ai_vector.x, ai_vector.y, ai_vector.z);
+    }
 }

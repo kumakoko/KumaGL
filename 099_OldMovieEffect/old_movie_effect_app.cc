@@ -20,25 +20,25 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 OldMovieEffectApp::OldMovieEffectApp()
 {
-	film_color_ = glm::vec4(1.0f, 0.7559052f, 0.58474624f, 1.0f);
+    film_color_ = glm::vec4(1.0f, 0.7559052f, 0.58474624f, 1.0f);
 }
 
 OldMovieEffectApp::~OldMovieEffectApp()
 {
     KGL_SAFE_DELETE(shader_);
-	texture_scene_.reset();
-	texture_dust_.reset();
-	texture_line_.reset();
-	texture_tv_.reset();
-	texture_noise_.reset();
+    texture_scene_.reset();
+    texture_dust_.reset();
+    texture_line_.reset();
+    texture_tv_.reset();
+    texture_noise_.reset();
 }
 
 void OldMovieEffectApp::InitScene()
 {
     screen_resolution_ = glm::vec2(800.0f, 600.0f);
 // ================================================================
-	shader_ = new kgl::GPUProgram;
-	shader_->CreateFromFile("resources/shader/old_movie_effect_vs.glsl", "resources/shader/old_movie_effect_fs.glsl", nullptr);
+    shader_ = new kgl::GPUProgram;
+    shader_->CreateFromFile("resources/shader/old_movie_effect_vs.glsl", "resources/shader/old_movie_effect_fs.glsl", nullptr);
 // ================================================================
     kgl::TextureParams texture_param;
     texture_param.wrap_s_mode = GL_REPEAT;
@@ -50,25 +50,25 @@ void OldMovieEffectApp::InitScene()
     texture_param.src_img_format = GL_RGB;
     texture_param.used_mipmap = false;
 
-	texture_scene_ = std::make_shared<kgl::SourceTexture>();
-	texture_scene_->CreateFromFile("resources/image/old_movie_effect/scene_1.png", texture_param);
+    texture_scene_ = std::make_shared<kgl::SourceTexture>();
+    texture_scene_->CreateFromFile("resources/image/old_movie_effect/scene_1.png", texture_param);
 
-	texture_dust_ = std::make_shared<kgl::SourceTexture>();
-	texture_dust_->CreateFromFile("resources/image/old_movie_effect/dust.png", texture_param);
+    texture_dust_ = std::make_shared<kgl::SourceTexture>();
+    texture_dust_->CreateFromFile("resources/image/old_movie_effect/dust.png", texture_param);
 
-	texture_line_ = std::make_shared<kgl::SourceTexture>();
-	texture_line_->CreateFromFile("resources/image/old_movie_effect/line.png", texture_param);
+    texture_line_ = std::make_shared<kgl::SourceTexture>();
+    texture_line_->CreateFromFile("resources/image/old_movie_effect/line.png", texture_param);
 
-	texture_tv_ = std::make_shared<kgl::SourceTexture>();
-	texture_tv_->CreateFromFile("resources/image/old_movie_effect/tv.png", texture_param);
+    texture_tv_ = std::make_shared<kgl::SourceTexture>();
+    texture_tv_->CreateFromFile("resources/image/old_movie_effect/tv.png", texture_param);
 
-	texture_noise_ = std::make_shared<kgl::SourceTexture>();
-	texture_noise_->CreateFromFile("resources/image/old_movie_effect/tv.png", texture_param);
+    texture_noise_ = std::make_shared<kgl::SourceTexture>();
+    texture_noise_->CreateFromFile("resources/image/old_movie_effect/tv.png", texture_param);
 
     GLfloat vertices[] =
     {
         // 位置          // 颜色            //纹理坐标1 
-        1.0f, 1.0f, 0.0f, 1.0f, 1.0f,	  // 右上角
+        1.0f, 1.0f, 0.0f, 1.0f, 1.0f,     // 右上角
         1.0f, -1.0f, 0.0f, 1.0f, 0.0f,  // 右下角
         -1.0f, -1.0f, 0.0f,0.0f, 0.0f, // 左下角
         - 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  //左上角
@@ -101,27 +101,27 @@ void OldMovieEffectApp::InitScene()
     vtx_attri_array.push_back(va_texture_coord_1);
 
     rectangle_primitive_ = new kgl::Primitive;
-	rectangle_primitive_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
+    rectangle_primitive_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
 }
 
 void OldMovieEffectApp::RenderFrame()
 {
-	shader_->Use();
-	shader_->ApplyFloat(glfwGetTime(), "current_time");
-	shader_->ApplyFloat(scratches_level_, "scratches_level");
-	shader_->ApplyFloat(scratches_amount_, "scratches_amount");
-	shader_->ApplyFloat(max_frame_jitter_, "max_frame_jitter");
-	shader_->ApplyFloat(frame_jitter_, "frame_jitter");
-	shader_->ApplyFloat(over_exposure_amount_, "over_exposure_amount");
-	shader_->ApplyFloat(grain_thickness_, "grain_thickness");
-	shader_->ApplyFloat(dust_amount_, "dust_amount");
-	shader_->ApplyVector2(glm::value_ptr(screen_resolution_), "window_size");
-	shader_->ApplyVector4(glm::value_ptr(film_color_), "film_color");
-	shader_->ApplyTexture(texture_scene_, "texture_scene", 0);
-	shader_->ApplyTexture(texture_dust_, "texture_dust", 1);
-	shader_->ApplyTexture(texture_line_, "texture_line", 2);
-	shader_->ApplyTexture(texture_tv_, "texture_tv", 3);
-	shader_->ApplyTexture(texture_noise_, "texture_noise", 4);
+    shader_->Use();
+    shader_->ApplyFloat(glfwGetTime(), "current_time");
+    shader_->ApplyFloat(scratches_level_, "scratches_level");
+    shader_->ApplyFloat(scratches_amount_, "scratches_amount");
+    shader_->ApplyFloat(max_frame_jitter_, "max_frame_jitter");
+    shader_->ApplyFloat(frame_jitter_, "frame_jitter");
+    shader_->ApplyFloat(over_exposure_amount_, "over_exposure_amount");
+    shader_->ApplyFloat(grain_thickness_, "grain_thickness");
+    shader_->ApplyFloat(dust_amount_, "dust_amount");
+    shader_->ApplyVector2(glm::value_ptr(screen_resolution_), "window_size");
+    shader_->ApplyVector4(glm::value_ptr(film_color_), "film_color");
+    shader_->ApplyTexture(texture_scene_, "texture_scene", 0);
+    shader_->ApplyTexture(texture_dust_, "texture_dust", 1);
+    shader_->ApplyTexture(texture_line_, "texture_line", 2);
+    shader_->ApplyTexture(texture_tv_, "texture_tv", 3);
+    shader_->ApplyTexture(texture_noise_, "texture_noise", 4);
 
     rectangle_primitive_->DrawIndexed();
 }

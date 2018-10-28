@@ -45,35 +45,35 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class LightingApp : public kgl::App
 {
 public:
-	LightingApp();
-	virtual ~LightingApp();
-	virtual void InitScene();
+    LightingApp();
+    virtual ~LightingApp();
+    virtual void InitScene();
 protected:
-	virtual void RenderFrame() override;
-	virtual void ProcessInput() override;
-	virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
-	virtual void InitMaterials() override;
-	virtual void InitModel() override;
-	virtual void InitShaders() override;
-	virtual void InitLights() override;
-	virtual void InitMainCamera() override;
-	virtual void InitFont() override;
+    virtual void RenderFrame() override;
+    virtual void ProcessInput() override;
+    virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
+    virtual void InitMaterials() override;
+    virtual void InitModel() override;
+    virtual void InitShaders() override;
+    virtual void InitLights() override;
+    virtual void InitMainCamera() override;
+    virtual void InitFont() override;
 private:
-	kgl::GPUProgramSPtr				lighting_shader_;
-	kgl::DirectionalLight			directional_light_;
-	kgl::PointLight					point_light_;
-	kgl::SpotLight					spot_light_;
-	kgl::BasicStaticMesh*			model_ = nullptr;
-	kgl::RenderStateDrawMode		draw_mode_;
-	kgl::RenderStateDepth			rs_depth_;
-	std::wstring				    toggle_help_on_text_;
-	std::wstring				    toggle_help_off_text_;
-	std::wstring					camera_ctrl_text_;
-	std::wstring					material_ctrl_text_;
-	std::vector<std::wstring>		material_name_text_;
-	std::vector<kgl::Material>		materials_;			// 程序中用到材质
-	uint32_t						cur_mat_index_ = 0;
-	bool							is_help_on_ = false;
+    kgl::GPUProgramSPtr             lighting_shader_;
+    kgl::DirectionalLight           directional_light_;
+    kgl::PointLight                 point_light_;
+    kgl::SpotLight                  spot_light_;
+    kgl::BasicStaticMesh*           model_ = nullptr;
+    kgl::RenderStateDrawMode        draw_mode_;
+    kgl::RenderStateDepth           rs_depth_;
+    std::wstring                    toggle_help_on_text_;
+    std::wstring                    toggle_help_off_text_;
+    std::wstring                    camera_ctrl_text_;
+    std::wstring                    material_ctrl_text_;
+    std::vector<std::wstring>       material_name_text_;
+    std::vector<kgl::Material>      materials_;         // 程序中用到材质
+    uint32_t                        cur_mat_index_ = 0;
+    bool                            is_help_on_ = false;
 };
 
 #endif // lighting_app_h__

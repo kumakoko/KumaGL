@@ -39,18 +39,18 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class DynamicVertexBufferApp : public kgl::App
 {
 public:
-	DynamicVertexBufferApp();
-	virtual ~DynamicVertexBufferApp();
-	virtual void InitScene();
+    DynamicVertexBufferApp();
+    virtual ~DynamicVertexBufferApp();
+    virtual void InitScene();
 protected:
-	virtual void RenderFrame();
+    virtual void RenderFrame();
 private:
-	kgl::GPUProgram*		gpu_program_;
-	kgl::Primitive*			rectangle_primitive_;
-	kgl::SourceTextureSPtr	texture_1_;
-	kgl::SourceTextureSPtr	texture_2_;
-	GLfloat*				vertices_data_;
-	float					last_update_vb_time_; // 上一次更新顶点缓冲数据的时间
+    kgl::GPUProgram*        gpu_program_;
+    kgl::Primitive*         rectangle_primitive_;
+    kgl::SourceTextureSPtr  texture_1_;
+    kgl::SourceTextureSPtr  texture_2_;
+    GLfloat*                vertices_data_;
+    float                   last_update_vb_time_; // 上一次更新顶点缓冲数据的时间
 };
 
 #endif // dynamic_vertex_buffer_app_h__

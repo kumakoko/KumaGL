@@ -32,80 +32,80 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	class Plane
-	{
-	private:
-		/// <summary>
-		/// 平面的面法线
-		/// </summary>
-		glm::vec3 normal_;
+    class Plane
+    {
+    private:
+        /// <summary>
+        /// 平面的面法线
+        /// </summary>
+        glm::vec3 normal_;
 
-		/// <summary>
-		/// 平面上的一个点
-		/// </summary>
-		glm::vec3 point_;
+        /// <summary>
+        /// 平面上的一个点
+        /// </summary>
+        glm::vec3 point_;
 
-		/// <summary>
-		/// 截距
-		/// </summary>
-		float d_;
-	public:
-		inline const glm::vec3& Normal() const
-		{
-			return normal_;
-		}
+        /// <summary>
+        /// 截距
+        /// </summary>
+        float d_;
+    public:
+        inline const glm::vec3& Normal() const
+        {
+            return normal_;
+        }
 
-		/// <summary>
-		/// 类<see cref="Plane"/>的构造函数.用三个点确定一个平面
-		/// </summary>
-		/// <param name="v1">The v1.</param>
-		/// <param name="v2">The v2.</param>
-		/// <param name="v3">The v3.</param>
-		Plane(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &v3);
-		
-		/// <summary>
-		/// 类<see cref="Plane"/>的缺省构造函数
-		/// </summary>
-		Plane();
-		
-		/// <summary>
-		/// 类<see cref="Plane"/>的缺省构造函数
-		/// </summary>
-		~Plane();
+        /// <summary>
+        /// 类<see cref="Plane"/>的构造函数.用三个点确定一个平面
+        /// </summary>
+        /// <param name="v1">The v1.</param>
+        /// <param name="v2">The v2.</param>
+        /// <param name="v3">The v3.</param>
+        Plane(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &v3);
+        
+        /// <summary>
+        /// 类<see cref="Plane"/>的缺省构造函数
+        /// </summary>
+        Plane();
+        
+        /// <summary>
+        /// 类<see cref="Plane"/>的缺省构造函数
+        /// </summary>
+        ~Plane();
 
-		/// <summary>
-		/// 用三个点确定一个平面
-		/// </summary>
-		/// <param name="v1">The v1.</param>
-		/// <param name="v2">The v2.</param>
-		/// <param name="v3">The v3.</param>
-		void SetThreePoints(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &v3);
+        /// <summary>
+        /// 用三个点确定一个平面
+        /// </summary>
+        /// <param name="v1">The v1.</param>
+        /// <param name="v2">The v2.</param>
+        /// <param name="v3">The v3.</param>
+        void SetThreePoints(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &v3);
 
-		/// <summary>
-		/// 用平面上的一个点和法线确定一个平面
-		/// </summary>
-		/// <param name="normal">The normal.</param>
-		/// <param name="point">The point.</param>
-		void SetNormalAndPoint(const glm::vec3 &normal, const glm::vec3 &point);
+        /// <summary>
+        /// 用平面上的一个点和法线确定一个平面
+        /// </summary>
+        /// <param name="normal">The normal.</param>
+        /// <param name="point">The point.</param>
+        void SetNormalAndPoint(const glm::vec3 &normal, const glm::vec3 &point);
 
-		/// <summary>
-		/// 设置平面方程ax+by+cz+d=0的四个系数a，b，c，d
-		/// 其中a,b,c是平面的面法线
-		/// </summary>
-		/// <param name="a">a.</param>
-		/// <param name="b">The b.</param>
-		/// <param name="c">The c.</param>
-		/// <param name="d">The d.</param>
-		void SetCoefficients(float a, float b, float c, float d);
+        /// <summary>
+        /// 设置平面方程ax+by+cz+d=0的四个系数a，b，c，d
+        /// 其中a,b,c是平面的面法线
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        void SetCoefficients(float a, float b, float c, float d);
 
-		/// <summary>
-		/// 点P到本平面的距离
-		/// </summary>
-		/// <param name="p">The p.</param>
-		/// <returns>float.</returns>
-		float Distance(const glm::vec3 &p);
+        /// <summary>
+        /// 点P到本平面的距离
+        /// </summary>
+        /// <param name="p">The p.</param>
+        /// <returns>float.</returns>
+        float Distance(const glm::vec3 &p);
 
-		void InfoPrint();
-	};
+        void InfoPrint();
+    };
 }
 #endif // kgl_plane_h__

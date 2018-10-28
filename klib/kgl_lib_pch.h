@@ -1,18 +1,4 @@
-﻿// 预编译头文件
-/*!
- * \file kgl_lib_pch.h
- * \date 2017/12/31 13:45
- *
- * \author www.xionggf.com
- * Contact: sun_of_lover@sina.com
- *
- * \brief 
- *
- * TODO: long description
- *
- * \note
-*/
-/**************************************************************************************************************************
+﻿/**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -28,6 +14,19 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+/*!
+* \file kgl_lib_pch.h
+* \date 2017/12/31 13:45
+*
+* \author www.xionggf.com
+* Contact: sun_of_lover@sina.com
+*
+* \brief
+*
+* TODO: 预编译头文件
+*
+* \note
+*/
 #ifndef kgl_lib_pch_h__
 #define kgl_lib_pch_h__
 
@@ -47,9 +46,6 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include <set>
 #include <array>
 #include <cstdlib>
-//#include <type_traits>
-
-// #include "AntTweakBar.h"
 
 #define GLEW_STATIC
 #include "GL/glew.h"
@@ -92,6 +88,9 @@ namespace bfs = boost::filesystem;
 
 #if defined(WIN32) || defined(_WIN32)
 #include <Windows.h>
+#if defined(DEBUG) || defined(_DEBUG)
+#include "vld.h"
+#endif
 #endif
 
 #include "AntTweakBar.h"

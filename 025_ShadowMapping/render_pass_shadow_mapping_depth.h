@@ -37,63 +37,63 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class RenderPassShadowMappingDepth : public kgl::RenderPass
 {
 public:
-	RenderPassShadowMappingDepth(GLint wnd_width, GLint wnd_height);
-	/// <summary>
-	/// Initializes this instance.
-	/// </summary>
-	virtual void Initialize() override;
+    RenderPassShadowMappingDepth(GLint wnd_width, GLint wnd_height);
+    /// <summary>
+    /// Initializes this instance.
+    /// </summary>
+    virtual void Initialize() override;
 
-	/// <summary>
-	/// Renders the specified current_time.
-	/// </summary>
-	/// <param name="current_time">The current_time.</param>
-	virtual void Update(float current_time) override;
+    /// <summary>
+    /// Renders the specified current_time.
+    /// </summary>
+    /// <param name="current_time">The current_time.</param>
+    virtual void Update(float current_time) override;
 
-	/// <summary>
-	/// Sets the light space matrix.
-	/// </summary>
-	/// <param name="mat">The mat.</param>
-	/// <param name="need_transpose">The need_transpose.</param>
-	void SetLightSpaceMatrix();
+    /// <summary>
+    /// Sets the light space matrix.
+    /// </summary>
+    /// <param name="mat">The mat.</param>
+    /// <param name="need_transpose">The need_transpose.</param>
+    void SetLightSpaceMatrix();
 
-	/// <summary>
-	/// Attaches the frame buffer.
-	/// </summary>
-	/// <param name="frame_buffer">The frame_buffer.</param>
-	inline void AttachFrameBuffer(kgl::FrameBuffer* frame_buffer)
-	{
-		frame_buffer_ = frame_buffer;
-	}
+    /// <summary>
+    /// Attaches the frame buffer.
+    /// </summary>
+    /// <param name="frame_buffer">The frame_buffer.</param>
+    inline void AttachFrameBuffer(kgl::FrameBuffer* frame_buffer)
+    {
+        frame_buffer_ = frame_buffer;
+    }
 
-	inline const glm::mat4& GetLightSpaceMatrix() const
-	{
-		return lightSpaceMatrix;
-	}
+    inline const glm::mat4& GetLightSpaceMatrix() const
+    {
+        return lightSpaceMatrix;
+    }
 
-	inline const glm::vec3& GetLightPosition() const
-	{
-		return lightPos;
-	}
+    inline const glm::vec3& GetLightPosition() const
+    {
+        return lightPos;
+    }
 
 protected:
-	/// <summary>
-	/// Gets the light space matrix location.
-	/// </summary>
-	/// <param name="uniform_name">The uniform_name.</param>
-	void GetLightSpaceMatrixLocation(const char* uniform_name);
+    /// <summary>
+    /// Gets the light space matrix location.
+    /// </summary>
+    /// <param name="uniform_name">The uniform_name.</param>
+    void GetLightSpaceMatrixLocation(const char* uniform_name);
 
-	/// <summary>
-	/// Builds the light space matrix.
-	/// </summary>
-	void BuildLightSpaceMatrix();
+    /// <summary>
+    /// Builds the light space matrix.
+    /// </summary>
+    void BuildLightSpaceMatrix();
 protected:
-	GLint location_light_space_matrix_ = -1;
-	glm::mat4 lightProjection;
-	glm::mat4 lightView;
-	glm::mat4 lightSpaceMatrix;
-	glm::vec3 lightPos;
-	kgl::FrameBuffer* frame_buffer_ = nullptr;
-	GLint window_width_ = 0;
-	GLint window_height_ = 0;
+    GLint location_light_space_matrix_ = -1;
+    glm::mat4 lightProjection;
+    glm::mat4 lightView;
+    glm::mat4 lightSpaceMatrix;
+    glm::vec3 lightPos;
+    kgl::FrameBuffer* frame_buffer_ = nullptr;
+    GLint window_width_ = 0;
+    GLint window_height_ = 0;
 };
 #endif // render_pass_shadow_mapping_depth_h__

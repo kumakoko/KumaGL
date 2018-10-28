@@ -131,12 +131,12 @@ namespace kgl
         /// <summary>
         /// 初始化一个<see cref="VertexBoneData"/>结构体实例对象.
         /// </summary>
-		VertexBoneData();
+        VertexBoneData();
 
         /// <summary>
         /// 清空本结构体的数据属性
         /// </summary>
-		void Reset();
+        void Reset();
 
         /// <summary>
         /// 把ID为bone_id的骨块所携带的权重值，以及它本身的ID，存进本结构中

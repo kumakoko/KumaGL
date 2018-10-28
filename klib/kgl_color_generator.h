@@ -30,43 +30,43 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	namespace low_poly_terrain
-	{
-		class ColorGenerator
-		{
-		private:
-			/// <summary>
-			/// The spread_
-			/// </summary>
-			float spread_;
+    namespace low_poly_terrain
+    {
+        class ColorGenerator
+        {
+        private:
+            /// <summary>
+            /// The spread_
+            /// </summary>
+            float spread_;
 
-			/// <summary>
-			/// The half_spread_
-			/// </summary>
-			float half_spread_;
+            /// <summary>
+            /// The half_spread_
+            /// </summary>
+            float half_spread_;
 
-			/// <summary>
-			/// The biome_colors_
-			/// </summary>
-			std::vector<glm::vec4> biome_colors_;
+            /// <summary>
+            /// The biome_colors_
+            /// </summary>
+            std::vector<glm::vec4> biome_colors_;
 
-			/// <summary>
-			/// The part_
-			/// </summary>
-			float part_;
+            /// <summary>
+            /// The part_
+            /// </summary>
+            float part_;
 
-		public:
-			/// <summary>
-			/// Initializes a new instance of the <see cref="ColorGenerator" /> class.
-			/// </summary>
-			/// <param name="biome_colors">预设的颜色将会通过地形数据生成。.本参数数组中的第一个
-			///                            颜色将会用地形中高度最低的那部分，最后的颜色值就用在
-			///                            地形中最高的那部分。数组中的其他的分量则是在中间进行线
-			///                            性铺展。</param>
-			/// <param name="spread">This indicates how much of the possible altitude range the
-			///                      colours should be spread over.If this is too high the extreme
-			///	                     colours won't be used as there won't be any terrain vertices
-			///	                     high or low enough(the heights generator doesn't usually fill
+        public:
+            /// <summary>
+            /// Initializes a new instance of the <see cref="ColorGenerator" /> class.
+            /// </summary>
+            /// <param name="biome_colors">预设的颜色将会通过地形数据生成。.本参数数组中的第一个
+            ///                            颜色将会用地形中高度最低的那部分，最后的颜色值就用在
+            ///                            地形中最高的那部分。数组中的其他的分量则是在中间进行线
+            ///                            性铺展。</param>
+            /// <param name="spread">This indicates how much of the possible altitude range the
+            ///                      colours should be spread over.If this is too high the extreme
+            ///                      colours won't be used as there won't be any terrain vertices
+            ///                      high or low enough(the heights generator doesn't usually fill
 			///	                     the whole altitude range< / param>
 			ColorGenerator(const std::vector<glm::vec4>& biome_colors, float spread);
 

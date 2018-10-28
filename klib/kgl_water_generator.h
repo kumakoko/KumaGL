@@ -121,24 +121,24 @@ namespace kgl
 		 * The offsets are then stored in an array as bytes (not converted to bytes,
 		 * but simply cast to bytes) and returned. The size of each grid square must
 		 * be an integer value for this to work, otherwise the offsets wouldn't be
-		 * able to be represented correctly as bytes.
-		 *
-		 * @param currentVertex
-		 *            - The index of the current vertex in the current grid square
-		 *            (A number between 0 and 3).
-		 * @param vertexPositions
-		 *            - The 4 corner positions of the current grid square, stored in
-		 *            the following order: 0 = top left, 1 = bottom left, 2 = top
-		 *            right, 3 = bottom right
-		 * @param vertex1
-		 *            - The index of one of the other vertices in the triangle
-		 *            (number between 0 and 3).
-		 * @param vertex2
-		 *            - The index of the other vertex in the triangle (number
-		 *            between 0 and 3).
-		 * @return
-		 */
-		static void getIndicators(int currentVertex, const std::vector<glm::vec2>& vertexPositions, int vertex1, int vertex2, std::array<uint8_t, 4>& buffer);
-	};
+         * able to be represented correctly as bytes.
+         *
+         * @param currentVertex
+         *            - The index of the current vertex in the current grid square
+         *            (A number between 0 and 3).
+         * @param vertexPositions
+         *            - The 4 corner positions of the current grid square, stored in
+         *            the following order: 0 = top left, 1 = bottom left, 2 = top
+         *            right, 3 = bottom right
+         * @param vertex1
+         *            - The index of one of the other vertices in the triangle
+         *            (number between 0 and 3).
+         * @param vertex2
+         *            - The index of the other vertex in the triangle (number
+         *            between 0 and 3).
+         * @return
+         */
+        static void getIndicators(int currentVertex, const std::vector<glm::vec2>& vertexPositions, int vertex1, int vertex2, std::array<uint8_t, 4>& buffer);
+    };
 
 }

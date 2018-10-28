@@ -27,10 +27,10 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 int main()
 {
-	TextureApp* app = nullptr;
+    TextureApp* app = nullptr;
 
-	try
-	{
+    try
+    {
         kgl::App::GLProfile profile = kgl::App::CORE;
 #if defined(WIN32) || defined(_WIN32)
         int context_version_major = 3;
@@ -41,23 +41,23 @@ int main()
 #endif
         app = new TextureApp();
         app->InitWindow(800, 600, false, "003_Texture",context_version_major, context_version_minor, profile );
-		app->InitRenderer();
-		app->InitScene();
-		app->Run();
-	}
-	catch (kgl::Error e)
-	{
-		e.Notify();
-	}
-	catch (std::exception e)
-	{
-		std::wstring excepiton_desc;
-		kgl::StringConvertor::ANSItoUTF16LE(e.what(), excepiton_desc);
+        app->InitRenderer();
+        app->InitScene();
+        app->Run();
+    }
+    catch (kgl::Error e)
+    {
+        e.Notify();
+    }
+    catch (std::exception e)
+    {
+        std::wstring excepiton_desc;
+        kgl::StringConvertor::ANSItoUTF16LE(e.what(), excepiton_desc);
 #ifdef WIN32
-		::MessageBox(NULL, excepiton_desc.c_str(), L"Unhandled Exception, aborting", MB_OK | MB_ICONERROR);
+        ::MessageBox(NULL, excepiton_desc.c_str(), L"Unhandled Exception, aborting", MB_OK | MB_ICONERROR);
 #endif
-	}
+    }
 
-	delete app;
+    delete app;
     return 0;
 }

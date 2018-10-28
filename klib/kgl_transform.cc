@@ -19,10 +19,10 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	Orientation::Orientation()
-	{
-		m_scale = glm::vec3(1.0f, 1.0f, 1.0f);
-		m_rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-		m_pos = glm::vec3(0.0f, 0.0f, 0.0f);
-	}
+    Orientation::Orientation()
+    {
+        m_scale = glm::vec3(1.0f, 1.0f, 1.0f);
+        m_rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+        m_pos = glm::vec3(0.0f, 0.0f, 0.0f);
+    }
 }

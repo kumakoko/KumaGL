@@ -42,123 +42,123 @@ namespace kgl
         /// <summary>
         /// 构造函数，创建一个 <see cref="RenderPass"/> 类的对象实例时被调用.
         /// </summary>
-		RenderPass();
+        RenderPass();
 
         /// <summary>
         /// 析构函数，删除一个<see cref="RenderPass"/>类的对象实例时被调用.
         /// </summary>
-		virtual ~RenderPass();
+        virtual ~RenderPass();
 
-		/// <summary>
-		/// 向本render pass绑定一个主摄像机
-		/// </summary>
-		/// <param name="camera">The camera.</param>
-		void AttachCamera(CameraSPtr camera);
-		
-		/// <summary>
-		/// 给本render pass绑定一个主shadow
-		/// </summary>
-		/// <param name="program"></param>
-		void AttachGPUProgram(GPUProgramSPtr program);
+        /// <summary>
+        /// 向本render pass绑定一个主摄像机
+        /// </summary>
+        /// <param name="camera">The camera.</param>
+        void AttachCamera(CameraSPtr camera);
+        
+        /// <summary>
+        /// 给本render pass绑定一个主shadow
+        /// </summary>
+        /// <param name="program"></param>
+        void AttachGPUProgram(GPUProgramSPtr program);
 
-		/// <summary>
-		/// Creates the and attach gpu program.
-		/// </summary>
-		/// <param name="vs_file">The vs_file.</param>
-		/// <param name="fs_file">The fs_file.</param>
-		/// <param name="gs_file">The gs_file.</param>
-		void CreateAndAttachGPUProgram(const GLchar* vs_file, const GLchar* fs_file, const GLchar* gs_file = nullptr);
+        /// <summary>
+        /// Creates the and attach gpu program.
+        /// </summary>
+        /// <param name="vs_file">The vs_file.</param>
+        /// <param name="fs_file">The fs_file.</param>
+        /// <param name="gs_file">The gs_file.</param>
+        void CreateAndAttachGPUProgram(const GLchar* vs_file, const GLchar* fs_file, const GLchar* gs_file = nullptr);
 
-		/// <summary>
-		/// Initializes this instance.
-		/// </summary>
-		virtual void Initialize();
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        virtual void Initialize();
 
-		/// <summary>
-		/// Sets the world matrix.
-		/// </summary>
-		/// <param name="world_matrix">The world_matrix.</param>
-		/// <param name="need_transpose">The need_transpose.</param>
-		virtual void SetWorldMatrix(const glm::mat4& world_matrix, bool need_transpose = false);
+        /// <summary>
+        /// Sets the world matrix.
+        /// </summary>
+        /// <param name="world_matrix">The world_matrix.</param>
+        /// <param name="need_transpose">The need_transpose.</param>
+        virtual void SetWorldMatrix(const glm::mat4& world_matrix, bool need_transpose = false);
 
-		/// <summary>
-		/// Sets the view matrix.
-		/// </summary>
-		/// <param name="view_matrix">The view_matrix.</param>
-		/// <param name="need_transpose">The need_transpose.</param>
-		virtual void SetViewMatrix(const glm::mat4& view_matrix, bool need_transpose = false);
+        /// <summary>
+        /// Sets the view matrix.
+        /// </summary>
+        /// <param name="view_matrix">The view_matrix.</param>
+        /// <param name="need_transpose">The need_transpose.</param>
+        virtual void SetViewMatrix(const glm::mat4& view_matrix, bool need_transpose = false);
 
-		/// <summary>
-		/// Sets the projection matrix.
-		/// </summary>
-		/// <param name="projection_matrix">The projection_matrix.</param>
-		/// <param name="need_transpose">The need_transpose.</param>
-		virtual void SetProjectionMatrix(const glm::mat4& projection_matrix, bool need_transpose = false);
+        /// <summary>
+        /// Sets the projection matrix.
+        /// </summary>
+        /// <param name="projection_matrix">The projection_matrix.</param>
+        /// <param name="need_transpose">The need_transpose.</param>
+        virtual void SetProjectionMatrix(const glm::mat4& projection_matrix, bool need_transpose = false);
 
-		/// <summary>
-		/// Sets the camera world position.
-		/// </summary>
-		/// <param name="world_position">The world_position.</param>
-		virtual void SetCameraWorldPosition(const glm::vec3& world_position);
+        /// <summary>
+        /// Sets the camera world position.
+        /// </summary>
+        /// <param name="world_position">The world_position.</param>
+        virtual void SetCameraWorldPosition(const glm::vec3& world_position);
 
-		/// <summary>
-		/// Updates the specified current_time.
-		/// </summary>
-		/// <param name="current_time">The current_time.</param>
-		virtual void Update(float current_time);
+        /// <summary>
+        /// Updates the specified current_time.
+        /// </summary>
+        /// <param name="current_time">The current_time.</param>
+        virtual void Update(float current_time);
 
-		virtual void PrepareRendering();
-	protected:
-		/// <summary>
-		/// Gets the world matrix location.
-		/// </summary>
-		/// <param name="uniform_name">The uniform_name.</param>
-		void GetWorldMatrixLocation(const char* uniform_name);
-
-		/// <summary>
-		/// Gets the view matrix location.
-		/// </summary>
-		/// <param name="uniform_name">The uniform_name.</param>
-		void GetViewMatrixLocation(const char* uniform_name);
-
-		/// <summary>
-		/// Gets the projection matrix location.
-		/// </summary>
-		/// <param name="uniform_name">The uniform_name.</param>
-		void GetProjectionMatrixLocation(const char* uniform_name);
-
-		/// <summary>
-		/// Gets the camera world position location.
-		/// </summary>
-		/// <param name="uniform_name">The uniform_name.</param>
-		void GetCameraWorldPositionLocation(const char* uniform_name);
+        virtual void PrepareRendering();
     protected:
-		/// <summary>
-		/// 执行本render pass要使用到的camera
-		/// </summary>
-		CameraSPtr camera_;
+        /// <summary>
+        /// Gets the world matrix location.
+        /// </summary>
+        /// <param name="uniform_name">The uniform_name.</param>
+        void GetWorldMatrixLocation(const char* uniform_name);
 
-		/// <summary>
-		/// 执行本render pass要使用到的gpu program
-		/// </summary>
-		GPUProgramSPtr gpu_program_;
+        /// <summary>
+        /// Gets the view matrix location.
+        /// </summary>
+        /// <param name="uniform_name">The uniform_name.</param>
+        void GetViewMatrixLocation(const char* uniform_name);
 
-		/// <summary>
-		/// The location_world_matrix_
-		/// </summary>
-		GLint location_world_matrix_ = -1;
+        /// <summary>
+        /// Gets the projection matrix location.
+        /// </summary>
+        /// <param name="uniform_name">The uniform_name.</param>
+        void GetProjectionMatrixLocation(const char* uniform_name);
 
-		/// <summary>
-		/// The location_project_matrix
-		/// </summary>
-		GLint location_projection_matrix_ = -1;
+        /// <summary>
+        /// Gets the camera world position location.
+        /// </summary>
+        /// <param name="uniform_name">The uniform_name.</param>
+        void GetCameraWorldPositionLocation(const char* uniform_name);
+    protected:
+        /// <summary>
+        /// 执行本render pass要使用到的camera
+        /// </summary>
+        CameraSPtr camera_;
 
-		/// <summary>
-		/// The location_view_matrix
-		/// </summary>
-		GLint location_view_matrix_ = -1;
+        /// <summary>
+        /// 执行本render pass要使用到的gpu program
+        /// </summary>
+        GPUProgramSPtr gpu_program_;
 
-		GLint location_camera_world_position_ = -1;
+        /// <summary>
+        /// The location_world_matrix_
+        /// </summary>
+        GLint location_world_matrix_ = -1;
+
+        /// <summary>
+        /// The location_project_matrix
+        /// </summary>
+        GLint location_projection_matrix_ = -1;
+
+        /// <summary>
+        /// The location_view_matrix
+        /// </summary>
+        GLint location_view_matrix_ = -1;
+
+        GLint location_camera_world_position_ = -1;
     };
 
     typedef std::shared_ptr<RenderPass> RenderPassSPtr;

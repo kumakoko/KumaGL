@@ -51,7 +51,7 @@ namespace kgl
         /// <returns>bool.</returns>
         bool IsTextureExist(const std::string& name);
         
-		/// <summary>
+        /// <summary>
         /// Gets the texture.
         /// </summary>
         /// <param name="name">The name.</param>

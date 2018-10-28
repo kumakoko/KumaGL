@@ -43,22 +43,22 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class AssimpApp : public kgl::App
 {
 public:
-	AssimpApp();
-	virtual ~AssimpApp();
-	virtual void InitScene()  override;
+    AssimpApp();
+    virtual ~AssimpApp();
+    virtual void InitScene()  override;
 protected:
-	virtual void RenderFrame() override;
-	virtual void ProcessInput() override;
-	virtual void InitModel() override;
-	virtual void InitShaders() override;
-	virtual void InitFont() override;
-	virtual void InitMainCamera() override;
-	void RenderText();
+    virtual void RenderFrame() override;
+    virtual void ProcessInput() override;
+    virtual void InitModel() override;
+    virtual void InitShaders() override;
+    virtual void InitFont() override;
+    virtual void InitMainCamera() override;
+    void RenderText();
 private:
-	kgl::GPUProgramSPtr			model_shader_;
-	kgl::BasicStaticMesh*		model_;
-	kgl::RenderStateDepth		rs_depth_;
-	kgl::RenderStateBlend		rs_blend_;
+    kgl::GPUProgramSPtr         model_shader_;
+    kgl::BasicStaticMesh*       model_;
+    kgl::RenderStateDepth       rs_depth_;
+    kgl::RenderStateBlend       rs_blend_;
 };
 
 #endif // assimp_app_h__

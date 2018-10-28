@@ -35,58 +35,58 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	namespace low_poly_terrain
-	{
-		class Terrain;
+    namespace low_poly_terrain
+    {
+        class Terrain;
 
-		class TerrainRenderer
-		{
-		private:
-			GPUProgramSPtr shader_;
-			bool has_indices_;
-			CameraSPtr camera_;
-		public:
-			/// <summary>
-			/// 创建一个<see cref="TerrainRenderer" />类实例对象
-			/// </summary>
-			/// <param name="shader">The shader.</param>
-			/// <param name="camera">The camera.</param>
-			/// <param name="usesIndices">Indicates whether the terrain will be rendered with an index buffer</param>
-			TerrainRenderer(GPUProgramSPtr shader, CameraSPtr camera, bool uses_indices);
+        class TerrainRenderer
+        {
+        private:
+            GPUProgramSPtr shader_;
+            bool has_indices_;
+            CameraSPtr camera_;
+        public:
+            /// <summary>
+            /// 创建一个<see cref="TerrainRenderer" />类实例对象
+            /// </summary>
+            /// <param name="shader">The shader.</param>
+            /// <param name="camera">The camera.</param>
+            /// <param name="usesIndices">Indicates whether the terrain will be rendered with an index buffer</param>
+            TerrainRenderer(GPUProgramSPtr shader, CameraSPtr camera, bool uses_indices);
 
-			/// <summary>
-			/// Finalizes an instance of the <see cref="TerrainRenderer"/> class.
-			/// </summary>
-			~TerrainRenderer();
+            /// <summary>
+            /// Finalizes an instance of the <see cref="TerrainRenderer"/> class.
+            /// </summary>
+            ~TerrainRenderer();
 
-			/// <summary>
-			///  Renders a terrain to the screen. If the terrain has an index buffer the
-			/// </summary>
-			/// <param name="terrain">将要绘制的地形对象</param>
-			/// <param name="light">The light being used to iluminate the terrain.</param>
-			void Render(Terrain* terrain, const LowPolyTerrainLight& light);
-			
-			/// <summary>
-			/// Used when the program closes. Deletes the shader program.
-			/// </summary>
-			void cleanUp();
-		private:
-			/// <summary>
-			/// Prepares the specified terrain.
-			/// </summary>
-			/// <param name="terrain">The terrain.</param>
-			/// <param name="light">The light.</param>
-			void Prepare(Terrain* terrain, const LowPolyTerrainLight& light);
+            /// <summary>
+            ///  Renders a terrain to the screen. If the terrain has an index buffer the
+            /// </summary>
+            /// <param name="terrain">将要绘制的地形对象</param>
+            /// <param name="light">The light being used to iluminate the terrain.</param>
+            void Render(Terrain* terrain, const LowPolyTerrainLight& light);
+            
+            /// <summary>
+            /// Used when the program closes. Deletes the shader program.
+            /// </summary>
+            void cleanUp();
+        private:
+            /// <summary>
+            /// Prepares the specified terrain.
+            /// </summary>
+            /// <param name="terrain">The terrain.</param>
+            /// <param name="light">The light.</param>
+            void Prepare(Terrain* terrain, const LowPolyTerrainLight& light);
 
-			/// <summary>
-			/// End the rendering process by unbinding the VAO and stopping the shader program.
-			/// </summary>
-			/// <param name="terrain">The terrain.</param>
-			void Finish(Terrain* terrain);
-		};
+            /// <summary>
+            /// End the rendering process by unbinding the VAO and stopping the shader program.
+            /// </summary>
+            /// <param name="terrain">The terrain.</param>
+            void Finish(Terrain* terrain);
+        };
 
-		typedef std::shared_ptr<TerrainRenderer> TerrainRendererSPtr;
-	}
+        typedef std::shared_ptr<TerrainRenderer> TerrainRendererSPtr;
+    }
 }
 
 #endif // kgl_terrain_renderer_h__

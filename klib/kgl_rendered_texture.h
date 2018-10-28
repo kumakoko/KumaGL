@@ -43,7 +43,7 @@ namespace kgl
         RGB,
         RGBA,
         RGBA16F,
-		DEPTH_COMPONENT
+        DEPTH_COMPONENT
     };
 
     class RenderedTexture : public Texture
@@ -102,12 +102,12 @@ namespace kgl
             return texel_type_;
         }
 
-		/// <summary>
-		/// 根据使用类型，决定返回的用于frame buffer的attachment的类型
-		/// </summary>
-		/// <returns>返回的用于frame buffer的attachment的类型</returns>
-		GLenum GetAttachmentForFrameBuffer();
-		
+        /// <summary>
+        /// 根据使用类型，决定返回的用于frame buffer的attachment的类型
+        /// </summary>
+        /// <returns>返回的用于frame buffer的attachment的类型</returns>
+        GLenum GetAttachmentForFrameBuffer();
+        
     protected:
         RenderedTexelType texel_type_;
         GLuint            texture_id_ = 0;

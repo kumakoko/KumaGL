@@ -42,29 +42,29 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class TransformApp : public kgl::App
 {
 public:
-	TransformApp();
-	virtual ~TransformApp();
-	virtual void InitScene();
+    TransformApp();
+    virtual ~TransformApp();
+    virtual void InitScene();
 protected:
-	virtual void RenderFrame() override;
-	virtual void ProcessInput() override;
-	virtual void InitMaterials() override;
-	virtual void InitModel() override;
-	virtual void InitShaders() override;
-	virtual void InitLights() override;
-	virtual void InitMainCamera() override;
-	virtual void InitFont() override;
-	void RenderText();
+    virtual void RenderFrame() override;
+    virtual void ProcessInput() override;
+    virtual void InitMaterials() override;
+    virtual void InitModel() override;
+    virtual void InitShaders() override;
+    virtual void InitLights() override;
+    virtual void InitMainCamera() override;
+    virtual void InitFont() override;
+    void RenderText();
 private:
-	kgl::GPUProgram*		object_shader_ = nullptr;
-	kgl::SourceTextureSPtr	texture_sun_;
-	kgl::SourceTextureSPtr	texture_earth_;
-	kgl::SourceTextureSPtr	texture_moon_;
-	kgl::PrimitiveSPtr sun_;
-	kgl::PrimitiveSPtr earth_;
-	kgl::PrimitiveSPtr moon_;
-	kgl::RenderStateCullMode cull_mode_;
-	kgl::RenderStateDepth depth_test_mode_;
+    kgl::GPUProgram*        object_shader_ = nullptr;
+    kgl::SourceTextureSPtr  texture_sun_;
+    kgl::SourceTextureSPtr  texture_earth_;
+    kgl::SourceTextureSPtr  texture_moon_;
+    kgl::PrimitiveSPtr sun_;
+    kgl::PrimitiveSPtr earth_;
+    kgl::PrimitiveSPtr moon_;
+    kgl::RenderStateCullMode cull_mode_;
+    kgl::RenderStateDepth depth_test_mode_;
 };
 
 #endif // transform_app_h__

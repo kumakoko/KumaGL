@@ -23,10 +23,10 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 int main()
 {
-	TriangleApp* app = nullptr;
+    TriangleApp* app = nullptr;
 
-	try
-	{
+    try
+    {
 #if defined(WIN32) || defined(_WIN32)
         int context_version_major = 3;
         int context_version_minor = 3;
@@ -36,26 +36,26 @@ int main()
         int context_version_minor = 3;
         kgl::App::GLProfile profile = kgl::App::CORE;
 #endif
-		const char* title = "002_Triangle";
-		app = new TriangleApp();
-		app->InitWindow(1024, 768, false, title, context_version_major, context_version_minor, profile);
-		app->InitRenderer();
-		app->InitGuiSystem(true, title);
-		app->InitScene();
-		app->Run();
-	}
-	catch (kgl::Error e)
-	{
-		e.Notify();
-	}
-	catch (std::exception e)
-	{
-		std::wstring exception_desc;
-		kgl::StringConvertor::ANSItoUTF16LE(e.what(), exception_desc);
+        const char* title = "002_Triangle";
+        app = new TriangleApp();
+        app->InitWindow(1024, 768, false, title, context_version_major, context_version_minor, profile);
+        app->InitRenderer();
+        app->InitGuiSystem(true, title);
+        app->InitScene();
+        app->Run();
+    }
+    catch (kgl::Error e)
+    {
+        e.Notify();
+    }
+    catch (std::exception e)
+    {
+        std::wstring exception_desc;
+        kgl::StringConvertor::ANSItoUTF16LE(e.what(), exception_desc);
         kgl::MessageBox(std::wstring(L"002_Triangle : Unhandled Exception, aborting"),exception_desc);
-	}
+    }
 
-	delete app;
+    delete app;
     
    
     return 0;

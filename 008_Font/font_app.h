@@ -39,20 +39,20 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class FontApp : public kgl::App
 {
 public:
-	FontApp();
-	virtual ~FontApp();
-	virtual void InitScene();
+    FontApp();
+    virtual ~FontApp();
+    virtual void InitScene();
 protected:
-	virtual void RenderFrame() override;
-	virtual void PreRenderFrame() override;
-	void InitHelper();
+    virtual void RenderFrame() override;
+    virtual void PreRenderFrame() override;
+    void InitHelper();
 private:
-	kgl::Primitive*			helper_rectangle_;
-	kgl::RenderStateBlend	rs_blend_;
-	std::wstring			text_1_;
-	std::wstring			text_2_;
-	std::wstring            text_3_;
-	std::wstring			text_jpn_;
+    kgl::Primitive*         helper_rectangle_;
+    kgl::RenderStateBlend   rs_blend_;
+    std::wstring            text_1_;
+    std::wstring            text_2_;
+    std::wstring            text_3_;
+    std::wstring            text_jpn_;
 };
 
 #endif // font_app_h__

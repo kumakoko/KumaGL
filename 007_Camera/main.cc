@@ -21,28 +21,28 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 void main()
 {
-	CameraApp* app = nullptr;
+    CameraApp* app = nullptr;
 
-	try
-	{
-		app = new CameraApp();
-		app->InitWindow(800, 600, false, "007_Camera");
-		app->InitRenderer();
-		app->InitScene();
-		app->Run();
-	}
-	catch (kgl::Error e)
-	{
-		e.Notify();
-	}
-	catch (std::exception e)
-	{
-		std::wstring excepiton_desc;
-		kgl::StringConvertor::ANSItoUTF16LE(e.what(), excepiton_desc);
+    try
+    {
+        app = new CameraApp();
+        app->InitWindow(800, 600, false, "007_Camera");
+        app->InitRenderer();
+        app->InitScene();
+        app->Run();
+    }
+    catch (kgl::Error e)
+    {
+        e.Notify();
+    }
+    catch (std::exception e)
+    {
+        std::wstring excepiton_desc;
+        kgl::StringConvertor::ANSItoUTF16LE(e.what(), excepiton_desc);
 #ifdef WIN32
-		::MessageBox(NULL, excepiton_desc.c_str(), L"Unhandled Exception, aborting", MB_OK | MB_ICONERROR);
+        ::MessageBox(NULL, excepiton_desc.c_str(), L"Unhandled Exception, aborting", MB_OK | MB_ICONERROR);
 #endif
-	}
+    }
 
-	delete app;
+    delete app;
 }

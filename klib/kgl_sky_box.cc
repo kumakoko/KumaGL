@@ -50,8 +50,8 @@ namespace kgl
 
         // 初始化模型。并把shader作用到模型中的每一个mesh上
         std::string model_path("resources/model/sphere.obj");
-		model_ = new kgl::BasicStaticMesh;
-		model_->LoadMesh(model_path);
+        model_ = new kgl::BasicStaticMesh;
+        model_->LoadMesh(model_path);
         cubemap_texture_ = std::make_shared<CubemapTexture>(
             positive_x_file,negative_x_file,
             positive_y_file,negative_y_file,
@@ -74,6 +74,6 @@ namespace kgl
         gpu_program_->ApplyMatrix(glm::value_ptr(view_matrix), "view_matrix");
         gpu_program_->ApplyMatrix(glm::value_ptr(projection_matrix), "projection_matrix");
         gpu_program_->ApplyTexture(cubemap_texture_, "skybox_cubemap_texture", 0);
-		model_->Render();
+        model_->Render();
     }
 }

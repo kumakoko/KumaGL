@@ -44,12 +44,12 @@ namespace kgl
         boost::to_lower(lower_name);
         std::map<std::string, TextureSPtr>::iterator it = texture_map_.find(lower_name);
 
-		if (it == texture_map_.end())
-		{
-			TextureSPtr texture = std::make_shared<Texture>();
-			texture_map_.insert(std::make_pair(lower_name, texture));
-			return texture;
-		}
+        if (it == texture_map_.end())
+        {
+            TextureSPtr texture = std::make_shared<Texture>();
+            texture_map_.insert(std::make_pair(lower_name, texture));
+            return texture;
+        }
 
         return it->second;
     }

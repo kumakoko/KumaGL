@@ -6,11 +6,11 @@
 
 void main()
 {
-	ImageEffectApp* app = nullptr;
+    ImageEffectApp* app = nullptr;
 
     try
     {
-		app = new ImageEffectApp();
+        app = new ImageEffectApp();
         app->InitWindow(800, 600, false, "Image Effect");
         app->InitRenderer();
         app->InitScene();

@@ -20,55 +20,55 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 namespace kgl
 {
 
-	Plane::Plane(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &v3)
-	{
-		SetThreePoints(v1, v2, v3);
-	}
+    Plane::Plane(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &v3)
+    {
+        SetThreePoints(v1, v2, v3);
+    }
 
-	Plane::Plane() 
-	{
-	}
+    Plane::Plane() 
+    {
+    }
 
-	Plane::~Plane() 
-	{
-	}
+    Plane::~Plane() 
+    {
+    }
 
-	void Plane::SetThreePoints(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &v3)
-	{
-		glm::vec3 aux1, aux2;
-		aux1 = v1 - v2;
-		aux2 = v3 - v2;
-		normal_ = glm::normalize(aux2 * aux1);
-		point_ = v2;
-		d_ = -glm::dot(normal_, point_);
-	}
+    void Plane::SetThreePoints(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &v3)
+    {
+        glm::vec3 aux1, aux2;
+        aux1 = v1 - v2;
+        aux2 = v3 - v2;
+        normal_ = glm::normalize(aux2 * aux1);
+        point_ = v2;
+        d_ = -glm::dot(normal_, point_);
+    }
 
-	void Plane::SetNormalAndPoint(const glm::vec3 &normal, const glm::vec3 &point) 
-	{
-		normal_ = glm::normalize(normal);
-		point_ = point;
-		d_ = -glm::dot(normal_, point_);
-	}
+    void Plane::SetNormalAndPoint(const glm::vec3 &normal, const glm::vec3 &point) 
+    {
+        normal_ = glm::normalize(normal);
+        point_ = point;
+        d_ = -glm::dot(normal_, point_);
+    }
 
-	void Plane::SetCoefficients(float a, float b, float c, float d)
-	{
-		// 设置面法线
-		normal_.x = a;
-		normal_.y = b;
-		normal_.z = c;
-		float l = glm::length(normal_); // 法线的长度
-		normal_ = glm::normalize(normal_); // 规格化长度
-		this->d_ = d / l; // 求出截距
-	}
+    void Plane::SetCoefficients(float a, float b, float c, float d)
+    {
+        // 设置面法线
+        normal_.x = a;
+        normal_.y = b;
+        normal_.z = c;
+        float l = glm::length(normal_); // 法线的长度
+        normal_ = glm::normalize(normal_); // 规格化长度
+        this->d_ = d / l; // 求出截距
+    }
 
-	float Plane::Distance(const glm::vec3 &p)
-	{
-		return d_ + glm::dot(normal_,p);
-	}
+    float Plane::Distance(const glm::vec3 &p)
+    {
+        return d_ + glm::dot(normal_,p);
+    }
 
-	void Plane::InfoPrint()
-	{
-		// printf("Plane("); normal_.print(); printf("# %f)", d_);
-	}
+    void Plane::InfoPrint()
+    {
+        // printf("Plane("); normal_.print(); printf("# %f)", d_);
+    }
 
 }

@@ -39,17 +39,17 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class DynamicTextureApp : public kgl::App
 {
 public:
-	DynamicTextureApp();
-	virtual ~DynamicTextureApp();
-	virtual void InitScene();
+    DynamicTextureApp();
+    virtual ~DynamicTextureApp();
+    virtual void InitScene();
 protected:
-	virtual void RenderFrame();
+    virtual void RenderFrame();
 private:
-	kgl::GPUProgram*		gpu_program_;
-	kgl::Primitive*			rectangle_primitive_;
-	kgl::SourceTextureSPtr	texture_1_;
-	GLfloat*				vertices_data_;
-	float					last_update_vb_time_; // 上一次更新顶点缓冲数据的时间
+    kgl::GPUProgram*        gpu_program_;
+    kgl::Primitive*         rectangle_primitive_;
+    kgl::SourceTextureSPtr  texture_1_;
+    GLfloat*                vertices_data_;
+    float                   last_update_vb_time_; // 上一次更新顶点缓冲数据的时间
 };
 
 #endif // dynamic_texture_app_h__

@@ -11,20 +11,20 @@
 class CameraApp : public kgl::App
 {
 public:
-	CameraApp();
-	virtual ~CameraApp();
-	virtual void InitScene();
+    CameraApp();
+    virtual ~CameraApp();
+    virtual void InitScene();
 protected:
-	virtual void RenderFrame();
-	virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode);
-	virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos);
-	virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset);
-	virtual void ProcessInput();
+    virtual void RenderFrame();
+    virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode);
+    virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos);
+    virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset);
+    virtual void ProcessInput();
 private:
-	kgl::GPUProgram*		gpu_program_;
-	kgl::Primitive*			rectangle_primitive_;
-	kgl::SourceTextureSPtr	texture_1_;
-	kgl::SourceTextureSPtr	texture_2_;
+    kgl::GPUProgram*        gpu_program_;
+    kgl::Primitive*         rectangle_primitive_;
+    kgl::SourceTextureSPtr  texture_1_;
+    kgl::SourceTextureSPtr  texture_2_;
 };
 
 #endif // camera_app_h__

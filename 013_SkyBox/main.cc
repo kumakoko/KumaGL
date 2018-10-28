@@ -22,28 +22,28 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 void main()
 {
-	SkyBoxApp* app = nullptr;
+    SkyBoxApp* app = nullptr;
 
-	try
-	{
-		app = new SkyBoxApp();
-		app->InitWindow(1400, 900, false, "013_SkyBox");
-		app->InitRenderer();
-		app->InitScene();
-		app->Run();
-	}
-	catch (kgl::Error e)
-	{
-		e.Notify();
-	}
-	catch (std::exception e)
-	{
-		std::wstring excepiton_desc;
-		kgl::StringConvertor::ANSItoUTF16LE(e.what(), excepiton_desc);
+    try
+    {
+        app = new SkyBoxApp();
+        app->InitWindow(1400, 900, false, "013_SkyBox");
+        app->InitRenderer();
+        app->InitScene();
+        app->Run();
+    }
+    catch (kgl::Error e)
+    {
+        e.Notify();
+    }
+    catch (std::exception e)
+    {
+        std::wstring excepiton_desc;
+        kgl::StringConvertor::ANSItoUTF16LE(e.what(), excepiton_desc);
 #ifdef WIN32
-		::MessageBox(NULL, excepiton_desc.c_str(), L"Unhandled Exception, aborting", MB_OK | MB_ICONERROR);
+        ::MessageBox(NULL, excepiton_desc.c_str(), L"Unhandled Exception, aborting", MB_OK | MB_ICONERROR);
 #endif
-	}
+    }
 
-	delete app;
+    delete app;
 }

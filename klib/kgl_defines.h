@@ -1,18 +1,4 @@
-﻿// 一些工具宏的定义
-/*!
- * \file kgl_defines.h
- * \date 2017/12/31 13:36
- *
- * \author Administrator
- * Contact: user@company.com
- *
- * \brief 
- *
- * TODO: long description
- *
- * \note
-*/
-/**************************************************************************************************************************
+﻿/**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -28,6 +14,19 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+/*!
+* \file kgl_defines.h
+* \date 2017/12/31 13:36
+*
+* \author Administrator
+* Contact: user@company.com
+*
+* \brief
+*
+* TODO: 一些工具宏的定义
+*
+* \note
+*/
 #ifndef kgl_defines_h__
 #define kgl_defines_h__
 
@@ -45,18 +44,18 @@ typedef boost::multi_array<glm::vec4, 2> Color2DArray;
 typedef boost::multi_array<glm::vec4, 2> Vec4Array2D;
 typedef boost::multi_array<glm::vec3, 2> Vec3Array2D;
 
-#define COLOR_TEXTURE_UNIT					GL_TEXTURE0
-#define COLOR_TEXTURE_UNIT_INDEX			0
-#define SHADOW_TEXTURE_UNIT					GL_TEXTURE1
-#define SHADOW_TEXTURE_UNIT_INDEX			1
-#define NORMAL_TEXTURE_UNIT					GL_TEXTURE2
-#define NORMAL_TEXTURE_UNIT_INDEX			2
-#define RANDOM_TEXTURE_UNIT					GL_TEXTURE3
-#define RANDOM_TEXTURE_UNIT_INDEX			3
-#define DISPLACEMENT_TEXTURE_UNIT			GL_TEXTURE4
-#define DISPLACEMENT_TEXTURE_UNIT_INDEX		4
-#define MOTION_TEXTURE_UNIT					GL_TEXTURE5
-#define MOTION_TEXTURE_UNIT_INDEX			5
+#define COLOR_TEXTURE_UNIT                  GL_TEXTURE0
+#define COLOR_TEXTURE_UNIT_INDEX            0
+#define SHADOW_TEXTURE_UNIT                 GL_TEXTURE1
+#define SHADOW_TEXTURE_UNIT_INDEX           1
+#define NORMAL_TEXTURE_UNIT                 GL_TEXTURE2
+#define NORMAL_TEXTURE_UNIT_INDEX           2
+#define RANDOM_TEXTURE_UNIT                 GL_TEXTURE3
+#define RANDOM_TEXTURE_UNIT_INDEX           3
+#define DISPLACEMENT_TEXTURE_UNIT           GL_TEXTURE4
+#define DISPLACEMENT_TEXTURE_UNIT_INDEX     4
+#define MOTION_TEXTURE_UNIT                 GL_TEXTURE5
+#define MOTION_TEXTURE_UNIT_INDEX           5
 #define CASCACDE_SHADOW_TEXTURE_UNIT0       SHADOW_TEXTURE_UNIT
 #define CASCACDE_SHADOW_TEXTURE_UNIT0_INDEX SHADOW_TEXTURE_UNIT_INDEX
 #define CASCACDE_SHADOW_TEXTURE_UNIT1       GL_TEXTURE6

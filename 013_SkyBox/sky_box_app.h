@@ -42,23 +42,23 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class SkyBoxApp : public kgl::App
 {
 public:
-	SkyBoxApp();
-	virtual ~SkyBoxApp();
-	virtual void InitScene();
+    SkyBoxApp();
+    virtual ~SkyBoxApp();
+    virtual void InitScene();
 protected:
-	virtual void RenderFrame() override;
-	virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
-	virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
-	virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
-	virtual void ProcessInput() override;
-	virtual void InitModel() override;
-	virtual void InitShaders() override;
-	virtual void InitMainCamera() override;
+    virtual void RenderFrame() override;
+    virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
+    virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
+    virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
+    virtual void ProcessInput() override;
+    virtual void InitModel() override;
+    virtual void InitShaders() override;
+    virtual void InitMainCamera() override;
 private:
-	kgl::SkyBox*				sky_box_ = nullptr;
-	kgl::GPUProgram*			scene_obj_shader_ = nullptr;
-	kgl::PrimitiveSPtr			floor_;
-	kgl::SourceTextureSPtr		floor_texture_;
+    kgl::SkyBox*                sky_box_ = nullptr;
+    kgl::GPUProgram*            scene_obj_shader_ = nullptr;
+    kgl::PrimitiveSPtr          floor_;
+    kgl::SourceTextureSPtr      floor_texture_;
 };
 
 

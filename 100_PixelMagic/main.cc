@@ -26,7 +26,7 @@ void main()
     try
     {
         app = new PixelMagicApp();
-        app->InitWindow(800, 600, false, "Pixel Magic");
+        app->InitWindow(960, 640, false, "Pixel Magic");
         app->InitRenderer();
         app->InitScene();
         app->Run();

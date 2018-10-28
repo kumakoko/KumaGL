@@ -51,13 +51,13 @@ namespace kgl
         /// <returns>回图元对象的智能指针</returns>
         static PrimitiveSPtr BuildTexturedCube();
 
-		/// <summary>
-		/// 创建一个带有一层纹理映射坐标的，有法线的，和XZ平面平行的平面
-		/// </summary>
-		/// <param name="size">平面的大小</param>
-		/// <param name="y_offset">和Y轴原点的偏移量</param>
-		/// <returns>回图元对象的智能指针</returns>
-		static PrimitiveSPtr BuildNormalTexturedXZPlane(float size, float y_offset);
+        /// <summary>
+        /// 创建一个带有一层纹理映射坐标的，有法线的，和XZ平面平行的平面
+        /// </summary>
+        /// <param name="size">平面的大小</param>
+        /// <param name="y_offset">和Y轴原点的偏移量</param>
+        /// <returns>回图元对象的智能指针</returns>
+        static PrimitiveSPtr BuildNormalTexturedXZPlane(float size, float y_offset);
 
         /// <summary>
         /// 创建一个基于NDC坐标系的，带一层纹理的矩形
@@ -101,7 +101,7 @@ namespace kgl
         /// <returns>PrimitiveSPtr.</returns>
         static PrimitiveSPtr BuildPNTBT1Square(unsigned int quality, bool is_clock_wise);
 
-		static PrimitiveSPtr BuildNDCTextureNormalCube();
+        static PrimitiveSPtr BuildNDCTextureNormalCube();
     };
 }
 #endif // kgl_primitive_tool_h__

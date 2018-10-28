@@ -20,44 +20,44 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	namespace low_poly_terrain
-	{
-		TerrainRenderer::TerrainRenderer(GPUProgramSPtr shader, CameraSPtr camera, bool uses_indices)
-		{
-			this->shader_ = shader;
-			this->camera_ = camera;
-			this->has_indices_ = uses_indices;
-		}
+    namespace low_poly_terrain
+    {
+        TerrainRenderer::TerrainRenderer(GPUProgramSPtr shader, CameraSPtr camera, bool uses_indices)
+        {
+            this->shader_ = shader;
+            this->camera_ = camera;
+            this->has_indices_ = uses_indices;
+        }
 
-		TerrainRenderer::~TerrainRenderer()
-		{
-			this->shader_.reset();
-		}
+        TerrainRenderer::~TerrainRenderer()
+        {
+            this->shader_.reset();
+        }
 
-		void TerrainRenderer::Render(Terrain* terrain, const LowPolyTerrainLight& light)
-		{
-			Prepare(terrain, light);
-			terrain->primitive_->DrawIndexed();
-		}
+        void TerrainRenderer::Render(Terrain* terrain, const LowPolyTerrainLight& light)
+        {
+            Prepare(terrain, light);
+            terrain->primitive_->DrawIndexed();
+        }
 
-		void TerrainRenderer::cleanUp()
-		{
+        void TerrainRenderer::cleanUp()
+        {
 
-		}
+        }
 
-		void TerrainRenderer::Prepare(Terrain* terrain, const LowPolyTerrainLight& light)
-		{
-			shader_->Use();
-			shader_->ApplyVector3(glm::value_ptr(light.Direction), "u_light_direction");
-			shader_->ApplyVector3(glm::value_ptr(light.Color), "u_light_color");
-			shader_->ApplyVector2(glm::value_ptr(light.Bias), "u_light_bias");
-			shader_->ApplyMatrix(glm::value_ptr(camera_->GetViewMatrix()), "u_view_matrix");
-			shader_->ApplyMatrix(glm::value_ptr(camera_->GetProjectionMatrix()), "u_projection_matrix");
-		}
+        void TerrainRenderer::Prepare(Terrain* terrain, const LowPolyTerrainLight& light)
+        {
+            shader_->Use();
+            shader_->ApplyVector3(glm::value_ptr(light.Direction), "u_light_direction");
+            shader_->ApplyVector3(glm::value_ptr(light.Color), "u_light_color");
+            shader_->ApplyVector2(glm::value_ptr(light.Bias), "u_light_bias");
+            shader_->ApplyMatrix(glm::value_ptr(camera_->GetViewMatrix()), "u_view_matrix");
+            shader_->ApplyMatrix(glm::value_ptr(camera_->GetProjectionMatrix()), "u_projection_matrix");
+        }
 
-		void TerrainRenderer::Finish(Terrain* terrain)
-		{
+        void TerrainRenderer::Finish(Terrain* terrain)
+        {
 
-		}
-	}
+        }
+    }
 }

@@ -27,14 +27,14 @@ namespace kgl
 
     Texture::~Texture()
     {
-		type_ = TextureType::NONE;
-		valid_ = false;
+        type_ = TextureType::NONE;
+        valid_ = false;
     }
 
-	void Texture::CreateFromFile(const std::string& file_name, const TextureParams& texture_params)
-	{
+    void Texture::CreateFromFile(const std::string& file_name, const TextureParams& texture_params)
+    {
 
-	}
+    }
 
     void Texture::Create(int32_t width, int32_t height, const TextureParams& texture_params)
     {

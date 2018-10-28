@@ -116,12 +116,12 @@ namespace kgl
         /// </summary>
         virtual ~Texture();
 
-		/// <summary>
-		/// Creates from file.
-		/// </summary>
-		/// <param name="file_name">The file_name.</param>
-		/// <param name="texture_params">The texture_params.</param>
-		virtual void CreateFromFile(const std::string& file_name, const TextureParams& texture_params);
+        /// <summary>
+        /// Creates from file.
+        /// </summary>
+        /// <param name="file_name">The file_name.</param>
+        /// <param name="texture_params">The texture_params.</param>
+        virtual void CreateFromFile(const std::string& file_name, const TextureParams& texture_params);
 
         /// <summary>
         /// Creates the specified width.
@@ -164,14 +164,14 @@ namespace kgl
             return type_;
         }
 
-		/// <summary>
-		/// 纹理是否被正确地创建出来并且是可用的
-		/// </summary>
-		/// <returns>有效返回true，否则返回false</returns>
-		inline bool IsValid() const
-		{
-			return valid_;
-		}
+        /// <summary>
+        /// 纹理是否被正确地创建出来并且是可用的
+        /// </summary>
+        /// <returns>有效返回true，否则返回false</returns>
+        inline bool IsValid() const
+        {
+            return valid_;
+        }
 
     protected:
         /// <summary>
@@ -179,10 +179,10 @@ namespace kgl
         /// </summary>
         TextureType type_ = TextureType::NONE;
 
-		/// <summary>
-		/// 是否创建成功
-		/// </summary>
-		bool valid_ = false;
+        /// <summary>
+        /// 是否创建成功
+        /// </summary>
+        bool valid_ = false;
     };
 
     typedef std::shared_ptr<Texture> TextureSPtr;

@@ -27,9 +27,9 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	SourceTexture::SourceTexture()
+    SourceTexture::SourceTexture()
     {
-		type_ = TextureType::SOURCE_2D_TEXTURE;
+        type_ = TextureType::SOURCE_2D_TEXTURE;
     }
 
     SourceTexture::~SourceTexture()
@@ -135,58 +135,58 @@ namespace kgl
         // 创建完毕之后要解绑定
         glBindTexture(GL_TEXTURE_2D, 0);
         KGL_SAFE_DELETE_ARRAY(image);
-		valid_ = true;
+        valid_ = true;
     }
 
-	void SourceTexture::CreateFromFile(const std::string& file_name, const TextureParams& texture_params)
-	{
-		params_ = texture_params;
+    void SourceTexture::CreateFromFile(const std::string& file_name, const TextureParams& texture_params)
+    {
+        params_ = texture_params;
 
-		std::vector<std::string> error_desc_array;
-		std::vector<GLenum> error_code_array;
+        std::vector<std::string> error_desc_array;
+        std::vector<GLenum> error_code_array;
 
-		// 创建纹理
-		glGenTextures(1, &texture_id_);
-		THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
+        // 创建纹理
+        glGenTextures(1, &texture_id_);
+        THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
-		// 绑定纹理
-		glBindTexture(GL_TEXTURE_2D, texture_id_);
-		THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
+        // 绑定纹理
+        glBindTexture(GL_TEXTURE_2D, texture_id_);
+        THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
-		// 设置纹理参数,包装模式
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, texture_params.wrap_s_mode);    // Set texture wrapping to GL_REPEAT
-		THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
+        // 设置纹理参数,包装模式
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, texture_params.wrap_s_mode);    // Set texture wrapping to GL_REPEAT
+        THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, texture_params.wrap_t_mode);
-		THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, texture_params.wrap_t_mode);
+        THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
-		// 设置纹理参数,包装模式过滤模式
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texture_params.min_filter_mode);
-		THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
+        // 设置纹理参数,包装模式过滤模式
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, texture_params.min_filter_mode);
+        THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, texture_params.mag_filter_mode);
-		THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, texture_params.mag_filter_mode);
+        THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
-		ImageFileReader img_reader;
-		img_reader.LoadFromFile(file_name);
-		// GLBitmapSPtr bmp = img_reader.GetGLBitmapFromFile(file_name, texture_params.internal_format);
-		width_ = img_reader.ImageWidth();
-		height_ = img_reader.ImageHeight();
-		
-		glTexImage2D(GL_TEXTURE_2D, 0, texture_params.internal_format, width_, height_, 0,
-			texture_params.src_img_format, texture_params.src_img_px_component_type, img_reader.ImageData());
-		
-		THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
+        ImageFileReader img_reader;
+        img_reader.LoadFromFile(file_name);
+        // GLBitmapSPtr bmp = img_reader.GetGLBitmapFromFile(file_name, texture_params.internal_format);
+        width_ = img_reader.ImageWidth();
+        height_ = img_reader.ImageHeight();
+        
+        glTexImage2D(GL_TEXTURE_2D, 0, texture_params.internal_format, width_, height_, 0,
+            texture_params.src_img_format, texture_params.src_img_px_component_type, img_reader.ImageData());
+        
+        THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 
-		if (texture_params.used_mipmap)
-		{
-			glGenerateMipmap(GL_TEXTURE_2D);
-			THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
-		}
+        if (texture_params.used_mipmap)
+        {
+            glGenerateMipmap(GL_TEXTURE_2D);
+            THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
+        }
 
-		glBindTexture(GL_TEXTURE_2D, 0); // 创建完毕之后要解绑定
-		valid_ = true;
-	}
+        glBindTexture(GL_TEXTURE_2D, 0); // 创建完毕之后要解绑定
+        valid_ = true;
+    }
 
     int SourceTexture::GetWidth() const
     {

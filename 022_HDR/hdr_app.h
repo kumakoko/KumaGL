@@ -42,105 +42,105 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 struct HDRLightStruct 
 {
-	glm::vec3 Position;
-	glm::vec3 Color;
+    glm::vec3 Position;
+    glm::vec3 Color;
 };
 
 class HDRApp : public kgl::App
 {
 public:
-	HDRApp();
-	virtual ~HDRApp();
-	virtual void InitScene();
+    HDRApp();
+    virtual ~HDRApp();
+    virtual void InitScene();
 protected:
-	virtual void PreRenderFrame() override;
-	virtual void RenderFrame() override;
-	virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
-	virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
-	virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
-	virtual void ProcessInput() override;
-	virtual void InitMaterials() override;
-	virtual void InitModel() override;
-	virtual void InitShaders() override;
-	virtual void InitLights() override;
-	virtual void InitMainCamera() override;
-	virtual void InitFont() override;
-	void RenderHelpText(const glm::vec3& view_pos);
+    virtual void PreRenderFrame() override;
+    virtual void RenderFrame() override;
+    virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
+    virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
+    virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
+    virtual void ProcessInput() override;
+    virtual void InitMaterials() override;
+    virtual void InitModel() override;
+    virtual void InitShaders() override;
+    virtual void InitLights() override;
+    virtual void InitMainCamera() override;
+    virtual void InitFont() override;
+    void RenderHelpText(const glm::vec3& view_pos);
 private:
-	/// <summary>
-	/// 用来执行hdr光照计算所用到的frame buffer
-	/// </summary>
-	kgl::FrameBuffer* hdr_buffer_ = nullptr;
+    /// <summary>
+    /// 用来执行hdr光照计算所用到的frame buffer
+    /// </summary>
+    kgl::FrameBuffer* hdr_buffer_ = nullptr;
 
-	/// <summary>
-	/// 执行光照计算的shader
-	/// </summary>
-	kgl::GPUProgram* lighting_shader_ = nullptr;
+    /// <summary>
+    /// 执行光照计算的shader
+    /// </summary>
+    kgl::GPUProgram* lighting_shader_ = nullptr;
 
-	/// <summary>
-	/// 执行hdr色调映射的shader
-	/// </summary>
-	kgl::GPUProgram* hdr_shader_ = nullptr;
-	
-	/// <summary>
-	/// 深度状态
-	/// </summary>
-	kgl::RenderStateDepth rs_depth_;
-	
-	/// <summary>
-	/// 场景中的模板纹理
-	/// </summary>
-	kgl::SourceTextureSPtr wood_texture_;
+    /// <summary>
+    /// 执行hdr色调映射的shader
+    /// </summary>
+    kgl::GPUProgram* hdr_shader_ = nullptr;
+    
+    /// <summary>
+    /// 深度状态
+    /// </summary>
+    kgl::RenderStateDepth rs_depth_;
+    
+    /// <summary>
+    /// 场景中的模板纹理
+    /// </summary>
+    kgl::SourceTextureSPtr wood_texture_;
 
-	/// <summary>
-	/// 基于NDC坐标的，占满了整个屏幕的矩形图元
-	/// </summary>
-	kgl::PrimitiveSPtr screen_rectangle_;
-	
-	/// <summary>
-	/// 用来表示场景的盒子图元
-	/// </summary>
-	kgl::PrimitiveSPtr cube_;
+    /// <summary>
+    /// 基于NDC坐标的，占满了整个屏幕的矩形图元
+    /// </summary>
+    kgl::PrimitiveSPtr screen_rectangle_;
+    
+    /// <summary>
+    /// 用来表示场景的盒子图元
+    /// </summary>
+    kgl::PrimitiveSPtr cube_;
 
-	/// <summary>
-	/// 灯光的位置
-	/// </summary>
-	std::vector<glm::vec3> light_positions_;
-	
-	/// <summary>
-	/// 灯光的颜色
-	/// </summary>
-	std::vector<glm::vec3> light_colors_;
+    /// <summary>
+    /// 灯光的位置
+    /// </summary>
+    std::vector<glm::vec3> light_positions_;
+    
+    /// <summary>
+    /// 灯光的颜色
+    /// </summary>
+    std::vector<glm::vec3> light_colors_;
 
-	/// <summary>
-	/// 是否启用hdr效果
-	/// </summary>
-	bool use_hdr_ = true;
+    /// <summary>
+    /// 是否启用hdr效果
+    /// </summary>
+    bool use_hdr_ = true;
 
-	/// <summary>
-	/// HDR曝光值
-	/// </summary>
-	float exposure_ = 2.0f;
+    /// <summary>
+    /// HDR曝光值
+    /// </summary>
+    float exposure_ = 2.0f;
 
-	/// <summary>
-	/// 提示如何关闭帮助文档的信息字符串
-	/// </summary>
-	std::wstring toggle_help_off_text_;
+    /// <summary>
+    /// 提示如何关闭帮助文档的信息字符串
+    /// </summary>
+    std::wstring toggle_help_off_text_;
 
-	/// <summary>
-	///  提示如何打开帮助文档的信息字符串
-	/// </summary>
-	std::wstring toggle_help_on_text_;
+    /// <summary>
+    ///  提示如何打开帮助文档的信息字符串
+    /// </summary>
+    std::wstring toggle_help_on_text_;
 
-	/// <summary>
-	/// 摄像机相关信息的字符串
-	/// </summary>
-	std::wstring camera_ctrl_text_;
+    /// <summary>
+    /// 摄像机相关信息的字符串
+    /// </summary>
+    std::wstring camera_ctrl_text_;
 
-	/// <summary>
-	/// 帮助文档是否处于打开状态
-	/// </summary>
-	bool is_help_on_ = true;
+    /// <summary>
+    /// 帮助文档是否处于打开状态
+    /// </summary>
+    bool is_help_on_ = true;
 };
 
 

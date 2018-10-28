@@ -32,82 +32,82 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	template<typename T>
-	class Rectangle
-	{
-	public:
-		Rectangle(){};
-		Rectangle(T top_left_x, T top_left_y, T bottom_right_x, T bottom_right_y);
-		void Reset(T top_left_x, T top_left_y, T bottom_right_x, T bottom_right_y);
-		T Width() const;
-		T Height() const;
-		T TopLeftX() const;
-		T TopLeftY() const;
-		T BottomRightX() const;
-		T BottomRightY() const;
-	protected:
-		T top_left_x_ = T(0);
-		T top_left_y_ = T(0);
-		T bottom_right_x_ = T(0);
-		T bottom_right_y_ = T(0);
-	};
+    template<typename T>
+    class Rectangle
+    {
+    public:
+        Rectangle(){};
+        Rectangle(T top_left_x, T top_left_y, T bottom_right_x, T bottom_right_y);
+        void Reset(T top_left_x, T top_left_y, T bottom_right_x, T bottom_right_y);
+        T Width() const;
+        T Height() const;
+        T TopLeftX() const;
+        T TopLeftY() const;
+        T BottomRightX() const;
+        T BottomRightY() const;
+    protected:
+        T top_left_x_ = T(0);
+        T top_left_y_ = T(0);
+        T bottom_right_x_ = T(0);
+        T bottom_right_y_ = T(0);
+    };
 
-	template<typename T>
-	Rectangle<T>::Rectangle(T top_left_x, T top_left_y, T bottom_right_x, T bottom_right_y)
-	{
-		top_left_x_ = top_left_x;
-		top_left_y_ = top_left_y;
-		bottom_right_x_ = bottom_right_x;
-		bottom_right_y_ = bottom_right_y;
-	}
+    template<typename T>
+    Rectangle<T>::Rectangle(T top_left_x, T top_left_y, T bottom_right_x, T bottom_right_y)
+    {
+        top_left_x_ = top_left_x;
+        top_left_y_ = top_left_y;
+        bottom_right_x_ = bottom_right_x;
+        bottom_right_y_ = bottom_right_y;
+    }
 
-	template<typename T>
-	void Rectangle<T>::Reset(T top_left_x, T top_left_y, T bottom_right_x, T bottom_right_y)
-	{
-		top_left_x_ = top_left_x;
-		top_left_y_ = top_left_y;
-		bottom_right_x_ = bottom_right_x;
-		bottom_right_y_ = bottom_right_y;
-	}
+    template<typename T>
+    void Rectangle<T>::Reset(T top_left_x, T top_left_y, T bottom_right_x, T bottom_right_y)
+    {
+        top_left_x_ = top_left_x;
+        top_left_y_ = top_left_y;
+        bottom_right_x_ = bottom_right_x;
+        bottom_right_y_ = bottom_right_y;
+    }
 
-	template<typename T>
-	T Rectangle<T>::Width() const
-	{
-		return bottom_right_x_ - top_left_x_;
-	}
+    template<typename T>
+    T Rectangle<T>::Width() const
+    {
+        return bottom_right_x_ - top_left_x_;
+    }
 
-	template<typename T>
-	T Rectangle<T>::Height() const
-	{
-		return bottom_right_y_ - top_left_y_;
-	}
+    template<typename T>
+    T Rectangle<T>::Height() const
+    {
+        return bottom_right_y_ - top_left_y_;
+    }
 
-	template<typename T>
-	T Rectangle<T>::TopLeftX() const
-	{
-		return top_left_x_;
-	}
+    template<typename T>
+    T Rectangle<T>::TopLeftX() const
+    {
+        return top_left_x_;
+    }
 
-	template<typename T>
-	T Rectangle<T>::TopLeftY() const
-	{
-		return top_left_y_;
-	}
+    template<typename T>
+    T Rectangle<T>::TopLeftY() const
+    {
+        return top_left_y_;
+    }
 
-	template<typename T>
-	T Rectangle<T>::BottomRightX() const
-	{
-		return bottom_right_x_;
-	}
+    template<typename T>
+    T Rectangle<T>::BottomRightX() const
+    {
+        return bottom_right_x_;
+    }
 
-	template<typename T>
-	T Rectangle<T>::BottomRightY() const
-	{
-		return bottom_right_y_;
-	}
+    template<typename T>
+    T Rectangle<T>::BottomRightY() const
+    {
+        return bottom_right_y_;
+    }
 
-	typedef Rectangle<int> IRect;
-	typedef Rectangle<float> FRect;
+    typedef Rectangle<int> IRect;
+    typedef Rectangle<float> FRect;
 }
 
 #endif // kgl_rectangle_h__

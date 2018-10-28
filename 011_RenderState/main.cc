@@ -21,27 +21,27 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 void main()
 {
-	kgl::App* app = nullptr;
+    kgl::App* app = nullptr;
 
-	try
-	{
-		kgl::App* app = new kgl::App();
-		app->InitWindow(800, 600, false, "011_RenderState");
-		app->InitRenderer();
-		app->Run();
-	}
-	catch (kgl::Error e)
-	{
-		e.Notify();
-	}
-	catch (std::exception e)
-	{
-		std::wstring excepiton_desc;
-		kgl::StringConvertor::ANSItoUTF16LE(e.what(), excepiton_desc);
+    try
+    {
+        kgl::App* app = new kgl::App();
+        app->InitWindow(800, 600, false, "011_RenderState");
+        app->InitRenderer();
+        app->Run();
+    }
+    catch (kgl::Error e)
+    {
+        e.Notify();
+    }
+    catch (std::exception e)
+    {
+        std::wstring excepiton_desc;
+        kgl::StringConvertor::ANSItoUTF16LE(e.what(), excepiton_desc);
 #ifdef WIN32
-		::MessageBox(NULL, excepiton_desc.c_str(), L"Unhandled Exception, aborting", MB_OK | MB_ICONERROR);
+        ::MessageBox(NULL, excepiton_desc.c_str(), L"Unhandled Exception, aborting", MB_OK | MB_ICONERROR);
 #endif
-	}
-	
-	delete app;
+    }
+    
+    delete app;
 }

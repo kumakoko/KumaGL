@@ -44,37 +44,37 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class SkinnedMeshApp : public kgl::App
 { 
 private:
-	static const int MAX_BONES_ACCOUNT = 100;
-	static const int MAX_POINT_LIGHTS = 2;
-	static const int MAX_SPOT_LIGHTS = 2;
+    static const int MAX_BONES_ACCOUNT = 100;
+    static const int MAX_POINT_LIGHTS = 2;
+    static const int MAX_SPOT_LIGHTS = 2;
 public:
-	SkinnedMeshApp();
-	virtual ~SkinnedMeshApp();
-	virtual void InitScene()  override;
+    SkinnedMeshApp();
+    virtual ~SkinnedMeshApp();
+    virtual void InitScene()  override;
 protected:
-	virtual void RenderFrame() override;
-	virtual void ProcessInput() override;
-	virtual void InitModel() override;
-	virtual void InitShaders() override;
-	virtual void InitFont() override;
-	virtual void InitMainCamera() override;
-	virtual void InitLights() override;
-	void RenderText();
+    virtual void RenderFrame() override;
+    virtual void ProcessInput() override;
+    virtual void InitModel() override;
+    virtual void InitShaders() override;
+    virtual void InitFont() override;
+    virtual void InitMainCamera() override;
+    virtual void InitLights() override;
+    void RenderText();
 private:
-	kgl::GPUProgramSPtr			model_shader_;
-	kgl::RenderStateDepth		rs_depth_;
-	kgl::RenderStateBlend		rs_blend_;
-	kgl::DirectionalLight		m_directionalLight;
-	kgl::SpotLight				spot_lights_[MAX_SPOT_LIGHTS];
-	kgl::PointLight				point_lights_[MAX_POINT_LIGHTS];
-	std::vector<std::string>    bone_uniform_name_;
-	std::vector<std::string>	point_light_uniform_name_;
-	std::vector<std::string>    spot_light_uniform_name_;
+    kgl::GPUProgramSPtr         model_shader_;
+    kgl::RenderStateDepth       rs_depth_;
+    kgl::RenderStateBlend       rs_blend_;
+    kgl::DirectionalLight       m_directionalLight;
+    kgl::SpotLight              spot_lights_[MAX_SPOT_LIGHTS];
+    kgl::PointLight             point_lights_[MAX_POINT_LIGHTS];
+    std::vector<std::string>    bone_uniform_name_;
+    std::vector<std::string>    point_light_uniform_name_;
+    std::vector<std::string>    spot_light_uniform_name_;
 
-	int point_lights_num_ = 2;
-	int spot_lights_num_ = 2;
-	float specular_intensity_ = 1.0f;
-	float specular_power = 1.0f;
+    int point_lights_num_ = 2;
+    int spot_lights_num_ = 2;
+    float specular_intensity_ = 1.0f;
+    float specular_power = 1.0f;
 };
 
 #endif // assimp_app_h__

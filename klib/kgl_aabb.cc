@@ -19,74 +19,74 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	AABB::AABB(const glm::vec3 &corner, float x, float y, float z) 
-	{
-		Set(corner, x, y, z);
-	}
+    AABB::AABB(const glm::vec3 &corner, float x, float y, float z) 
+    {
+        Set(corner, x, y, z);
+    }
 
-	AABB::AABB(void) 
-	{
-		corner_.x = 0; corner_.y = 0; corner_.z = 0;
-		x_ = 1.0f;
-		y_ = 1.0f;
-		z_ = 1.0f;
-	}
+    AABB::AABB(void) 
+    {
+        corner_.x = 0; corner_.y = 0; corner_.z = 0;
+        x_ = 1.0f;
+        y_ = 1.0f;
+        z_ = 1.0f;
+    }
 
-	AABB::~AABB() 
-	{
-	}
+    AABB::~AABB() 
+    {
+    }
 
-	void AABB::Set(const glm::vec3 &corner, float x, float y, float z) 
-	{
-		this->corner_ = corner;
+    void AABB::Set(const glm::vec3 &corner, float x, float y, float z) 
+    {
+        this->corner_ = corner;
 
-		if (x < 0.0) {
-			x = -x;
-			this->corner_.x -= x;
-		}
-		if (y < 0.0) {
-			y = -y;
-			this->corner_.y -= y;
-		}
-		if (z < 0.0) {
-			z = -z;
-			this->corner_.z -= z;
-		}
-		this->x_ = x;
-		this->y_ = y;
-		this->z_ = z;
-	}
+        if (x < 0.0) {
+            x = -x;
+            this->corner_.x -= x;
+        }
+        if (y < 0.0) {
+            y = -y;
+            this->corner_.y -= y;
+        }
+        if (z < 0.0) {
+            z = -z;
+            this->corner_.z -= z;
+        }
+        this->x_ = x;
+        this->y_ = y;
+        this->z_ = z;
+    }
 
-	glm::vec3 AABB::getVertexP(const glm::vec3 &normal) const
-	{
-		glm::vec3 res = corner_;
+    glm::vec3 AABB::getVertexP(const glm::vec3 &normal) const
+    {
+        glm::vec3 res = corner_;
 
-		if (normal.x > 0)
-			res.x += x_;
+        if (normal.x > 0)
+            res.x += x_;
 
-		if (normal.y > 0)
-			res.y += y_;
+        if (normal.y > 0)
+            res.y += y_;
 
-		if (normal.z > 0)
-			res.z += z_;
+        if (normal.z > 0)
+            res.z += z_;
 
-		return(res);
-	}
+        return(res);
+    }
 
-	glm::vec3 AABB::getVertexN(const glm::vec3 &normal) const
-	{
+    glm::vec3 AABB::getVertexN(const glm::vec3 &normal) const
+    {
 
-		glm::vec3 res = corner_;
+        glm::vec3 res = corner_;
 
-		if (normal.x < 0)
-			res.x += x_;
+        if (normal.x < 0)
+            res.x += x_;
 
-		if (normal.y < 0)
-			res.y += y_;
+        if (normal.y < 0)
+            res.y += y_;
 
-		if (normal.z < 0)
-			res.z += z_;
+        if (normal.z < 0)
+            res.z += z_;
 
-		return(res);
-	}
+        return(res);
+    }
 }

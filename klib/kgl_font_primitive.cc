@@ -25,6 +25,7 @@ namespace kgl
     /// The s_vertex_attribute_array{CC2D43FA-BBC4-448A-9D0B-7B57ADF2655C}
     /// </summary>
     std::vector<VertexAttribute> FontPrimitive::s_vertex_attribute_array;
+
     /// <summary>
     /// The s_init_attribute{CC2D43FA-BBC4-448A-9D0B-7B57ADF2655C}
     /// </summary>

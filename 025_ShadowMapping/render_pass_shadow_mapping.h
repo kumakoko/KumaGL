@@ -36,26 +36,26 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class RenderPassShadowMapping : public kgl::RenderPass
 {
 public:
-	RenderPassShadowMapping();
-	virtual void Initialize() override;
-	virtual void Update(float current_time) override;
-	void SetLightWorldPosition(const glm::vec3& pos);
-	void SetLightSpaceMatrix(const glm::mat4& mat, bool need_transpose = false);
-	void SetDiffuseTexture(kgl::TextureSPtr texture, GLuint slot_index);
-	void SetShadowMap(kgl::TextureSPtr shadow_map_texture, GLuint slot_index);
-	void SetBaisAndSampleForShadowLocation(bool use);
+    RenderPassShadowMapping();
+    virtual void Initialize() override;
+    virtual void Update(float current_time) override;
+    void SetLightWorldPosition(const glm::vec3& pos);
+    void SetLightSpaceMatrix(const glm::mat4& mat, bool need_transpose = false);
+    void SetDiffuseTexture(kgl::TextureSPtr texture, GLuint slot_index);
+    void SetShadowMap(kgl::TextureSPtr shadow_map_texture, GLuint slot_index);
+    void SetBaisAndSampleForShadowLocation(bool use);
 protected:
-	void GetLightWorldPositionLocation(const char* uniform_name);
-	void GetLightSpaceMatrixLocation(const char* uniform_name);
-	void GetDiffuseTextureLocation(const char* uniform_name);
-	void GetShadowMapLocation(const char* uniform_name);
-	void GetBaisAndSampleForShadowLocation(const char* uniform_name);
+    void GetLightWorldPositionLocation(const char* uniform_name);
+    void GetLightSpaceMatrixLocation(const char* uniform_name);
+    void GetDiffuseTextureLocation(const char* uniform_name);
+    void GetShadowMapLocation(const char* uniform_name);
+    void GetBaisAndSampleForShadowLocation(const char* uniform_name);
 protected:
-	GLint location_light_world_position_ = -1;
-	GLint location_light_space_matrix_ = -1;
-	GLint location_diffuse_texture_ = -1;
-	GLint location_shadow_map_ = 1;
-	GLint bias_and_sample_position_ = -1;
-	
+    GLint location_light_world_position_ = -1;
+    GLint location_light_space_matrix_ = -1;
+    GLint location_diffuse_texture_ = -1;
+    GLint location_shadow_map_ = 1;
+    GLint bias_and_sample_position_ = -1;
+    
 };
 #endif // render_pass_shadow_mapping_h__

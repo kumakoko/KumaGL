@@ -37,55 +37,55 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	namespace low_poly_terrain
-	{
-		class Terrain
-		{
-		private:
-			friend class TerrainRenderer;
+    namespace low_poly_terrain
+    {
+        class Terrain
+        {
+        private:
+            friend class TerrainRenderer;
 
-			/// <summary>
-			/// The vertex_count_
-			/// </summary>
-			int vertex_count_;
+            /// <summary>
+            /// The vertex_count_
+            /// </summary>
+            int vertex_count_;
 
-			/// <summary>
-			/// The renderer_
-			/// </summary>
-			TerrainRendererSPtr renderer_;
+            /// <summary>
+            /// The renderer_
+            /// </summary>
+            TerrainRendererSPtr renderer_;
 
-			/// <summary>
-			/// The primitive_
-			/// </summary>
-			PrimitiveSPtr		primitive_;
-		public:
-			/// <summary>
-			/// Initializes a new instance of the <see cref="Terrain" /> class.
-			/// </summary>
-			/// <param name="primitive">The primitive.</param>
-			/// <param name="renderer">The renderer.</param>
-			Terrain(PrimitiveSPtr primitive, TerrainRendererSPtr renderer);
+            /// <summary>
+            /// The primitive_
+            /// </summary>
+            PrimitiveSPtr       primitive_;
+        public:
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Terrain" /> class.
+            /// </summary>
+            /// <param name="primitive">The primitive.</param>
+            /// <param name="renderer">The renderer.</param>
+            Terrain(PrimitiveSPtr primitive, TerrainRendererSPtr renderer);
 
-			/// <summary>
-			/// Finalizes an instance of the <see cref="Terrain"/> class.
-			/// </summary>
-			~Terrain();
+            /// <summary>
+            /// Finalizes an instance of the <see cref="Terrain"/> class.
+            /// </summary>
+            ~Terrain();
 
-			/// <summary>
-			/// Gets the vertex count.
-			/// </summary>
-			/// <returns>int.</returns>
-			int GetVertexCount() const;
+            /// <summary>
+            /// Gets the vertex count.
+            /// </summary>
+            /// <returns>int.</returns>
+            int GetVertexCount() const;
 
-			/// <summary>
-			/// Renders the specified light.
-			/// </summary>
-			/// <param name="light">The light.</param>
-			void Render(const LowPolyTerrainLight& light);
-		};
+            /// <summary>
+            /// Renders the specified light.
+            /// </summary>
+            /// <param name="light">The light.</param>
+            void Render(const LowPolyTerrainLight& light);
+        };
 
-		typedef std::shared_ptr<Terrain> TerrainSPtr;
-	}
+        typedef std::shared_ptr<Terrain> TerrainSPtr;
+    }
 }
 
 #endif // kgl_terrain_h__

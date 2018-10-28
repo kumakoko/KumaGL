@@ -21,28 +21,28 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 void main()
 {
-	DeferredRenderingApp* app = nullptr;
+    DeferredRenderingApp* app = nullptr;
 
-	try
-	{
-		app = new DeferredRenderingApp();
-		app->InitWindow(1024, 768, false, "020_DeferredRendering");
-		app->InitRenderer();
-		app->InitScene();
-		app->Run();
-	}
-	catch (kgl::Error e)
-	{
-		e.Notify();
-	}
-	catch (std::exception e)
-	{
-		std::wstring excepiton_desc;
-		kgl::StringConvertor::ANSItoUTF16LE(e.what(), excepiton_desc);
+    try
+    {
+        app = new DeferredRenderingApp();
+        app->InitWindow(1024, 768, false, "020_DeferredRendering");
+        app->InitRenderer();
+        app->InitScene();
+        app->Run();
+    }
+    catch (kgl::Error e)
+    {
+        e.Notify();
+    }
+    catch (std::exception e)
+    {
+        std::wstring excepiton_desc;
+        kgl::StringConvertor::ANSItoUTF16LE(e.what(), excepiton_desc);
 #ifdef WIN32
-		::MessageBox(NULL, excepiton_desc.c_str(), L"Unhandled Exception, aborting", MB_OK | MB_ICONERROR);
+        ::MessageBox(NULL, excepiton_desc.c_str(), L"Unhandled Exception, aborting", MB_OK | MB_ICONERROR);
 #endif
-	}
+    }
 
-	delete app;
+    delete app;
 }

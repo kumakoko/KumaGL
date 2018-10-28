@@ -32,113 +32,113 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	namespace low_poly_terrain
-	{
-		class PerlinNoise
-		{
-		private:
-			/// <summary>
-			/// 用来获取得噪声值的随机数种子，该值是由另一个随机数发生器生成
-			/// </summary>
-			int seed_;
+    namespace low_poly_terrain
+    {
+        class PerlinNoise
+        {
+        private:
+            /// <summary>
+            /// 用来获取得噪声值的随机数种子，该值是由另一个随机数发生器生成
+            /// </summary>
+            int seed_;
 
-			/// <summary>
-			/// 粗糙程度
-			/// </summary>
-			float roughness_;
+            /// <summary>
+            /// 粗糙程度
+            /// </summary>
+            float roughness_;
 
-			/// <summary>
-			/// 阶数
-			/// </summary>
-			int octaves_;
+            /// <summary>
+            /// 阶数
+            /// </summary>
+            int octaves_;
 
-			/// <summary>
-			/// 振动幅度
-			/// </summary>
-			float amplitude_;
+            /// <summary>
+            /// 振动幅度
+            /// </summary>
+            float amplitude_;
 
-		public:
-			/// <summary>
-			/// <see cref="PerlinNoise"/> 类的构造函数
-			/// </summary>
-			/// <param name="seed">获取得噪声值的随机数种子/param>
-			/// <param name="octaves">粗糙程度</param>
-			/// <param name="amplitude">振动幅度/param>
-			/// <param name="roughness">The roughness.</param>
-			PerlinNoise(int seed, int octaves, float amplitude, float roughness);
+        public:
+            /// <summary>
+            /// <see cref="PerlinNoise"/> 类的构造函数
+            /// </summary>
+            /// <param name="seed">获取得噪声值的随机数种子/param>
+            /// <param name="octaves">粗糙程度</param>
+            /// <param name="amplitude">振动幅度/param>
+            /// <param name="roughness">The roughness.</param>
+            PerlinNoise(int seed, int octaves, float amplitude, float roughness);
 
-			/// <summary>
-			/// <see cref="PerlinNoise"/> 类的构造函�?
-			/// </summary>
-			/// <param name="octaves">The octaves.</param>
-			/// <param name="amplitude">振动幅度/param>
-			/// <param name="roughness">粗糙程度</param>
-			PerlinNoise(int octaves, float amplitude, float roughness);
+            /// <summary>
+            /// <see cref="PerlinNoise"/> 类的构造函�?
+            /// </summary>
+            /// <param name="octaves">The octaves.</param>
+            /// <param name="amplitude">振动幅度/param>
+            /// <param name="roughness">粗糙程度</param>
+            PerlinNoise(int octaves, float amplitude, float roughness);
 
-			/// <summary>
-			/// 获取得噪声值的随机数种子
-			/// </summary>
-			/// <returns>获取得噪声值的随机数种子/returns>
-			inline int GetSeed() const
-			{
-				return seed_;
-			}
+            /// <summary>
+            /// 获取得噪声值的随机数种子
+            /// </summary>
+            /// <returns>获取得噪声值的随机数种子/returns>
+            inline int GetSeed() const
+            {
+                return seed_;
+            }
 
-			/// <summary>
-			/// 获取振动幅度
-			/// </summary>
-			/// <returns>振动幅度/returns>
-			inline float GetAmplitude() const
-			{
-				return amplitude_;
-			}
+            /// <summary>
+            /// 获取振动幅度
+            /// </summary>
+            /// <returns>振动幅度/returns>
+            inline float GetAmplitude() const
+            {
+                return amplitude_;
+            }
 
-			/// <summary>
-			/// 得到给定坐标点对应的perlin噪声
-			/// </summary>
-			/// <param name="x">The x.</param>
-			/// <param name="y">The y.</param>
-			/// <returns>float.</returns>
-			float GetPerlinNoise(int x, int y);
+            /// <summary>
+            /// 得到给定坐标点对应的perlin噪声
+            /// </summary>
+            /// <param name="x">The x.</param>
+            /// <param name="y">The y.</param>
+            /// <returns>float.</returns>
+            float GetPerlinNoise(int x, int y);
 
-		private:
-			/// <summary>
-			/// Gets the smooth noise.
-			/// </summary>
-			/// <param name="x">The x.</param>
-			/// <param name="y">The y.</param>
-			/// <returns>float.</returns>
-			float GetSmoothNoise(int x, int y);
+        private:
+            /// <summary>
+            /// Gets the smooth noise.
+            /// </summary>
+            /// <param name="x">The x.</param>
+            /// <param name="y">The y.</param>
+            /// <returns>float.</returns>
+            float GetSmoothNoise(int x, int y);
 
-			/// <summary>
-			/// Gets the noise.
-			/// </summary>
-			/// <param name="x">The x.</param>
-			/// <param name="y">The y.</param>
-			/// <returns>float.</returns>
-			float GetNoise(int x, int y);
+            /// <summary>
+            /// Gets the noise.
+            /// </summary>
+            /// <param name="x">The x.</param>
+            /// <param name="y">The y.</param>
+            /// <returns>float.</returns>
+            float GetNoise(int x, int y);
 
-			/// <summary>
-			/// Gets the interpolated noise.
-			/// </summary>
-			/// <param name="x">The x.</param>
-			/// <param name="y">The y.</param>
-			/// <returns>float.</returns>
-			float GetInterpolatedNoise(float x, float y);
+            /// <summary>
+            /// Gets the interpolated noise.
+            /// </summary>
+            /// <param name="x">The x.</param>
+            /// <param name="y">The y.</param>
+            /// <returns>float.</returns>
+            float GetInterpolatedNoise(float x, float y);
 
-			/// <summary>
-			/// Interpolates the specified a.
-			/// </summary>
-			/// <param name="a">a.</param>
-			/// <param name="b">The b.</param>
-			/// <param name="blend">The blend.</param>
-			/// <returns>float.</returns>
-			float Interpolate(float a, float b, float blend);
+            /// <summary>
+            /// Interpolates the specified a.
+            /// </summary>
+            /// <param name="a">a.</param>
+            /// <param name="b">The b.</param>
+            /// <param name="blend">The blend.</param>
+            /// <returns>float.</returns>
+            float Interpolate(float a, float b, float blend);
 
-		};
+        };
 
-		typedef std::shared_ptr<PerlinNoise> PerlinNoiseSPtr;
-	}
+        typedef std::shared_ptr<PerlinNoise> PerlinNoiseSPtr;
+    }
 }
 
 #endif // kgl_perlin_noise_h__

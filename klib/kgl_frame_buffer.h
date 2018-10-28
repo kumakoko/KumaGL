@@ -78,18 +78,18 @@ namespace kgl
         /// </summary>
         void ReleaseBuffer();
 
-		/// <summary>
-		/// 开始往本frame buffer中写入
-		/// </summary>
-		/// <param name="clear_color">整体清空frame buffer所用到的颜色</param>
-		/// <param name="clear_mask">The clear_mask.</param>
-		/// <param name="rect">要清空的视口的大小</param>
-		void StartWriting(const glm::vec4& clear_color, GLbitfield clear_mask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT, const IRect* rect = nullptr);
+        /// <summary>
+        /// 开始往本frame buffer中写入
+        /// </summary>
+        /// <param name="clear_color">整体清空frame buffer所用到的颜色</param>
+        /// <param name="clear_mask">The clear_mask.</param>
+        /// <param name="rect">要清空的视口的大小</param>
+        void StartWriting(const glm::vec4& clear_color, GLbitfield clear_mask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT, const IRect* rect = nullptr);
         
         /// <summary>
         /// Ends the writtng.
         /// </summary>
-		void EndWriting(const IRect* rect = nullptr);
+        void EndWriting(const IRect* rect = nullptr);
 
         inline RenderedTextureSPtr GetTexture()
         {
@@ -103,15 +103,15 @@ namespace kgl
         /// </summary>
         GLuint fbo_ = 0;
 
-		/// <summary>
-		/// The rbo_depth_
-		/// </summary>
-		GLuint rbo_depth_ = 0;
+        /// <summary>
+        /// The rbo_depth_
+        /// </summary>
+        GLuint rbo_depth_ = 0;
 
-		/// <summary>
-		/// The rbo_stencil_
-		/// </summary>
-		GLuint rbo_stencil_ = 0;
+        /// <summary>
+        /// The rbo_stencil_
+        /// </summary>
+        GLuint rbo_stencil_ = 0;
 
         /// <summary>
         /// 

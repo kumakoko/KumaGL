@@ -32,21 +32,21 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	class AABB
-	{
-	public:
-		glm::vec3 corner_;
-		float x_, y_, z_;
+    class AABB
+    {
+    public:
+        glm::vec3 corner_;
+        float x_, y_, z_;
 
-		AABB(const glm::vec3 &corner, float x, float y, float z);
-		AABB(void);
-		~AABB();
+        AABB(const glm::vec3 &corner, float x, float y, float z);
+        AABB(void);
+        ~AABB();
 
-		void Set(const glm::vec3 &corner, float x, float y, float z);
+        void Set(const glm::vec3 &corner, float x, float y, float z);
 
-		glm::vec3 getVertexP(const glm::vec3 &normal) const;
-		glm::vec3 getVertexN(const glm::vec3 &normal) const;
-	};
+        glm::vec3 getVertexP(const glm::vec3 &normal) const;
+        glm::vec3 getVertexN(const glm::vec3 &normal) const;
+    };
 }
 
 #endif // kgl_aabb_h__

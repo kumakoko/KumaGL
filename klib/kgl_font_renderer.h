@@ -147,7 +147,7 @@ namespace kgl
         /// <summary>
         /// The unused_primitive_set_
         /// </summary>
-        std::set<FontPrimitive*, FontPrimitiveGreater>  unused_primitive_set_;
+        std::multiset<FontPrimitive*, FontPrimitiveGreater>  unused_primitive_set_;
 
         /// <summary>
         /// The used_primitive_array_
@@ -169,20 +169,20 @@ namespace kgl
         /// </summary>
         RenderStateDepth rs_depth_not_enabled_;
 
-		/// <summary>
-		/// The rs_cull_draw_
-		/// </summary>
-		RenderStateCullMode rs_cull_draw_;
+        /// <summary>
+        /// The rs_cull_draw_
+        /// </summary>
+        RenderStateCullMode rs_cull_draw_;
 
         /// <summary>
         /// 绘制文字时用到的混合状态对象
         /// </summary>
         RenderStateBlend rs_blend_;
 
-		/// <summary>
-		/// 绘制文字时用到的填充状态
-		/// </summary>
-		RenderStateDrawMode draw_mode_;
+        /// <summary>
+        /// 绘制文字时用到的填充状态
+        /// </summary>
+        RenderStateDrawMode draw_mode_;
     };
 
     typedef dp::Singleton<FontRenderer> KFontRenderer;

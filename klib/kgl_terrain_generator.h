@@ -36,53 +36,53 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	namespace low_poly_terrain
-	{
-		 class TerrainGenerator
-		 {
-		 private:
-			 PerlinNoiseSPtr perlin_noise_;
-			 ColorGeneratorSPtr color_generator_;
-			 CameraSPtr camera_;
-		 public: 
-			 /// <summary
-			 /// >初始化一个<see cref="TerrainGenerator"/>类实例对象.
-			 /// </summary>
-			 /// <param name="perlinNoise">The perlin noise.</param>
-			 /// <param name="colourGen">The colour gen.</param>
-			 TerrainGenerator(PerlinNoiseSPtr perlinNoise, ColorGeneratorSPtr colourGen,CameraSPtr camera);
+    namespace low_poly_terrain
+    {
+         class TerrainGenerator
+         {
+         private:
+             PerlinNoiseSPtr perlin_noise_;
+             ColorGeneratorSPtr color_generator_;
+             CameraSPtr camera_;
+         public: 
+             /// <summary
+             /// >初始化一个<see cref="TerrainGenerator"/>类实例对象.
+             /// </summary>
+             /// <param name="perlinNoise">The perlin noise.</param>
+             /// <param name="colourGen">The colour gen.</param>
+             TerrainGenerator(PerlinNoiseSPtr perlinNoise, ColorGeneratorSPtr colourGen,CameraSPtr camera);
 
-			 /// <summary>
-			 /// Generates a terrain. First the heights and colours of all the vertices are generated.
-			 /// </summary>
-			 /// <param name="gridSize">The number of grid squares along one side of the terrain.</param>
-			 /// <returns>The generated terrain</returns>
-			 TerrainSPtr GenerateTerrain(int gridSize);
+             /// <summary>
+             /// Generates a terrain. First the heights and colours of all the vertices are generated.
+             /// </summary>
+             /// <param name="gridSize">The number of grid squares along one side of the terrain.</param>
+             /// <returns>The generated terrain</returns>
+             TerrainSPtr GenerateTerrain(int gridSize);
 
-			 /// <summary>
-			 /// Cleans up.
-			 /// </summary>
-			 virtual void CleanUp() = 0;
+             /// <summary>
+             /// Cleans up.
+             /// </summary>
+             virtual void CleanUp() = 0;
 
-		 protected:
-			 /// <summary>
-			 /// Generates the terrain mesh data, loads it up to a VAO, and initializes the terrain.
-			 /// </summary>
-			 /// <param name="heights">The heights of all the vertices in the terrain.</param>
-			 /// <param name="colours">The colours of all the vertices.</param>
-			 /// <returns>The new terrain</returns>
-			 virtual TerrainSPtr CreateTerrain(const ublas::matrix<float>& heights, const ublas::matrix<glm::vec4>& colours) = 0;
+         protected:
+             /// <summary>
+             /// Generates the terrain mesh data, loads it up to a VAO, and initializes the terrain.
+             /// </summary>
+             /// <param name="heights">The heights of all the vertices in the terrain.</param>
+             /// <param name="colours">The colours of all the vertices.</param>
+             /// <returns>The new terrain</returns>
+             virtual TerrainSPtr CreateTerrain(const ublas::matrix<float>& heights, const ublas::matrix<glm::vec4>& colours) = 0;
 
-		 private:
-			 /// <summary>
-			 /// 使用perlin噪声生成器，去生成高度图，然后用高度图去生成对应的地形
-			 /// </summary>
-			 /// <param name="gridSize">单元地形格的大小</param>
-			 /// <param name="perlinNoise">The perlin noise.</param>
-			 /// <param name="heights">The heights.</param>
-			 void GenerateHeights(int gridSize, PerlinNoiseSPtr perlinNoise, ublas::matrix<float>& heights);
-		 };
-	}
+         private:
+             /// <summary>
+             /// 使用perlin噪声生成器，去生成高度图，然后用高度图去生成对应的地形
+             /// </summary>
+             /// <param name="gridSize">单元地形格的大小</param>
+             /// <param name="perlinNoise">The perlin noise.</param>
+             /// <param name="heights">The heights.</param>
+             void GenerateHeights(int gridSize, PerlinNoiseSPtr perlinNoise, ublas::matrix<float>& heights);
+         };
+    }
 }
 
 #endif // kgl_terrain_generator_h__

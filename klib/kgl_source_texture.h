@@ -48,7 +48,7 @@ namespace kgl
         /// </summary>
         virtual ~SourceTexture();
 
-		virtual void CreateFromFile(const std::string& file_name, const TextureParams& texture_params) override;
+        virtual void CreateFromFile(const std::string& file_name, const TextureParams& texture_params) override;
 
         /// <summary>
         /// 根据给定的纹理的宽、高和纹理创建参数结构体，创建出一个source texture实例对象

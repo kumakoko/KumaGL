@@ -34,39 +34,39 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	namespace low_poly_terrain
-	{
-		class SmoothNormalsGenerator
-		{
-		public:
-			/// <summary>
-			/// Generates smooth normals for every vertex in the terrain, based on the
-			/// terrain heights. The normal at each vertex is basically the average of
-			/// the normals of all the surrounding faces.
-			/// </summary>
-			/// <param name="heights">The heights of all the vertices</param>
-			/// <param name="generated_normal_matrix">The normals of all the vertices</param>
-			static void GenerateNormals(const ublas::matrix<float>& heights, ublas::matrix<glm::vec3>& generated_normal_matrix);
-		private:
-			/// <summary>
-			/// Calculates the normal.
-			/// </summary>
-			/// <param name="x">The x.</param>
-			/// <param name="z">The z.</param>
-			/// <param name="heights">The heights.</param>
-			/// <returns>glm.vec3.</returns>
-			static glm::vec3 CalculateNormal(int x, int z, const ublas::matrix<float>& heights);
+    namespace low_poly_terrain
+    {
+        class SmoothNormalsGenerator
+        {
+        public:
+            /// <summary>
+            /// Generates smooth normals for every vertex in the terrain, based on the
+            /// terrain heights. The normal at each vertex is basically the average of
+            /// the normals of all the surrounding faces.
+            /// </summary>
+            /// <param name="heights">The heights of all the vertices</param>
+            /// <param name="generated_normal_matrix">The normals of all the vertices</param>
+            static void GenerateNormals(const ublas::matrix<float>& heights, ublas::matrix<glm::vec3>& generated_normal_matrix);
+        private:
+            /// <summary>
+            /// Calculates the normal.
+            /// </summary>
+            /// <param name="x">The x.</param>
+            /// <param name="z">The z.</param>
+            /// <param name="heights">The heights.</param>
+            /// <returns>glm.vec3.</returns>
+            static glm::vec3 CalculateNormal(int x, int z, const ublas::matrix<float>& heights);
 
-			/// <summary>
-			/// Gets the height.
-			/// </summary>
-			/// <param name="x">The x.</param>
-			/// <param name="z">The z.</param>
-			/// <param name="heights">The heights.</param>
-			/// <returns>float.</returns>
-			static float GetHeight(int x, int z, const ublas::matrix<float>& heights);
-		};
-	}
+            /// <summary>
+            /// Gets the height.
+            /// </summary>
+            /// <param name="x">The x.</param>
+            /// <param name="z">The z.</param>
+            /// <param name="heights">The heights.</param>
+            /// <returns>float.</returns>
+            static float GetHeight(int x, int z, const ublas::matrix<float>& heights);
+        };
+    }
 }
 
 #endif // kgl_smooth_normals_generator_h__

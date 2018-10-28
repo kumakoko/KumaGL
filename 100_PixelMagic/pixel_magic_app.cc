@@ -23,10 +23,10 @@ colorful_ring_shader_(nullptr),
 heart_beat_shader_(nullptr),
 mobius_shader_(nullptr),
 sun_shader_(nullptr),
-simple_fractal_shader_(nullptr),
+japan_flag_shader_(nullptr),
 rectangle_primitive_(nullptr),
 current_effect_index_(0),
-effect_count_(5)
+effect_count_(6)
 {
 }
 
@@ -36,15 +36,16 @@ PixelMagicApp::~PixelMagicApp()
     KGL_SAFE_DELETE(heart_beat_shader_);
     KGL_SAFE_DELETE(mobius_shader_);
     KGL_SAFE_DELETE(sun_shader_);
-    KGL_SAFE_DELETE(simple_fractal_shader_);
-    KGL_SAFE_DELETE(rectangle_primitive_);
+    KGL_SAFE_DELETE(japan_flag_shader_);
+    KGL_SAFE_DELETE(japan_flag_shader_);
+    KGL_SAFE_DELETE(china_flag_shader_);
     texture_1_.reset();
     texture_2_.reset();
 }
 
 void PixelMagicApp::InitScene()
 {
-    screen_resolution_ = glm::vec2(800.0f, 600.0f);
+    screen_resolution_ = glm::vec2(960.0f, 640.0f);
 // ================================================================
     heart_beat_shader_ = new kgl::GPUProgram;
     heart_beat_shader_->CreateFromFile("resources/shader/pixel_magic_vs.glsl", "resources/shader/heart_beat_fs.glsl", nullptr);
@@ -58,9 +59,13 @@ void PixelMagicApp::InitScene()
     sun_shader_ = new kgl::GPUProgram;
     sun_shader_->CreateFromFile("resources/shader/pixel_magic_vs.glsl", "resources/shader/sun_fs.glsl", nullptr);
 // ================================================================
-    simple_fractal_shader_ = new kgl::GPUProgram;
-    simple_fractal_shader_->CreateFromFile("resources/shader/pixel_magic_vs.glsl", "resources/shader/pm_japan_flag_fs.glsl", nullptr);
+    japan_flag_shader_ = new kgl::GPUProgram;
+    japan_flag_shader_->CreateFromFile("resources/shader/pixel_magic_vs.glsl", "resources/shader/pm_japan_flag_fs.glsl", nullptr);
 // ================================================================
+    china_flag_shader_ = new kgl::GPUProgram;
+    china_flag_shader_->CreateFromFile("resources/shader/pixel_magic_vs.glsl", "resources/shader/pm_china_flag_fs.glsl", nullptr);
+// ================================================================
+    
     kgl::TextureParams texture_param;
     texture_param.wrap_s_mode = GL_REPEAT;
     texture_param.wrap_t_mode = GL_REPEAT;
@@ -146,7 +151,7 @@ void PixelMagicApp::InitScene()
     vtx_attri_array.push_back(va_texture_coord_4);
 
     rectangle_primitive_ = new kgl::Primitive;
-	rectangle_primitive_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
+    rectangle_primitive_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
 }
 
 void PixelMagicApp::RenderFrame()
@@ -157,7 +162,8 @@ void PixelMagicApp::RenderFrame()
     case 1:this->RenderColorfulRing(); break;
     case 2:this->RenderMobius(); break;
     case 3:this->RenderSun(); break;
-    case 4:this->RenderSimpleFractal(); break;
+    case 4:this->RenderJapanFlag(); break;
+    case 5:this->RenderChinaFlag(); break;
     }
 
     rectangle_primitive_->DrawIndexed();
@@ -173,14 +179,14 @@ void PixelMagicApp::RenderBeatHeart()
 void PixelMagicApp::RenderColorfulRing()
 {
     colorful_ring_shader_->Use();
-	colorful_ring_shader_->ApplyFloat(static_cast<float>(glfwGetTime()), "global_time");
+    colorful_ring_shader_->ApplyFloat(static_cast<float>(glfwGetTime()), "global_time");
     colorful_ring_shader_->ApplyVector2(glm::value_ptr(screen_resolution_), "screen_resolution");
 }
 
 void PixelMagicApp::RenderMobius()
 {
     mobius_shader_->Use();
-	mobius_shader_->ApplyFloat(static_cast<float>(glfwGetTime()), "global_time");
+    mobius_shader_->ApplyFloat(static_cast<float>(glfwGetTime()), "global_time");
     mobius_shader_->ApplyVector2(glm::value_ptr(screen_resolution_), "screen_resolution");
     mobius_shader_->ApplyVector2(glm::value_ptr(mouse_input_pos_), "mouse_input_pos");
 }
@@ -188,16 +194,23 @@ void PixelMagicApp::RenderMobius()
 void PixelMagicApp::RenderSun()
 {
     sun_shader_->Use();
-	sun_shader_->ApplyFloat(static_cast<float>(glfwGetTime()), "global_time");
+    sun_shader_->ApplyFloat(static_cast<float>(glfwGetTime()), "global_time");
     sun_shader_->ApplyVector2(glm::value_ptr(screen_resolution_), "screen_resolution");
     sun_shader_->ApplyVector2(glm::value_ptr(mouse_input_pos_), "mouse_input_pos");
     sun_shader_->ApplyTexture(texture_rock_, "texture_channel_1", 0);
 }
 
-void PixelMagicApp::RenderSimpleFractal()
+void PixelMagicApp::RenderJapanFlag()
 {
-    simple_fractal_shader_->Use();
-    simple_fractal_shader_->ApplyVector2(glm::value_ptr(screen_resolution_), "screen_resolution");
+    japan_flag_shader_->Use();
+    japan_flag_shader_->ApplyVector2(glm::value_ptr(screen_resolution_), "screen_resolution");
+}
+
+void PixelMagicApp::RenderChinaFlag()
+{
+    china_flag_shader_->Use();
+    china_flag_shader_->ApplyVector2(glm::value_ptr(screen_resolution_), "screen_resolution");
+    china_flag_shader_->ApplyFloat(china_flag_scale_, "flag_scale");
 }
 
 void PixelMagicApp::OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -225,4 +238,19 @@ void PixelMagicApp::OnMouseAction(GLFWwindow* window, double xpos, double ypos)
 {
     mouse_input_pos_.x = static_cast<float>(xpos);
     mouse_input_pos_.y = static_cast<float>(ypos);
+}
+
+void PixelMagicApp::ProcessInput()
+{
+    if (key_state_[GLFW_KEY_W])
+    {
+        china_flag_scale_ += 0.1f;
+    }
+
+    if (key_state_[GLFW_KEY_S])
+    {
+        china_flag_scale_ -= 0.1f;
+        if (china_flag_scale_ < 0.0f)
+            china_flag_scale_ = 0.0f;
+    }
 }

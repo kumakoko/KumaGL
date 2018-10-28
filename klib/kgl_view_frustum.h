@@ -32,58 +32,58 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	class Plane;
-	class AABB;
+    class Plane;
+    class AABB;
 
-	class ViewFrustum
-	{
-	private:
-		enum
-		{
-			TOP = 0,
-			BOTTOM,
-			LEFT,
-			RIGHT,
-			NEARP,
-			FARP
-		};
+    class ViewFrustum
+    {
+    private:
+        enum
+        {
+            TOP = 0,
+            BOTTOM,
+            LEFT,
+            RIGHT,
+            NEARP,
+            FARP
+        };
 
-	public:
-		enum Intersection
-		{
-			OUTSIDE, 
-			INTERSECT,
-			INSIDE
-		};
+    public:
+        enum Intersection
+        {
+            OUTSIDE, 
+            INTERSECT,
+            INSIDE
+        };
 
-		Plane pl[6];
+        Plane pl[6];
 
 
-		glm::vec3 ntl;
-		glm::vec3 ntr;
-		glm::vec3 nbl;
-		glm::vec3 nbr;
-		glm::vec3 ftl;
-		glm::vec3 ftr;
-		glm::vec3 fbl;
-		glm::vec3 fbr;
-		float nearD, farD, ratio, angle, tang;
-		float nw, nh, fw, fh;
+        glm::vec3 ntl;
+        glm::vec3 ntr;
+        glm::vec3 nbl;
+        glm::vec3 nbr;
+        glm::vec3 ftl;
+        glm::vec3 ftr;
+        glm::vec3 fbl;
+        glm::vec3 fbr;
+        float nearD, farD, ratio, angle, tang;
+        float nw, nh, fw, fh;
 
-		ViewFrustum();
-		~ViewFrustum();
+        ViewFrustum();
+        ~ViewFrustum();
 
-		void setCamInternals(float angle, float ratio, float nearD, float farD);
-		void setCamDef(glm::vec3 &p, glm::vec3 &l, glm::vec3 &u);
-		Intersection PointInFrustum(const glm::vec3 &p);
-		Intersection SphereInFrustum(const glm::vec3 &p, float raio);
-		Intersection AABoxInFrustum(const AABB &b);
+        void setCamInternals(float angle, float ratio, float nearD, float farD);
+        void setCamDef(glm::vec3 &p, glm::vec3 &l, glm::vec3 &u);
+        Intersection PointInFrustum(const glm::vec3 &p);
+        Intersection SphereInFrustum(const glm::vec3 &p, float raio);
+        Intersection AABoxInFrustum(const AABB &b);
 
-		void drawPoints();
-		void drawLines();
-		void drawPlanes();
-		void drawNormals();
-	};
+        void drawPoints();
+        void drawLines();
+        void drawPlanes();
+        void drawNormals();
+    };
 }
 
 #endif // kgl_view_frustum_h__

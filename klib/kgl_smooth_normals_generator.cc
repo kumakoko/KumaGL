@@ -19,38 +19,38 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-	namespace low_poly_terrain
-	{
-		void SmoothNormalsGenerator::GenerateNormals(const ublas::matrix<float>& heights, ublas::matrix<glm::vec3>& generated_normal_matrix)
-		{
-			generated_normal_matrix.resize(heights.size1(), heights.size2(), false);
-			
-			for (size_t z = 0; z < generated_normal_matrix.size1(); z++) 
-			{
-				for (size_t x = 0; x < generated_normal_matrix.size2(); x++) 
-				{
-					generated_normal_matrix(z, x) = CalculateNormal(x, z, heights);
-				}
-			}
-		}
+    namespace low_poly_terrain
+    {
+        void SmoothNormalsGenerator::GenerateNormals(const ublas::matrix<float>& heights, ublas::matrix<glm::vec3>& generated_normal_matrix)
+        {
+            generated_normal_matrix.resize(heights.size1(), heights.size2(), false);
+            
+            for (size_t z = 0; z < generated_normal_matrix.size1(); z++) 
+            {
+                for (size_t x = 0; x < generated_normal_matrix.size2(); x++) 
+                {
+                    generated_normal_matrix(z, x) = CalculateNormal(x, z, heights);
+                }
+            }
+        }
 
-		glm::vec3 SmoothNormalsGenerator::CalculateNormal(int x, int z, const ublas::matrix<float>& heights)
-		{
-			float heightL = GetHeight(x - 1, z, heights);
-			float heightR = GetHeight(x + 1, z, heights);
-			float heightD = GetHeight(x, z - 1, heights);
-			float heightU = GetHeight(x, z + 1, heights);
-			glm::vec3 normal(heightL - heightR, 2.f, heightD - heightU);
-			return glm::normalize(normal);
-		}
+        glm::vec3 SmoothNormalsGenerator::CalculateNormal(int x, int z, const ublas::matrix<float>& heights)
+        {
+            float heightL = GetHeight(x - 1, z, heights);
+            float heightR = GetHeight(x + 1, z, heights);
+            float heightD = GetHeight(x, z - 1, heights);
+            float heightU = GetHeight(x, z + 1, heights);
+            glm::vec3 normal(heightL - heightR, 2.f, heightD - heightU);
+            return glm::normalize(normal);
+        }
 
-		float SmoothNormalsGenerator::GetHeight(int x, int z, const ublas::matrix<float>& heights)
-		{
-			x = x < 0 ? 0 : x;
-			z = z < 0 ? 0 : z;
-			x = x >= heights.size2() ? heights.size2() - 1 : x;
-			z = z >= heights.size1() ? heights.size1() - 1 : z;
-			return heights(z, x);// [z][x];
-		}
-	}
+        float SmoothNormalsGenerator::GetHeight(int x, int z, const ublas::matrix<float>& heights)
+        {
+            x = x < 0 ? 0 : x;
+            z = z < 0 ? 0 : z;
+            x = x >= heights.size2() ? heights.size2() - 1 : x;
+            z = z >= heights.size1() ? heights.size1() - 1 : z;
+            return heights(z, x);// [z][x];
+        }
+    }
 }

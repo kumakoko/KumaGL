@@ -14,7 +14,19 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
-// 展示使用HDR的技术
+/*!
+ * \file shadow_mapping_app.cc
+ * \date 2018/10/29 20:18
+ *
+ * \author www.xionggf.com
+ * Contact: sun_of_lover@sina.com
+ *
+ * \brief 
+ *
+ * TODO: 展示使用HDR的技术
+ *
+ * \note
+*/
 #include "shadow_mapping_app.h"
 #include "../klib/kgl_defines.h"
 #include "../klib/kgl_primitive_tool.h"
@@ -83,7 +95,7 @@ void ShadowMappingApp::CreateFrameBufferForDepth()
     shadow_depth_buffer_->Create(BUFFER_WIDTH, BUFFER_HEIGHT, kgl::RenderedTexelType::DEPTH_COMPONENT, false);
 }
 
-void ShadowMappingApp::RenderFrame()
+void ShadowMappingApp::RenderScene()
 {
     main_camera_->Update();
     this->RenderSceneDepthToBuffer(); // 从灯光角度来观察，记录下深度信息

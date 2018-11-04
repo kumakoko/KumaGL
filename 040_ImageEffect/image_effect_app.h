@@ -45,7 +45,7 @@ public:
     virtual ~ImageEffectApp();
     virtual void InitScene() override;
 protected:
-    virtual void RenderFrame() override;
+    virtual void RenderScene() override;
     virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
     virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
     virtual void InitShaders() override;

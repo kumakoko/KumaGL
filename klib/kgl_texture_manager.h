@@ -1,18 +1,4 @@
-﻿// 全局的纹理管理类
-/*!
- * \file kgl_texture_manager.h
- * \date 2017/12/31 13:59
- *
- * \author www.xionggf.com
- * Contact: sun_of_lover@sina.com
- *
- * \brief 
- *
- * TODO: long description
- *
- * \note
-*/
-/**************************************************************************************************************************
+﻿/**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -28,6 +14,20 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+/*!
+* \file kgl_texture_manager.h
+* \date 2017/12/31 13:59
+*
+* \author www.xionggf.com
+* Contact: sun_of_lover@sina.com
+*
+* \brief
+*
+* TODO: 全局的纹理管理类
+*
+* \note
+*/
+
 #ifndef kgl_texture_manager_h__
 #define kgl_texture_manager_h__
 

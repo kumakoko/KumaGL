@@ -90,7 +90,7 @@ void TransformApp::InitScene()
     depth_test_mode_.SetDepthTestFunc(GL_LESS);
 }
 
-void TransformApp::RenderFrame()
+void TransformApp::RenderScene()
 {
     float current_time = (GLfloat)glfwGetTime() * 0.5f;
 

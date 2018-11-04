@@ -15,17 +15,17 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
 /*!
-* \file kgl_app.h
-* \date 2017/12/31 13:34
-*
-* \author Administrator
-* Contact: user@company.com
-*
-* \brief 应用程序类
-*
-* TODO: long description
-*
-* \note
+ * \file kgl_app.h
+ * \date 2017/12/31 13:34
+ *
+ * \author www.xionggf.com
+ * Contact: sun_of_lover@sina.com
+ *
+ * \brief 
+ *
+ * TODO: 应用程序类的基类
+ *
+ * \note
 */
 
 #ifndef kgl_app_h__
@@ -46,12 +46,12 @@ namespace kgl
         };
     public:
         /// <summary>
-        /// Initializes a new instance of the <see cref="App"/> class.
+        /// 类<see cref="App"/>的构造函数
         /// </summary>
         App();
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="App"/> class.
+        /// 类 <see cref="App"/>的析构函数
         /// </summary>
         virtual ~App();
 
@@ -75,9 +75,7 @@ namespace kgl
         /// <summary>
         /// 初始化GUI系统
         /// </summary>
-        /// <param name="use_gui">是否使用GUI BAR</param>
-        /// <param name="bar_title">BAR的标题</param>
-        virtual void InitGuiSystem(bool use_gui, const char* bar_title = nullptr);
+        void InitGuiSystem(bool use_gui = true);
 
         /// <summary>
         /// Initializes the scene.
@@ -139,6 +137,11 @@ namespace kgl
         /// <param name="err_str">The err_str.</param>
         static void GLFWErrorCallback(int error_code, const char* err_str);
         
+        /// <summary>
+        /// Characters the callback.
+        /// </summary>
+        /// <param name="window">The window.</param>
+        /// <param name="x">The x.</param>
         static void CharCallback(GLFWwindow *window, unsigned int x);
     protected:
         static App* s_instance_;
@@ -186,7 +189,16 @@ namespace kgl
         /// <summary>
         /// 渲染每一帧
         /// </summary>
-        virtual void RenderFrame();
+        virtual void RenderScene();
+
+        /// <summary>
+        /// 渲染GUI系统
+        /// </summary>
+        virtual void RenderGUI();
+
+        void PreRenderGUI();
+
+        void PostRenderGUI();
 
         /// <summary>
         /// Posts the render frame.
@@ -252,8 +264,8 @@ namespace kgl
         std::bitset<384>    key_state_;     // 维护键盘是否按下的状态bit
         int32_t             window_width_ = 0;
         int32_t             window_height_ = 0;
-        TwBar*              tw_gui_bar_ = nullptr;
         GLProfile           gl_profile_ = GLProfile::ANY;
+        bool                use_gui_;
     };
 }
 

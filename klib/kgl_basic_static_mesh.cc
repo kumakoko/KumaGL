@@ -193,9 +193,14 @@ namespace kgl
             if (diffuse_texture_count > 0)
             {
                 aiString texture_name;
+                aiTextureMapping texture_mapping;
+                unsigned int uv_index;
+                float blend_factor;
+                aiTextureOp op;
+                aiTextureMapMode map_mode;
 
                 if (AI_SUCCESS == material->GetTexture(aiTextureType_DIFFUSE, 0,
-                    &texture_name, nullptr, nullptr, nullptr, nullptr, nullptr))
+                    &texture_name, &texture_mapping, &uv_index, &blend_factor, &op, &map_mode))
                 {
                     dir.append("/").append(texture_name.data);
                     kgl::TextureParams texture_param = kgl::TextureManager::MakeTextureParamsRGB(GL_REPEAT, GL_LINEAR);

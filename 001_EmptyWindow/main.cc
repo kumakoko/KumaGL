@@ -15,19 +15,20 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
 #include "../klib/kgl_lib_pch.h"
-#include "../klib/kgl_app.h"
 #include "../klib/kgl_error.h"
 #include "../klib/kgl_string_convertor.h"
+#include "empty_app.h"
 
 void main()
 {
-    kgl::App* app = nullptr;
+    EmptyApp* app = nullptr;
 
     try
     {
-        kgl::App* app = new kgl::App();
-        app->InitWindow(800, 600, false, "001_EmptyWindow");
+        app = new EmptyApp;
+        app->InitWindow(1024, 768, false, "001_EmptyWindow");
         app->InitRenderer();
+        app->InitGuiSystem();
         app->Run();
     }
     catch (kgl::Error e)

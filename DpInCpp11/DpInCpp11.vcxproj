@@ -55,12 +55,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glm_0_9_8_4/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/FreeImage_3_17_0/Dist/x32;../third_lib/freetype2_3_5/include;../third_lib/boost_1_64_0;../third_lib/wxWidgets-3.1.0/include/msvc;../third_lib/wxWidgets-3.1.0/include;../third_lib/AntTweakBar_116/include;../klib;../klib/dp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);$(IMGUI_HEADER);../klib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\bin;$(BOOST_LIB);$(ANTWEAKBAR_LIB);$(ASSIMP_LIB);$(VLD_LIB);$(ICONV_LIB);$(GLFW_LIB);$(GLEW_LIB);$(FREETYPE_LIB);$(FREEIMAGE_LIB)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\bin;$(BOOST_LIB);$(IMGUI_LIB)/Debug;$(ASSIMP_LIB);$(VLD_LIB);$(ICONV_LIB);$(GLFW_LIB);$(GLEW_LIB);$(FREETYPE_LIB);$(FREEIMAGE_LIB)</AdditionalLibraryDirectories>
       <AdditionalDependencies>AntTweakBar.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099  /NODEFAULTLIB:"libcmt.lib"   /NODEFAULTLIB:"libcmtd.lib" %(AdditionalOptions)</AdditionalOptions>
     </Link>
@@ -74,7 +74,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../third_lib/tinyxml2/inc;../third_lib/assimp_3_1_1/include;../third_lib/glm_0_9_8_4/include;../third_lib/glfw_3_2_1_win32/include/;../third_lib/glew_2_0_0/include/;../third_lib/iconv/include;../third_lib/vld/include;../third_lib/FreeImage_3_17_0/Dist/x32;../third_lib/freetype2_3_5/include;../third_lib/boost_1_64_0;../third_lib/wxWidgets-3.1.0/include/msvc;../third_lib/wxWidgets-3.1.0/include;../third_lib/AntTweakBar_116/include;../klib;../klib/dp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);$(IMGUI_HEADER);../klib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

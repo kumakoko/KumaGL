@@ -52,7 +52,7 @@ public:
     virtual ~SkinnedMeshApp();
     virtual void InitScene()  override;
 protected:
-    virtual void RenderFrame() override;
+    virtual void RenderScene() override;
     virtual void ProcessInput() override;
     virtual void InitModel() override;
     virtual void InitShaders() override;

@@ -84,7 +84,7 @@ void SkyBoxApp::InitMainCamera()
     main_camera_->SetMaxPitchDegreePerFrame(1.0f);
 }
 
-void SkyBoxApp::RenderFrame()
+void SkyBoxApp::RenderScene()
 {
     main_camera_->Update();
     

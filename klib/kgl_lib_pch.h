@@ -30,6 +30,15 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #ifndef kgl_lib_pch_h__
 #define kgl_lib_pch_h__
 
+#if defined(WIN32) || defined(_WIN32)
+    #pragma execution_character_set("utf-8")
+    #define U8
+#else
+    #define U8 u8
+#endif
+// 这个预处理在C++11里已经不再需要了，C++11可以指定字符串字面量的执行字符集了，u8”我”。就这么简单。但是vs2013并不支持这个功能。这篇
+// 文章讲述的内容，并不在于如何把一个UTF8格式的C++字面量输出到控制台。而是在于通过这个例子来了解MSVC C++是如何处理UTF8中文字符的。
+
 #include <vector>
 #include <list>
 #include <map>
@@ -49,19 +58,30 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 #define GLEW_STATIC
 #include "GL/glew.h"
+#include "GLFW/glfw3.h"
+
 #if defined(WIN32) || defined(_WIN32)
-#include "GL/wglew.h"
+    #include "GL/wglew.h"
+    #include <Windows.h>
+    #if defined(DEBUG) || defined(_DEBUG)
+        #include "vld.h"
+    #endif
+    #pragma execution_character_set("utf-8")
+    #define U8
+#else
+    #define U8 u8
 #endif
 
 #include "tinyxml2.h"
 
-#include "GLFW/glfw3.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/gtx/transform.hpp"
 #include "glm/gtc/quaternion.hpp"
 #include "glm/gtx/quaternion.hpp"
+
+#include "imgui.h"
 
 extern "C"
 {
@@ -87,12 +107,9 @@ namespace ublas = boost::numeric::ublas;
 namespace bfs = boost::filesystem;
 
 #if defined(WIN32) || defined(_WIN32)
-#include <Windows.h>
-#if defined(DEBUG) || defined(_DEBUG)
-#include "vld.h"
+//    #undef APIENTRY
+    #define GLFW_EXPOSE_NATIVE_WIN32
+    #include "GLFW/glfw3native.h"   // for glfwGetWin32Window
 #endif
-#endif
-
-#include "AntTweakBar.h"
 
 #endif // kgl_lib_pch_h__

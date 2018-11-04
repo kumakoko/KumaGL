@@ -155,6 +155,11 @@ namespace kgl
         /// <param name="uniform_var_name">The uniform_var_name.</param>
         void ApplyVector3(const GLfloat* vector3_data_pointer, const char* uniform_var_name);
 
+        /// <summary>
+        /// Applies the vector3.
+        /// </summary>
+        /// <param name="vector3_data_pointer">The vector3_data_pointer.</param>
+        /// <param name="location">The location.</param>
         void ApplyVector3(const GLfloat* vector3_data_pointer, GLint location);
 
         /// <summary>

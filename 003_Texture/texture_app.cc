@@ -114,7 +114,7 @@ void TextureApp::InitModel()
     rectangle_primitive_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
 }
 
-void TextureApp::RenderFrame()
+void TextureApp::RenderScene()
 {
     gpu_program_->Use();
     gpu_program_->ApplyTexture(texture_1_, "source_texture_1", 0);

@@ -69,7 +69,7 @@ protected:
     /// <summary>
     /// 渲染每一帧，继承实现自基类App
     /// </summary>
-    virtual void RenderFrame() override;
+    virtual void RenderScene() override;
 
     /// <summary>
     /// 处理用户输入的函数，继承实现自基类App

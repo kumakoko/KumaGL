@@ -1,17 +1,4 @@
-﻿/*!
- * \file frame_buffer_app.h
- * \date 2017/12/31 15:01
- *
- * \author www.xionggf.com
- * Contact: sun_of_lover@sina.com
- *
- * \brief 
- *
- * TODO: long description
- *
- * \note
-*/
-/**************************************************************************************************************************
+﻿/**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -27,6 +14,19 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+/*!
+* \file frame_buffer_app.h
+* \date 2017/12/31 15:01
+*
+* \author www.xionggf.com
+* Contact: sun_of_lover@sina.com
+*
+* \brief
+*
+* TODO: long description
+*
+* \note
+*/
 #ifndef frame_buffer_app_h__
 #define frame_buffer_app_h__
 
@@ -48,7 +48,7 @@ public:
     virtual void InitScene();
 protected:
     virtual void PreRenderFrame() override;
-    virtual void RenderFrame() override;
+    virtual void RenderScene() override;
     virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
     virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
     virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
@@ -65,6 +65,9 @@ private:
     /// </summary>
     kgl::GPUProgram* floor_shader_ = nullptr;
 
+    /// <summary>
+    /// The wood_box_shader_
+    /// </summary>
     kgl::GPUProgram* wood_box_shader_ = nullptr;
     
     /// <summary>
@@ -117,16 +120,44 @@ private:
     /// </summary>
     kgl::RenderStateDepth draw_fb_to_screen_depth_;
 
+    /// <summary>
+    /// The floor_translation_
+    /// </summary>
     glm::vec3 floor_translation_;
 
+    /// <summary>
+    /// The cull_mode_
+    /// </summary>
     kgl::RenderStateCullMode cull_mode_;
+
+    /// <summary>
+    /// The depth_test_mode_
+    /// </summary>
     kgl::RenderStateDepth depth_test_mode_;
 
+    /// <summary>
+    /// The texture_sun_
+    /// </summary>
     kgl::SourceTextureSPtr texture_sun_;
+
+    /// <summary>
+    /// The sun_
+    /// </summary>
     kgl::PrimitiveSPtr sun_;
+
+    /// <summary>
+    /// The scene_shader_
+    /// </summary>
     kgl::GPUProgramSPtr scene_shader_;
 
+    /// <summary>
+    /// The draw_fb_to_scr_cull_
+    /// </summary>
     kgl::RenderStateCullMode draw_fb_to_scr_cull_;
+
+    /// <summary>
+    /// The draw_fb_to_scr_depth_
+    /// </summary>
     kgl::RenderStateDepth draw_fb_to_scr_depth_;
 };
 

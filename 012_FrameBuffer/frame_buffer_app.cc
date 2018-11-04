@@ -62,7 +62,7 @@ void FrameBufferApp::PreRenderFrame()
     App::PreRenderFrame();
 }
 
-void FrameBufferApp::RenderFrame()
+void FrameBufferApp::RenderScene()
 {
     main_camera_->Update();
     GLfloat current_time = (GLfloat)glfwGetTime();

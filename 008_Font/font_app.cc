@@ -90,7 +90,7 @@ void FontApp::InitHelper()
     helper_rectangle_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
 }
 
-void FontApp::RenderFrame()
+void FontApp::RenderScene()
 {
     kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
     font_renderer->SetCurrentFont("fzss30");

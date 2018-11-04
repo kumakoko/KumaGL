@@ -17,8 +17,8 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 // 阴影着色顶点shader
 #version 330 core
 layout(location = 0) in vec3 vsin_position;
-layout(location = 1) in vec3 vsin_normal;
-layout(location = 2) in vec2 vsin_texture_coords;
+layout(location = 1) in vec2 vsin_texture_coords;
+layout(location = 2) in vec3 vsin_normal;
 
 // vertex shader to fragment shader
 out V2F

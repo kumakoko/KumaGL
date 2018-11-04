@@ -41,9 +41,9 @@ namespace kgl
         {
             heights.resize(gridSize + 1, gridSize + 1, false);
 
-            for (int z = 0; z < heights.size1(); z++)
+            for (std::size_t z = 0; z < heights.size1(); z++)
             {
-                for (int x = 0; x < heights.size2(); x++)
+                for (std::size_t x = 0; x < heights.size2(); x++)
                 {
                     heights(z, x) = perlinNoise->GetPerlinNoise(x, z);
                 }

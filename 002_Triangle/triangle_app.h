@@ -40,10 +40,9 @@ class TriangleApp : public kgl::App
 public:
     TriangleApp();
     virtual ~TriangleApp();
-    virtual void InitGuiSystem(bool use_gui, const char* bar_title) override;
 protected:
     virtual void InitModel() override;
-    virtual void RenderFrame() override;
+    virtual void RenderScene() override;
 private:
     kgl::GPUProgram* gpu_program_;
     kgl::Primitive*  rectangle_primitive_;
@@ -51,11 +50,6 @@ private:
     kgl::Primitive*  triangle_primitive_2_;
     kgl::Primitive*  triangle_primitive_3_;
     kgl::Primitive*  triangle_primitive_4_;
-
-
-
-    
-
     double time = 0, dt;// Current time and enlapsed time
     double turn = 0;    // Model turn counter
     double speed = 0.3; // Model rotation speed

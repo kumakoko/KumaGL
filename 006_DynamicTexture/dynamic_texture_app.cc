@@ -111,7 +111,7 @@ void DynamicTextureApp::InitScene()
     srand(static_cast<unsigned int>(glfwGetTime()));
 }
 
-void DynamicTextureApp::RenderFrame()
+void DynamicTextureApp::RenderScene()
 {
     gpu_program_->Use();
 

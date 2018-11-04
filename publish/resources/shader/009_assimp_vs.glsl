@@ -18,11 +18,11 @@ PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIG
  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE 
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ************************************************************************************/
-// 模型装载
 #version 330 core
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec2 tex_coords;
 layout (location = 2) in vec3 normal;
+
 
 out vec2 output_tex_coords;
 out vec3 output_normal;

@@ -1,18 +1,4 @@
-﻿/*!
- * \file kgl_render_pass.h
- * \date 2017/12/31 13:57
- *
- * \author www.xionggf.com
- * Contact: sun_of_lover@sina.com
- *
- * \brief 封装了render pass的基本属性和操作，可以作为具体的render pass的基类以作继承
- *
- * TODO: 一个render pass含有一个camera，一个gpu program
- *       提供了若干常用的uniform变量传递接口：
- *       world matrix, view matrix, projection matrix
- * \note
-*/
-/**************************************************************************************************************************
+﻿/**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -28,6 +14,21 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+/*!
+* \file kgl_render_pass.h
+* \date 2017/12/31 13:57
+*
+* \author www.xionggf.com
+* Contact: sun_of_lover@sina.com
+*
+* \brief 封装了render pass的基本属性和操作，可以作为具体的render pass的基类以作继承
+*
+* TODO: 一个render pass含有一个camera，一个gpu program
+*       提供了若干常用的uniform变量传递接口：
+*       world matrix, view matrix, projection matrix
+* \note
+*/
+
 #ifndef kgl_render_pass_h__
 #define kgl_render_pass_h__
 

@@ -122,7 +122,7 @@ void GeometryShaderApp::InitFont()
     material_ctrl_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下左右箭头键，切换模型使用的材质");
 }
 
-void GeometryShaderApp::RenderFrame()
+void GeometryShaderApp::RenderScene()
 {
     main_camera_->Update();
     rs_depth_.Use();
@@ -142,7 +142,7 @@ void GeometryShaderApp::DrawHelpText(const glm::vec3& view_pos)
     const std::wstring& help_toggle = is_help_on_ ? toggle_help_off_text_ : toggle_help_on_text_;
     kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
 
-    glm::vec4 text_color = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+    glm::vec4 text_color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
 
     font_renderer->AddToRendered(help_toggle, 0, 0, text_color, 1.0f);
 

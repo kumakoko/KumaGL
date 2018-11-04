@@ -3,15 +3,15 @@ Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
-modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the 
+modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the
 Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
 Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE 
-WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
 #include "assimp_app.h"
@@ -35,7 +35,6 @@ AssimpApp::~AssimpApp()
 void AssimpApp::InitScene()
 {
     App::InitScene();
-
     rs_depth_.SetEnable(GL_TRUE);
     rs_blend_.SetEnable(GL_TRUE);
     rs_blend_.SetBlendFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -43,20 +42,20 @@ void AssimpApp::InitScene()
 
 void AssimpApp::InitMainCamera()
 {
-    glm::vec3 camera_pos(0.0f, 0.0f, 500.0f);
+    glm::vec3 camera_pos(0.0f, 0.000005f, -4.799932f);
     float pitch_angle = 0.0f;
-    float yaw_angle = 180.0f;
+    float yaw_angle = 0.f;// 180.0f;
     float fov = 120.f;
     float near_clip_distance = 0.1f;
     float far_clip_distance = 1000.0f;
 
-    main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE,camera_pos,
-        pitch_angle,yaw_angle, fov,near_clip_distance, far_clip_distance);
+    main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, camera_pos,
+        pitch_angle, yaw_angle, fov, near_clip_distance, far_clip_distance);
 }
 
 void AssimpApp::InitModel()
 {
-    const char* model_path = "resources/model/box/box.md2";
+    const char* model_path = "resources/model/box2/box.obj";
     model_ = new kgl::BasicStaticMesh;
     model_->LoadMesh(std::string(model_path));
 }
@@ -67,7 +66,7 @@ void AssimpApp::InitShaders()
     const GLchar* fs_file_path = "resources/shader/009_assimp_fs.glsl";
     const GLchar* gs_file_path = nullptr;
     model_shader_ = std::make_shared<kgl::GPUProgram>();
-    model_shader_->CreateFromFile(vs_file_path, fs_file_path,gs_file_path);
+    model_shader_->CreateFromFile(vs_file_path, fs_file_path, gs_file_path);
 }
 
 void AssimpApp::InitFont()
@@ -83,14 +82,14 @@ void AssimpApp::InitFont()
     font_renderer->SetCurrentFont("fzss24");
 }
 
-void AssimpApp::RenderFrame()
+void AssimpApp::RenderScene()
 {
     main_camera_->Update();
 
     glm::mat4 model_matrix;
-    model_matrix = glm::rotate(model_matrix, 3.1415926f * 1.5f, glm::vec3(1.0f, 0.0f, 0.0f));
-    model_matrix = glm::rotate(model_matrix, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(0.0f, 0.0f, 1.0f));
-    
+    //model_matrix = glm::rotate(model_matrix, 3.1415926f * 0.5f, glm::vec3(1.0f, 0.0f, 0.0f));
+    model_matrix = glm::rotate(model_matrix, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(0.0f, 1.0f, 0.0f));
+
     const glm::mat4& view_matrix = main_camera_->GetViewMatrix();
     const glm::mat4& projection_matrix = main_camera_->GetProjectionMatrix();
 

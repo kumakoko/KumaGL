@@ -104,7 +104,7 @@ void OldMovieEffectApp::InitScene()
     rectangle_primitive_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
 }
 
-void OldMovieEffectApp::RenderFrame()
+void OldMovieEffectApp::RenderScene()
 {
     shader_->Use();
     shader_->ApplyFloat(glfwGetTime(), "current_time");

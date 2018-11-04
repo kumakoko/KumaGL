@@ -85,7 +85,7 @@ void ImageEffectApp::InitScene()
     rs_blend_.SetBlendFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void ImageEffectApp::RenderFrame()
+void ImageEffectApp::RenderScene()
 {
     switch (current_effect_index_)
     {

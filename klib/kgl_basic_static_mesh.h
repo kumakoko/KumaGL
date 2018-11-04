@@ -1,19 +1,3 @@
-/*!
- * \file kgl_basic_static_mesh.h
- * \date 2017/12/21 10:22
- *
- * \author soft_koko
- * Contact: sun_of_lover@sina.com
- *
- * \brief 静态网格类
- *
- * TODO: 静态网格类，提供从assimp库所支持的模型中载入一个
- *       静态的mesh并渲染
- *
- * \note 静态的带有顶点索引值的mesh。mesh的属性需要包含有
- *       position,texture coord1,normal
- *       顶点属性的布局，在vertex shader中
- */
 /**************************************************************************************************************************
  Copyright(C) 2014-2017 www.xionggf.com
  
@@ -30,7 +14,22 @@
  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
  ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  **************************************************************************************************************************/
-
+/*!
+* \file kgl_basic_static_mesh.h
+* \date 2017/12/21 10:22
+*
+* \author soft_koko
+* Contact: sun_of_lover@sina.com
+*
+* \brief 静态网格类
+*
+* TODO: 静态网格类，提供从assimp库所支持的模型中载入一个
+*       静态的mesh并渲染
+*
+* \note 静态的带有顶点索引值的mesh。mesh的属性需要包含有
+*       position,texture coord1,normal
+*       顶点属性的布局，在vertex shader中
+*/
 #ifndef kgl_basic_static_mesh_h__
 #define kgl_basic_static_mesh_h__
 

@@ -237,7 +237,7 @@ void ParallaxMappingApp::InitMaterials()
     material_.Shininess = 0.4f * 128.f;
 }
 
-void ParallaxMappingApp::RenderFrame()
+void ParallaxMappingApp::RenderScene()
 {
     main_camera_->Update();
 

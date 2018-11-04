@@ -68,7 +68,7 @@ void SkinnedMeshApp::InitFont()
     font_renderer->SetCurrentFont("fzss24");
 }
 
-void SkinnedMeshApp::RenderFrame()
+void SkinnedMeshApp::RenderScene()
 {
     main_camera_->Update();
     this->RenderText();

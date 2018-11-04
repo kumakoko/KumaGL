@@ -52,7 +52,7 @@ void HDRApp::PreRenderFrame()
     App::PreRenderFrame();
 }
 
-void HDRApp::RenderFrame()
+void HDRApp::RenderScene()
 {
     main_camera_->Update();
 
@@ -195,9 +195,9 @@ void HDRApp::InitFont()
     font_renderer->CreateFontTexture(font_name, font_texture_name.c_str(), font_size, font_texture_width, font_texture_height);
     font_renderer->SetCurrentFont(font_texture_name);
 
-    toggle_help_on_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下H键显示帮助");
-    toggle_help_off_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下H键关闭帮助");
-    camera_ctrl_text_ = kgl::StringConvertor::ANSItoUTF16LE("持续按下W，S，U，J键，使得摄像机向前、后方向移动，增大或减小曝光度值");
+    toggle_help_on_text_ = kgl::StringConvertor::UTF8toUTF16LE("按下H键显示帮助");
+    toggle_help_off_text_ = kgl::StringConvertor::UTF8toUTF16LE("按下H键关闭帮助");
+    camera_ctrl_text_ = kgl::StringConvertor::UTF8toUTF16LE("持续按下W，S，U，J键，使得摄像机向前、后方向移动，增大或减小曝光度值");
 }
 
 void HDRApp::ProcessInput()

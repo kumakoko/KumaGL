@@ -43,7 +43,7 @@ public:
     virtual ~TextureApp();
 protected:
     virtual void InitModel() override;
-    virtual void RenderFrame() override ;
+    virtual void RenderScene() override ;
 private:
     kgl::GPUProgram*        gpu_program_ = nullptr;
     kgl::Primitive*         rectangle_primitive_ = nullptr;

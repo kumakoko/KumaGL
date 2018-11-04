@@ -1,16 +1,3 @@
-/*!
- * \file kgl_basic_skinned_mesh.h
- * \date 2017/12/21 10:29
- *
- * \author Administrator
- * Contact: user@company.com
- *
- * \brief 
- *
- * TODO: long description
- *
- * \note
-*/
 /**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
@@ -27,6 +14,19 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+/*!
+* \file kgl_basic_skinned_mesh.h
+* \date 2017/12/21 10:29
+*
+* \author Administrator
+* Contact: user@company.com
+*
+* \brief
+*
+* TODO: long description
+*
+* \note
+*/
 #ifndef kgl_basic_skinned_mesh_h__
 #define kgl_basic_skinned_mesh_h__
 

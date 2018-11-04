@@ -29,38 +29,57 @@ BlurApp::BlurApp()
 BlurApp::~BlurApp()
 {
     KGL_SAFE_DELETE(model_);
+    KGL_SAFE_DELETE(frame_buffer_);
     model_shader_.reset();
+    blur_shader_.reset();
 }
 
 void BlurApp::InitModel()
 {
-    std::string model_path("resources/model/liberty.3ds");
+    const char* model_path = "resources/model/box2/box.obj";
     model_ = new kgl::BasicStaticMesh;
-    model_->LoadMesh(model_path);
+    model_->LoadMesh(std::string(model_path));
     rs_depth_.Use();
+
+    // 初始化帧缓冲对象
+    frame_buffer_ = new kgl::FrameBuffer;
+    frame_buffer_->Create(1024, 768);
+
+    // 初始化图元
+    screen_ = kgl::PrimitiveTool::BuildNDCTexturedRectange();
 }
 
 void BlurApp::InitShaders()
 {
     model_shader_ = std::make_shared<kgl::GPUProgram>();
-    std::vector<std::string> vs_file_paths;
-    std::vector<std::string> fs_file_paths;
-    std::vector<std::string> gs_file_path;
-    vs_file_paths.push_back("resources/shader/015_blur_draw_model_vs.glsl");
-    fs_file_paths.push_back("resources/shader/lighting_struct.glsl");
-    fs_file_paths.push_back("resources/shader/lighting_fs.glsl");
-    fs_file_paths.push_back("resources/shader/015_blur_draw_model_fs.glsl");
-    model_shader_->CreateFromFile(vs_file_paths, fs_file_paths, gs_file_path, 3, 3, 0);
+    model_shader_->CreateFromFile("resources/shader/015_draw_model_vs.glsl", 
+        "resources/shader/015_draw_model_fs.glsl", nullptr);
+    blur_shader_ = std::make_shared<kgl::GPUProgram>();
+    blur_shader_->CreateFromFile("resources/shader/015_blur_effect_vs.glsl",
+        "resources/shader/015_blur_effect_fs.glsl", nullptr);
 }
 
 void BlurApp::InitScene()
 {
     App::InitScene();
+
+    draw_fb_to_scr_cull_.SetEnable(GL_FALSE);
+    draw_fb_to_scr_cull_.SetCullMode(GL_BACK); // 指定删除背面
+    draw_fb_to_scr_cull_.SetFrontFaceMode(GL_CCW); // 待渲染的模型，以逆时针为正面
+    draw_fb_to_scr_depth_.SetEnable(GL_FALSE); // 关闭深度测试
 }
 
 void BlurApp::InitMainCamera()
 {
-    main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 0.0f, -400.0f),0.f,0.f);
+    glm::vec3 camera_pos(0.0f, 0.000005f, -8.799932f);
+    float pitch_angle = 0.0f;
+    float yaw_angle = 0.f;// 180.0f;
+    float fov = 120.f;
+    float near_clip_distance = 0.1f;
+    float far_clip_distance = 1000.0f;
+
+    main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, camera_pos,
+        pitch_angle, yaw_angle, fov, near_clip_distance, far_clip_distance);
 }
 
 void BlurApp::InitLights()
@@ -80,12 +99,15 @@ void BlurApp::InitMaterials()
     material_.Shininess = 0.4f * 128.f;
 }
 
-void BlurApp::RenderFrame()
+void BlurApp::RenderScene()
 {
     main_camera_->Update();
 
+    // ======================== 写入到离屏的frame buffer =============================
+    frame_buffer_->StartWriting(glm::vec4(0.0f, 0.0f, 0.0f, 0.0f));
+
     glm::mat4 world_matrix;
-    world_matrix = glm::translate(world_matrix, glm::vec3(0.0f, -35.0f, 0.0f));
+    world_matrix = glm::rotate(world_matrix, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(1.0f, 0.0f, 0.0f));
     world_matrix = glm::rotate(world_matrix, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(0.0f, 1.0f, 0.0f));
 
     const glm::mat4& view_matrix = main_camera_->GetViewMatrix();
@@ -93,20 +115,22 @@ void BlurApp::RenderFrame()
     const glm::vec3& view_pos = main_camera_->GetPosition();
 
     rs_depth_.SetEnable(true);
+    model_shader_->Use();
+    model_shader_->ApplyMatrix(glm::value_ptr(world_matrix), "model_matrix");
+    model_shader_->ApplyMatrix(glm::value_ptr(view_matrix), "view_matrix");
+    model_shader_->ApplyMatrix(glm::value_ptr(projection_matrix), "projection_matrix");
+    model_shader_->ApplyTexture("texture_diffuse_1", 0);
+    model_->Render();
 
-    /*
-    for (size_t mesh_index = 0; mesh_index < model_->GetMeshCount(); ++mesh_index)
-    {
-        model_->UseShaderForMesh(mesh_index);
-        model_->ApplyLocalTransformMatrixToMesh(mesh_index, "local_transform_matrix");
-        model_->ApplyMatrixToMesh(mesh_index, glm::value_ptr(world_matrix), "world_matrix");
-        model_->ApplyMatrixToMesh(mesh_index, glm::value_ptr(view_matrix), "view_matrix");
-        model_->ApplyMatrixToMesh(mesh_index, glm::value_ptr(projection_matrix), "projection_matrix");
-        model_->ApplyVector3ToMesh(mesh_index, glm::value_ptr(view_pos), "view_pos");
-        model_->ApplyDirectionalLightToMesh(mesh_index, &directional_light_, "directional_light");
-        model_->ApplyMaterialToMesh(mesh_index, &material_, "material");
-        model_->DrawSubset(mesh_index);
-    }*/
+    // 结束向离屏frame buffer的写入
+    frame_buffer_->EndWriting();
+
+    // ======================== 把离屏的frame buffer的内容绘制到屏幕 =============================
+    blur_shader_->Use();
+    blur_shader_->ApplyTexture(frame_buffer_->GetTexture(), "image", 0);
+    blur_shader_->ApplyInt(blur_horizontal_, "horizontal");
+    blur_shader_->ApplyInt(use_blur_, "use_blur");
+    screen_->Draw();
 }
 
 void BlurApp::ProcessInput()
@@ -169,6 +193,16 @@ void BlurApp::ProcessInput()
 
 void BlurApp::OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
+    if (key == GLFW_KEY_P  && action == GLFW_RELEASE)
+    {
+        use_blur_ = -use_blur_;
+    }
+
+    if (key == GLFW_KEY_H  && action == GLFW_RELEASE)
+    {
+        blur_horizontal_ = -blur_horizontal_;
+    }
+
     App::OnKeyAction(window, key, scancode, action, mode);
 }
 

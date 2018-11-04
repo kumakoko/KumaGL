@@ -3,15 +3,15 @@ Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
-modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the 
+modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the
 Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
 Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE 
-WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
 #include "kgl_lib_pch.h"
@@ -22,6 +22,8 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include "kgl_font_renderer.h"
 #include "kgl_string_convertor.h"
 #include "kgl_debug_tool.h"
+#include "kgl_imgui_glfw_bridge.h"
+#include "kgl_imgui_opengl_bridge.h"
 
 namespace kgl
 {
@@ -29,7 +31,6 @@ namespace kgl
 
     App::App()
     {
-        
         KFontRenderer::MakeInstance();
         KTextureManager::MakeInstance();
         s_instance_ = this;
@@ -38,8 +39,12 @@ namespace kgl
 
     App::~App()
     {
-        if (nullptr != tw_gui_bar_)
-            TwTerminate();
+        if (use_gui_)
+        {
+            ImGuiOpenGLBridge::Shutdown();
+            ImGuiGlfwBridge::Shutdown();
+            ImGui::DestroyContext();
+        }
 
         KFontRenderer::DeleteInstance();
         KTextureManager::DeleteInstance();
@@ -48,7 +53,7 @@ namespace kgl
         s_instance_ = nullptr;
     }
 
-    void App::InitWindow(int32_t wnd_width, int32_t wnd_height, bool wnd_resizable, const char* wnd_title, int32_t context_version_major /*= 3*/, 
+    void App::InitWindow(int32_t wnd_width, int32_t wnd_height, bool wnd_resizable, const char* wnd_title, int32_t context_version_major /*= 3*/,
         int32_t context_version_minor /*= 3*/, App::GLProfile profile /*= App::CORE*/)
     {
         std::vector<std::string> error_desc_array;
@@ -102,48 +107,48 @@ namespace kgl
         glfwSetScrollCallback(window_handle_, App::ScrollCallback);
         glfwSetWindowSizeCallback(window_handle_, App::SizeChangedCallback);
         glfwSetMouseButtonCallback(window_handle_, App::MouseButtonCallback);
-        
-        // - Directly redirect GLFW mouse position events to AntTweakBar
-        //glfwSetMousePosCallback((GLFWmouseposfun)TwEventMousePosGLFW);
-        // - Directly redirect GLFW mouse wheel events to AntTweakBar
-        //glfwSetMouseWheelCallback((GLFWmousewheelfun)TwEventMouseWheelGLFW);
-        // - Directly redirect GLFW key events to AntTweakBar
-        //glfwSetKeyCallback((GLFWkeyfun)TwEventKeyGLFW);
-        // - Directly redirect GLFW char events to AntTweakBar
-        //glfwSetCharCallback((GLFWcharfun)TwEventCharGLFW);
 
         // GLFW Options
-        //glfwSetInputMode(window_handle_, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         window_height_ = wnd_height;
         window_width_ = wnd_width;
-
         gl_profile_ = profile;
     }
 
-    void App::InitGuiSystem(bool use_gui, const char* bar_title)
+    void App::InitGuiSystem(bool use_gui)
     {
-        if (!use_gui)
-            return;
+        this->use_gui_ = use_gui;
 
-        TwGraphAPI graph_api = TW_OPENGL;
-
-        if (App::CORE == gl_profile_)
-            graph_api = TW_OPENGL_CORE;
-
-        // 初始化AntTweakBar，使用OpenGL的话这第二个参数务必为nullptr
-        int init_ret = TwInit(TW_OPENGL_CORE, nullptr);
-
-        if (0 == init_ret)
+        if (use_gui_)
         {
-            std::wstringstream wss;
-            wss << L"无法初始化AntTweakBar" << std::endl;
-            wss << L"错误描述：" << StringConvertor::ANSItoUTF16LE(TwGetLastError()) << std::endl;
-            wss << L"程序必须退出";
-            throw Error(wss.str(), __FILE__, __LINE__);
-        }
+            // 设置ImGUI
+            IMGUI_CHECKVERSION();
+            ImGui::CreateContext();
+            ImGuiIO& io = ImGui::GetIO(); (void)io;
+            //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // 启用键盘
+            //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 
-        tw_gui_bar_ = TwNewBar(nullptr == bar_title ? " " : bar_title);
-        TwWindowSize(window_width_, window_height_);
+            // 把当前窗口句柄注册到ImGui，建立起鼠标光标，键盘等映射关系
+            ImGuiGlfwBridge::Init(this->window_handle_, true);
+            // 设置渲染ImGui的glsl版本，使用1.30版本就可以了
+            ImGuiOpenGLBridge::Init("#version 130");
+
+            // 设置界面的风格
+            ImGui::StyleColorsDark();
+            // ImGui::StyleColorsClassic();
+
+            const char* font_file = "F:/MyProjects/KumaGL/publish/resources/font/fzht_sim.ttf";
+            const ImWchar* glyph_ranges = io.Fonts->GetGlyphRangesChineseFull();
+            ImFont* font = io.Fonts->AddFontFromFileTTF(font_file, 18.0f, nullptr, glyph_ranges);
+
+            if (!font)
+            {
+                std::wstringstream wss;
+                wss << L"无法初始化获取指定的字体库" << std::endl;
+                wss << L"错误描述：无法初始化获取指定的字体库: " << StringConvertor::ANSItoUTF16LE(font_file) << std::endl;
+                wss << L"程序必须退出";
+                throw Error(wss.str(), __FILE__, __LINE__);
+            }
+        }
     }
 
     void App::InitRenderer()
@@ -255,7 +260,10 @@ namespace kgl
             glfwPollEvents();
             this->ProcessInput();
             this->PreRenderFrame();
-            this->RenderFrame();
+            this->RenderScene();
+            this->PreRenderGUI();
+            this->RenderGUI();
+            this->PostRenderGUI();
             this->PostRenderFrame();
         } while (is_not_closed);
     }
@@ -267,9 +275,32 @@ namespace kgl
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    void App::RenderFrame()
+    void App::RenderScene()
     {
 
+    }
+
+    void App::PostRenderGUI()
+    {
+        if (use_gui_)
+        {
+            ImGui::Render();
+            ImGuiOpenGLBridge::RenderDrawData(ImGui::GetDrawData());
+        }
+    }
+
+    void App::PreRenderGUI()
+    {
+        if (use_gui_)
+        {
+            ImGuiOpenGLBridge::ImGui_ImplOpenGL3_NewFrame();
+            ImGuiGlfwBridge::ImGui_ImplGlfw_NewFrame();
+            ImGui::NewFrame();
+        }
+    }
+
+    void App::RenderGUI()
+    {
     }
 
     void App::PostRenderFrame()
@@ -317,18 +348,11 @@ namespace kgl
 
     void App::OnCharAction(GLFWwindow *window, unsigned int x)
     {
-        if (nullptr != tw_gui_bar_)
-        {
-            TwEventCharGLFW(x, GLFW_PRESS);
-        }
+
     }
 
     void App::OnMouseButtonAction(GLFWwindow* window, int received_event, int button, int action)
     {
-        if (nullptr != tw_gui_bar_)
-        {
-            TwEventMouseButtonGLFW(button, action);
-        }
     }
 
     void App::OnGLFWErrorCallback(int error_code, const char* err_str)
@@ -370,26 +394,20 @@ namespace kgl
                 key_state_.set(key);
         }
 
-        if (nullptr != tw_gui_bar_)
-            TwEventKeyGLFW(key, action);
     }
 
     void App::OnMouseAction(GLFWwindow* window, double xpos, double ypos)
     {
-        if (nullptr != tw_gui_bar_)
-            TwEventMousePosGLFW(xpos, ypos);
+
     }
 
     void App::OnScrollAction(GLFWwindow* window, double xoffset, double yoffset)
     {
-        if (nullptr != tw_gui_bar_)
-            TwEventMouseWheelGLFW(static_cast<int>(xoffset));
+
     }
 
     void App::OnSizeChangedAction(GLFWwindow* window, int width, int height)
     {
-        if (nullptr != tw_gui_bar_)
-            TwWindowSize(width, height);
     }
 
     void App::ProcessInput()

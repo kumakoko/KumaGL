@@ -43,7 +43,7 @@ public:
     virtual ~FontApp();
     virtual void InitScene();
 protected:
-    virtual void RenderFrame() override;
+    virtual void RenderScene() override;
     virtual void PreRenderFrame() override;
     void InitHelper();
 private:

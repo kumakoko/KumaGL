@@ -15,7 +15,7 @@ public:
     virtual ~CameraApp();
     virtual void InitScene();
 protected:
-    virtual void RenderFrame();
+    virtual void RenderScene();
     virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode);
     virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos);
     virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset);

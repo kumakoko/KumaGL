@@ -1,18 +1,4 @@
-﻿// 调试工具
-/*!
- * \file kgl_debug_tool.h
- * \date 2017/12/31 13:36
- *
- * \author Administrator
- * Contact: user@company.com
- *
- * \brief 
- *
- * TODO: long description
- *
- * \note
-*/
-/**************************************************************************************************************************
+﻿/**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -28,6 +14,20 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+/*!
+* \file kgl_debug_tool.h
+* \date 2017/12/31 13:36
+*
+* \author Administrator
+* Contact: user@company.com
+*
+* \brief
+*
+* TODO: l调试工具
+*
+* \note
+*/
+
 #ifndef kgl_debug_tool_h__
 #define kgl_debug_tool_h__
 

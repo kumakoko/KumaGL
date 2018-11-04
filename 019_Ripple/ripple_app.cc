@@ -46,7 +46,7 @@ void RippleApp::PreRenderFrame()
     App::PreRenderFrame();
 }
 
-void RippleApp::RenderFrame()
+void RippleApp::RenderScene()
 {
     main_camera_->Update();
 }

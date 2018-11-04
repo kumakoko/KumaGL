@@ -40,6 +40,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include "../klib/kgl_sky_box.h"
 #include "../klib/kgl_basic_static_mesh.h"
 #include "../klib/kgl_light.h"
+#include "../klib/kgl_frame_buffer.h"
 
 class BlurApp : public kgl::App
 {
@@ -48,7 +49,7 @@ public:
     virtual ~BlurApp();
     virtual void InitScene();
 protected:
-    virtual void RenderFrame() override;
+    virtual void RenderScene() override;
     virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
     virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
     virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
@@ -65,9 +66,19 @@ private:
     kgl::BasicStaticMesh* model_ = nullptr;
 
     /// <summary>
+    /// The frame_buffer_
+    /// </summary>
+    kgl::FrameBuffer* frame_buffer_ = nullptr;
+
+    /// <summary>
     /// The model_shader_
     /// </summary>
     kgl::GPUProgramSPtr model_shader_;
+
+    /// <summary>
+    /// 用来产生blur效果的shader;
+    /// </summary>
+    kgl::GPUProgramSPtr blur_shader_;
 
     /// <summary>
     /// The rs_depth_
@@ -83,6 +94,46 @@ private:
     /// The material_
     /// </summary>
     kgl::Material material_;
+
+    /// <summary>
+    /// 绘制scene object到frame buffer时使用的拣选模式
+    /// </summary>
+    kgl::RenderStateCullMode write_fb_cull_;
+
+    /// <summary>
+    /// 向frame buffer写入数据时的深度模式
+    /// </summary>
+    kgl::RenderStateDepth write_fb_depth_;
+
+    /// <summary>
+    /// 绘制frame buffer object上的数据到屏幕中的深度值
+    /// </summary>
+    kgl::RenderStateDepth draw_fb_to_screen_depth_;
+
+    /// <summary>
+    /// The draw_fb_to_scr_cull_
+    /// </summary>
+    kgl::RenderStateCullMode draw_fb_to_scr_cull_;
+
+    /// <summary>
+    /// The draw_fb_to_scr_depth_
+    /// </summary>
+    kgl::RenderStateDepth draw_fb_to_scr_depth_;
+
+    /// <summary>
+    /// 用来绘制帧缓冲区内容的图元
+    /// </summary>
+    kgl::PrimitiveSPtr screen_;
+
+    /// <summary>
+    /// 于0时表示进行模糊操作，小于0表示不进行模糊操作
+    /// </summary>
+    int use_blur_ = 1;
+
+    /// <summary>
+    /// 大于0时表示水平方向上进行模糊操作，小于0表示垂直方向上进行模糊操作
+    /// </summary>
+    int blur_horizontal_ = 1;
 };
 
 

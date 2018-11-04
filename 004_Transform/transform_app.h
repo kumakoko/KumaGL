@@ -46,7 +46,7 @@ public:
     virtual ~TransformApp();
     virtual void InitScene();
 protected:
-    virtual void RenderFrame() override;
+    virtual void RenderScene() override;
     virtual void ProcessInput() override;
     virtual void InitMaterials() override;
     virtual void InitModel() override;

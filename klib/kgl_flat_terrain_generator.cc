@@ -46,9 +46,9 @@ namespace kgl
             indices_generator_->GenerateIndexBuffer(heights.size1(), indices);
             PrimitiveSPtr primitive = std::make_shared<Primitive>();
 
-            for (int z = 0; z < heights.size1(); z++) 
+            for (std::size_t z = 0; z < heights.size1(); z++)
             {
-                for (int x = 0; x < heights.size2(); x++)
+                for (std::size_t x = 0; x < heights.size2(); x++)
                 {
                     float fx = static_cast<float>(x);
                     float fy = heights(z, x) / 50000.0f;

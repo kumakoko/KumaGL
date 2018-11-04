@@ -203,7 +203,7 @@ void DeferredRenderingApp::PreRenderFrame()
      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void DeferredRenderingApp::RenderFrame()
+void DeferredRenderingApp::RenderScene()
 {
     float current_time = (GLfloat)glfwGetTime() * 0.5f;
     

@@ -43,7 +43,7 @@ public:
     virtual ~DynamicVertexBufferApp();
     virtual void InitScene();
 protected:
-    virtual void RenderFrame();
+    virtual void RenderScene();
 private:
     kgl::GPUProgram*        gpu_program_;
     kgl::Primitive*         rectangle_primitive_;

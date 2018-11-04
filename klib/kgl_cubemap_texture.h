@@ -1,18 +1,4 @@
-﻿// 纹理类的基类
-/*!
- * \file kgl_cubemap_texture.h
- * \date 2017/12/31 13:35
- *
- * \author Administrator
- * Contact: user@company.com
- *
- * \brief 
- *
- * TODO: long description
- *
- * \note
-*/
-/**************************************************************************************************************************
+﻿/**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -28,6 +14,19 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+/*!
+* \file kgl_cubemap_texture.h
+* \date 2017/12/31 13:35
+*
+* \author Administrator
+* Contact: user@company.com
+*
+* \brief
+*
+* TODO: 纹理类的基类
+*
+* \note
+*/
 #ifndef kgl_cubemap_texture_h__
 #define kgl_cubemap_texture_h__
 

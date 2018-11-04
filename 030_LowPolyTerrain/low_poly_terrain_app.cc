@@ -114,7 +114,7 @@ void LowPolyTerrainApp::InitFont()
     camera_ctrl_text_ = kgl::StringConvertor::ANSItoUTF16LE("持续按下W、S、A、D、U、J键，使得摄像机向前、后、左、右、上、下方向移动");
 }
 
-void LowPolyTerrainApp::RenderFrame()
+void LowPolyTerrainApp::RenderScene()
 {
     main_camera_->Update();
     rs_depth_.Use();

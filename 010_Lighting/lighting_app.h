@@ -49,7 +49,7 @@ public:
     virtual ~LightingApp();
     virtual void InitScene();
 protected:
-    virtual void RenderFrame() override;
+    virtual void RenderScene() override;
     virtual void ProcessInput() override;
     virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
     virtual void InitMaterials() override;

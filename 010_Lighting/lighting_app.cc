@@ -24,15 +24,8 @@ void LightingApp::InitScene()
 void LightingApp::InitModel()
 {
     const char* model_path = "resources/model/bun_zipper_res2.3ds";
-    model_ = new kgl::BasicStaticMesh;// (kgl::VERTEX_TYPE_PN, model_path);
+    model_ = new kgl::BasicStaticMesh;
     model_->LoadMesh(std::string(model_path));
-    //std::size_t sz = model_->GetMeshCount();
-
-    /*
-    for (std::size_t s = 0; s < sz; ++s)
-    {
-        model_->ApplyShaderToMesh(s, lighting_shader_);
-    }*/
 }
 
 void LightingApp::InitShaders()
@@ -152,7 +145,7 @@ void LightingApp::InitLights()
     spot_light_.Exponent = 2.0f;
 }
 
-void LightingApp::RenderFrame()
+void LightingApp::RenderScene()
 {
     main_camera_->Update();
     lighting_shader_->Use();

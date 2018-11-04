@@ -103,7 +103,7 @@ void CameraApp::InitScene()
     main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 0.0f, 40.0f));
 }
 
-void CameraApp::RenderFrame()
+void CameraApp::RenderScene()
 {
     main_camera_->Update();
 

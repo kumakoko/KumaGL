@@ -86,7 +86,7 @@ protected:
     /// <summary>
     /// Renders the frame.
     /// </summary>
-    virtual void RenderFrame() override;
+    virtual void RenderScene() override;
 
     /// <summary>
     /// Called when [key action].

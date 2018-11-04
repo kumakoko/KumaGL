@@ -154,7 +154,7 @@ void PixelMagicApp::InitScene()
     rectangle_primitive_->CreateIndexed(GL_TRIANGLES, vertices, sizeof(vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, indices, sizeof(indices), GL_STATIC_DRAW, vtx_attri_array);
 }
 
-void PixelMagicApp::RenderFrame()
+void PixelMagicApp::RenderScene()
 {
     switch (current_effect_index_)
     {

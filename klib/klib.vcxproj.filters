@@ -189,6 +189,12 @@
     <ClInclude Include="kgl_view_frustum.h">
       <Filter>headers</Filter>
     </ClInclude>
+    <ClInclude Include="kgl_imgui_glfw_bridge.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_imgui_opengl_bridge.h">
+      <Filter>headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kgl_lib_pch.cc">
@@ -339,6 +345,12 @@
       <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="kgl_view_frustum.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_imgui_glfw_bridge.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_imgui_opengl_bridge.cc">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>

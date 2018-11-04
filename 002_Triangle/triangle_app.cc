@@ -213,20 +213,8 @@ void TriangleApp::InitModel()
     vtx_attri_array.push_back(va_color);
 
     triangle_primitive_4_ = new kgl::Primitive;
-    triangle_primitive_4_->CreateIndexed(GL_TRIANGLES, triangle_4_vertices, sizeof(triangle_4_vertices), GL_STATIC_DRAW, kgl::Primitive::UINT32, triangle_indices, sizeof(triangle_indices), GL_STATIC_DRAW, vtx_attri_array);
-
-
-    // - Directly redirect GLFW mouse button events to AntTweakBar
-//  glfwSetMouseButtonCallback((GLFWmousebuttonfun)TwEventMouseButtonGLFW);
-    // - Directly redirect GLFW mouse position events to AntTweakBar
-//  glfwSetMousePosCallback((GLFWmouseposfun)TwEventMousePosGLFW);
-    // - Directly redirect GLFW mouse wheel events to AntTweakBar
-//  glfwSetMouseWheelCallback((GLFWmousewheelfun)TwEventMouseWheelGLFW);
-    // - Directly redirect GLFW key events to AntTweakBar
-//  glfwSetKeyCallback((GLFWkeyfun)TwEventKeyGLFW);
-    // - Directly redirect GLFW char events to AntTweakBar
-//  glfwSetCharCallback((GLFWcharfun)TwEventCharGLFW);
-
+    triangle_primitive_4_->CreateIndexed(GL_TRIANGLES, triangle_4_vertices, sizeof(triangle_4_vertices), GL_STATIC_DRAW, 
+        kgl::Primitive::UINT32, triangle_indices, sizeof(triangle_indices), GL_STATIC_DRAW, vtx_attri_array);
 }
 
 void TriangleApp::RenderScene()

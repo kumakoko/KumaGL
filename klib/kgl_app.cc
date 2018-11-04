@@ -114,7 +114,9 @@ namespace kgl
         gl_profile_ = profile;
     }
 
-    void App::InitGuiSystem(bool use_gui)
+
+    void App::InitGuiSystem(bool use_gui, bool install_callbacks, bool install_key_callback, bool install_scroll_callback,
+        bool install_char_callback, bool install_mouse_btn_callback)
     {
         this->use_gui_ = use_gui;
 
@@ -126,9 +128,11 @@ namespace kgl
             ImGuiIO& io = ImGui::GetIO(); (void)io;
             //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // 启用键盘
             //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
+            io.WantCaptureKeyboard = false;
 
             // 把当前窗口句柄注册到ImGui，建立起鼠标光标，键盘等映射关系
-            ImGuiGlfwBridge::Init(this->window_handle_, true);
+            ImGuiGlfwBridge::Init(this->window_handle_, install_callbacks, install_key_callback,
+                install_scroll_callback, install_char_callback, install_mouse_btn_callback);
             // 设置渲染ImGui的glsl版本，使用1.30版本就可以了
             ImGuiOpenGLBridge::Init("#version 130");
 
@@ -136,7 +140,8 @@ namespace kgl
             ImGui::StyleColorsDark();
             // ImGui::StyleColorsClassic();
 
-            const char* font_file = "F:/MyProjects/KumaGL/publish/resources/font/fzht_sim.ttf";
+            //const char* font_file = "F:/MyProjects/KumaGL/publish/resources/font/fzht_sim.ttf";
+            const char* font_file = "resources/font/fzht_sim.ttf";
             const ImWchar* glyph_ranges = io.Fonts->GetGlyphRangesChineseFull();
             ImFont* font = io.Fonts->AddFontFromFileTTF(font_file, 18.0f, nullptr, glyph_ranges);
 
@@ -308,7 +313,6 @@ namespace kgl
         std::vector<std::string> error_desc_array;
         std::vector<GLenum> error_code_array;
         glfwSwapBuffers(window_handle_);
-        // THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
     }
 
     void App::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)

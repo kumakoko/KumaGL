@@ -40,7 +40,7 @@ int main()
         app = new TriangleApp();
         app->InitWindow(1024, 768, false, title, context_version_major, context_version_minor, profile);
         app->InitRenderer();
-        app->InitGuiSystem();
+        app->InitGuiSystem(false);
         app->InitScene();
         app->Run();
     }

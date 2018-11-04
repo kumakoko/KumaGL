@@ -19,12 +19,6 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include "../klib/kgl_string_convertor.h"
 #include "texture_app.h"
 
-#if defined(WIN32) || defined(_WIN32)
-#if defined(DEBUG) || defined(_DEBUG)
-#include "vld.h"
-#endif
-#endif
-
 int main()
 {
     TextureApp* app = nullptr;
@@ -43,6 +37,7 @@ int main()
         app->InitWindow(800, 600, false, "003_Texture",context_version_major, context_version_minor, profile );
         app->InitRenderer();
         app->InitScene();
+        app->InitGuiSystem(false);
         app->Run();
     }
     catch (kgl::Error e)

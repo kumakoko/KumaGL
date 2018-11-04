@@ -75,7 +75,14 @@ namespace kgl
         /// <summary>
         /// 初始化GUI系统
         /// </summary>
-        void InitGuiSystem(bool use_gui = true);
+        /// <param name="use_gui">是否使用ImGui系统</param>
+        /// <param name="install_callbacks">是否安装对键盘鼠标等外设信息的响应回调</param>
+        /// <param name="install_key_callback">是否响应对键盘输入并且安装回调</param>
+        /// <param name="install_scroll_callback">T是否响应对鼠标滚轮的输入并且安装回调</param>
+        /// <param name="install_char_callback">是否响应对字符信息的输入并且安装回调</param>
+        /// <param name="install_mouse_btn_callback">是否响应对鼠标按键的输入并且安装回调</param>
+        void InitGuiSystem(bool use_gui = true, bool install_callbacks = true, bool install_key_callback = true, bool install_scroll_callback = true,
+            bool install_char_callback = true, bool install_mouse_btn_callback = true);
 
         /// <summary>
         /// Initializes the scene.

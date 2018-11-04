@@ -3,15 +3,15 @@ Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
-modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the 
+modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the
 Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
 Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE 
-WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
 #include "transform_app.h"
@@ -43,7 +43,7 @@ void TransformApp::InitMaterials()
 void TransformApp::InitModel()
 {
     kgl::TextureParams texture_param = kgl::TextureManager::MakeTextureParamsRGB(GL_REPEAT, GL_LINEAR);
-    
+
     texture_sun_ = std::make_shared<kgl::SourceTexture>();
     texture_sun_->CreateFromFile("resources/image/sun.jpg", texture_param);
 
@@ -61,7 +61,9 @@ void TransformApp::InitModel()
 void TransformApp::InitShaders()
 {
     object_shader_ = new kgl::GPUProgram;
-    object_shader_->CreateFromFile("resources/shader/003_transform_draw_vs.glsl", "resources/shader/003_transform_draw_fs.glsl", nullptr);
+    const char* vs_file = "resources/shader/004_transform_draw_vs.glsl";
+    const char* fs_file = "resources/shader/004_transform_draw_fs.glsl";
+    object_shader_->CreateFromFile(vs_file, fs_file, nullptr);
 }
 
 void TransformApp::InitLights()
@@ -75,9 +77,14 @@ void TransformApp::InitMainCamera()
     main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, pos);
 }
 
-void TransformApp::InitFont()
+void TransformApp::RenderGUI()
 {
-
+    const glm::vec3& camera_pos = main_camera_->GetPosition();
+    ImGui::Begin("004 Transform -- 变换操作");
+    ImGui::Text("按W键向前，S键向后移动摄像机");
+    ImGui::Text("摄像机坐标: (%.1f,%.1f,%.1f)", camera_pos.x, camera_pos.y, camera_pos.z);
+    ImGui::Text("FPS : %.1f", ImGui::GetIO().Framerate);
+    ImGui::End();
 }
 
 void TransformApp::InitScene()
@@ -116,9 +123,9 @@ void TransformApp::RenderScene()
     glm::mat4 matrix_earth;
     matrix_earth = glm::scale(matrix_earth, glm::vec3(2.5f, 2.5f, 2.5f)); // 自身放大1.5倍
     matrix_earth = glm::rotate(matrix_earth, current_time, glm::vec3(0.0f, 1.0f, 0.0f)); // 自身旋转
-    matrix_earth = glm::translate(matrix_earth, glm::vec3(4.0f,0.0f,0.0f)); // 先沿着水平方向偏移4个单位
+    matrix_earth = glm::translate(matrix_earth, glm::vec3(4.0f, 0.0f, 0.0f)); // 先沿着水平方向偏移4个单位
     matrix_earth = glm::rotate(matrix_earth, current_time, glm::vec3(0.0f, 1.0f, 0.0f)); // 绕世界坐标系下的Y轴旋转
-    
+
     object_shader_->ApplyMatrix(glm::value_ptr(matrix_earth), "world_matrix");
     object_shader_->ApplyTexture(texture_earth_, "source_texture_1", 0);
     earth_->DrawIndexed();
@@ -126,7 +133,7 @@ void TransformApp::RenderScene()
     glm::mat4 matrix_moon;
 
     matrix_moon = glm::scale(matrix_moon, glm::vec3(1.f / 2.5f, 1.f / 2.5f, 1.f / 2.5f));
-    matrix_moon = glm::rotate(matrix_moon,current_time,glm::vec3(0.0f, 1.0f, 0.0f)); // 自旋
+    matrix_moon = glm::rotate(matrix_moon, current_time, glm::vec3(0.0f, 1.0f, 0.0f)); // 自旋
     matrix_earth = glm::translate(matrix_earth, glm::vec3(1.0f, 0.0f, 0.0f)); // 先沿着水平方向偏移4个单位
     matrix_earth = glm::rotate(matrix_earth, current_time, glm::vec3(0.0f, 1.0f, 0.0f)); // 绕地球局部系下的Y轴旋转
     matrix_moon = matrix_earth * matrix_moon; // 移到地球坐标系下

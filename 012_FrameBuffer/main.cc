@@ -27,7 +27,7 @@ void main()
     try
     {
         app = new FrameBufferApp();
-        app->InitWindow(800, 600, false, "012_FrameBuffer");
+        app->InitWindow(1024, 768, false, "012_FrameBuffer");
         app->InitRenderer();
         app->InitScene();
         app->Run();

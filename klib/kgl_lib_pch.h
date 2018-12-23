@@ -74,6 +74,18 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 #include "tinyxml2.h"
 
+#ifndef  GLM_FORCE_SSE2
+	#define  GLM_FORCE_SSE2
+#endif
+
+#ifndef  GLM_FORCE_INLINE
+	#define  GLM_FORCE_INLINE
+#endif
+
+#ifndef  GLM_MESSAGES
+	#define  GLM_MESSAGES
+#endif
+
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
@@ -107,7 +119,7 @@ namespace ublas = boost::numeric::ublas;
 namespace bfs = boost::filesystem;
 
 #if defined(WIN32) || defined(_WIN32)
-//    #undef APIENTRY
+    #undef APIENTRY
     #define GLFW_EXPOSE_NATIVE_WIN32
     #include "GLFW/glfw3native.h"   // for glfwGetWin32Window
 #endif

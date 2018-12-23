@@ -26,7 +26,7 @@ void main()
     try
     {
         app = new DynamicVertexBufferApp();
-        app->InitWindow(800, 600, false, "005_DynamicVertexBuffer");
+        app->InitWindow(1024, 768, false, "005_DynamicVertexBuffer");
         app->InitRenderer();
         app->InitScene();
         app->Run();

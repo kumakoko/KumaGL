@@ -26,7 +26,7 @@ void main()
     try
     {
         app = new DynamicTextureApp();
-        app->InitWindow(800, 600, false, "006_DynamicTexture");
+        app->InitWindow(1024, 768, false, "006_DynamicTexture");
         app->InitRenderer();
         app->InitScene();
         app->Run();

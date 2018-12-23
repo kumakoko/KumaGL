@@ -213,7 +213,7 @@ void ShadowMappingApp::RenderHelpText(const glm::vec3& view_pos)
         boost::format fmt("摄像机位置坐标：(%-8.3f,%-8.3f,%-8.3f)");
         fmt % view_pos.x % view_pos.y % view_pos.z;
         font_renderer->AddToRendered(camera_ctrl_text_, 0, 30, text_color, 1.0f);
-        font_renderer->AddToRendered(kgl::StringConvertor::ANSItoUTF16LE(fmt.str().c_str()), 0, 60, text_color, 1.0f);
+        font_renderer->AddToRendered(kgl::StringConvertor::UTF8toUTF16LE(fmt.str().c_str()), 0, 60, text_color, 1.0f);
     }
 
     font_renderer->Draw();
@@ -283,9 +283,9 @@ void ShadowMappingApp::InitFont()
     font_renderer->CreateFontTexture(font_name, font_texture_name.c_str(), font_size, font_texture_width, font_texture_height);
     font_renderer->SetCurrentFont(font_texture_name);
 
-    toggle_help_on_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下H键显示帮助");
-    toggle_help_off_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下H键关闭帮助");
-    camera_ctrl_text_ = kgl::StringConvertor::ANSItoUTF16LE("持续按下W，S，U，J键，使得摄像机向前、后方向移动，增大或减小曝光度值");
+    toggle_help_on_text_ = kgl::StringConvertor::UTF8toUTF16LE("按下H键显示帮助");
+    toggle_help_off_text_ = kgl::StringConvertor::UTF8toUTF16LE("按下H键关闭帮助");
+    camera_ctrl_text_ = kgl::StringConvertor::UTF8toUTF16LE("持续按下W，S，U，J键，使得摄像机向前、后方向移动，增大或减小曝光度值");
 }
 
 void ShadowMappingApp::ProcessInput()

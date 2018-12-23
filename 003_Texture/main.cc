@@ -34,7 +34,7 @@ int main()
         int context_version_minor = 3;
 #endif
         app = new TextureApp();
-        app->InitWindow(800, 600, false, "003_Texture",context_version_major, context_version_minor, profile );
+        app->InitWindow(1024, 768, false, "003_Texture",context_version_major, context_version_minor, profile );
         app->InitRenderer();
         app->InitScene();
         app->InitGuiSystem(false);

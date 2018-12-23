@@ -54,10 +54,10 @@ void LightingApp::InitFont()
     font_renderer->CreateFontTexture("resources/font/fzkt_sim.ttf", "fzktsim24", 24, 512, 512);
     font_renderer->SetCurrentFont("fzktsim24");
 
-    toggle_help_on_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下H键显示帮助");
-    toggle_help_off_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下H键关闭帮助");
-    camera_ctrl_text_ = kgl::StringConvertor::ANSItoUTF16LE("持续按下W、S、A、D、U、J键，使得摄像机向前、后、左、右、上、下方向移动");
-    material_ctrl_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下左右箭头键，切换模型使用的材质");
+    toggle_help_on_text_ = kgl::StringConvertor::UTF8toUTF16LE("按下H键显示帮助");
+    toggle_help_off_text_ = kgl::StringConvertor::UTF8toUTF16LE("按下H键关闭帮助");
+    camera_ctrl_text_ = kgl::StringConvertor::UTF8toUTF16LE("持续按下W、S、A、D、U、J键，使得摄像机向前、后、左、右、上、下方向移动");
+    material_ctrl_text_ = kgl::StringConvertor::UTF8toUTF16LE("按下左右箭头键，切换模型使用的材质");
 }
 
 void LightingApp::InitMaterials()
@@ -70,7 +70,7 @@ void LightingApp::InitMaterials()
     m.Specular = glm::vec3(0.628281f, 0.555802f, 0.366065f);
     m.Shininess = 0.4f * 128.f;
     materials_.push_back(m);
-    material_name_text_.push_back(kgl::StringConvertor::ANSItoUTF16LE("材质：黄金"));
+    material_name_text_.push_back(kgl::StringConvertor::UTF8toUTF16LE("材质：黄金"));
 
     // 白银材质
     m.Ambient = glm::vec3(0.19225f, 0.19225f, 0.19225f);
@@ -78,7 +78,7 @@ void LightingApp::InitMaterials()
     m.Specular = glm::vec3(0.508273f, 0.508273f, 0.508273f);
     m.Shininess = 0.4f * 128.f;
     materials_.push_back(m);
-    material_name_text_.push_back(kgl::StringConvertor::ANSItoUTF16LE("材质：白银"));
+    material_name_text_.push_back(kgl::StringConvertor::UTF8toUTF16LE("材质：白银"));
 
     // 红宝石材质
     m.Ambient = glm::vec3(0.1745f, 0.01175f, 0.01175f);
@@ -86,7 +86,7 @@ void LightingApp::InitMaterials()
     m.Specular = glm::vec3(0.727811f, 0.626959f, 0.626959f);
     m.Shininess = 0.4f * 128.f;
     materials_.push_back(m);
-    material_name_text_.push_back(kgl::StringConvertor::ANSItoUTF16LE("材质：红宝石"));
+    material_name_text_.push_back(kgl::StringConvertor::UTF8toUTF16LE("材质：红宝石"));
 
     // 红色塑料
     m.Ambient = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -94,7 +94,7 @@ void LightingApp::InitMaterials()
     m.Specular = glm::vec3(0.7f, 0.6f, 0.6f);
     m.Shininess = 0.25f * 128.f;
     materials_.push_back(m);
-    material_name_text_.push_back(kgl::StringConvertor::ANSItoUTF16LE("材质：红色塑料"));
+    material_name_text_.push_back(kgl::StringConvertor::UTF8toUTF16LE("材质：红色塑料"));
 
     // 铜材质
     m.Ambient = glm::vec3(0.2125f, 0.1275f, 0.054f);
@@ -102,7 +102,7 @@ void LightingApp::InitMaterials()
     m.Specular = glm::vec3(0.393548f, 0.271906f, 0.166721f);
     m.Shininess = 0.2f * 128.f;
     materials_.push_back(m);
-    material_name_text_.push_back(kgl::StringConvertor::ANSItoUTF16LE("材质：铜"));
+    material_name_text_.push_back(kgl::StringConvertor::UTF8toUTF16LE("材质：铜"));
 
     //铬材质
     m.Ambient = glm::vec3(0.25f, 0.25f, 0.25f);
@@ -110,7 +110,7 @@ void LightingApp::InitMaterials()
     m.Specular = glm::vec3(0.774597f, 0.774597f, 0.774597f);
     m.Shininess = 0.6f * 128.f;
     materials_.push_back(m);
-    material_name_text_.push_back(kgl::StringConvertor::ANSItoUTF16LE("材质：铬"));
+    material_name_text_.push_back(kgl::StringConvertor::UTF8toUTF16LE("材质：铬"));
 
     // 祖母绿宝石材质
     m.Ambient = glm::vec3(0.0215f, 0.1745f, 0.0215f);
@@ -118,7 +118,7 @@ void LightingApp::InitMaterials()
     m.Specular = glm::vec3(0.633f, 0.727811f, 0.633f);
     m.Shininess = 0.6f * 128.f;
     materials_.push_back(m);
-    material_name_text_.push_back(kgl::StringConvertor::ANSItoUTF16LE("材质：祖母绿宝石"));
+    material_name_text_.push_back(kgl::StringConvertor::UTF8toUTF16LE("材质：祖母绿宝石"));
 }
 
 void LightingApp::InitLights()
@@ -185,7 +185,7 @@ void LightingApp::RenderScene()
         font_renderer->AddToRendered(camera_ctrl_text_, 0, 25,text_color, 1.0f);
         font_renderer->AddToRendered(material_ctrl_text_, 0, 50,text_color, 1.0f);
         font_renderer->AddToRendered(material_name_text_[cur_mat_index_], 0, 75, text_color, 1.0f);
-        font_renderer->AddToRendered(kgl::StringConvertor::ANSItoUTF16LE(fmt.str().c_str()), 0, 100, text_color, 1.0f);
+        font_renderer->AddToRendered(kgl::StringConvertor::UTF8toUTF16LE(fmt.str().c_str()), 0, 100, text_color, 1.0f);
     }
 
     font_renderer->Draw();

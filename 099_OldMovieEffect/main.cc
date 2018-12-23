@@ -26,7 +26,7 @@ void main()
     try
     {
         app = new OldMovieEffectApp();
-        app->InitWindow(800, 600, false, "Old Movie Effect App");
+        app->InitWindow(1024, 768, false, "Old Movie Effect App");
         app->InitRenderer();
         app->InitScene();
         app->Run();

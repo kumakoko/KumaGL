@@ -140,16 +140,19 @@ namespace kgl
             ImGui::StyleColorsDark();
             // ImGui::StyleColorsClassic();
 
-            //const char* font_file = "F:/MyProjects/KumaGL/publish/resources/font/fzht_sim.ttf";
-            const char* font_file = "resources/font/fzht_sim.ttf";
+
+	
+			// std::string fullpath = bfs::initial_path<boost::filesystem::path>().string();
+			// std::string fullpath = bfs::current_path().string();
+			std::string font_file = bfs::current_path().string() + std::string("/resources/font/fzht_sim.ttf");
             const ImWchar* glyph_ranges = io.Fonts->GetGlyphRangesChineseFull();
-            ImFont* font = io.Fonts->AddFontFromFileTTF(font_file, 18.0f, nullptr, glyph_ranges);
+            ImFont* font = io.Fonts->AddFontFromFileTTF(font_file.c_str(), 18.0f, nullptr, glyph_ranges);
 
             if (!font)
             {
                 std::wstringstream wss;
                 wss << L"无法初始化获取指定的字体库" << std::endl;
-                wss << L"错误描述：无法初始化获取指定的字体库: " << StringConvertor::ANSItoUTF16LE(font_file) << std::endl;
+				wss << L"错误描述：无法初始化获取指定的字体库: " << StringConvertor::ANSItoUTF16LE(font_file.c_str()) << std::endl;
                 wss << L"程序必须退出";
                 throw Error(wss.str(), __FILE__, __LINE__);
             }

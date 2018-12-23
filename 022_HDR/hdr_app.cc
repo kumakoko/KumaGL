@@ -108,11 +108,11 @@ void HDRApp::RenderHelpText(const glm::vec3& view_pos)
             % exposure_ 
             % (use_hdr_ ? "已启用HDR效果" : "已关闭HDR效果");
         font_renderer->AddToRendered(camera_ctrl_text_, 0, 30, text_color, 1.0f);
-        font_renderer->AddToRendered(kgl::StringConvertor::ANSItoUTF16LE(fmt.str().c_str()), 0, 60, text_color, 1.0f);
+        font_renderer->AddToRendered(kgl::StringConvertor::UTF8toUTF16LE(fmt.str().c_str()), 0, 60, text_color, 1.0f);
         
         font_renderer->AddToRendered(use_hdr_ ?
-            kgl::StringConvertor::ANSItoUTF16LE("按下R键关闭HDR效果") :
-            kgl::StringConvertor::ANSItoUTF16LE("按下R键启用HDR效果"), 0, 90, text_color, 1.0f);
+            kgl::StringConvertor::UTF8toUTF16LE("按下R键关闭HDR效果") :
+            kgl::StringConvertor::UTF8toUTF16LE("按下R键启用HDR效果"), 0, 90, text_color, 1.0f);
     }
 
     font_renderer->Draw();

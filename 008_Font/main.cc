@@ -32,7 +32,7 @@ void main()
     try
     {
         app = new FontApp();
-        app->InitWindow(800, 600, false, "008_Font");
+        app->InitWindow(1024, 768, false, "008_Font");
         app->InitRenderer();
         app->InitScene();
         app->Run();

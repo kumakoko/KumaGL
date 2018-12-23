@@ -26,7 +26,7 @@ void main()
     try
     {
         app = new CameraApp();
-        app->InitWindow(800, 600, false, "007_Camera");
+        app->InitWindow(1024, 768, false, "007_Camera");
         app->InitRenderer();
         app->InitScene();
         app->Run();

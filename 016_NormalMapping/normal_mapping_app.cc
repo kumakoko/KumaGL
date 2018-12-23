@@ -97,13 +97,13 @@ void NormalMappingApp::RenderText()
 
     if (is_toggle_on_)
     {
-        font_renderer->AddToRendered(kgl::StringConvertor::ANSItoUTF16LE("按WSAD键上下左右移动点光源，按UJ键增大减小镜面反射辉光值"), 10, 20, text_color, 1.f);
+        font_renderer->AddToRendered(kgl::StringConvertor::UTF8toUTF16LE("按WSAD键上下左右移动点光源，按UJ键增大减小镜面反射辉光值"), 10, 20, text_color, 1.f);
 
         boost::format wf;
         wf.clear();
         wf.parse("点光源的世界坐标值为%2f,%2f,%2f，镜面反射的辉光值为：%2f");
         wf % point_light_.Position.x % point_light_.Position.y % point_light_.Position.z % shininess_;
-        std::wstring text_2 = kgl::StringConvertor::ANSItoUTF16LE(wf.str().c_str());
+        std::wstring text_2 = kgl::StringConvertor::UTF8toUTF16LE(wf.str().c_str());
 
         font_renderer->AddToRendered(text_2, 10, 40, text_color, 1.f);
     }
@@ -164,8 +164,8 @@ void NormalMappingApp::InitFont()
     font_renderer->CreateFontTexture("resources/font/wqy_wmh.ttf", "wqywmh24", 24, 512, 512);
     font_renderer->SetCurrentFont("wqywmh24");
 
-    toggle_help_on_text_ = kgl::StringConvertor::ANSItoUTF16LE("使用法线贴图实现凹凸效果，按下H键显示帮助");
-    toggle_help_off_text_ = kgl::StringConvertor::ANSItoUTF16LE("使用法线贴图实现凹凸效果，按下H键关闭帮助");
+    toggle_help_on_text_ = kgl::StringConvertor::UTF8toUTF16LE("使用法线贴图实现凹凸效果，按下H键显示帮助");
+    toggle_help_off_text_ = kgl::StringConvertor::UTF8toUTF16LE("使用法线贴图实现凹凸效果，按下H键关闭帮助");
 }
 
 void NormalMappingApp::ProcessInput()

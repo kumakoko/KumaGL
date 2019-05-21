@@ -126,8 +126,6 @@ namespace kgl
             IMGUI_CHECKVERSION();
             ImGui::CreateContext();
             ImGuiIO& io = ImGui::GetIO(); (void)io;
-            //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // 启用键盘
-            //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
             io.WantCaptureKeyboard = false;
 
             // 把当前窗口句柄注册到ImGui，建立起鼠标光标，键盘等映射关系
@@ -138,13 +136,9 @@ namespace kgl
 
             // 设置界面的风格
             ImGui::StyleColorsDark();
-            // ImGui::StyleColorsClassic();
 
-
-	
-			// std::string fullpath = bfs::initial_path<boost::filesystem::path>().string();
-			// std::string fullpath = bfs::current_path().string();
-			std::string font_file = bfs::current_path().string() + std::string("/resources/font/fzht_sim.ttf");
+            // 装载字库文件
+            std::string font_file = bfs::current_path().string() + std::string("/resources/font/fzht_sim.ttf");
             const ImWchar* glyph_ranges = io.Fonts->GetGlyphRangesChineseFull();
             ImFont* font = io.Fonts->AddFontFromFileTTF(font_file.c_str(), 18.0f, nullptr, glyph_ranges);
 
@@ -152,7 +146,7 @@ namespace kgl
             {
                 std::wstringstream wss;
                 wss << L"无法初始化获取指定的字体库" << std::endl;
-				wss << L"错误描述：无法初始化获取指定的字体库: " << StringConvertor::ANSItoUTF16LE(font_file.c_str()) << std::endl;
+                wss << L"错误描述：无法初始化获取指定的字体库: " << StringConvertor::ANSItoUTF16LE(font_file.c_str()) << std::endl;
                 wss << L"程序必须退出";
                 throw Error(wss.str(), __FILE__, __LINE__);
             }
@@ -313,8 +307,6 @@ namespace kgl
 
     void App::PostRenderFrame()
     {
-        std::vector<std::string> error_desc_array;
-        std::vector<GLenum> error_code_array;
         glfwSwapBuffers(window_handle_);
     }
 
@@ -400,7 +392,6 @@ namespace kgl
             else if (action == GLFW_PRESS)
                 key_state_.set(key);
         }
-
     }
 
     void App::OnMouseAction(GLFWwindow* window, double xpos, double ypos)

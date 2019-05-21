@@ -33,7 +33,7 @@ namespace kgl
         rendered_texture_.reset();
     }
 
-    void FrameBuffer::Create(int32_t frame_width, int32_t frame_height, RenderedTexelType t,bool use_depth)
+    void FrameBuffer::Create(int32_t frame_width, int32_t frame_height, RenderedTexelType t, bool use_depth, const TextureParams* texture_params)
     {
         glGenFramebuffers(1, &fbo_);
         RenderedTextureSPtr rendered_texture =std::make_shared<RenderedTexture>(t);
@@ -43,31 +43,53 @@ namespace kgl
         {
         default:
         case RenderedTexelType::RGB:
-            tp.wrap_s_mode = GL_CLAMP_TO_BORDER;
-            tp.wrap_t_mode = GL_CLAMP_TO_BORDER;
-            tp.mag_filter_mode = GL_NEAREST;
-            tp.min_filter_mode = GL_NEAREST;
-            tp.internal_format = GL_RGB;
-            tp.src_img_format = GL_RGB;
-            tp.src_img_px_component_type = GL_UNSIGNED_BYTE;
+        {
+            if (texture_params)
+                memcpy(&tp, texture_params, sizeof(TextureParams));
+            else
+            {
+                tp.wrap_s_mode = GL_CLAMP_TO_BORDER;
+                tp.wrap_t_mode = GL_CLAMP_TO_BORDER;
+                tp.mag_filter_mode = GL_NEAREST;
+                tp.min_filter_mode = GL_NEAREST;
+                tp.internal_format = GL_RGB;
+                tp.src_img_format = GL_RGB;
+                tp.src_img_px_component_type = GL_UNSIGNED_BYTE;
+            }
+        }
+           
             break;
         case RenderedTexelType::RGBA:
-            tp.wrap_s_mode = GL_CLAMP_TO_BORDER;
-            tp.wrap_t_mode = GL_CLAMP_TO_BORDER;
-            tp.mag_filter_mode = GL_NEAREST;
-            tp.min_filter_mode = GL_NEAREST;
-            tp.internal_format = GL_RGBA;
-            tp.src_img_format = GL_RGBA;
-            tp.src_img_px_component_type = GL_UNSIGNED_BYTE;
+        {
+            if (texture_params)
+                memcpy(&tp, texture_params, sizeof(TextureParams));
+            else
+            {
+                tp.wrap_s_mode = GL_CLAMP_TO_BORDER;
+                tp.wrap_t_mode = GL_CLAMP_TO_BORDER;
+                tp.mag_filter_mode = GL_NEAREST;
+                tp.min_filter_mode = GL_NEAREST;
+                tp.internal_format = GL_RGBA;
+                tp.src_img_format = GL_RGBA;
+                tp.src_img_px_component_type = GL_UNSIGNED_BYTE;
+            }
+        }
             break;
         case RenderedTexelType::RGBA16F:
-            tp.wrap_s_mode = GL_CLAMP_TO_BORDER;
-            tp.wrap_t_mode = GL_CLAMP_TO_BORDER;
-            tp.mag_filter_mode = GL_NEAREST;
-            tp.min_filter_mode = GL_NEAREST;
-            tp.internal_format = GL_RGBA16F;
-            tp.src_img_format = GL_RGBA;
-            tp.src_img_px_component_type = GL_FLOAT; // 浮点纹理  
+        {
+            if (texture_params)
+                memcpy(&tp, texture_params, sizeof(TextureParams));
+            else
+            {
+                tp.wrap_s_mode = GL_CLAMP_TO_BORDER;
+                tp.wrap_t_mode = GL_CLAMP_TO_BORDER;
+                tp.mag_filter_mode = GL_NEAREST;
+                tp.min_filter_mode = GL_NEAREST;
+                tp.internal_format = GL_RGBA16F;
+                tp.src_img_format = GL_RGBA;
+                tp.src_img_px_component_type = GL_FLOAT; // 浮点纹理  
+            }
+        }
             break;
         case RenderedTexelType::DEPTH_COMPONENT:
             tp.wrap_s_mode = GL_CLAMP_TO_BORDER;

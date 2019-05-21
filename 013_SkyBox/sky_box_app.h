@@ -1,17 +1,4 @@
-﻿/*!
- * \file sky_box_app.h
- * \date 2017/12/31 15:01
- *
- * \author www.xionggf.com
- * Contact: sun_of_lover@sina.com
- *
- * \brief 展示天空盒的渲染技术
- *
- * TODO: long description
- *
- * \note
-*/
-/**************************************************************************************************************************
+﻿/**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -27,6 +14,20 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+/*!
+* \file sky_box_app.h
+* \date 2017/12/31 15:01
+*
+* \author www.xionggf.com
+* Contact: sun_of_lover@sina.com
+*
+* \brief 展示天空盒的渲染技术
+*
+* TODO: 
+*
+* \note
+*/
+
 #ifndef skybox_app_h__
 #define skybox_app_h__
 

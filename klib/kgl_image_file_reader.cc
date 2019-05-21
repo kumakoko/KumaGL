@@ -101,4 +101,43 @@ namespace kgl
 		image_height_ = FreeImage_GetHeight(fi_bitmap_);
 		return true;
 	}
+
+    std::array<unsigned char,4> ImageFileReader::GetPixel(int x, int y) const
+    {
+		int offset = 0;
+		int copy_size = 0;
+        // int bytes_per_pixel = 0; // 每个像素的字节数
+        const unsigned char* pixel = this->GetImageData();
+        std::array<unsigned char, 4> color;
+        memset(color.data(), 0, sizeof(unsigned char) * 4);
+
+        switch (bits_per_pixel_)
+        {// 以A,R,G,B的格式存放
+        case 32:
+			copy_size = sizeof(unsigned char) * 4;
+			offset = copy_size * (this->ImageWidth() * y + x);
+			memcpy(color.data() + 0, pixel + offset, copy_size);
+			break;
+		case 24:
+			copy_size = sizeof(unsigned char) * 3;
+			offset = copy_size * (this->ImageWidth() * y + x);
+			memcpy(color.data() + 1, pixel + offset, copy_size);
+			break;
+			//memcpy(color.data() + 1, pixel, sizeof(unsigned char) * 3 * (ImageWidth() * y + x)); break;
+		case 16:
+			copy_size = sizeof(unsigned char) * 2;
+			offset = copy_size * (this->ImageWidth() * y + x);
+			memcpy(color.data() + 2, pixel + offset, copy_size);
+			break;
+			//memcpy(color.data() + 2, pixel, sizeof(unsigned char) * 2 * (ImageWidth() * y + x)); break;
+		case 8: 
+			copy_size = sizeof(unsigned char) * 1;
+			offset = copy_size * (this->ImageWidth() * y + x);
+			memcpy(color.data() + 3, pixel + offset, copy_size);
+			break;
+			//memcpy(color.data() + 3, pixel, sizeof(unsigned char) * 1 * (ImageWidth() * y + x)); break;
+        }
+
+        return color;
+    }
 }

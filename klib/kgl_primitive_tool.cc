@@ -3,15 +3,15 @@ Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
-modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the 
+modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the
 Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
 Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE 
-WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
 #include "kgl_lib_pch.h"
@@ -35,7 +35,7 @@ namespace kgl
     {
         GLfloat vertices[] =
         {
-            -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,1.0f,
+            -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f,
             0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f,
             0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f,
             0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f,
@@ -75,7 +75,7 @@ namespace kgl
             0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f,
             0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f,
             -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f,
-            -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,1.0f
+            -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f
         };
 
         VertexAttribute va_position;
@@ -107,8 +107,8 @@ namespace kgl
 
     PrimitiveSPtr PrimitiveTool::BuildTexturedCube()
     {
-        
-        GLfloat cube_vertices[] = 
+
+        GLfloat cube_vertices[] =
         {
             // Back face
             -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, // Bottom-left
@@ -181,21 +181,21 @@ namespace kgl
         return p;
     }
 
- 
+
     kgl::PrimitiveSPtr PrimitiveTool::BuildNDCTexturedRectange(float left /*= -1.0f*/, float right /*= 1.0f*/, float top /*= 1.0f*/, float bottom /*= -1.0f*/, int texture_repeat /*= 1*/)
     {
         /*
         GLfloat quadVertices[] = {
 
-            // Positions   // TexCoords
-            -1.0f, -1.0f, 0.0f, 0.0f,
-            -1.0f, 1.0f, 0.0f, 1.0f,
-            1.0f, -1.0f, 1.0f, 0.0f,
+        // Positions   // TexCoords
+        -1.0f, -1.0f, 0.0f, 0.0f,
+        -1.0f, 1.0f, 0.0f, 1.0f,
+        1.0f, -1.0f, 1.0f, 0.0f,
 
-            -1.0f, 1.0f, 0.0f, 1.0f,
-            1.0f, 1.0f, 1.0f, 1.0f
-            1.0f, -1.0f, 1.0f, 0.0f,
-           
+        -1.0f, 1.0f, 0.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f
+        1.0f, -1.0f, 1.0f, 0.0f,
+
         }; */
 
         GLfloat rectangle_vertices[24];
@@ -272,17 +272,17 @@ namespace kgl
                 int index = row * (quality + 1) + col;
 
                 // 顶点坐标
-                v.Position.x = -1.0f / 2 + col*1.0f / quality;
-                v.Position.y = 1.0f / 2 - row*1.0f / quality;
-                v.Position.z = 0.0f;
+                v.position.x = -1.0f / 2 + col*1.0f / quality;
+                v.position.y = 1.0f / 2 - row*1.0f / quality;
+                v.position.z = 0.0f;
 
                 // 纹理坐标
-                v.TextureCoord1.x = static_cast<float>(col) / static_cast<float>(quality);
-                v.TextureCoord1.y = static_cast<float>(row) / static_cast<float>(quality);
+                v.texture_coord_1.x = static_cast<float>(col) / static_cast<float>(quality);
+                v.texture_coord_1.y = static_cast<float>(row) / static_cast<float>(quality);
 
                 // 法线
-                v.Normal.x = v.Normal.y = 0.0f;
-                v.Normal.z = is_clock_wise ? 1.0f : -1.0f;
+                v.normal.x = v.normal.y = 0.0f;
+                v.normal.z = is_clock_wise ? 1.0f : -1.0f;
 
                 vertices.push_back(v);
             }
@@ -296,14 +296,14 @@ namespace kgl
             GLuint vtx_idx_2 = indices[i + 2];
 
             // 拿到组成三角形的三个顶点的坐标
-            glm::vec3& v0 = vertices[vtx_idx_0].Position;
-            glm::vec3& v1 = vertices[vtx_idx_1].Position;
-            glm::vec3& v2 = vertices[vtx_idx_2].Position;
+            glm::vec3& v0 = vertices[vtx_idx_0].position;
+            glm::vec3& v1 = vertices[vtx_idx_1].position;
+            glm::vec3& v2 = vertices[vtx_idx_2].position;
 
             // 拿到组成三角形的三个顶点的纹理贴图坐标
-            glm::vec2& uv0 = vertices[vtx_idx_0].TextureCoord1;
-            glm::vec2& uv1 = vertices[vtx_idx_1].TextureCoord1;
-            glm::vec2& uv2 = vertices[vtx_idx_2].TextureCoord1;
+            glm::vec2& uv0 = vertices[vtx_idx_0].texture_coord_1;
+            glm::vec2& uv1 = vertices[vtx_idx_1].texture_coord_1;
+            glm::vec2& uv2 = vertices[vtx_idx_2].texture_coord_1;
 
             // 拿到组成三角形两条边 v0->v1，v0->v2
             glm::vec3 delta_pos_1 = v1 - v0;
@@ -318,13 +318,13 @@ namespace kgl
             glm::vec3 tangent = (delta_pos_1 * delta_uv_2.y - delta_pos_2 * delta_uv_1.y)*r;
             glm::vec3 bitangent = (delta_pos_2 * delta_uv_1.x - delta_pos_1 * delta_uv_2.x)*r;
 
-            vertices[vtx_idx_0].Tangent =
-            vertices[vtx_idx_1].Tangent =
-            vertices[vtx_idx_2].Tangent = tangent;
+            vertices[vtx_idx_0].tangent =
+                vertices[vtx_idx_1].tangent =
+                vertices[vtx_idx_2].tangent = tangent;
 
-            vertices[vtx_idx_0].Binormal =
-            vertices[vtx_idx_1].Binormal =
-            vertices[vtx_idx_2].Binormal = bitangent;
+            vertices[vtx_idx_0].binormal =
+                vertices[vtx_idx_1].binormal =
+                vertices[vtx_idx_2].binormal = bitangent;
         }
 
         GLsizei stride = sizeof(VertexPNTBT1);
@@ -428,7 +428,7 @@ namespace kgl
             {
                 // 按照行优先的原则，计算每行从左到右的顶点坐标。，以正方形的中心点为本图元的模型空间的坐标原点
                 int index = row * (quality + 1) + col;
-                
+
                 float x = -1.0f / 2 + col*1.0f / quality;
                 float y = 1.0f / 2 - row*1.0f / quality;
 
@@ -448,7 +448,7 @@ namespace kgl
                 vertices.push_back(is_clock_wise ? 1.0f : -1.0f);
                 vertices.push_back(0.0f);
 
-                
+
                 // 顶点颜色
                 vertices.push_back(vertex_color.r);
                 vertices.push_back(vertex_color.g);
@@ -499,15 +499,15 @@ namespace kgl
         vtx_attri_array.push_back(va_color);
 
         PrimitiveSPtr p = std::make_shared<Primitive>();
-        
+
         p->CreateIndexed(
             GL_TRIANGLES,
             reinterpret_cast<GLvoid*>(&(vertices[0])),
             sizeof(float)*vertices.size(),
-            GL_STATIC_DRAW, 
+            GL_STATIC_DRAW,
             kgl::Primitive::UINT32, // 顶点索引的类型
             reinterpret_cast<GLvoid*>(&(indices[0])),//&p_DeviceIBMem[0],
-            sizeof(GLuint)*indices.size(), 
+            sizeof(GLuint)*indices.size(),
             GL_STATIC_DRAW, vtx_attri_array);
 
         return p;
@@ -520,7 +520,7 @@ namespace kgl
     {
         uint32_t num_slices = quality + 2;  //沿着Y轴球的切片数 切片数为quality+2， 
         uint32_t num_segments = quality + 3; // 每一切片的段数
-    
+
         //每个切片分成的段，也就是说，每个切片由几个四边形（每个四边形由
         //两个三角形组成）组成，在渲染的时候，实际的segment是qulity+2
         uint32_t num_vertices = num_slices * num_segments;
@@ -748,7 +748,7 @@ namespace kgl
         return p;
     }
 
-    kgl::PrimitiveSPtr PrimitiveTool::BuildNormalTexturedXZPlane(float size,float y_offset)
+    kgl::PrimitiveSPtr PrimitiveTool::BuildNormalTexturedXZPlane(float size, float y_offset)
     {
         float vertices[] =
         {
@@ -800,6 +800,152 @@ namespace kgl
         GLint vertices_count = 6;
         GLenum vb_usage = GL_STATIC_DRAW;
         p->Create(GL_TRIANGLES, vertices, vertices_byte_count, vertices_count, vb_usage, vtx_attri_array);
+        return p;
+    }
+
+    PrimitiveSPtr  PrimitiveTool::BuildNormalTexturedRectangle(unsigned int num_verts_along_x, unsigned int num_verts_along_y, float mesh_length_along_x, float mesh_length_along_y)
+    {
+        struct V3_N3_T2
+        {
+            float x, y, z;
+            float nx, ny, nz;
+            float tu, tv;
+        };
+
+        unsigned int mesh_vetex_count = (num_verts_along_x - 1) * (num_verts_along_y - 1) * 6;
+        // Compute position deltas for moving down the X, and Z axis during mesh creation
+        const float dX = (1.0f / (num_verts_along_x - 1));
+        const float dZ = -(1.0f / (num_verts_along_y - 1));
+
+        // Compute tex-coord deltas for moving down the X, and Z axis during mesh creation
+        const float dTU = 1.0f / (num_verts_along_x - 1);
+        const float dTV = 1.0f / (num_verts_along_y - 1);
+
+        int i = 0;
+        int x = 0;
+        int y = 0;
+
+        std::vector<V3_N3_T2> mesh_vertices;
+        mesh_vertices.resize(mesh_vetex_count);
+
+        // These are all the same...
+        for (i = 0; i < mesh_vetex_count; ++i)
+        {
+            // Mesh tessellation occurs in the X,Z plane, so Y is always zero
+            mesh_vertices[i].z = 0.0f;
+            mesh_vertices[i].nx = 0.0f;
+            mesh_vertices[i].ny = 0.0f;
+            mesh_vertices[i].nz = -1.0f;
+        }
+
+        //
+        // Create all the vertex points required by the mesh...
+        //
+        // Note: Mesh tessellation occurs in the X,Z plane.
+        //
+
+        // For each row of our mesh...
+        for (y = 0, i = 0; y < (num_verts_along_y - 1); ++y)
+        {
+            // Fill the row with quads which are composed of two triangles each...
+            for (x = 0; x < (num_verts_along_x - 1); ++x)
+            {
+                // First triangle of the current quad
+                //   ___ 2
+                //  |  /|
+                //  |/__|
+                // 0     1
+
+                // 0
+                mesh_vertices[i].x = mesh_length_along_x * x * dX;
+                mesh_vertices[i].y = mesh_length_along_y * y * dZ;
+                mesh_vertices[i].tu = x * dTU;
+                mesh_vertices[i].tv = y * dTV;
+                ++i;
+
+                // 1
+                mesh_vertices[i].x = mesh_length_along_x * (x + 1.0f) * dX;
+                mesh_vertices[i].y = mesh_length_along_y * y * dZ;
+                mesh_vertices[i].tu = (x + 1.0f) * dTU;
+                mesh_vertices[i].tv = y * dTV;
+                ++i;
+
+                // 2
+                mesh_vertices[i].x = mesh_length_along_x * (x + 1.0f) * dX;
+                mesh_vertices[i].y = mesh_length_along_y * (y + 1.0f) * dZ;
+                mesh_vertices[i].tu = (x + 1.0f) * dTU;
+                mesh_vertices[i].tv = (y + 1.0f) * dTV;
+                ++i;
+
+                // Second triangle of the current quad
+                // 2 ___ 1
+                //  |  /|
+                //  |/__|
+                // 0
+
+                // 0
+                mesh_vertices[i].x = mesh_length_along_x * x * dX;
+                mesh_vertices[i].y = mesh_length_along_y * y * dZ;
+                mesh_vertices[i].tu = x * dTU;
+                mesh_vertices[i].tv = y * dTV;
+                ++i;
+
+                // 1
+                mesh_vertices[i].x = mesh_length_along_x * (x + 1.0f) * dX;
+                mesh_vertices[i].y = mesh_length_along_y * (y + 1.0f) * dZ;
+                mesh_vertices[i].tu = (x + 1.0f) * dTU;
+                mesh_vertices[i].tv = (y + 1.0f) * dTV;
+                ++i;
+
+                // 2
+                mesh_vertices[i].x = mesh_length_along_x * x * dX;
+                mesh_vertices[i].y = mesh_length_along_y * (y + 1.0f) * dZ;
+                mesh_vertices[i].tu = x * dTU;
+                mesh_vertices[i].tv = (y + 1.0f) * dTV;
+                ++i;
+            }
+        }
+
+
+        GLsizei stride = 8 * sizeof(GLfloat);
+
+        VertexAttribute va_position;
+        va_position.index = 0;
+        va_position.normalized = GL_FALSE;
+        va_position.type = GL_FLOAT;
+        va_position.size = 3; // 一个“顶点位置”的属性由3个分量组成
+        va_position.stride = stride; // 每个顶点的步长为 
+        va_position.pointer = nullptr;
+
+        VertexAttribute va_normal;
+        va_normal.index = 1;
+        va_normal.normalized = GL_TRUE;
+        va_normal.type = GL_FLOAT;
+        va_normal.size = 3; // 一个“法线”的属性由3个分量组成
+        va_normal.stride = stride; // 每个顶点的步长为 
+        va_normal.pointer = reinterpret_cast<GLvoid*> (3 * sizeof(GLfloat));
+
+        VertexAttribute va_texture;
+        va_texture.index = 2;
+        va_texture.normalized = GL_FALSE;
+        va_texture.type = GL_FLOAT;
+        va_texture.size = 2; // 一个“顶点纹理坐标”的属性由2个分量组成
+        va_texture.stride = stride; // 每个位置的步长为 
+        va_texture.pointer = reinterpret_cast<GLvoid*> (6 * sizeof(GLfloat));
+
+        std::vector<VertexAttribute> vtx_attri_array;
+        vtx_attri_array.clear();
+        vtx_attri_array.push_back(va_position);
+        vtx_attri_array.push_back(va_normal);
+        vtx_attri_array.push_back(va_texture);
+
+        PrimitiveSPtr p = std::make_shared<Primitive>();
+        GLenum primitive_mode = GL_TRIANGLES;
+        GLsizeiptr vertices_byte_count = sizeof(float) * mesh_vetex_count * 8;
+        GLint vertices_count = mesh_vetex_count;
+        GLenum vb_usage = GL_STATIC_DRAW;
+        GLvoid* vertices_datas_pointer = &(mesh_vertices[0]);
+        p->Create(GL_TRIANGLES, vertices_datas_pointer, vertices_byte_count, vertices_count, vb_usage, vtx_attri_array);
         return p;
     }
 }

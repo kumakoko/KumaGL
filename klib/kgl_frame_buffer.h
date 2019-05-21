@@ -55,7 +55,8 @@ namespace kgl
         /// <param name="frame_height">The 帧缓存的高度.</param>
         /// <param name="t">本帧缓存生成的颜色缓冲区的纹素类型</param>
         /// <param name="use_depth">同时对本帧缓存生成深度缓冲区的render buffer object吗</param>
-        void Create(int32_t frame_width, int32_t frame_height, RenderedTexelType t = RenderedTexelType::RGBA,bool use_depth = true);
+        /// <param name="texture_params">创建纹理时的各个参数</param>
+        void Create(int32_t frame_width, int32_t frame_height, RenderedTexelType t = RenderedTexelType::RGBA, bool use_depth = true, const TextureParams* texture_params = nullptr);
         
         /// <summary>
         /// 返回frame buffer object的ID

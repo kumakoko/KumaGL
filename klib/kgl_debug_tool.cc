@@ -21,10 +21,10 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-    void DebugTool::OutputDebugMessage(const char* message)
+    void DebugTool::OutputDebugMessage(const char* utf8_msg_str)
     {
 #if defined(WIN32) || defined(_WIN32)
-        ::OutputDebugStringW(StringConvertor::ANSItoUTF16LE(message).c_str());
+        ::OutputDebugStringW(StringConvertor::UTF8toUTF16LE(utf8_msg_str).c_str());
 #else
 #endif
     }

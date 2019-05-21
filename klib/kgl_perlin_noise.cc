@@ -54,7 +54,7 @@ namespace kgl
 
         float PerlinNoise::GetSmoothNoise(int x, int y) 
         {
-            // 四个角的噪声值，四个边的噪声值，中心点的噪声�?
+            // 四个角的噪声值，四个边的噪声值，中心点的噪声
             float corners = (GetNoise(x - 1, y - 1) + GetNoise(x + 1, y - 1) + GetNoise(x - 1, y + 1)
                 + GetNoise(x + 1, y + 1)) / 16.f;
             float sides = (GetNoise(x - 1, y) + GetNoise(x + 1, y) + GetNoise(x, y - 1) + GetNoise(x, y + 1)) / 8.f;

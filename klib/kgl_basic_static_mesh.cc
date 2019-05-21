@@ -182,13 +182,13 @@ namespace kgl
     bool BasicStaticMesh::InitMaterials(const aiScene* scene, const std::string& file_name)
     {
         bfs::path full_path(file_name);
-        std::string dir = full_path.parent_path().string();
         bool Ret = true;
 
         for (unsigned int i = 0; i < scene->mNumMaterials; i++)
         {
             const aiMaterial* material = scene->mMaterials[i];
             unsigned int diffuse_texture_count = material->GetTextureCount(aiTextureType_DIFFUSE);
+            std::string dir = full_path.parent_path().string();
 
             if (diffuse_texture_count > 0)
             {
@@ -205,6 +205,7 @@ namespace kgl
                     dir.append("/").append(texture_name.data);
                     kgl::TextureParams texture_param = kgl::TextureManager::MakeTextureParamsRGB(GL_REPEAT, GL_LINEAR);
                     texture_param.min_filter_mode = GL_LINEAR_MIPMAP_LINEAR;
+                    // texture_param.mag_filter_mode = GL_LINEAR_MIPMAP_LINEAR;
                     texture_param.used_mipmap = true;
                     textures_[i] = kgl::KTextureManager::GetInstance()->CreateTextureFromFile(dir, kgl::SOURCE_2D_TEXTURE, texture_param);
                 }

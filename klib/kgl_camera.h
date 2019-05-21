@@ -137,6 +137,16 @@ namespace kgl
         /// </summary>
         /// <param name="pitch_angle">The pitch_angle.</param>
         void SetPitchAngle(float pitch_angle);
+        
+        /// <summary>
+        /// 把当前的pitch角取相反数
+        /// </summary>
+        inline void InvertPitchAngle()
+        {
+            pitch_angle_ = pitch_angle_ * -1.0f;
+            is_view_matrix_changed_ = true;
+            is_eular_angle_changed_ = true;
+        }
 
         /// <summary>
         /// Gets the pitch angle.
@@ -190,7 +200,7 @@ namespace kgl
         /// Gets the view matrix.
         /// </summary>
         /// <returns>glm.mat4.</returns>
-        inline glm::mat4 GetViewMatrix()
+        inline const glm::mat4& GetViewMatrix() const
         {
             return view_matrix_;
         }

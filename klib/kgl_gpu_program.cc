@@ -145,7 +145,6 @@ namespace kgl
             glDeleteShader(fs_handle);
     }
 
-    // Constructor generates the shader on the fly
     void GPUProgram::CreateFromFile(const GLchar* vs_file_path, const GLchar* fs_file_path, const GLchar* gs_file_path)
     {
         std::string shader_code_string;
@@ -310,6 +309,11 @@ namespace kgl
         glUseProgram(this->program_handle_);
     }
     
+    void GPUProgram::Finish() const
+    {
+        glUseProgram(0);
+    }
+
     // http://blog.csdn.net/racehorse/article/details/6634830
     void GPUProgram::ApplyTexture(TextureSPtr texture, const char* uniform_var_name,GLuint slot_index)
     {
@@ -321,6 +325,21 @@ namespace kgl
     {
         texture->ActiveBind(slot_index);
         glUniform1i(location, slot_index);
+    }
+
+    void GPUProgram::ApplyTexture(GLint location, GLuint slot_index, GLuint texture_id, GLenum target)
+    {
+        GLuint i = glm::clamp(slot_index, static_cast<GLuint>(0), static_cast<GLuint>(8));
+        GLenum texture_unit = GL_TEXTURE0 + i;
+        glActiveTexture(texture_unit);
+        glBindTexture(target, texture_id);
+        glUniform1i(location, slot_index);
+    }
+
+    void GPUProgram::ApplyTexture(const char* uniform_var_name, GLuint texture_unit_slot, GLuint texture_id, GLenum target)
+    {
+        GLuint location = glGetUniformLocation(program_handle_, uniform_var_name);
+        this->ApplyTexture(location, texture_unit_slot, texture_id, target);
     }
 
     void GPUProgram::ApplyTexture(const char* uniform_var_name, GLuint slot_index)

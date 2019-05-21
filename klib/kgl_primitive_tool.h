@@ -101,6 +101,21 @@ namespace kgl
         static PrimitiveSPtr BuildPNTBT1Square(unsigned int quality, bool is_clock_wise);
 
         static PrimitiveSPtr BuildNDCTextureNormalCube();
+
+        
+        //************************************
+        // Method:    BuildNormalTexturedRectangle
+        // FullName:  kgl::PrimitiveTool::BuildNormalTexturedRectangle
+        // Access:    public static 
+        // Returns:   kgl::PrimitiveSPtr
+        // Qualifier:
+        // Parameter: unsigned int num_verts_along_x
+        // Parameter: unsigned int num_verts_along_y
+        // Parameter: float mesh_length_along_x
+        // Parameter: float mesh_length_along_y
+        //************************************
+        static PrimitiveSPtr BuildNormalTexturedRectangle(unsigned int num_verts_along_x, unsigned int num_verts_along_y, float mesh_length_along_x, float mesh_length_along_y);
+
     };
 }
 #endif // kgl_primitive_tool_h__

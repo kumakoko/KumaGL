@@ -1,16 +1,4 @@
-﻿/*!
- * \file parallax_mapping_app.h
- * \date 2017/12/31 15:25
- *
- * \author www.xionggf.com
- * Contact: sun_of_lover@sina.com
- *
- * \brief 
- *
- * TODO: long description
- *
- * \note
-*/
+﻿
 /**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
@@ -27,6 +15,19 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+/*!
+* \file parallax_mapping_app.h
+* \date 2017/12/31 15:25
+*
+* \author www.xionggf.com
+* Contact: sun_of_lover@sina.com
+*
+* \brief 
+*
+* TODO: 演示使用视差贴图显示出凹凸的效果
+*
+* \note
+*/
 #ifndef parallax_mapping_app_h__
 #define parallax_mapping_app_h__
 
@@ -44,56 +45,55 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class ParallaxMappingApp : public kgl::App
 {
 public:
-    ParallaxMappingApp();
-    virtual ~ParallaxMappingApp();
-    virtual void InitScene();
+	ParallaxMappingApp();
+	virtual ~ParallaxMappingApp();
+	virtual void InitScene();
 protected:
-    virtual void RenderScene() override;
-    virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
-    virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
-    virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
-    virtual void ProcessInput() override;
-    virtual void InitModel() override;
-    virtual void InitShaders() override;
-    virtual void InitMainCamera() override;
-    virtual void InitLights() override;
-    virtual void InitMaterials() override;
-    void renderQuad();
-    void InitNDCScreeenRectangle();
+	virtual void PreRenderFrame() override;
+	virtual void RenderScene() override;
+	virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
+	virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
+	virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
+	virtual void ProcessInput() override;
+	virtual void InitMaterials() override;
+	virtual void InitModel() override;
+	virtual void InitShaders() override;
+	virtual void InitMainCamera() override;
+	virtual void RenderGUI() override;
 private:
-    /// <summary>
-    /// The model_
-    /// </summary>
-    kgl::BasicStaticMesh* model_ = nullptr;
+	/// <summary>
+	/// 用来绘制法线贴图凹凸效果的的shader
+	/// </summary>
+	kgl::GPUProgramSPtr parallax_mapping_shader_;
 
-    /// <summary>
-    /// The model_shader_
-    /// </summary>
-    kgl::GPUProgramSPtr model_shader_;
+	/// <summary>
+	/// 表示墙壁贴图的图元
+	/// </summary>
+	kgl::PrimitiveSPtr wall_square_;
 
-    /// <summary>
-    /// The rs_depth_
-    /// </summary>
-    kgl::RenderStateDepth rs_depth_;
+	/// <summary>
+	/// 漫反射贴图，所有顶点的漫反射光照信息都预存在这个贴图了
+	/// </summary>
+	kgl::SourceTextureSPtr diffuse_map_texture_;
 
-    /// <summary>
-    /// The directional_light_
-    /// </summary>
-    kgl::DirectionalLight directional_light_;
+	/// <summary>
+	/// 法线贴图
+	/// </summary>
+	kgl::SourceTextureSPtr height_map_texture_;
 
-    /// <summary>
-    /// The material_
-    /// </summary>
-    kgl::Material material_;
+	/// <summary>
+	/// 绘制两个面片时使用的拣选模式
+	/// </summary>
+	kgl::RenderStateCullMode draw_square_cull_mode_;
 
+	/// <summary>
+	/// 绘制面片时使用的深度模式
+	/// </summary>
+	kgl::RenderStateDepth draw_square_depth_mode_;
 
-    kgl::SourceTextureSPtr diffuse_map_texture_;// = loadTexture("../../../resources/textures/bricks2.jpg");
-    kgl::SourceTextureSPtr normal_map_texture_;// = loadTexture("../../../resources/textures/bricks2_normal.jpg");
-    kgl::SourceTextureSPtr height_map_texture_;;// = loadTexture("../../../resources/textures/bricks2_disp.jpg");
+	glm::vec2 uv_offset_value_;
 
-    float height_scale = 0.1f;
-
-    kgl::PrimitiveSPtr screen_quad_;
+	bool use_parallax_effect_ = true;
 };
 
 

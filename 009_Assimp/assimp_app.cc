@@ -100,7 +100,7 @@ void AssimpApp::RenderScene()
     model_shader_->ApplyMatrix(glm::value_ptr(model_matrix), "model_matrix");
     model_shader_->ApplyMatrix(glm::value_ptr(view_matrix), "view_matrix");
     model_shader_->ApplyMatrix(glm::value_ptr(projection_matrix), "projection_matrix");
-    model_shader_->ApplyTexture("texture_diffuse_1", 0);
+//    model_shader_->ApplyTexture("texture_diffuse_1", 0);
     model_->Render();
 
     this->RenderText();

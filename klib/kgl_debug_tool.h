@@ -31,6 +31,8 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #ifndef kgl_debug_tool_h__
 #define kgl_debug_tool_h__
 
+#include "kgl_string_convertor.h"
+
 namespace kgl
 {
     class DebugTool
@@ -39,8 +41,8 @@ namespace kgl
         /// <summary>
         /// 在IDE控制台中打印调试信息
         /// </summary>
-        /// <param name="message">待打印出来的调试信息.</param>
-        static void OutputDebugMessage(const char* message);
+        /// <param name="utf8_msg_str">待打印出来的调试信息.</param>
+        static void OutputDebugMessage(const char* utf8_msg_str);
 
         static void PrintMatrix(const char* matrix_name, const glm::mat4& matrix);
 

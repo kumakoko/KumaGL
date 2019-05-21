@@ -37,18 +37,19 @@ namespace kgl
 #define GLFW_HAS_WINDOW_ALPHA       (GLFW_VERSION_MAJOR * 1000 + GLFW_VERSION_MINOR * 100 >= 3300) // 3.3+ glfwSetWindowOpacity
 #define GLFW_HAS_PER_MONITOR_DPI    (GLFW_VERSION_MAJOR * 1000 + GLFW_VERSION_MINOR * 100 >= 3300) // 3.3+ glfwGetMonitorContentScale
 #define GLFW_HAS_VULKAN             (GLFW_VERSION_MAJOR * 1000 + GLFW_VERSION_MINOR * 100 >= 3200) // 3.2+ glfwCreateWindowSurface
+    GLFWwindow* ImGuiGlfwBridge::glfw_wnd_ = nullptr;
+    GLFWcursor* ImGuiGlfwBridge::mouse_cursors_[ImGuiMouseCursor_COUNT] = { 0 };
+    double ImGuiGlfwBridge::time_ = 0.0;
 
-    GLFWwindow*  ImGuiGlfwBridge::glfw_wnd_ = nullptr;
-    GLFWcursor*  ImGuiGlfwBridge::mouse_cursors_[ImGuiMouseCursor_COUNT] = { 0 };
-    double       ImGuiGlfwBridge::time_ = 0.0;
     /// <summary>
     /// The s_mouse_just_pressed_{CC2D43FA-BBC4-448A-9D0B-7B57ADF2655C}
     /// </summary>
-    bool         ImGuiGlfwBridge::s_mouse_just_pressed_[5] = { false, false, false, false, false };
-    bool         ImGuiGlfwBridge::s_install_key_callback_ = true;
-    bool         ImGuiGlfwBridge::s_install_scroll_callback_ = true;
-    bool         ImGuiGlfwBridge::s_install_mouse_btn_callback_ = true;
-    bool         ImGuiGlfwBridge::s_install_char_callback_ = true;
+    bool ImGuiGlfwBridge::s_mouse_just_pressed_[5] = { false, false, false, false, false };
+
+    bool ImGuiGlfwBridge::s_install_key_callback_ = true;
+    bool ImGuiGlfwBridge::s_install_scroll_callback_ = true;
+    bool ImGuiGlfwBridge::s_install_mouse_btn_callback_ = true;
+    bool ImGuiGlfwBridge::s_install_char_callback_ = true;
 
     const char* ImGuiGlfwBridge::GetClipboardText(void* user_data)
     {
@@ -76,12 +77,12 @@ namespace kgl
     void ImGuiGlfwBridge::KeyCallback(GLFWwindow*, int key, int, int action, int mods)
     {
         ImGuiIO& io = ImGui::GetIO();
+
         if (action == GLFW_PRESS)
             io.KeysDown[key] = true;
         if (action == GLFW_RELEASE)
             io.KeysDown[key] = false;
 
-        (void)mods; // Modifiers are not reliable across systems
         io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] || io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
         io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT] || io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
         io.KeyAlt = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
@@ -119,10 +120,9 @@ namespace kgl
         s_install_scroll_callback_ = install_scroll_callback;
 
         ImGuiIO& io = ImGui::GetIO();
-        io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;         // We can honor GetMouseCursor() values (optional)
-        io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;          // We can honor io.WantSetMousePos requests (optional, rarely used)
+        io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;        
+        io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 
-        // Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array.
         // 把GLFW定义的键位码映射到ImGuiIO的key map中
         io.KeyMap[ImGuiKey_Tab] = GLFW_KEY_TAB;
         io.KeyMap[ImGuiKey_LeftArrow] = GLFW_KEY_LEFT;

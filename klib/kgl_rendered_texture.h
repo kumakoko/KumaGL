@@ -54,6 +54,8 @@ namespace kgl
         /// <param name="used_type">Rendered Texture的使用类型，也就是纹理格式类型</param>
         RenderedTexture(RenderedTexelType used_type);
 
+        RenderedTexture(RenderedTexelType used_type,GLuint texture_id,int width,int height);
+
         /// <summary>
         ///  <see cref="RenderedTexture"/>类的析构函数.
         /// </summary>
@@ -106,6 +108,8 @@ namespace kgl
         /// </summary>
         /// <returns>返回的用于frame buffer的attachment的类型</returns>
         GLenum GetAttachmentForFrameBuffer();
+
+        
         
     protected:
         RenderedTexelType texel_type_;

@@ -145,7 +145,6 @@ namespace kgl
 		vertices_count_ = vertices_count;
 		drawn_vertices_count_ = vertices_count;
 	}
-		
 
 	void Primitive::DrawIndexed()
 	{
@@ -157,7 +156,6 @@ namespace kgl
 	void Primitive::Draw()
 	{
 		glBindVertexArray(vertex_attribute_object_);
-		// glDrawArrays(GL_TRIANGLES, 0, drawn_vertices_count_);
 		glDrawArrays(primitive_mode_, 0, drawn_vertices_count_);
 		glBindVertexArray(0);
 	}
@@ -172,10 +170,7 @@ namespace kgl
 	// 参考文档： https://www.opengl.org/wiki/Vertex_Specification_Best_Practices#Dynamic_VBO
 	void Primitive::UpdateAllVertexData(const void* src_data, std::size_t src_data_byte_count)
 	{
-		// std::vector<std::string> error_desc_array;
-		// std::vector<GLenum> error_code_array;
 		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_object_);
-		//THROW_GL_EXCEPTION(error_desc_array, error_code_array, __FILE__, __LINE__);
 		GLvoid* buffer_pointer = glMapBuffer(GL_ARRAY_BUFFER,GL_WRITE_ONLY);
 		memcpy(buffer_pointer, src_data, src_data_byte_count);
 		glUnmapBuffer(GL_ARRAY_BUFFER);

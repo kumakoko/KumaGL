@@ -55,6 +55,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include <set>
 #include <array>
 #include <cstdlib>
+#include <utility>
 
 #define GLEW_STATIC
 #include "GL/glew.h"
@@ -75,16 +76,18 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include "tinyxml2.h"
 
 #ifndef  GLM_FORCE_SSE2
-	#define  GLM_FORCE_SSE2
+    #define  GLM_FORCE_SSE2
 #endif
 
 #ifndef  GLM_FORCE_INLINE
-	#define  GLM_FORCE_INLINE
+    #define  GLM_FORCE_INLINE
 #endif
 
+/*
 #ifndef  GLM_MESSAGES
-	#define  GLM_MESSAGES
+    #define  GLM_MESSAGES
 #endif
+*/
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"

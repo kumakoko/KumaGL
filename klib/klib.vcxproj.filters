@@ -22,6 +22,9 @@
     <Filter Include="headers\terrain">
       <UniqueIdentifier>{86aeeaa6-24ac-4ef4-bdeb-33cc5216b658}</UniqueIdentifier>
     </Filter>
+    <Filter Include="water_effect">
+      <UniqueIdentifier>{9bfc1e7e-2481-4b3b-911c-eae3d4fcd280}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -195,6 +198,51 @@
     <ClInclude Include="kgl_imgui_opengl_bridge.h">
       <Filter>headers</Filter>
     </ClInclude>
+    <ClInclude Include="kgl_math_tools.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_wfx_loader.h">
+      <Filter>water_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_wfx_raw_model.h">
+      <Filter>water_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_wfx_resource_handle.h">
+      <Filter>water_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_wfx_water_frame_buffer.h">
+      <Filter>water_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_wfx_water_renderer.h">
+      <Filter>water_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_wfx_water_tile.h">
+      <Filter>water_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_wfx_light.h">
+      <Filter>water_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_wfx_terrain.h">
+      <Filter>water_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_wfx_terrin_texture.h">
+      <Filter>water_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_wfx_terrin_texture_group.h">
+      <Filter>water_effect</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_stb_image.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_gpu_particle_system.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_particle_system.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_transform_feedback.h">
+      <Filter>headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kgl_lib_pch.cc">
@@ -351,6 +399,48 @@
       <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="kgl_imgui_opengl_bridge.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_math_tools.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_wfx_loader.cc">
+      <Filter>water_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_wfx_raw_model.cc">
+      <Filter>water_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_wfx_resource_handle.cc">
+      <Filter>water_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_wfx_water_frame_buffer.cc">
+      <Filter>water_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_wfx_water_renderer.cc">
+      <Filter>water_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_wfx_water_tile.cc">
+      <Filter>water_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_wfx_light.cc">
+      <Filter>water_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_wfx_terrain.cc">
+      <Filter>water_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_wfx_terrin_texture.cc">
+      <Filter>water_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_wfx_terrin_texture_group.cc">
+      <Filter>water_effect</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_stb_image.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_gpu_particle_system.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_particle_system.cc">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>

@@ -54,6 +54,8 @@ namespace kgl
         /// </summary>
         void Use() const;
 
+        void Finish() const;
+
         /// <summary>
         /// 从指定的vertex shader , fragment shader, geometry shader中创建处一个可执行的shader程序
         /// </summary>
@@ -103,6 +105,24 @@ namespace kgl
         /// <param name="location">The location.</param>
         /// <param name="slot_index">The slot_index.</param>
         void ApplyTexture(GLint location, GLuint slot_index);
+
+        /// <summary>
+        /// Applies the texture.
+        /// </summary>
+        /// <param name="uniform_var_name">The uniform_var_name.</param>
+        /// <param name="texture_unit_slot">The texture_unit_slot.</param>
+        /// <param name="texture_id">The texture_id.</param>
+        /// <param name="target">The target.</param>
+        void ApplyTexture(const char* uniform_var_name, GLuint texture_unit_slot, GLuint texture_id, GLenum target = GL_TEXTURE_2D);
+
+        /// <summary>
+        /// Applies the texture.
+        /// </summary>
+        /// <param name="location">The location.</param>
+        /// <param name="texture_unit_slot">The texture_unit_slot.</param>
+        /// <param name="texture_id">The texture_id.</param>
+        /// <param name="target">The target.</param>
+        void ApplyTexture(GLint location, GLuint texture_unit_slot, GLuint texture_id, GLenum target = GL_TEXTURE_2D);
 
         /// <summary>
         /// Applies the matrix.

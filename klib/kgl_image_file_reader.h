@@ -91,13 +91,15 @@ namespace kgl
         }
 
         /// <summary>
-        /// BPPs this instance.
+        /// 每个像素占据的字节数
         /// </summary>
         /// <returns>int.</returns>
         inline int BPP() const
         {
             return bits_per_pixel_;
         }
+
+        std::array<unsigned char, 4> GetPixel(int x, int y) const;
 
         /// <summary>
         /// Images the pitch.

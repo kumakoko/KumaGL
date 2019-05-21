@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{06f5d950-180d-4a1b-a14d-9b14f96b43b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc">
@@ -26,5 +29,13 @@
     <ClInclude Include="parallax_mapping_app.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\publish\resources\shader\017_parallax_mapping_fs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\017_parallax_mapping_vs.glsl">
+      <Filter>shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

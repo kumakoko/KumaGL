@@ -76,15 +76,69 @@ OpenGL开发者通常使用一种内部矩阵布局，叫做列优先矩阵(Colu
         glm_matrix[3][0] = 0.0f        ; glm_matrix[3][1] = 0.0f        ; glm_matrix[3][2] = 0.0f        ; glm_matrix[3][3] = 1.0f;
     }
 
-    void AiVector3DToGlmVec3(const aiVector3D& ai_vector, glm::vec3 glm_vector)
+    void AiVector3DToGlmVec3(const aiVector3D& ai_vector, glm::vec3& glm_vector)
     {
         glm_vector.x = ai_vector.x;
         glm_vector.y = ai_vector.y;
         glm_vector.z = ai_vector.z;
     }
 
-    glm::vec3  AiVector3DToGlmVec3(const aiVector3D& ai_vector)
+    glm::vec3 AiVector3DToGlmVec3(const aiVector3D& ai_vector)
     {
         return glm::vec3(ai_vector.x, ai_vector.y, ai_vector.z);
     }
+
+    void CalculateAABB(const aiScene* scene, const aiNode* node, const aiMatrix4x4* transform_matrix, aiVector3D* out_bound)
+    {
+        aiMatrix4x4 tmp_matrix = node->mTransformation;
+        tmp_matrix.Transpose();
+        aiMatrix4x4 self_transform_matrix = tmp_matrix * (*transform_matrix);
+        
+        for (unsigned int i = 0; i < node->mNumMeshes; ++i)
+        {
+            for (unsigned int a = 0; a < scene->mMeshes[node->mMeshes[i]]->mNumVertices; ++a)
+            {
+                aiVector3D pc = scene->mMeshes[node->mMeshes[i]]->mVertices[a];
+                pc *= self_transform_matrix;
+                out_bound[0].x = std::min(out_bound[0].x, pc.x);
+                out_bound[0].y = std::min(out_bound[0].y, pc.y);
+                out_bound[0].z = std::min(out_bound[0].z, pc.z);
+                out_bound[1].x = std::max(out_bound[1].x, pc.x);
+                out_bound[1].y = std::max(out_bound[1].y, pc.y);
+                out_bound[1].z = std::max(out_bound[1].z, pc.z);
+            }
+        }
+
+        for (unsigned int i = 0; i < node->mNumChildren; ++i)
+        {
+            CalculateAABB(scene,node->mChildren[i], &self_transform_matrix, out_bound);
+        }
+    }
+
+    void ScaleAsset(aiScene* scene, aiMatrix4x4& world_matrix)
+    {
+        aiVector3D vecs[2] = { aiVector3D(1e10f, 1e10f, 1e10f),aiVector3D(-1e10f, -1e10f, -1e10f) };
+
+        if (scene->mRootNode)
+        {
+            aiMatrix4x4 m; // 根节点的transform matrix就是一个单位矩阵
+            CalculateAABB(scene, scene->mRootNode, &m, vecs);
+        }
+
+        aiVector3D delta = vecs[1] - vecs[0];
+        aiVector3D half = vecs[0] + (delta / 2.0f);
+        float scale = 10.0f / delta.Length();
+
+        world_matrix = aiMatrix4x4(
+            1.0f, 0.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 1.0f, 0.0f,
+            -half.x, -half.y, -half.z, 1.0f) *
+            aiMatrix4x4(
+            scale, 0.0f, 0.0f, 0.0f,
+            0.0f, scale, 0.0f, 0.0f,
+            0.0f, 0.0f, scale, 0.0f,
+            0.0f, 0.0f, 0.0f, 1.0f);
+    }
+
 }

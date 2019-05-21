@@ -147,8 +147,8 @@ void FrameBufferApp::InitModel()
 
 void FrameBufferApp::InitShaders()
 {
-    const char* vs_file = "resources/shader/003_transform_draw_vs.glsl";
-    const char* fs_file = "resources/shader/003_transform_draw_fs.glsl";
+    const char* vs_file = "resources/shader/004_transform_draw_vs.glsl";
+    const char* fs_file = "resources/shader/004_transform_draw_fs.glsl";
     scene_shader_ = std::make_shared<kgl::GPUProgram>();
     scene_shader_->CreateFromFile(vs_file, fs_file, nullptr);
 

@@ -23,6 +23,8 @@
     <ASSIMP_LIB>../third_lib/assimp_3_1_1/lib32</ASSIMP_LIB>
     <BOOST_LIB>../third_lib/boost_1_64_0/stage/lib</BOOST_LIB>
     <IMGUI_LIB>../third_lib/imgui-1.65</IMGUI_LIB>
+    <MICROPROFILE_HEADER>../third_lib/microprofile</MICROPROFILE_HEADER>
+    <STB_HEADER>../third_lib/stb</STB_HEADER>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />
@@ -89,6 +91,12 @@
     </BuildMacro>
     <BuildMacro Include="IMGUI_LIB">
       <Value>$(IMGUI_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="MICROPROFILE_HEADER">
+      <Value>$(MICROPROFILE_HEADER)</Value>
+    </BuildMacro>
+    <BuildMacro Include="STB_HEADER">
+      <Value>$(STB_HEADER)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>

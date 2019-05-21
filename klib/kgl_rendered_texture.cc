@@ -25,6 +25,15 @@ namespace kgl
         type_ = RENDERED_TEXTURE;
         texel_type_ = used_type;
     }
+    
+    RenderedTexture::RenderedTexture(RenderedTexelType used_type, GLuint texture_id, int width, int height)
+    {
+        type_ = RENDERED_TEXTURE;
+        texel_type_ = used_type;
+        texture_id_ = texture_id;
+        width_ = width;
+        height_ = height;
+    }
 
     RenderedTexture::~RenderedTexture()
     {

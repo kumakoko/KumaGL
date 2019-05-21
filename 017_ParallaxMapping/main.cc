@@ -29,6 +29,7 @@ void main()
         app = new ParallaxMappingApp();
         app->InitWindow(1024, 768, false, "Parallax mapping");
         app->InitRenderer();
+		app->InitGuiSystem();
         app->InitScene();
         app->Run();
     }

@@ -23,7 +23,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 *
 * \brief
 *
-* TODO: assimp和glm之间的一些数据结构之间的转换
+* TODO: assimp和glm之间的一些数据结构之间的转换，以及一些处理assimp相关的工具函数
 *
 * \note
 */
@@ -41,9 +41,33 @@ namespace kgl
 
     void AiMatrix3x3ToGlmMat4(const aiMatrix3x3& ai_matrix, glm::mat4& glm_matrix);
 
-    void AiVector3DToGlmVec3(const aiVector3D& ai_vector, glm::vec3 glm_vector);
+    void AiVector3DToGlmVec3(const aiVector3D& ai_vector, glm::vec3& glm_vector);
 
-    glm::vec3  AiVector3DToGlmVec3(const aiVector3D& ai_vector);
+    glm::vec3 AiVector3DToGlmVec3(const aiVector3D& ai_vector);
+
+    //************************************
+    // Method:    CalculateAABB
+    // FullName:  kgl::CalculateAABB
+    // Access:    public 
+    // Returns:   void
+    // Qualifier: 根据给定的节点，计算该节点以及其子节点所占据的AABB包围盒
+    // Parameter: const aiScene * scene assimp的场景节点
+    // Parameter: const aiNode * node   待计算的根节点
+    // Parameter: const aiMatrix4x4 & transform_matrix node节点相对其父节点的transform matrix
+    // Parameter: aiVector3D & out_bound aiVector3D类型数组，该数组包含了两个aiVector3D，存储了AABB包围盒的左上角和右下角的点坐标，
+    //************************************
+    void CalculateAABB(const aiScene* scene, const aiNode* node, const aiMatrix4x4& transform_matrix, aiVector3D* out_bound);
+
+    //************************************
+    // Method:    ScaleAsset
+    // FullName:  kgl::ScaleAsset
+    // Access:    public 
+    // Returns:   void
+    // Qualifier: 根据当前场景下mesh的大小，选择一个合适的scale矩阵，使得这个mesh能刚好
+    // Parameter: aiScene * scene
+    // Parameter: aiMatrix4x4 & world_matrix
+    //************************************
+    void ScaleAsset(aiScene* scene, aiMatrix4x4& world_matrix);
 }
 
 #endif // kgl_assimp_bridge_h__

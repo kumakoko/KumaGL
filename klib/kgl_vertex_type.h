@@ -51,28 +51,28 @@ namespace kgl
 
     struct VertexP //position
     {
-        glm::vec3 Position;
+        glm::vec3 position;
     };
 
     struct VertexPC : public VertexP //position color
     {
-        glm::vec4 Color;
+        glm::vec4 color;
     };
 
     struct VertexPN : public VertexP // position normal
     {
-        glm::vec3 Normal;
+        glm::vec3 normal;
     };
 
     struct VertexPNTB : public VertexPN // position normal tangent binormal
     {
-        glm::vec3 Tangent;
-        glm::vec3 Binormal;
+        glm::vec3 tangent;
+        glm::vec3 binormal;
     };
 
     struct VertexPNTBT1 : public VertexPNTB // position normal tangent binormal texture_uv1
     {
-        glm::vec2 TextureCoord1;
+        glm::vec2 texture_coord_1;
     };
 
     struct VertexPNTBT2 : public VertexPNTBT1

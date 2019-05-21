@@ -103,7 +103,7 @@ void ImageEffectApp::RenderColorToGray()
 
     kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
     glm::vec4 text_color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-    font_renderer->AddToRendered(kgl::StringConvertor::UTF8toUTF16LE("Image Effect : 彩色图转灰度图"), 0, 0, text_color, 1.0f);
+    font_renderer->AddToRendered(kgl::StringConvertor::ANSItoUTF16LE("Image Effect : 彩色图转灰度图"), 0, 0, text_color, 1.0f);
     font_renderer->Draw();
 }
 

@@ -87,23 +87,7 @@ void SkyBoxApp::InitMainCamera()
 void SkyBoxApp::RenderScene()
 {
     main_camera_->Update();
-    
-    // 绘制地板
     sky_box_->Draw();
-    /*
-    // 绘制地板
-    glm::mat4 model_matrix;
-    const glm::mat4& view_matrix = main_camera_->GetViewMatrix();
-    const glm::mat4& projection_matrix = main_camera_->GetProjectionMatrix();
-
-    scene_obj_shader_->Use();
-    scene_obj_shader_->ApplyMatrix(glm::value_ptr(model_matrix), "model_matrix");
-    scene_obj_shader_->ApplyMatrix(glm::value_ptr(view_matrix), "view_matrix");
-    scene_obj_shader_->ApplyMatrix(glm::value_ptr(projection_matrix), "projection_matrix");
-    scene_obj_shader_->ApplyTexture(floor_texture_, "source_texture_1", 0);
-
-    floor_->Draw();
-    */
 }
 
 void SkyBoxApp::ProcessInput()

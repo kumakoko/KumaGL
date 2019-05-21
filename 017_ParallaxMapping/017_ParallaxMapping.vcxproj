@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B585DCB0-4775-4994-AB14-E9C5D8D16E3F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>My015_Blur</RootNamespace>
+    <RootNamespace>My017_ParallaxMapping</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -100,6 +100,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="parallax_mapping_app.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\publish\resources\shader\017_parallax_mapping_fs.glsl" />
+    <None Include="..\publish\resources\shader\017_parallax_mapping_vs.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

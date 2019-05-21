@@ -64,7 +64,7 @@ namespace kgl
     {
         glm::mat4 world_matrix;
         world_matrix = glm::translate(world_matrix, camera_->GetPosition()); // 以摄像机在世界坐标中的位置为天空球的原点
-        world_matrix = glm::scale(world_matrix, glm::vec3(5.0f, 5.0f, 5.0f));
+        // world_matrix = glm::scale(world_matrix, glm::vec3(5.0f, 5.0f, 5.0f));
 
         const glm::mat4& view_matrix = camera_->GetViewMatrix();
         const glm::mat4& projection_matrix = camera_->GetProjectionMatrix();

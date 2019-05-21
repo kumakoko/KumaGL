@@ -29,5 +29,5 @@ uniform sampler2D source_texture_1; // 作用在片元上的第一层纹理映�
 
 void main()
 {
-	final_color = texture(source_texture_1, fragment_tex_coord_1);
+    final_color = texture(source_texture_1, fragment_tex_coord_1);
 }

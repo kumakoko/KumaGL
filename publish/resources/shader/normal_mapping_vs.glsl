@@ -44,7 +44,7 @@ void main()
     
 	// 法线，切线，副法线相互垂直，所以以这三个向量为基，构造一个切线空间，并得到变换矩阵
 	// 将世界空间中的光源位置，摄像机位置，还有顶点（片元）的位置
-    mat3 tbn_space = transpose(mat3(tangent_in_world, binormal_in_world, normal_in_world));    
+    mat3 tbn_space = transpose(mat3(tangent_in_world, binormal_in_world, normal_in_world));
     vs_out.light_pos_in_tangent_space = tbn_space * point_light.Position; // light_world_position;
     vs_out.camera_pos_in_tangent_space  = tbn_space * camera_world_position;
     vs_out.fragment_pos_in_tangent_space  = tbn_space * vs_out.fragment_pos_in_world;

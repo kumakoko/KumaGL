@@ -1,0 +1,11 @@
+prefix=/usr/local/Cellar/glew/2.1.0
+exec_prefix=${prefix}
+libdir=/usr/local/Cellar/glew/2.1.0/lib
+includedir=${prefix}/include
+
+Name: glew
+Description: The OpenGL Extension Wrangler library
+Version: 2.1.0
+Cflags: -I${includedir} 
+Libs: -L${libdir} -lGLEW
+Requires: 

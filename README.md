@@ -6,7 +6,7 @@ Simple R&amp;D framework of Computer graphic programming.Based on modern OpenGL
 |项目名|截图|描述|
 |:-----:|:-----:|:-----|
 |001_EmptyWindow|<img src="img/kgl/001_EmptyWindow.jpg" width="250"/>|演示了一个空的Kuma GL程序框架。展示了整合ImGui库作为KumaGL框架的GUI接口|
-|002_Triangle|<img src="img/kgl/002_Triangle.jpg" width="250"|/>|使用KumaGL着色器绘制三角形|
+|002_Triangle|<img src="img/kgl/002_Triangle.jpg" width="250"/>|使用KumaGL着色器绘制三角形|
 |003_Texture|<img src="img/kgl/003_Texture.jpg" width="250"/>|使用KumaGL载入纹理并显示|
 |004_Transform|<img src="img/kgl/004_Transform.jpg" width="250"/>|演示了图元之间的层次变换关系|
 |005_DynamicVertexBuffer|<img src="img/kgl/005_DynamicVertexBuffer.jpg" width="250"/>|演示了动态定点缓冲区的使用|

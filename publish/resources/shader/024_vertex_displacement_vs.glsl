@@ -32,11 +32,10 @@ uniform float u_current_angle;
 
 void main()
 {
-	float vz;
-	vz  = sin( vsin_position.x + u_current_angle );
-	vz += sin( vsin_position.y + u_current_angle );
-	vz *= vsin_position.x * 0.08;
-	
+    float vz;
+    vz  = sin( vsin_position.x + u_current_angle );
+    vz += sin( vsin_position.y + u_current_angle );
+    vz *= vsin_position.x * 0.08;
     gl_Position = u_projection_matrix * u_view_matrix * u_world_matrix * vec4(vsin_position.x,vsin_position.y,vz, 1.0);
     fragment_tex_coord = vec2(vsin_tex_coord_0.x,1.0 - vsin_tex_coord_0.y);
 }

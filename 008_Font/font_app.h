@@ -54,6 +54,12 @@ private:
     std::wstring            text_2_;
     std::wstring            text_3_;
     std::wstring            text_jpn_;
+
+    std::wstring            text_long_march_title_;
+    std::wstring            text_long_march_1_;
+    std::wstring            text_long_march_2_;
+    std::wstring            text_long_march_3_;
+    std::wstring            text_long_march_4_;
 };
 
 #endif // font_app_h__

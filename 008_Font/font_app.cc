@@ -39,14 +39,22 @@ void FontApp::InitScene()
 {
     kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
     font_renderer->Initialize();
-    font_renderer->CreateFontTexture("resources/font/fzss_gbk.ttf", "fzss30", 30, 512, 512);
-    font_renderer->CreateFontTexture("resources/font/wqy_wmh.ttf", "wqy_wmh36", 36, 512, 512);
-    font_renderer->CreateFontTexture("resources/font/fzkt_sim.ttf", "fzkt40", 40, 512, 512);
+    font_renderer->CreateFontTexture("resources/font/fzss_gbk.ttf", "fzss64", 64, 512, 512);
+    font_renderer->CreateFontTexture("resources/font/wqy_wmh.ttf", "wqy_wmh64", 64, 512, 512);
+    font_renderer->CreateFontTexture("resources/font/fzkt_sim.ttf", "fzkt64", 64, 512, 512);
+    font_renderer->CreateFontTexture("resources/font/meiryo.ttc", "meiryo64", 64, 512, 512);
+    font_renderer->CreateFontTexture("resources/font/mao.ttf", "mao64", 64, 1024, 1024);
 
-    text_1_ = kgl::StringConvertor::UTF8toUTF16LE("KumaGL计算机图形学学习框架");
-    text_2_ = kgl::StringConvertor::UTF8toUTF16LE("文泉驿微米黑36号字体");
-    text_3_ = kgl::StringConvertor::UTF8toUTF16LE("方正楷体40号字体");
-    text_jpn_ = kgl::StringConvertor::UTF8toUTF16LE("ちょっと待って。チビ丸");
+    text_1_ = kgl::StringConvertor::UTF8toUTF16LE("方正简宋： KumaGL图形学学习框架");
+    text_2_ = kgl::StringConvertor::UTF8toUTF16LE("文泉驿微米黑 开彼源兮 斯流永继");
+    text_3_ = kgl::StringConvertor::UTF8toUTF16LE("方正楷体 兰亭序");
+    text_jpn_ = kgl::StringConvertor::UTF8toUTF16LE("Meiryo あいうえおオハヨウｵﾊﾖｳ働峠颪畠辻");
+
+    text_long_march_title_ = kgl::StringConvertor::UTF8toUTF16LE("         七律 长征 毛泽东");
+    text_long_march_3_ = kgl::StringConvertor::UTF8toUTF16LE("金沙水拍云崖暖 大渡桥横铁索寒"); // 
+    text_long_march_4_ = kgl::StringConvertor::UTF8toUTF16LE("更喜岷山千里雪 三军过后尽开颜");
+    text_long_march_1_ = kgl::StringConvertor::UTF8toUTF16LE("红军不怕远征难 万水千山只等闲");
+    text_long_march_2_ = kgl::StringConvertor::UTF8toUTF16LE("五岭逶迤腾细浪 乌蒙磅礴走泥丸");
 }
 
 void FontApp::InitHelper()
@@ -93,7 +101,7 @@ void FontApp::InitHelper()
 void FontApp::RenderScene()
 {
     kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
-    font_renderer->SetCurrentFont("fzss30");
+    font_renderer->SetCurrentFont("fzss64");
     
     font_renderer->AddToRendered(text_1_, 10, 0,
         glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), 
@@ -101,14 +109,21 @@ void FontApp::RenderScene()
         glm::vec4(1.0f, 0.0f, 0.0f, 1.0f),
         glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), 1.f);
 
-    font_renderer->SetCurrentFont("wqy_wmh36");
-    font_renderer->AddToRendered(text_2_, 10, 50,glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1.f);
+    font_renderer->SetCurrentFont("wqy_wmh64");
+    font_renderer->AddToRendered(text_2_, 10, 80, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), 1.f);
 
-    font_renderer->SetCurrentFont("fzkt40");
-    font_renderer->AddToRendered(text_3_, 100, 100, glm::vec4(1.0f, 1.0f, 0.0f, 1.0f), 1.f);
+    font_renderer->SetCurrentFont("fzkt64");
+    font_renderer->AddToRendered(text_3_, 10, 150, glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), 1.f);
 
-    font_renderer->SetCurrentFont("fzss30");
-    font_renderer->AddToRendered(text_jpn_, 100, 150, glm::vec4(0.0f, 1.0f, 1.0f, 1.0f), 1.f);
+    font_renderer->SetCurrentFont("meiryo64");
+    font_renderer->AddToRendered(text_jpn_, 10, 220, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), 1.f);
+
+    font_renderer->SetCurrentFont("mao64");
+    font_renderer->AddToRendered(text_long_march_title_, 10, 300, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1.f);
+    font_renderer->AddToRendered(text_long_march_1_, 10, 360, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1.f);
+    font_renderer->AddToRendered(text_long_march_2_, 10, 420, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1.f);
+    font_renderer->AddToRendered(text_long_march_3_, 10, 480, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1.f);
+    font_renderer->AddToRendered(text_long_march_4_, 10, 540, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 1.f);
 
     font_renderer->Draw();
 }

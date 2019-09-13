@@ -28,7 +28,7 @@ void main()
     try
     {
         app = new ShadowMappingApp();
-        app->InitWindow(1024, 768, false, "025_ShadowMapping");
+        app->InitWindow(1024, 768, false, "025 Shadow Mapping");
         app->InitRenderer();
         app->InitScene();
         app->Run();

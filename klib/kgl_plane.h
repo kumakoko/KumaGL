@@ -1,4 +1,4 @@
-/**************************************************************************************************************************
+ï»¿/**************************************************************************************************************************
 Copyright(C) 2014-2018 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -23,7 +23,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
  *
  * \brief 
  *
- * TODO: Æ½ÃæÀà
+ * TODO: å¹³é¢ç±»
  *
  * \note
 */
@@ -36,17 +36,17 @@ namespace kgl
     {
     private:
         /// <summary>
-        /// Æ½ÃæµÄÃæ·¨Ïß
+        /// å¹³é¢çš„é¢æ³•çº¿
         /// </summary>
         glm::vec3 normal_;
 
         /// <summary>
-        /// Æ½ÃæÉÏµÄÒ»¸öµã
+        /// å¹³é¢ä¸Šçš„ä¸€ä¸ªç‚¹
         /// </summary>
         glm::vec3 point_;
 
         /// <summary>
-        /// ½Ø¾à
+        /// æˆªè·
         /// </summary>
         float d_;
     public:
@@ -56,7 +56,7 @@ namespace kgl
         }
 
         /// <summary>
-        /// Àà<see cref="Plane"/>µÄ¹¹Ôìº¯Êı.ÓÃÈı¸öµãÈ·¶¨Ò»¸öÆ½Ãæ
+        /// ç±»<see cref="Plane"/>çš„æ„é€ å‡½æ•°.ç”¨ä¸‰ä¸ªç‚¹ç¡®å®šä¸€ä¸ªå¹³é¢
         /// </summary>
         /// <param name="v1">The v1.</param>
         /// <param name="v2">The v2.</param>
@@ -64,17 +64,17 @@ namespace kgl
         Plane(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &v3);
         
         /// <summary>
-        /// Àà<see cref="Plane"/>µÄÈ±Ê¡¹¹Ôìº¯Êı
+        /// ç±»<see cref="Plane"/>çš„ç¼ºçœæ„é€ å‡½æ•°
         /// </summary>
         Plane();
         
         /// <summary>
-        /// Àà<see cref="Plane"/>µÄÈ±Ê¡¹¹Ôìº¯Êı
+        /// ç±»<see cref="Plane"/>çš„ç¼ºçœæ„é€ å‡½æ•°
         /// </summary>
         ~Plane();
 
         /// <summary>
-        /// ÓÃÈı¸öµãÈ·¶¨Ò»¸öÆ½Ãæ
+        /// ç”¨ä¸‰ä¸ªç‚¹ç¡®å®šä¸€ä¸ªå¹³é¢
         /// </summary>
         /// <param name="v1">The v1.</param>
         /// <param name="v2">The v2.</param>
@@ -82,15 +82,15 @@ namespace kgl
         void SetThreePoints(const glm::vec3 &v1, const glm::vec3 &v2, const glm::vec3 &v3);
 
         /// <summary>
-        /// ÓÃÆ½ÃæÉÏµÄÒ»¸öµãºÍ·¨ÏßÈ·¶¨Ò»¸öÆ½Ãæ
+        /// ç”¨å¹³é¢ä¸Šçš„ä¸€ä¸ªç‚¹å’Œæ³•çº¿ç¡®å®šä¸€ä¸ªå¹³é¢
         /// </summary>
         /// <param name="normal">The normal.</param>
         /// <param name="point">The point.</param>
         void SetNormalAndPoint(const glm::vec3 &normal, const glm::vec3 &point);
 
         /// <summary>
-        /// ÉèÖÃÆ½Ãæ·½³Ìax+by+cz+d=0µÄËÄ¸öÏµÊıa£¬b£¬c£¬d
-        /// ÆäÖĞa,b,cÊÇÆ½ÃæµÄÃæ·¨Ïß
+        /// è®¾ç½®å¹³é¢æ–¹ç¨‹ax+by+cz+d=0çš„å››ä¸ªç³»æ•°aï¼Œbï¼Œcï¼Œd
+        /// å…¶ä¸­a,b,cæ˜¯å¹³é¢çš„é¢æ³•çº¿
         /// </summary>
         /// <param name="a">a.</param>
         /// <param name="b">The b.</param>
@@ -99,7 +99,7 @@ namespace kgl
         void SetCoefficients(float a, float b, float c, float d);
 
         /// <summary>
-        /// µãPµ½±¾Æ½ÃæµÄ¾àÀë
+        /// ç‚¹Påˆ°æœ¬å¹³é¢çš„è·ç¦»
         /// </summary>
         /// <param name="p">The p.</param>
         /// <returns>float.</returns>

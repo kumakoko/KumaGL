@@ -1,4 +1,4 @@
-﻿/**************************************************************************************************************************
+/**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -57,13 +57,14 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include <cstdlib>
 #include <utility>
 
-#define GLEW_STATIC
+//#define GLEW_STATIC
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
 #if defined(WIN32) || defined(_WIN32)
     #include "GL/wglew.h"
-    #include <Windows.h>
+    #define WIN32_LEAN_AND_MEAN
+    #include <Windows.h> 
     #if defined(DEBUG) || defined(_DEBUG)
         #include "vld.h"
     #endif
@@ -104,6 +105,12 @@ extern "C"
 #include "freetype.h"
 #include "iconv.h"
 #include "FreeImage.h"
+
+#ifdef FREEIMAGE_COLORORDER
+	#undef FREEIMAGE_COLORORDER
+#endif
+
+#define FREEIMAGE_COLORORDER 1
 }
 
 #include "assimp/Importer.hpp"

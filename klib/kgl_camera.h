@@ -223,29 +223,57 @@ namespace kgl
             camera_speed_ = speed;
         }
 
-        /// <summary>
-        /// 设置每帧最大可以调整多大的yaw角
-        /// </summary>
-        /// <param name="max_degree">最大的yaw角</param>
+        //************************************
+        // Method:    SetMaxYawDegreePerFrame
+        // FullName:  kgl::Camera::SetMaxYawDegreePerFrame
+        // Access:    public 
+        // Returns:   void
+        // Qualifier: 设置每帧最大可以调整多大的yaw角
+        // Parameter: float max_degree 最大的yaw角
+        //************************************
         inline void SetMaxYawDegreePerFrame(float max_degree)
         {
             max_yaw_degree_per_frame_ = max_degree;
         }
 
-        /// <summary>
-        /// 设置每帧最大可以调整多大的pitch角
-        /// </summary>
-        /// <param name="max_degree">最大的pitch角</param>
+        //************************************
+        // Method:    SetMaxPitchDegreePerFrame
+        // FullName:  kgl::Camera::SetMaxPitchDegreePerFrame
+        // Access:    public 
+        // Returns:   void
+        // Qualifier: 设置每帧最大可以调整多大的pitch角
+        // Parameter: float max_degree 最大的pitch角
+        //************************************
         inline void SetMaxPitchDegreePerFrame(float max_degree)
         {
             max_pitch_degree_per_frame_ = max_degree;
         }
 
+		//************************************
+		// Method:    GetForwardDirection
+		// FullName:  kgl::Camera::GetForwardDirection
+		// Access:    public 
+		// Returns:   const glm::vec3&
+		// Qualifier: const 获取到本摄像机的朝前向量
+		//************************************
+		inline const glm::vec3& GetForwardDirection() const
+		{
+			return forward_;
+		}
+
+		inline const glm::vec3& GetUpDirection() const
+		{
+			return up_;
+		}
+
     private:
-        /// <summary>
-        /// 根据给定的欧拉角计算摄像机的forward，up，right向量，此三个响亮
-        /// 就是观察坐标系的三个轴
-        /// </summary>
+        //************************************
+        // Method:    UpdateCameraVectorsByEularAngle
+        // FullName:  kgl::Camera::UpdateCameraVectorsByEularAngle
+        // Access:    private 
+        // Returns:   void
+        // Qualifier: 根据给定的欧拉角计算摄像机的forward，up，right向量，此三个向量就是观察坐标系的三个轴
+        //************************************
         void UpdateCameraVectorsByEularAngle();
 
     private:

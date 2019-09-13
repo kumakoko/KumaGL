@@ -99,7 +99,7 @@ namespace kgl
             return bits_per_pixel_;
         }
 
-        std::array<unsigned char, 4> GetPixel(int x, int y) const;
+		std::vector<unsigned char> GetPixel(int x, int y) const;
 
         /// <summary>
         /// Images the pitch.

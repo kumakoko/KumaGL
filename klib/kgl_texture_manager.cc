@@ -105,7 +105,7 @@ namespace kgl
         texture_param.min_filter_mode = filter_mode;
         texture_param.internal_format = GL_RGB;
         texture_param.src_img_px_component_type = src_img_px_component_type;
-        texture_param.src_img_format = GL_RGB;
+        texture_param.src_img_format = GL_BGR;//GL_RGB;
         texture_param.used_mipmap = use_mipmap;
         return texture_param;
     }
@@ -119,7 +119,7 @@ namespace kgl
         texture_param.min_filter_mode = filter_mode;
         texture_param.internal_format = GL_RGBA;
         texture_param.src_img_px_component_type = src_img_px_component_type;
-        texture_param.src_img_format = GL_RGBA;
+        texture_param.src_img_format = GL_BGRA;//GL_RGBA;
         texture_param.used_mipmap = use_mipmap;
         return texture_param;
     }

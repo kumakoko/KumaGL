@@ -57,7 +57,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);$(STB_HEADER);$(IMGUI_HEADER);./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>kgl_lib_pch.h</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4819;4005</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -75,7 +75,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);$(STB_HEADER);$(IMGUI_HEADER);./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>kgl_lib_pch.h</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4819;4005</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -120,6 +120,7 @@
     <ClInclude Include="kgl_light.h" />
     <ClInclude Include="kgl_material.h" />
     <ClInclude Include="kgl_math_tools.h" />
+    <ClInclude Include="kgl_md2_model.h" />
     <ClInclude Include="kgl_particle_system.h" />
     <ClInclude Include="kgl_perlin_noise.h" />
     <ClInclude Include="kgl_plane.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="kgl_transform_feedback.h" />
     <ClInclude Include="kgl_vertex_attribute.h" />
     <ClInclude Include="kgl_primitive.h" />
+    <ClInclude Include="kgl_vertex_buffer_object.h" />
     <ClInclude Include="kgl_vertex_type.h" />
     <ClInclude Include="kgl_view_frustum.h" />
     <ClInclude Include="kgl_wfx_light.h" />
@@ -194,6 +196,7 @@
     <ClCompile Include="kgl_light.cc" />
     <ClCompile Include="kgl_material.cc" />
     <ClCompile Include="kgl_math_tools.cc" />
+    <ClCompile Include="kgl_md2_model.cc" />
     <ClCompile Include="kgl_message_box.cc" />
     <ClCompile Include="kgl_particle_system.cc" />
     <ClCompile Include="kgl_perlin_noise.cc" />
@@ -220,6 +223,7 @@
     <ClCompile Include="kgl_transform.cc" />
     <ClCompile Include="kgl_vertex_attribute.cc" />
     <ClCompile Include="kgl_primitive.cc" />
+    <ClCompile Include="kgl_vertex_buffer_object.cc" />
     <ClCompile Include="kgl_vertex_type.cc" />
     <ClCompile Include="kgl_view_frustum.cc" />
     <ClCompile Include="kgl_wfx_light.cc" />

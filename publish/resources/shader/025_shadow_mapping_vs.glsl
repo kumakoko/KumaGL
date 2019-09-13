@@ -23,10 +23,10 @@ layout(location = 2) in vec3 vsin_normal;
 // vertex shader to fragment shader
 out V2F
 {
-	vec3 fragment_position;
-	vec3 fragment_normal;
-	vec2 fragment_texture_coords;
-	vec4 fragment_pos_in_light_space; // 片元变换到光源空间中的位置
+    vec3 fragment_position;
+    vec3 fragment_normal;
+    vec2 fragment_texture_coords;
+    vec4 fragment_pos_in_light_space; // 片元变换到光源空间中的位置
 } vs_out;
 
 uniform mat4 u_projection_matrix;
@@ -36,9 +36,9 @@ uniform mat4 u_light_space_matrix; // 把顶点变换到“经过投影变换的
 
 void main()
 {
-	vs_out.fragment_position = vec3(u_world_matrix * vec4(vsin_position, 1.0));
-	vs_out.fragment_normal = transpose(inverse(mat3(u_world_matrix))) * vsin_normal;
-	vs_out.fragment_texture_coords = vsin_texture_coords;
-	vs_out.fragment_pos_in_light_space = u_light_space_matrix * vec4(vs_out.fragment_position, 1.0);
-	gl_Position = u_projection_matrix * u_view_matrix * u_world_matrix * vec4(vsin_position, 1.0);
+    vs_out.fragment_position = vec3(u_world_matrix * vec4(vsin_position, 1.0));
+    vs_out.fragment_normal = transpose(inverse(mat3(u_world_matrix))) * vsin_normal;
+    vs_out.fragment_texture_coords = vsin_texture_coords;
+    vs_out.fragment_pos_in_light_space = u_light_space_matrix * vec4(vs_out.fragment_position, 1.0);
+    gl_Position = u_projection_matrix * u_view_matrix * u_world_matrix * vec4(vsin_position, 1.0);
 }

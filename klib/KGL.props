@@ -4,20 +4,19 @@
   <PropertyGroup Label="UserMacros">
     <TINYXML2_HEADER>../third_lib/tinyxml2/inc</TINYXML2_HEADER>
     <ASSIMP_HEADER>../third_lib/assimp_3_1_1/include</ASSIMP_HEADER>
-    <GLFW_HEADER>../third_lib/glfw_3_2_1_win32/include/</GLFW_HEADER>
-    <GLEW_HEADER>../third_lib/glew_2_0_0/include/</GLEW_HEADER>
-    <GLM_HEADER>../third_lib/glm_0_9_8_4/include</GLM_HEADER>
+    <GLFW_HEADER>../third_lib/glfw/3.3/include/</GLFW_HEADER>
+    <GLEW_HEADER>../third_lib/glew/2.1.0/include/</GLEW_HEADER>
+    <GLM_HEADER>../third_lib/glm/0.9.8.4/include</GLM_HEADER>
     <ICONV_HEADER>../third_lib/iconv/include</ICONV_HEADER>
     <VLD_HEADER>../third_lib/vld/include</VLD_HEADER>
-    <FREEIMAGE_HEADER>../third_lib/FreeImage_3_17_0/Dist/x32</FREEIMAGE_HEADER>
-    <FREETYPE_HEADER>../third_lib/freetype2_3_5/include</FREETYPE_HEADER>
-    <ANTWEAKBAR_HEADER>../third_lib/AntTweakBar_116/include</ANTWEAKBAR_HEADER>
+    <FREEIMAGE_HEADER>../third_lib/freeimage/3.18.0/include</FREEIMAGE_HEADER>
+    <FREETYPE_HEADER>../third_lib/freetype/2.3.5/include</FREETYPE_HEADER>
     <IMGUI_HEADER>../third_lib/imgui-1.65</IMGUI_HEADER>
     <BOOST_HEADER>../third_lib/boost_1_64_0</BOOST_HEADER>
-    <FREEIMAGE_LIB>../third_lib/FreeImage_3_17_0/Dist/x32</FREEIMAGE_LIB>
-    <FREETYPE_LIB>../third_lib/freetype2_3_5/lib</FREETYPE_LIB>
-    <GLEW_LIB>../third_lib/glew_2_0_0/lib/Release/Win32</GLEW_LIB>
-    <GLFW_LIB>../third_lib/glfw_3_2_1_win32/lib-vc2013</GLFW_LIB>
+    <FREEIMAGE_LIB>../third_lib/freeimage/3.18.0/lib</FREEIMAGE_LIB>
+    <FREETYPE_LIB>../third_lib/freetype/2.3.5/lib</FREETYPE_LIB>
+    <GLEW_LIB>../third_lib/glew/2.1.0/lib/Release/Win32</GLEW_LIB>
+    <GLFW_LIB>../third_lib/glfw/3.3/lib</GLFW_LIB>
     <ICONV_LIB>../third_lib/iconv/prebuilt</ICONV_LIB>
     <VLD_LIB>../third_lib/vld/lib/Win32</VLD_LIB>
     <ASSIMP_LIB>../third_lib/assimp_3_1_1/lib32</ASSIMP_LIB>
@@ -27,7 +26,11 @@
     <STB_HEADER>../third_lib/stb</STB_HEADER>
   </PropertyGroup>
   <PropertyGroup />
-  <ItemDefinitionGroup />
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>FreeImage.lib;opengl32.lib;imgui.lib;glfw3dll.lib;glew32.lib;assimp-vc120-mt.lib;libiconv.lib;freetype253MT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="TINYXML2_HEADER">
       <Value>$(TINYXML2_HEADER)</Value>
@@ -55,9 +58,6 @@
     </BuildMacro>
     <BuildMacro Include="FREETYPE_HEADER">
       <Value>$(FREETYPE_HEADER)</Value>
-    </BuildMacro>
-    <BuildMacro Include="ANTWEAKBAR_HEADER">
-      <Value>$(ANTWEAKBAR_HEADER)</Value>
     </BuildMacro>
     <BuildMacro Include="IMGUI_HEADER">
       <Value>$(IMGUI_HEADER)</Value>

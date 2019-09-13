@@ -15,18 +15,17 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
 // 粒子系统的像素着色器
+#version 330
 
-#version 330 
+uniform sampler2D gSampler;
 
-uniform sampler2D gSampler; 
+smooth in vec2 vTexCoord;
+flat in vec4 vColorPart;
 
-smooth in vec2 vTexCoord; 
-flat in vec4 vColorPart; 
+out vec4 FragColor;
 
-out vec4 FragColor; 
-
-void main() 
-{ 
-  vec4 vTexColor = texture2D(gSampler, vTexCoord); 
-  FragColor = vec4(vTexColor.xyz, 1.0)*vColorPart; 
+void main()
+{
+  vec4 vTexColor = texture2D(gSampler, vTexCoord);
+  FragColor = vec4(vTexColor.xyz, 1.0)*vColorPart;
 }

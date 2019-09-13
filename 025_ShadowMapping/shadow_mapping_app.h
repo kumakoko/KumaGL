@@ -1,17 +1,4 @@
-﻿/*!
- * \file hdr_app.h
- * \date 2018/01/02 9:50
- *
- * \author www.xionggf.com
- * Contact: sun_of_lover@sina.com
- *
- * \brief  展示使用HDR的技术
- *
- * TODO: long description
- *
- * \note
-*/
-/**************************************************************************************************************************
+﻿/**************************************************************************************************************************
 Copyright(C) 2014-2018 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -27,6 +14,20 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+/*!
+* \file hdr_app.h
+* \date 2018/01/02 9:50
+*
+* \author www.xionggf.com
+* Contact: sun_of_lover@sina.com
+*
+* \brief  展示使用HDR的技术
+*
+* TODO: long description
+*
+* \note
+*/
+
 #ifndef shadow_mapping_app_h__
 #define shadow_mapping_app_h__
 

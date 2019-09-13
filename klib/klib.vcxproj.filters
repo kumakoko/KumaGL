@@ -243,6 +243,12 @@
     <ClInclude Include="kgl_transform_feedback.h">
       <Filter>headers</Filter>
     </ClInclude>
+    <ClInclude Include="kgl_vertex_buffer_object.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_md2_model.h">
+      <Filter>headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kgl_lib_pch.cc">
@@ -441,6 +447,12 @@
       <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="kgl_particle_system.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_md2_model.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_vertex_buffer_object.cc">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>

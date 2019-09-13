@@ -26,7 +26,7 @@ void main()
     try
     {
 		app = new WaterEffectApp;
-        app->InitWindow(1024, 768, false, "080_WaterEffect");
+        app->InitWindow(1024, 768, false, "080 Water Effect");
         app->InitRenderer();
 		app->InitGuiSystem();
 		app->InitScene();

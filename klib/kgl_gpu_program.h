@@ -64,6 +64,8 @@ namespace kgl
         /// <param name="gs_file_path">geometry shader代码文件路径名</param>
         void CreateFromFile(const GLchar* vs_file_path, const GLchar* fs_file_path, const GLchar* gs_file_path);
 
+		void CreateTransformFeedbackShaderFromFile(const GLchar* vs_file_path, const GLchar* gs_file_path, const std::vector<const char*>& varings);
+
         /// <summary>
         /// 从指定的vertex shader代码组 , fragment shader代码组, geometry shader代码组中创建处一个可执行的shader程序
         /// </summary>
@@ -300,6 +302,27 @@ namespace kgl
         /// <param name="uniform_var_name">niform变量名</param>
         /// <returns>该变量对应的locaton值</returns>
         GLint GetUniformLocation(const char* uniform_var_name) const;
+protected:
+		//************************************
+		// Method:    LoadAndCompileShader
+		// FullName:  kgl::GPUProgram::LoadAndCompileShader
+		// Access:    protected 
+		// Returns:   GLuint 着色器handle，失败的话返回-1
+		// Qualifier: 从shader代码字符串中装载并编译（仅编译，未链接）着色器，成功的话返回着色器handle
+		// Parameter: const char * shader_string shader代码字符串
+		// Parameter: GLuint shader_type 着色器类型，取值为GL_VERTEX_SHADER，GL_FRAGMENT_SHADER，GL_GEOMETRY_SHADER的其中一种
+		//************************************
+		GLuint LoadAndCompileShader(const char* shader_string, GLuint shader_type);
+		
+		//************************************
+		// Method:    LoadShaderFileToString
+		// FullName:  kgl::GPUProgram::LoadShaderFileToString
+		// Access:    protected 
+		// Returns:   std::string
+		// Qualifier: 把一个shader文件载入到一个字符串中
+		// Parameter: const char * shader_file_path
+		//************************************
+		std::string LoadShaderFileToString(const char* shader_file_path);
 protected:
         /// <summary>
         /// shader代码对象的句柄

@@ -1,4 +1,4 @@
-/**************************************************************************************************************************
+ï»¿/**************************************************************************************************************************
  Copyright(C) 2014-2017 www.xionggf.com
  
  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -21,14 +21,14 @@
 * \author soft_koko
 * Contact: sun_of_lover@sina.com
 *
-* \brief ¾²Ì¬Íø¸ñÀà
+* \brief é™æ€ç½‘æ ¼ç±»
 *
-* TODO: ¾²Ì¬Íø¸ñÀà£¬Ìá¹©´Óassimp¿âËùÖ§³ÖµÄÄ£ĞÍÖĞÔØÈëÒ»¸ö
-*       ¾²Ì¬µÄmesh²¢äÖÈ¾
+* TODO: é™æ€ç½‘æ ¼ç±»ï¼Œæä¾›ä»assimpåº“æ‰€æ”¯æŒçš„æ¨¡å‹ä¸­è½½å…¥ä¸€ä¸ª
+*       é™æ€çš„meshå¹¶æ¸²æŸ“
 *
-* \note ¾²Ì¬µÄ´øÓĞ¶¥µãË÷ÒıÖµµÄmesh¡£meshµÄÊôĞÔĞèÒª°üº¬ÓĞ
+* \note é™æ€çš„å¸¦æœ‰é¡¶ç‚¹ç´¢å¼•å€¼çš„meshã€‚meshçš„å±æ€§éœ€è¦åŒ…å«æœ‰
 *       position,texture coord1,normal
-*       ¶¥µãÊôĞÔµÄ²¼¾Ö£¬ÔÚvertex shaderÖĞ
+*       é¡¶ç‚¹å±æ€§çš„å¸ƒå±€ï¼Œåœ¨vertex shaderä¸­
 */
 #ifndef kgl_basic_static_mesh_h__
 #define kgl_basic_static_mesh_h__
@@ -58,52 +58,52 @@ namespace kgl
     {
     private:
         /// <summary>
-        /// ÎŞĞ§µÄ²ÄÖÊË÷Òı
+        /// æ— æ•ˆçš„æè´¨ç´¢å¼•
         /// </summary>
         static const int INVALID_MATERIAL = 0xFFFFFFFF;
         
         /// <summary>
-        /// vertex_attribute_buffers_Êı×éÖĞ£¬¶¥µãË÷ÒıµÄattribute bufferÅÅµÚ0Î»
+        /// vertex_attribute_buffers_æ•°ç»„ä¸­ï¼Œé¡¶ç‚¹ç´¢å¼•çš„attribute bufferæ’ç¬¬0ä½
         /// </summary>
         static const int INDEX_BUFFER = 0;
 
         /// <summary>
-        /// vertex_attribute_buffers_Êı×éÖĞ£¬¶¥µãÎ»ÖÃ×ø±êµÄattribute bufferÅÅµÚ1Î»
+        /// vertex_attribute_buffers_æ•°ç»„ä¸­ï¼Œé¡¶ç‚¹ä½ç½®åæ ‡çš„attribute bufferæ’ç¬¬1ä½
         /// </summary>
         static const int POS_VB = 1;
 
         /// <summary>
-        /// vertex_attribute_buffers_Êı×éÖĞ£¬¶¥µã·¨ÏßµÄattribute bufferÅÅµÚ2Î»
+        /// vertex_attribute_buffers_æ•°ç»„ä¸­ï¼Œé¡¶ç‚¹æ³•çº¿çš„attribute bufferæ’ç¬¬2ä½
         /// </summary>
         static const int NORMAL_VB = 2;
 
         /// <summary>
-        /// vertex_attribute_buffers_Êı×éÖĞ£¬¶¥µãµÚÒ»²ãÎÆÀí×ø±êµÄattribute bufferÅÅµÚ3Î»
+        /// vertex_attribute_buffers_æ•°ç»„ä¸­ï¼Œé¡¶ç‚¹ç¬¬ä¸€å±‚çº¹ç†åæ ‡çš„attribute bufferæ’ç¬¬3ä½
         /// </summary>
         static const int TEXCOORD_VB = 3;
 
         /// <summary>
-        /// vertex_attribute_buffers_Êı×éÖĞ£¬¶¥µãµÄwvp±ä»»¾ØÕóµÄattribute bufferÅÅµÚ4Î»
+        /// vertex_attribute_buffers_æ•°ç»„ä¸­ï¼Œé¡¶ç‚¹çš„wvpå˜æ¢çŸ©é˜µçš„attribute bufferæ’ç¬¬4ä½
         /// </summary>
         static const int WVP_MAT_VB = 4;
 
         /// <summary>
-        /// vertex_attribute_buffers_Êı×éÖĞ£¬¶¥µãµÄworld¾ØÕóµÄattribute bufferÅÅµÚ4Î»
+        /// vertex_attribute_buffers_æ•°ç»„ä¸­ï¼Œé¡¶ç‚¹çš„worldçŸ©é˜µçš„attribute bufferæ’ç¬¬4ä½
         /// </summary>
         static const int WORLD_MAT_VB = 5;
 
         /// <summary>
-        /// ÔÚvertex shaderÖĞ£¬¶¥µãÖĞµÄpositionµÄlayoutÖµÎª0
+        /// åœ¨vertex shaderä¸­ï¼Œé¡¶ç‚¹ä¸­çš„positionçš„layoutå€¼ä¸º0
         /// </summary>
         static const int POSITION_LOCATION = 0;
         
         /// <summary>
-        /// ÔÚvertex shaderÖĞ£¬¶¥µãÖĞµÄµÚÒ»²ãÎÆÀíÓ³Éä×ø±êµÄlayoutÖµÎª1
+        /// åœ¨vertex shaderä¸­ï¼Œé¡¶ç‚¹ä¸­çš„ç¬¬ä¸€å±‚çº¹ç†æ˜ å°„åæ ‡çš„layoutå€¼ä¸º1
         /// </summary>
         static const int TEX_COORD_LOCATION = 1;
         
         /// <summary>
-        /// TÔÚvertex shaderÖĞ£¬¶¥µãÖĞµÄ·¨ÏßÖµµÄlayoutÖµÎª1
+        /// Tåœ¨vertex shaderä¸­ï¼Œé¡¶ç‚¹ä¸­çš„æ³•çº¿å€¼çš„layoutå€¼ä¸º1
         /// </summary>
         static const int NORMAL_LOCATION = 2;
 
@@ -124,12 +124,12 @@ namespace kgl
         };
     public:
         /// <summary>
-        /// <see cref="BasicStaticMesh"/>ÀàµÄ¹¹Ôìº¯Êı
+        /// <see cref="BasicStaticMesh"/>ç±»çš„æ„é€ å‡½æ•°
         /// </summary>
         BasicStaticMesh();
 
         /// <summary>
-        /// <see cref="BasicStaticMesh"/>ÀàµÄÎö¹¹º¯Êı
+        /// <see cref="BasicStaticMesh"/>ç±»çš„ææ„å‡½æ•°
         /// </summary>
         ~BasicStaticMesh();
 
@@ -141,20 +141,20 @@ namespace kgl
         bool LoadMesh(const std::string& file_name);
 
         /// <summary>
-        /// äÖÈ¾Íø¸ñ
+        /// æ¸²æŸ“ç½‘æ ¼
         /// </summary>
         void Render();
 
         /// <summary>
-        /// ÒÔinstance·½Ê½£¬äÖÈ¾instance_count¸ö±¾ÊµÀıµÄÊµÀı
+        /// ä»¥instanceæ–¹å¼ï¼Œæ¸²æŸ“instance_countä¸ªæœ¬å®ä¾‹çš„å®ä¾‹
         /// </summary>
-        /// <param name="instance_count">ÒªäÖÈ¾±¾meshµÄÊµÀıµÄ¸öÊı</param>
-        /// <param name="wvp_matrix">´æ´¢×Å¸ö´ıäÖÈ¾µÄmeshÊµÀıµÄwvp¾ØÕóµÄÊı×éÊ×Ö¸Õë</param>
-        /// <param name="world_matrix">´æ´¢×Å¸ö´ıäÖÈ¾µÄmeshÊµÀıµÄworld¾ØÕóµÄÊı×éÊ×Ö¸Õë</param>
+        /// <param name="instance_count">è¦æ¸²æŸ“æœ¬meshçš„å®ä¾‹çš„ä¸ªæ•°</param>
+        /// <param name="wvp_matrix">å­˜å‚¨ç€ä¸ªå¾…æ¸²æŸ“çš„meshå®ä¾‹çš„wvpçŸ©é˜µçš„æ•°ç»„é¦–æŒ‡é’ˆ</param>
+        /// <param name="world_matrix">å­˜å‚¨ç€ä¸ªå¾…æ¸²æŸ“çš„meshå®ä¾‹çš„worldçŸ©é˜µçš„æ•°ç»„é¦–æŒ‡é’ˆ</param>
         void Render(uint32_t instance_count, const glm::mat4* wvp_matrix, const glm::mat4* world_matrix);
 
         /// <summary>
-        /// »ñÈ¡µ½±¾meshµÄtranslation£¬rotationºÍscale
+        /// è·å–åˆ°æœ¬meshçš„translationï¼Œrotationå’Œscale
         /// </summary>
         /// <returns>kgl.Orientation &.</returns>
         inline Orientation& GetOrientation()
@@ -164,21 +164,21 @@ namespace kgl
 
     private:
         /// <summary>
-        /// ´ÓÒ»¸öAssimp¿âÌá¹©µÄaiSceneÀàĞÍµÄ³¡¾°ÖĞ´´½¨³ö±¾mesh
+        /// ä»ä¸€ä¸ªAssimpåº“æä¾›çš„aiSceneç±»å‹çš„åœºæ™¯ä¸­åˆ›å»ºå‡ºæœ¬mesh
         /// </summary>
-        /// <param name="scene">Assimp¿âÌá¹©µÄaiSceneÀàĞÍµÄ³¡¾°</param>
-        /// <param name="file_name">Ä£ĞÍÎÄ¼şÃû</param>
-        /// <returns>³õÊ¼»¯³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse</returns>
+        /// <param name="scene">Assimpåº“æä¾›çš„aiSceneç±»å‹çš„åœºæ™¯</param>
+        /// <param name="file_name">æ¨¡å‹æ–‡ä»¶å</param>
+        /// <returns>åˆå§‹åŒ–æˆåŠŸè¿”å›trueï¼Œå¦åˆ™è¿”å›false</returns>
         bool InitFromAssetScene(const aiScene* scene, const std::string& file_name);
 
         /// <summary>
-        /// ¸ù¾İimport½øÀ´µÄaiMesh£¬½âÑ¹³ö¶¥µãµÄÎ»ÖÃ£¬·¨Ïß£¬µÚÒ»²ãÎÆÀí×ø±êÊôĞÔ£¬´´½¨¶ÔÓ¦µÄ»º³åÇø
+        /// æ ¹æ®importè¿›æ¥çš„aiMeshï¼Œè§£å‹å‡ºé¡¶ç‚¹çš„ä½ç½®ï¼Œæ³•çº¿ï¼Œç¬¬ä¸€å±‚çº¹ç†åæ ‡å±æ€§ï¼Œåˆ›å»ºå¯¹åº”çš„ç¼“å†²åŒº
         /// </summary>
-        /// <param name="mesh">assimp´ÓÎÄ¼şÖĞ¶ÁÈëµÄaiMesh¶ÔÏó</param>
-        /// <param name="positions">´ıÌî³äµÄ¶¥µãµÄpositionÊı×é</param>
-        /// <param name="normals">´ıÌî³äµÄ¶¥µãµÄ·¨ÏßÊı×é</param>
-        /// <param name="texture_coords">´ıÌî³äµÄ¶¥µãµÄtexture coords 1Êı×é</param>
-        /// <param name="indices">´ıÌî³äµÄ¶¥µãË÷Òı»º³åÇøÊı×é</param>
+        /// <param name="mesh">assimpä»æ–‡ä»¶ä¸­è¯»å…¥çš„aiMeshå¯¹è±¡</param>
+        /// <param name="positions">å¾…å¡«å……çš„é¡¶ç‚¹çš„positionæ•°ç»„</param>
+        /// <param name="normals">å¾…å¡«å……çš„é¡¶ç‚¹çš„æ³•çº¿æ•°ç»„</param>
+        /// <param name="texture_coords">å¾…å¡«å……çš„é¡¶ç‚¹çš„texture coords 1æ•°ç»„</param>
+        /// <param name="indices">å¾…å¡«å……çš„é¡¶ç‚¹ç´¢å¼•ç¼“å†²åŒºæ•°ç»„</param>
         void InitMesh(const aiMesh* mesh,
             std::vector<glm::vec3>& positions,
             std::vector<glm::vec3>& normals,
@@ -194,7 +194,7 @@ namespace kgl
         bool InitMaterials(const aiScene* scene, const std::string& file_name);
 
         /// <summary>
-        /// ÊÍ·Å±¾meshÓÃµ½µÄÒ»Ğ©Êı¾İÊôĞÔ
+        /// é‡Šæ”¾æœ¬meshç”¨åˆ°çš„ä¸€äº›æ•°æ®å±æ€§
         /// </summary>
         void Clear();
     private:
@@ -204,23 +204,23 @@ namespace kgl
         GLuint                      vao_;
 
         /// <summary>
-        /// ÓÃÀ´´æ´¢vertex attributeÃèÊö×Ö¶ÎµÄÁù¸öbuffer
+        /// ç”¨æ¥å­˜å‚¨vertex attributeæè¿°å­—æ®µçš„å…­ä¸ªbuffer
         /// </summary>
         GLuint                      vertex_attribute_buffers_[6];
 
         /// <summary>
-        /// Ò»¸öÄ£ĞÍÎÄ¼şÖĞ¿ÉÄÜÓÉÈô¸É¸ö×Ómesh×é³É£¬Ã¿Ò»¸ömesh¶¼Ó¦¸ÃÓĞÒ»¸öÈë¿Ú
-        /// ±¾Êı×é´æ´¢×Å×é³É±¾meshµÄ×ÓmeshµÄÈë¿ÚĞÅÏ¢
+        /// ä¸€ä¸ªæ¨¡å‹æ–‡ä»¶ä¸­å¯èƒ½ç”±è‹¥å¹²ä¸ªå­meshç»„æˆï¼Œæ¯ä¸€ä¸ªmeshéƒ½åº”è¯¥æœ‰ä¸€ä¸ªå…¥å£
+        /// æœ¬æ•°ç»„å­˜å‚¨ç€ç»„æˆæœ¬meshçš„å­meshçš„å…¥å£ä¿¡æ¯
         /// </summary>
         std::vector<BasicMeshEntry> entries_;
 
         /// <summary>
-        /// ±¾meshÓÃµ½µÄtexture¼¯ºÏ
+        /// æœ¬meshç”¨åˆ°çš„textureé›†åˆ
         /// </summary>
         std::vector<TextureSPtr>    textures_;
 
         /// <summary>
-        /// ±¾meshµÄTRSĞÅÏ¢
+        /// æœ¬meshçš„TRSä¿¡æ¯
         /// </summary>
         Orientation                 transform_;
     };

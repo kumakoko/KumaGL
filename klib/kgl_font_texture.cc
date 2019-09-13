@@ -18,6 +18,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include "kgl_defines.h"
 #include "kgl_font_texture.h"
 #include "kgl_string_convertor.h"
+#include "kgl_error.h"
 
 namespace kgl
 {
@@ -242,6 +243,10 @@ namespace kgl
 
         if (ft_result)
         {
+            std::wstringstream wss;
+            wss << "In FontTexture::RenderGlyphIntoTexture(uint32_t id) " << std::endl;
+            wss << "FT_Load_Char(ft_face_," << id << ", FT_LOAD_RENDER) ERROR. FT_Error is " << ft_result << std::endl;
+            throw Error(wss.str(), __FILE__, __LINE__);
         }
 
         FT_Int advance = ft_face_->glyph->advance.x >> 6; // 获取到该字符的步长值
@@ -249,7 +254,13 @@ namespace kgl
 
         if (!buffer)
         {
-
+            //return;
+            /*
+            std::wstringstream wss;
+            wss << "In FontTexture::RenderGlyphIntoTexture(uint32_t id) " << std::endl;
+            wss << "Get font face glyph bitmap buffer error. the buffer is empty" << std::endl;
+            throw Error(wss.str(), __FILE__, __LINE__);
+            */
         }
 
         int32_t face_height = ft_face_->glyph->bitmap.rows;
@@ -268,9 +279,9 @@ namespace kgl
                 if (antialias_color_)
                 {
                     // 用灰度值作为颜色的RGB分量
-                    *pDest++ = *buffer; // R
-                    *pDest++ = *buffer; // G
-                    *pDest++ = *buffer; // B
+                    *pDest++ = buffer == 0 ? 0x00 : *buffer; // R
+                    *pDest++ = buffer == 0 ? 0x00 : *buffer; // G
+                    *pDest++ = buffer == 0 ? 0x00 : *buffer; // B
                 }
                 else
                 {

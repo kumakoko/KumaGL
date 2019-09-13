@@ -1,4 +1,4 @@
-//
+﻿//
 //  kgl_message_box.h
 //  klib
 //

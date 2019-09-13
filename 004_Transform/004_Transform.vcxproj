@@ -65,7 +65,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\bin;$(BOOST_LIB);$(IMGUI_LIB)/Debug;$(ASSIMP_LIB);$(VLD_LIB);$(ICONV_LIB);$(GLFW_LIB);$(GLEW_LIB);$(FREETYPE_LIB);$(FREEIMAGE_LIB)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;imgui.lib;freetype253MT_D.lib;glew32s.lib;glfw3dll.lib;vld.lib;libiconv.lib;assimp-vc120-mt.lib;klib_d.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;imgui.lib;freetype253MT_D.lib;glew32.lib;glfw3dll.lib;vld.lib;libiconv.lib;assimp-vc120-mt.lib;klib_d.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
       <AdditionalOptions>/ignore:4099  /NODEFAULTLIB:"libcmt.lib"   /NODEFAULTLIB:"libcmtd.lib" %(AdditionalOptions)</AdditionalOptions>
     </Link>
@@ -90,7 +90,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
       <AdditionalLibraryDirectories>..\bin;$(BOOST_LIB);$(IMGUI_LIB)/Release;$(ASSIMP_LIB);$(VLD_LIB);$(ICONV_LIB);$(GLFW_LIB);$(GLEW_LIB);$(FREETYPE_LIB);$(FREEIMAGE_LIB)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>FreeImage.lib;opengl32.lib;imgui.lib;freetype253MT.lib;glew32s.lib;glfw3dll.lib;assimp-vc120-mt.lib;libiconv.lib;klib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>klib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099  /NODEFAULTLIB:"libcmt.lib"   /NODEFAULTLIB:"libcmtd.lib" %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>

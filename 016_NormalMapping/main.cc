@@ -27,7 +27,7 @@ void main()
     try
     {
         app = new NormalMappingApp();
-        app->InitWindow(1024, 768, false, "Normal Mapping");
+        app->InitWindow(1024, 768, false, "016 Normal Mapping");
         app->InitRenderer();
         app->InitScene();
         app->Run();

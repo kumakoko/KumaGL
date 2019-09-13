@@ -1,4 +1,4 @@
-/**************************************************************************************************************************
+﻿/**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -48,96 +48,94 @@ We could export this function and extend it to any kind of RGB[A] format (thus p
 
 namespace kgl
 {
-	ImageFileReader::ImageFileReader()
-	{
-		FreeImage_Initialise(TRUE);
-	}
-
-	ImageFileReader::~ImageFileReader()
-	{
-		this->ReleaseImageData();
-		FreeImage_DeInitialise();
-	}
-
-	void ImageFileReader::ReleaseImageData()
-	{
-		if (nullptr != fi_bitmap_)
-		{
-			FreeImage_Unload(fi_bitmap_);
-			fi_bitmap_ = nullptr;
-			image_data_ = nullptr;
-			image_format_ = FIF_UNKNOWN;
-			image_width_ = 0;
-			image_height_ = 0;
-			bits_per_pixel_ = 0;
-			image_pitch_ = 0;
-		}
-	}
-
-	bool ImageFileReader::LoadFromFile(const std::string& file_name)
-	{
-		this->ReleaseImageData();
-
-		GLuint tex = 0;
-		
-		// 获取到文件格式
-		image_format_ = FreeImage_GetFileType(file_name.c_str(), 0);
-
-		if (FIF_UNKNOWN == image_format_)
-		{
-			image_format_ = FreeImage_GetFIFFromFilename(file_name.c_str());
-
-			if (FIF_UNKNOWN == image_format_)
-				return false;
-		}
-
-		if (FreeImage_FIFSupportsReading(image_format_))
-			fi_bitmap_ = FreeImage_Load(image_format_, file_name.c_str(), 0);
-
-		image_pitch_ = FreeImage_GetPitch(fi_bitmap_);// 从freeimage bitmap info中取出图片跨度
-		image_data_ = FreeImage_GetBits(fi_bitmap_); // 从freeimage bitmap info中取出字节数据
-		bits_per_pixel_ = FreeImage_GetBPP(fi_bitmap_);// 从freeimage bitmap info中取出字节数据取出bit per pixel数据
-		image_width_ = FreeImage_GetWidth(fi_bitmap_);
-		image_height_ = FreeImage_GetHeight(fi_bitmap_);
-		return true;
-	}
-
-    std::array<unsigned char,4> ImageFileReader::GetPixel(int x, int y) const
+    ImageFileReader::ImageFileReader()
     {
-		int offset = 0;
-		int copy_size = 0;
+        FreeImage_Initialise(TRUE);
+    }
+
+    ImageFileReader::~ImageFileReader()
+    {
+        this->ReleaseImageData();
+        FreeImage_DeInitialise();
+    }
+
+    void ImageFileReader::ReleaseImageData()
+    {
+        if (nullptr != fi_bitmap_)
+        {
+            FreeImage_Unload(fi_bitmap_);
+            fi_bitmap_ = nullptr;
+            image_data_ = nullptr;
+            image_format_ = FIF_UNKNOWN;
+            image_width_ = 0;
+            image_height_ = 0;
+            bits_per_pixel_ = 0;
+            image_pitch_ = 0;
+        }
+    }
+
+    bool ImageFileReader::LoadFromFile(const std::string& file_name)
+    {
+        this->ReleaseImageData();
+
+        GLuint tex = 0;
+        
+        // 获取到文件格式
+        image_format_ = FreeImage_GetFileType(file_name.c_str(), 0);
+
+        if (FIF_UNKNOWN == image_format_)
+        {
+            image_format_ = FreeImage_GetFIFFromFilename(file_name.c_str());
+
+            if (FIF_UNKNOWN == image_format_)
+                return false;
+        }
+
+        if (FreeImage_FIFSupportsReading(image_format_))
+            fi_bitmap_ = FreeImage_Load(image_format_, file_name.c_str(), 0);
+
+        image_pitch_ = FreeImage_GetPitch(fi_bitmap_);// 从freeimage bitmap info中取出图片跨度
+        image_data_ = FreeImage_GetBits(fi_bitmap_); // 从freeimage bitmap info中取出字节数据
+        bits_per_pixel_ = FreeImage_GetBPP(fi_bitmap_);// 从freeimage bitmap info中取出字节数据取出bit per pixel数据
+        image_width_ = FreeImage_GetWidth(fi_bitmap_);
+        image_height_ = FreeImage_GetHeight(fi_bitmap_);
+        return true;
+    }
+
+    std::vector<unsigned char> ImageFileReader::GetPixel(int x, int y) const
+    {
+        int offset = 0;
+        int copy_size = 0;
         // int bytes_per_pixel = 0; // 每个像素的字节数
         const unsigned char* pixel = this->GetImageData();
-        std::array<unsigned char, 4> color;
+        std::vector<unsigned char> color(4);
         memset(color.data(), 0, sizeof(unsigned char) * 4);
 
         switch (bits_per_pixel_)
-        {// 以A,R,G,B的格式存放
+        {// 以A,R,G,B的格式存放 -- 升级freeimage到3.18.0版本，以BGRA格式存放
         case 32:
-			copy_size = sizeof(unsigned char) * 4;
-			offset = copy_size * (this->ImageWidth() * y + x);
-			memcpy(color.data() + 0, pixel + offset, copy_size);
-			break;
-		case 24:
-			copy_size = sizeof(unsigned char) * 3;
-			offset = copy_size * (this->ImageWidth() * y + x);
-			memcpy(color.data() + 1, pixel + offset, copy_size);
-			break;
-			//memcpy(color.data() + 1, pixel, sizeof(unsigned char) * 3 * (ImageWidth() * y + x)); break;
-		case 16:
-			copy_size = sizeof(unsigned char) * 2;
-			offset = copy_size * (this->ImageWidth() * y + x);
-			memcpy(color.data() + 2, pixel + offset, copy_size);
-			break;
-			//memcpy(color.data() + 2, pixel, sizeof(unsigned char) * 2 * (ImageWidth() * y + x)); break;
-		case 8: 
-			copy_size = sizeof(unsigned char) * 1;
-			offset = copy_size * (this->ImageWidth() * y + x);
-			memcpy(color.data() + 3, pixel + offset, copy_size);
-			break;
-			//memcpy(color.data() + 3, pixel, sizeof(unsigned char) * 1 * (ImageWidth() * y + x)); break;
+            color.resize(0, 4);
+            copy_size = sizeof(unsigned char) * 4;
+            offset = copy_size * (this->ImageWidth() * y + x);
+            break;
+        case 24:
+            color.resize(0, 3);
+            copy_size = sizeof(unsigned char) * 3;
+            offset = copy_size * (this->ImageWidth() * y + x);
+            break;
+        case 16:
+            color.resize(0, 2);
+            copy_size = sizeof(unsigned char) * 2;
+            offset = copy_size * (this->ImageWidth() * y + x);
+            break;
+        case 8: 
+            copy_size = sizeof(unsigned char) * 1;
+            offset = copy_size * (this->ImageWidth() * y + x);
+            break;
         }
 
+        memcpy(color.data(), pixel + offset, copy_size);
+        std::reverse(color.begin(), color.end());
         return color;
     }
 }

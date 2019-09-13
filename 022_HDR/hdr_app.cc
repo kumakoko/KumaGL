@@ -135,7 +135,7 @@ void HDRApp::InitModel()
     texture_param.min_filter_mode = GL_LINEAR;
     texture_param.internal_format = GL_SRGB; // 要用sRGB
     texture_param.src_img_px_component_type = GL_UNSIGNED_BYTE;
-    texture_param.src_img_format = GL_RGB;
+    texture_param.src_img_format = GL_BGR;//GL_RGB;
     texture_param.used_mipmap = true;
     // 初始化表示场景的盒子和纹理
     wood_texture_ = std::make_shared<kgl::SourceTexture>();

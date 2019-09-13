@@ -1,4 +1,4 @@
-﻿/**************************************************************************************************************************
+/**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -21,9 +21,9 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include "kgl_defines.h"
 #include "kgl_image_file_reader.h"
 
-#if defined(__APPLE__) && defined(__MACH__)
-#include "SOIL.h"
-#endif
+//#if defined(__APPLE__) && defined(__MACH__)
+//#include "SOIL.h"
+//#endif
 
 namespace kgl
 {

@@ -231,7 +231,7 @@ void ShadowMappingApp::InitModel()
     texture_param.min_filter_mode = GL_LINEAR_MIPMAP_LINEAR;
     texture_param.internal_format = GL_RGB;
     texture_param.src_img_px_component_type = GL_UNSIGNED_BYTE;
-    texture_param.src_img_format = GL_RGB;
+    texture_param.src_img_format = GL_BGR;//GL_RGB;
     texture_param.used_mipmap = true;
     wood_texture_ = std::make_shared<kgl::SourceTexture>();
     wood_texture_->CreateFromFile("resources/image/wood.png", texture_param);

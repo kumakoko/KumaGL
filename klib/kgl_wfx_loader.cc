@@ -1,4 +1,4 @@
-/**************************************************************************************************************************
+ï»¿/**************************************************************************************************************************
 Copyright(C) 2014-2019 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -52,7 +52,7 @@ namespace kgl
 
             if (!image)
             {
-                std::wstring msg(L"ÎŞ·¨´ò¿ªÍ¼Æ¬ÎÄ¼ş£º\n");
+                std::wstring msg(L"æ— æ³•æ‰“å¼€å›¾ç‰‡æ–‡ä»¶ï¼š\n");
                 msg.append(kgl::StringConvertor::UTF8toUTF16LE(textureFile.c_str()));
                 throw kgl::Error(msg, __FILE__, __LINE__);
             }
@@ -62,7 +62,7 @@ namespace kgl
             GLuint texture_id = texture.get();
             //textures.push_back(std::move(texture));
 
-            // ¸ù¾İËù¶ÁÈ¡µÄÍ¼Æ¬µÄÏñËØÖ±½ÓÎ»ÊıµÄ²»Í¬£¬ÉèÖÃ²»Í¬µÄ¶ÁÈ¡±êÖ¾
+            // æ ¹æ®æ‰€è¯»å–çš„å›¾ç‰‡çš„åƒç´ ç›´æ¥ä½æ•°çš„ä¸åŒï¼Œè®¾ç½®ä¸åŒçš„è¯»å–æ ‡å¿—
             GLenum mode = (image.num_components() == 4 ? GL_RGBA : GL_RGB);
             glBindTexture(GL_TEXTURE_2D, texture_id);
             glTexImage2D(GL_TEXTURE_2D, 0, mode, image.width(), image.height(), 0, mode,GL_UNSIGNED_BYTE, image.data());
@@ -90,15 +90,15 @@ namespace kgl
 
                 if (!img)
                 {
-                    std::wstring msg(L"ÎŞ·¨´ò¿ªÍ¼Æ¬ÎÄ¼ş£º\n");
+                    std::wstring msg(L"æ— æ³•æ‰“å¼€å›¾ç‰‡æ–‡ä»¶ï¼š\n");
                     msg.append(kgl::StringConvertor::UTF8toUTF16LE(textureFiles[i].c_str()));
                     throw kgl::Error(msg, __FILE__, __LINE__);
                 }
 
                 GLenum mode = (img.num_components() == 4 ? GL_RGBA : GL_RGB);
 
-                // ÒòÎª×ÅÉ«Æ÷ÀïÃæÓÃµ½µÄÎÆÀíÊÇ4Í¨µÀµÄ£¬ËùÒÔÎŞÂÛÔ´Í¼Æ¬ÊÇ4Í¨µÀ»¹ÊÇ3Í¨µÀ£¬
-                // glTexImage2Dº¯ÊıµÄµÄµÚÈı¸ö²ÎÊıÎªGL_RGBA
+                // å› ä¸ºç€è‰²å™¨é‡Œé¢ç”¨åˆ°çš„çº¹ç†æ˜¯4é€šé“çš„ï¼Œæ‰€ä»¥æ— è®ºæºå›¾ç‰‡æ˜¯4é€šé“è¿˜æ˜¯3é€šé“ï¼Œ
+                // glTexImage2Då‡½æ•°çš„çš„ç¬¬ä¸‰ä¸ªå‚æ•°ä¸ºGL_RGBA
                 glTexImage2D( GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, img.width(),
                     img.height(), 0, mode, GL_UNSIGNED_BYTE, img.data());
             }

@@ -24,7 +24,6 @@ namespace kgl
 {
     GPUProgram::GPUProgram()
     {
-
     }
 
     void GPUProgram::CreateFromFile(const std::vector<std::string>& vs_file_paths, const std::vector<std::string>& fs_file_paths, const std::vector<std::string>& gs_file_path,
@@ -145,114 +144,64 @@ namespace kgl
             glDeleteShader(fs_handle);
     }
 
+	std::string GPUProgram::LoadShaderFileToString(const char* shader_file_path)
+	{
+		// 打开文件，读入代码到流中，然后载入到内存，提交编译
+		std::ifstream file_stream;
+		file_stream.open(shader_file_path);
+
+		if (!file_stream.is_open())
+		{
+			std::wstringstream wss;
+			wss << L"Can not open shader file named " << StringConvertor::ANSItoUTF16LE(shader_file_path);
+			throw Error(wss.str(), __FILE__, __LINE__);
+		}
+
+		std::stringstream shader_string_stream;
+		shader_string_stream << file_stream.rdbuf();
+		file_stream.close();
+		return shader_string_stream.str();
+	}
+
+	GLuint GPUProgram::LoadAndCompileShader(const char* shader_string, GLuint shader_type)
+	{
+		GLchar info_log[512];
+		GLint is_success = 0; // 编译成功的话，返回0
+        GLuint shader_handle = glCreateShader(shader_type);
+		glShaderSource(shader_handle, 1, &shader_string, nullptr);
+		glCompileShader(shader_handle);
+		glGetShaderiv(shader_handle, GL_COMPILE_STATUS, &is_success);
+
+		if (!is_success)
+		{
+			glGetShaderInfoLog(shader_handle, 512, NULL, info_log);
+			throw Error(StringConvertor::ANSItoUTF16LE(info_log), __FILE__, __LINE__);
+			return -1;
+		}
+
+		return shader_handle;
+	}
+
     void GPUProgram::CreateFromFile(const GLchar* vs_file_path, const GLchar* fs_file_path, const GLchar* gs_file_path)
     {
-        std::string shader_code_string;
-        const GLchar* shader_code_cstr = nullptr;
-        GLuint vs_handle, fs_handle , gs_handle;
+        GLuint vs_handle = 0 , fs_handle = 0 , gs_handle = 0;
         GLint success;
         GLchar info_log[512];
+        memset(info_log, 0, sizeof(GLchar) * 512);
 
         if (nullptr != vs_file_path)
         {
-            shader_code_string.clear();
-
-            // 打开文件，读入代码到流中，然后载入到内存，提交编译
-            std::ifstream vs_file_stream;
-            vs_file_stream.open(vs_file_path);
-            
-            if (!vs_file_stream.is_open())
-            {
-                std::wstringstream wss;
-                wss << L"Can not open shader file named " << StringConvertor::ANSItoUTF16LE(vs_file_path);
-                throw Error(wss.str(), __FILE__, __LINE__);
-            }
-
-            std::stringstream vs_string_stream;
-            vs_string_stream << vs_file_stream.rdbuf();
-            vs_file_stream.close();
-
-            shader_code_string = vs_string_stream.str();
-            shader_code_cstr = shader_code_string.c_str();
-
-            vs_handle = glCreateShader(GL_VERTEX_SHADER);
-            glShaderSource(vs_handle, 1, &shader_code_cstr, NULL);
-            glCompileShader(vs_handle);
-            glGetShaderiv(vs_handle, GL_COMPILE_STATUS, &success);
-
-            if (!success)
-            {
-                glGetShaderInfoLog(vs_handle, 512, NULL, info_log);
-                throw Error(StringConvertor::ANSItoUTF16LE(info_log), __FILE__, __LINE__);
-            }
+			vs_handle = LoadAndCompileShader(LoadShaderFileToString(vs_file_path).c_str(), GL_VERTEX_SHADER);
         }
 
         if (nullptr != fs_file_path)
         {
-            shader_code_string.clear();
-
-            std::ifstream fs_file_stream;
-            fs_file_stream.open(fs_file_path);
-
-            if (!fs_file_stream.is_open())
-            {
-                std::wstringstream wss;
-                wss << L"Can not open shader file named " << StringConvertor::ANSItoUTF16LE(fs_file_path);
-                throw Error(wss.str(), __FILE__, __LINE__);
-            }
-
-            std::stringstream fs_string_stream;
-            fs_string_stream << fs_file_stream.rdbuf();
-            
-            fs_file_stream.close();
-
-            shader_code_string = fs_string_stream.str();
-            shader_code_cstr = shader_code_string.c_str();
-
-            fs_handle = glCreateShader(GL_FRAGMENT_SHADER);
-            glShaderSource(fs_handle, 1, &shader_code_cstr, NULL);
-            glCompileShader(fs_handle);
-            glGetShaderiv(fs_handle, GL_COMPILE_STATUS, &success);
-
-            if (!success)
-            {
-                glGetShaderInfoLog(fs_handle, 512, NULL, info_log);
-                throw Error(StringConvertor::ANSItoUTF16LE(info_log), __FILE__, __LINE__);
-            }
+			fs_handle = LoadAndCompileShader(LoadShaderFileToString(fs_file_path).c_str(), GL_FRAGMENT_SHADER);
         }
 
         if (nullptr != gs_file_path)
         {
-            shader_code_string.clear();
-
-            std::ifstream gs_file_stream;
-            gs_file_stream.open(gs_file_path);
-
-            if (!gs_file_stream.is_open())
-            {
-                std::wstringstream wss;
-                wss << L"Can not open shader file named " << StringConvertor::ANSItoUTF16LE(gs_file_path);
-                throw Error(wss.str(), __FILE__, __LINE__);
-            }
-
-            std::stringstream gs_string_stream;
-            gs_string_stream << gs_file_stream.rdbuf();
-
-            gs_file_stream.close();
-
-            shader_code_string = gs_string_stream.str();
-            shader_code_cstr = shader_code_string.c_str();
-
-            gs_handle = glCreateShader(GL_GEOMETRY_SHADER);
-            glShaderSource(gs_handle, 1, &shader_code_cstr, NULL);
-            glCompileShader(gs_handle);
-            glGetShaderiv(gs_handle, GL_COMPILE_STATUS, &success);
-
-            if (!success)
-            {
-                glGetShaderInfoLog(gs_handle, 512, NULL, info_log);
-                throw Error(StringConvertor::ANSItoUTF16LE(info_log), __FILE__, __LINE__);
-            }
+			gs_handle = LoadAndCompileShader(LoadShaderFileToString(gs_file_path).c_str(), GL_GEOMETRY_SHADER);
         }
 
         // 链接shader代码
@@ -625,4 +574,44 @@ namespace kgl
         
         return location;
     }
+
+	void GPUProgram::CreateTransformFeedbackShaderFromFile(const GLchar* vs_file_path, const GLchar* gs_file_path, const std::vector<const char*>& varings)
+	{
+		if (vs_file_path == nullptr || gs_file_path == nullptr)
+		{
+
+		}
+
+		GLint success;
+		GLchar info_log[512];
+		GLuint vs_handle = LoadAndCompileShader(LoadShaderFileToString(vs_file_path).c_str(), GL_VERTEX_SHADER);
+		GLuint gs_handle = LoadAndCompileShader(LoadShaderFileToString(gs_file_path).c_str(), GL_GEOMETRY_SHADER);
+
+		// 创建程序
+		this->program_handle_ = glCreateProgram();
+		glAttachShader(this->program_handle_, vs_handle);
+		glAttachShader(this->program_handle_, gs_handle);
+
+		for (std::size_t i = 0; i < varings.size(); ++i)
+		{
+			/*第一个参数对应shader程序的program id，
+			第二个参数指示有多少个feed back变量需要与feed back对象引出接口
+			第三个参数varyings则向函数提供需要引出接口的变量的名称，
+			第四个阐述最后一个参数用于管理变量存在于feed back缓存中的模式，一种是多个变量在feed back缓存中交替出现，另一种是为每一个变量关联一个对应的feed back缓存对象。
+			需要注意的是feed back与program是对应的，当发生program切换的同时伴随feed back队列的变换。！*/
+			glTransformFeedbackVaryings(program_handle_, varings.size(), varings.data(), GL_INTERLEAVED_ATTRIBS);
+		}
+
+		glLinkProgram(this->program_handle_);
+		glGetProgramiv(this->program_handle_, GL_LINK_STATUS, &success);
+
+		if (!success)
+		{
+			glGetProgramInfoLog(this->program_handle_, 512, NULL, info_log);
+			throw Error(StringConvertor::ANSItoUTF16LE(info_log), __FILE__, __LINE__);
+		}
+
+		glDeleteShader(vs_handle);
+		glDeleteShader(gs_handle);
+	}
 }

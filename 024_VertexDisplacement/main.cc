@@ -34,7 +34,7 @@ int main()
         int context_version_minor = 3;
 #endif
 		app = new VertexDisplacementApp();
-        app->InitWindow(1024, 768, false, "024_VertexDisplacement",context_version_major, context_version_minor, profile );
+        app->InitWindow(1024, 768, false, "024 Vertex Displacement",context_version_major, context_version_minor, profile );
         app->InitRenderer();
         app->InitScene();
         app->InitGuiSystem(true);

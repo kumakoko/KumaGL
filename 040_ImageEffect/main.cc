@@ -11,7 +11,7 @@ void main()
     try
     {
         app = new ImageEffectApp();
-        app->InitWindow(800, 600, false, "Image Effect");
+        app->InitWindow(1024, 768, false, "040 Image Effect");
         app->InitRenderer();
         app->InitScene();
         app->Run();

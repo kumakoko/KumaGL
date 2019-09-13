@@ -1,4 +1,4 @@
-/**************************************************************************************************************************
+ï»¿/**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -54,10 +54,10 @@ namespace kgl
 
     bool BasicStaticMesh::LoadMesh(const std::string& file_name)
     {
-        // Çå¿ÕÉÏ´ÎµÄ²ĞÁô
+        // æ¸…ç©ºä¸Šæ¬¡çš„æ®‹ç•™
         Clear();
 
-        // ´´½¨vertex attribute objectºÍ6¸ö¶¥µãÊôĞÔbuffer
+        // åˆ›å»ºvertex attribute objectå’Œ6ä¸ªé¡¶ç‚¹å±æ€§buffer
         glGenVertexArrays(1, &vao_);
         glBindVertexArray(vao_);
         glGenBuffers(6, vertex_attribute_buffers_);
@@ -99,7 +99,7 @@ namespace kgl
         unsigned int vertices_count = 0;
         unsigned int indices_count = 0;
 
-        // ¼ÆËã³ö±¾meshÖĞµÄ¶¥µãºÍ¶¥µãË÷ÒıµÄÊıÁ¿
+        // è®¡ç®—å‡ºæœ¬meshä¸­çš„é¡¶ç‚¹å’Œé¡¶ç‚¹ç´¢å¼•çš„æ•°é‡
         for (unsigned int i = 0; i < entries_.size(); i++) 
         {
             entries_[i].MaterialIndex = scene->mMeshes[i]->mMaterialIndex;
@@ -110,13 +110,13 @@ namespace kgl
             indices_count += entries_[i].NumIndices;
         }
 
-        // ¸ù¾İ¸÷ÏîÊôĞÔµÄÊıÄ¿ÉèÖÃvectorµÄÊµ¼Êsize£¬Ò»µã¶¼²»ÀË·Ñ
+        // æ ¹æ®å„é¡¹å±æ€§çš„æ•°ç›®è®¾ç½®vectorçš„å®é™…sizeï¼Œä¸€ç‚¹éƒ½ä¸æµªè´¹
         positions.reserve(vertices_count);
         normals.reserve(vertices_count);
         texture_coords.reserve(vertices_count);
         indices.reserve(indices_count);
 
-        // ÒÀ´ÎÈ¡³öÃ¿¸ömeshÈ»ºó³õÊ¼»¯Ö®
+        // ä¾æ¬¡å–å‡ºæ¯ä¸ªmeshç„¶ååˆå§‹åŒ–ä¹‹
         for (unsigned int i = 0; i < entries_.size(); i++)
         {
             const aiMesh* paiMesh = scene->mMeshes[i];
@@ -128,7 +128,7 @@ namespace kgl
             return false;
         }
 
-        // ¶¥µãµÄposition£¬texture coord1£¬normal·Ö±ğÔÚlayoutµÄ0£¬1£¬2ÖĞ
+        // é¡¶ç‚¹çš„positionï¼Œtexture coord1ï¼Œnormalåˆ†åˆ«åœ¨layoutçš„0ï¼Œ1ï¼Œ2ä¸­
         glBindBuffer(GL_ARRAY_BUFFER, vertex_attribute_buffers_[POS_VB]);
         glBufferData(GL_ARRAY_BUFFER, sizeof(positions[0]) * positions.size(), &positions[0], GL_STATIC_DRAW);
         glEnableVertexAttribArray(POSITION_LOCATION);
@@ -228,7 +228,7 @@ namespace kgl
 
             if (textures_[MaterialIndex]) 
             {
-                // Ê¹ÓÃµÚÒ»¸öÎÆÀíµ¥Ôª
+                // ä½¿ç”¨ç¬¬ä¸€ä¸ªçº¹ç†å•å…ƒ
                 textures_[MaterialIndex]->ActiveBind(0);
             }
 

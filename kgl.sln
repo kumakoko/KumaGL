@@ -128,6 +128,19 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "080_WaterEffect", "080_Wate
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "024_VertexDisplacement", "024_VertexDisplacement\024_VertexDisplacement.vcxproj", "{4FEF4261-95B2-4396-85DA-E9532421ABC9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "050_ParticleSystem", "050_ParticleSystem\050_ParticleSystem.vcxproj", "{86B7C632-8E0D-4036-8020-3F66DA4CB0B6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "026_KeyframeAnimation", "026_KeyframeAnimation\026_KeyframeAnimation.vcxproj", "{C5DC06E6-0A09-470E-9B02-94FE63CC4F48}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -243,6 +256,14 @@ Global
 		{4FEF4261-95B2-4396-85DA-E9532421ABC9}.Debug|Win32.Build.0 = Debug|Win32
 		{4FEF4261-95B2-4396-85DA-E9532421ABC9}.Release|Win32.ActiveCfg = Release|Win32
 		{4FEF4261-95B2-4396-85DA-E9532421ABC9}.Release|Win32.Build.0 = Release|Win32
+		{86B7C632-8E0D-4036-8020-3F66DA4CB0B6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{86B7C632-8E0D-4036-8020-3F66DA4CB0B6}.Debug|Win32.Build.0 = Debug|Win32
+		{86B7C632-8E0D-4036-8020-3F66DA4CB0B6}.Release|Win32.ActiveCfg = Release|Win32
+		{86B7C632-8E0D-4036-8020-3F66DA4CB0B6}.Release|Win32.Build.0 = Release|Win32
+		{C5DC06E6-0A09-470E-9B02-94FE63CC4F48}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C5DC06E6-0A09-470E-9B02-94FE63CC4F48}.Debug|Win32.Build.0 = Debug|Win32
+		{C5DC06E6-0A09-470E-9B02-94FE63CC4F48}.Release|Win32.ActiveCfg = Release|Win32
+		{C5DC06E6-0A09-470E-9B02-94FE63CC4F48}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

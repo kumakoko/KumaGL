@@ -142,10 +142,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "026_KeyframeAnimation", "02
 		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoostFileSystemTest", "BoostFileSystemTest\BoostFileSystemTest.vcxproj", "{2181C250-0D09-4163-AD6F-724E412A5A10}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RValueTest", "RValueTest\RValueTest.vcxproj", "{58F7AEA7-5E40-40F2-9E35-5E22D175D341}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -268,14 +264,6 @@ Global
 		{C5DC06E6-0A09-470E-9B02-94FE63CC4F48}.Debug|Win32.Build.0 = Debug|Win32
 		{C5DC06E6-0A09-470E-9B02-94FE63CC4F48}.Release|Win32.ActiveCfg = Release|Win32
 		{C5DC06E6-0A09-470E-9B02-94FE63CC4F48}.Release|Win32.Build.0 = Release|Win32
-		{2181C250-0D09-4163-AD6F-724E412A5A10}.Debug|Win32.ActiveCfg = Debug|Win32
-		{2181C250-0D09-4163-AD6F-724E412A5A10}.Debug|Win32.Build.0 = Debug|Win32
-		{2181C250-0D09-4163-AD6F-724E412A5A10}.Release|Win32.ActiveCfg = Release|Win32
-		{2181C250-0D09-4163-AD6F-724E412A5A10}.Release|Win32.Build.0 = Release|Win32
-		{58F7AEA7-5E40-40F2-9E35-5E22D175D341}.Debug|Win32.ActiveCfg = Debug|Win32
-		{58F7AEA7-5E40-40F2-9E35-5E22D175D341}.Debug|Win32.Build.0 = Debug|Win32
-		{58F7AEA7-5E40-40F2-9E35-5E22D175D341}.Release|Win32.ActiveCfg = Release|Win32
-		{58F7AEA7-5E40-40F2-9E35-5E22D175D341}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

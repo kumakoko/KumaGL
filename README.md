@@ -22,6 +22,7 @@ Simple R&amp;D framework of Computer graphic programming.Based on modern OpenGL
 |020_DeferredRendering|<img src="img/kgl/020_DeferredRendering.jpg"  width="250"/>|演示了延迟着色效果|
 |022_HDR|<img src="img/kgl/022_HDR.jpg"  width="250"/>|演示了高动态范围光照效果|
 |024_VertexDisplacement|<img src="img/kgl/024_VertexDisplacement.jpg"  width="250"/>|演示在顶点着色器中改变顶点位置形成动画效果|
+|026_keyframeanimation|<img src="img/kgl/026_keyframeanimation.jpg"  width="250"/>|演示了渲染MD2模型，并且播放顶点帧动画的效果|
 |040_ImageEffect|<img src="img/kgl/040_ImageEffect.jpg"  width="250"/>|使用了若干二维图像后期处理的效果|
 |050_ParticleSystem|<img src="img/kgl/050_ParticleSystem.jpg"  width="250"/>|演示了使用几何着色器生成高效粒子系统的效果|
 |099_OldMovieEffect|<img src="img/kgl/099_OldMovieEffect.jpg"  width="250"/>|演示了老电影屏幕的花屏效果|

@@ -101,6 +101,12 @@
   <ItemGroup>
     <ClInclude Include="hdr_app.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\publish\resources\shader\022_hdr_fs.glsl" />
+    <None Include="..\publish\resources\shader\022_hdr_vs.glsl" />
+    <None Include="..\publish\resources\shader\022_lighting_fs.glsl" />
+    <None Include="..\publish\resources\shader\022_lighting_vs.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

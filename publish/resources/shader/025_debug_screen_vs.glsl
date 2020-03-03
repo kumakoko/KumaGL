@@ -23,6 +23,6 @@ out vec2 v2f_texture_coords;
 
 void main()
 {
-	gl_Position = vec4(vsin_position.x, vsin_position.y, 0.0f, 1.0f);
-	v2f_texture_coords = vsin_tex_coords;
+    gl_Position = vec4(vsin_position.x, vsin_position.y, 0.0f, 1.0f);
+    v2f_texture_coords = vsin_tex_coords;
 }

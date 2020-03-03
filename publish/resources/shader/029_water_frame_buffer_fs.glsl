@@ -49,11 +49,11 @@ const float far = 1000.0;
 
 void main()
 {
-	vec2 ndc = (clipSpace.xy / clipSpace.w) / 2.0 + 0.5;
+    vec2 ndc = (clipSpace.xy / clipSpace.w) / 2.0 + 0.5;
     vec2 reflectTexCoords = textureCoords; reflectTexCoords.y = 1 - reflectTexCoords.y;//vec2 reflectTexCoords = vec2(ndc.x, -ndc.y);
-	vec4 reflectColor = texture(u_texture_reflection,reflectTexCoords);// reflectTexCoords);
-	out_Color = reflectColor;// * vec4(1.0,1.0,1.0,0.3);
-	/*
+    vec4 reflectColor = texture(u_texture_reflection,reflectTexCoords);// reflectTexCoords);
+    out_Color = reflectColor;// * vec4(1.0,1.0,1.0,0.3);
+    /*
     vec2 ndc = (clipSpace.xy / clipSpace.w) / 2.0 + 0.5;
     vec2 reflectTexCoords = vec2(ndc.x, -ndc.y);
     vec2 refractTexCoords = vec2(ndc.x, ndc.y);
@@ -90,8 +90,8 @@ void main()
     vec3 specularHighlights = u_light_color * specular * reflectivity * clamp(waterDepth / 5.0, 0.0, 1.0);
 
     out_Color = mix(reflectColor, refractColor, refractiveFactor);
-	out_Color = mix(out_Color, vec4(0.0, 0.3, 0.5, 1.0), 0.2) + vec4(specularHighlights, 0.0);
+    out_Color = mix(out_Color, vec4(0.0, 0.3, 0.5, 1.0), 0.2) + vec4(specularHighlights, 0.0);
     out_Color.a = clamp(waterDepth / 5.0, 0.0, 1.0);
-	*/
-	// out_Color = vec4(1.0,1.0,1.0,1.0);
+    */
+    // out_Color = vec4(1.0,1.0,1.0,1.0);
 }

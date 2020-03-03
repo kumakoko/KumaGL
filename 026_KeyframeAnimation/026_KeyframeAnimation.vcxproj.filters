@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{43492256-ff66-442d-8fc6-626a5531d059}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc">
@@ -26,5 +29,13 @@
     <ClInclude Include="keyframe_animation_app.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\publish\resources\shader\026_md2_keyframe_anim_vs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\026_md2_keyframe_anim_fs.glsl">
+      <Filter>shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

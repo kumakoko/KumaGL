@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{05662811-9a8e-4dea-b0c3-3830c54142fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc">
@@ -26,5 +29,19 @@
     <ClInclude Include="hdr_app.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\publish\resources\shader\022_hdr_fs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\022_hdr_vs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\022_lighting_fs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\022_lighting_vs.glsl">
+      <Filter>shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

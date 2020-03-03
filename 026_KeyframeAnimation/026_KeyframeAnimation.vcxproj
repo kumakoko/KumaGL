@@ -101,6 +101,10 @@
   <ItemGroup>
     <ClInclude Include="keyframe_animation_app.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\publish\resources\shader\026_md2_keyframe_anim_fs.glsl" />
+    <None Include="..\publish\resources\shader\026_md2_keyframe_anim_vs.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

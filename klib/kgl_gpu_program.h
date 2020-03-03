@@ -39,51 +39,72 @@ namespace kgl
     class GPUProgram
     {
     public:
-        /// <summary>
-        /// <see cref="GPUProgram"/> 类的构造函数.
-        /// </summary>
+        /*********************************************************
+        GPUProgram类的构造函数       
+        *********************************************************/
         GPUProgram();
 
-        /// <summary>
-        /// <see cref="GPUProgram"/> 类的析构函数.
-        /// </summary>
+        /*********************************************************
+        GPUProgram类的析构函数      
+        *********************************************************/
         ~GPUProgram();
 
-        /// <summary>
-        /// 使用本shader程序
-        /// </summary>
+        /*********************************************************
+        使用本shader程序      
+        *********************************************************/
         void Use() const;
 
+        /*********************************************************
+        结束本shader程序       
+        *********************************************************/
         void Finish() const;
 
-        /// <summary>
-        /// 从指定的vertex shader , fragment shader, geometry shader中创建处一个可执行的shader程序
-        /// </summary>
-        /// <param name="vs_file_path">vertex shader代码文件路径名</param>
-        /// <param name="fs_file_path">fragment shader代码文件路径名</param>
-        /// <param name="gs_file_path">geometry shader代码文件路径名</param>
+        /*********************************************************
+        从指定的vertex shader , fragment shader, geometry shader中创建处一个可执行的shader程序
+        @param          const GLchar * vs_file_path vertex shader代码文件路径名
+        @param          const GLchar * fs_file_path fragment shader代码文件路径名
+        @param          const GLchar * gs_file_path geometry shader代码文件路径名       
+        *********************************************************/
         void CreateFromFile(const GLchar* vs_file_path, const GLchar* fs_file_path, const GLchar* gs_file_path);
 
+		/*********************************************************
+		        
+		@param          const GLchar * vs_file_path
+		@param          const GLchar * gs_file_path
+		@param          const std::vector<const char * > & varings
+		@return         
+		@see function   
+		@note           
+		@attention      
+		@bug            
+		@warning        
+		*********************************************************/
 		void CreateTransformFeedbackShaderFromFile(const GLchar* vs_file_path, const GLchar* gs_file_path, const std::vector<const char*>& varings);
 
-        /// <summary>
-        /// 从指定的vertex shader代码组 , fragment shader代码组, geometry shader代码组中创建处一个可执行的shader程序
-        /// </summary>
-        /// <param name="vs_file_paths">The vs_file_paths.</param>
-        /// <param name="fs_file_paths">The fs_file_paths.</param>
-        /// <param name="gs_file_path">The gs_file_path.</param>
-        /// <param name="main_shader_version">The main_shader_version.</param>
-        /// <param name="minor_shader_version">The minor_shader_version.</param>
-        /// <param name="tail_shader_version">The tail_shader_version.</param>
+        /*********************************************************
+        从指定的vertex shader代码组 , fragment shader代码组, geometry shader代码组中创建处一个可执行的shader程序
+        @param          const std::vector<std::string> & vs_file_paths
+        @param          const std::vector<std::string> & fs_file_paths
+        @param          const std::vector<std::string> & gs_file_path
+        @param          uint32_t main_shader_version
+        @param          uint32_t minor_shader_version
+        @param          uint32_t tail_shader_version
+        @return         
+        @see function   
+        @note           
+        @attention      
+        @bug            
+        @warning        
+        *********************************************************/
         void CreateFromFile(const std::vector<std::string>& vs_file_paths, const std::vector<std::string>& fs_file_paths, const std::vector<std::string>& gs_file_path,
             uint32_t main_shader_version = 3, uint32_t minor_shader_version = 3 , uint32_t tail_shader_version = 0);
 
-        /// <summary>
-        /// Applies the texture.
-        /// </summary>
-        /// <param name="texture">The texture.</param>
-        /// <param name="uniform_var_name">The uniform_var_name.</param>
-        /// <param name="slot_index">The slot_index.</param>
+        /*********************************************************
+        Applies the texture.
+        @param          TextureSPtr texture
+        @param          const char * uniform_var_name
+        @param          GLuint slot_index       
+        *********************************************************/
         void ApplyTexture(TextureSPtr texture, const char* uniform_var_name, GLuint slot_index);
 
         /// <summary>
@@ -94,11 +115,11 @@ namespace kgl
         /// <param name="slot_index">The slot_index.</param>
         void ApplyTexture(TextureSPtr texture, GLint location, GLuint slot_index);
 
-        /// <summary>
-        /// 目标texture已经处于激活并绑定状态，所以直接指定texture unit slot即可
-        /// </summary>
-        /// <param name="uniform_var_name">着色器代码中使用的纹理sampler的名字</param>
-        /// <param name="slot_index">texture unit slot</param>
+        /*********************************************************
+        目标texture已经处于激活并绑定状态，所以直接指定texture unit slot即可
+        @param          const char * uniform_var_name 色器代码中使用的纹理sampler的名字
+        @param          GLuint slot_index texture unit slot
+        *********************************************************/
         void ApplyTexture(const char* uniform_var_name, GLuint slot_index);
 
         /// <summary>

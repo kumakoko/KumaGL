@@ -53,7 +53,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;_CRT_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);$(STB_HEADER);$(IMGUI_HEADER);./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>kgl_lib_pch.h</PrecompiledHeaderFile>
@@ -71,7 +71,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;_CRT_SECURE_NO_WARNINGS;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);$(STB_HEADER);$(IMGUI_HEADER);./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>kgl_lib_pch.h</PrecompiledHeaderFile>
@@ -120,6 +120,7 @@
     <ClInclude Include="kgl_light.h" />
     <ClInclude Include="kgl_material.h" />
     <ClInclude Include="kgl_math_tools.h" />
+    <ClInclude Include="kgl_md2_animation_status.h" />
     <ClInclude Include="kgl_md2_model.h" />
     <ClInclude Include="kgl_particle_system.h" />
     <ClInclude Include="kgl_perlin_noise.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="kgl_light.cc" />
     <ClCompile Include="kgl_material.cc" />
     <ClCompile Include="kgl_math_tools.cc" />
+    <ClCompile Include="kgl_md2_animation_status.cc" />
     <ClCompile Include="kgl_md2_model.cc" />
     <ClCompile Include="kgl_message_box.cc" />
     <ClCompile Include="kgl_particle_system.cc" />
@@ -236,6 +238,9 @@
     <ClCompile Include="kgl_wfx_water_frame_buffer.cc" />
     <ClCompile Include="kgl_wfx_water_renderer.cc" />
     <ClCompile Include="kgl_wfx_water_tile.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

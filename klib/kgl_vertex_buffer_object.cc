@@ -18,199 +18,91 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include "kgl_vertex_buffer_object.h"
 
 namespace kgl
-{
-//#include "common_header.h"
-//
-//#include "vertexBufferObject.h"
-//
-//	CVertexBufferObject::CVertexBufferObject()
-//	{
-//		bDataUploaded = false;
-//		uiBuffer = 0;
-//	}
-//
-//	/*-----------------------------------------------
-//
-//	Name:	CreateVBO
-//
-//	Params:	a_iSize - initial size of buffer
-//
-//	Result:	Creates vertex buffer object.
-//
-//	/*---------------------------------------------*/
-//
-//	void CVertexBufferObject::CreateVBO(int a_iSize)
-//	{
-//		glGenBuffers(1, &uiBuffer);
-//		data.reserve(a_iSize);
-//		iSize = a_iSize;
-//		iCurrentSize = 0;
-//	}
-//
-//	/*-----------------------------------------------
-//
-//	Name:	DeleteVBO
-//
-//	Params:	none
-//
-//	Result:	Releases VBO and frees all memory.
-//
-//	/*---------------------------------------------*/
-//
-//	void CVertexBufferObject::DeleteVBO()
-//	{
-//		glDeleteBuffers(1, &uiBuffer);
-//		bDataUploaded = false;
-//		data.clear();
-//	}
-//
-//	/*-----------------------------------------------
-//
-//	Name:	mapBufferToMemory
-//
-//	Params:	iUsageHint - GL_READ_ONLY, GL_WRITE_ONLY...
-//
-//	Result:	Maps whole buffer data to memory and
-//	returns pointer to data.
-//
-//	/*---------------------------------------------*/
-//
-//	void* CVertexBufferObject::MapBufferToMemory(int iUsageHint)
-//	{
-//		if (!bDataUploaded)return NULL;
-//		void* ptrRes = glMapBuffer(iBufferType, iUsageHint);
-//		return ptrRes;
-//	}
-//
-//	/*-----------------------------------------------
-//
-//	Name:	MapSubBufferToMemory
-//
-//	Params:	iUsageHint - GL_READ_ONLY, GL_WRITE_ONLY...
-//	uiOffset - data offset (from where should
-//	data be mapped).
-//	uiLength - length of data
-//
-//	Result:	Maps specified part of buffer to memory.
-//
-//	/*---------------------------------------------*/
-//
-//	void* CVertexBufferObject::MapSubBufferToMemory(int iUsageHint, UINT uiOffset, UINT uiLength)
-//	{
-//		if (!bDataUploaded)return NULL;
-//		void* ptrRes = glMapBufferRange(iBufferType, uiOffset, uiLength, iUsageHint);
-//		return ptrRes;
-//	}
-//
-//	/*-----------------------------------------------
-//
-//	Name:	UnmapBuffer
-//
-//	Params:	none
-//
-//	Result:	Unmaps previously mapped buffer.
-//
-//	/*---------------------------------------------*/
-//
-//	void CVertexBufferObject::UnmapBuffer()
-//	{
-//		glUnmapBuffer(iBufferType);
-//	}
-//
-//	/*-----------------------------------------------
-//
-//	Name:	BindVBO
-//
-//	Params:	a_iBufferType - buffer type (GL_ARRAY_BUFFER, ...)
-//
-//	Result:	Binds this VBO.
-//
-//	/*---------------------------------------------*/
-//
-//	void CVertexBufferObject::BindVBO(int a_iBufferType)
-//	{
-//		iBufferType = a_iBufferType;
-//		glBindBuffer(iBufferType, uiBuffer);
-//	}
-//
-//	/*-----------------------------------------------
-//
-//	Name:	UploadDataToGPU
-//
-//	Params:	iUsageHint - GL_STATIC_DRAW, GL_DYNAMIC_DRAW...
-//
-//	Result:	Sends data to GPU.
-//
-//	/*---------------------------------------------*/
-//
-//	void CVertexBufferObject::UploadDataToGPU(int iDrawingHint)
-//	{
-//		glBufferData(iBufferType, data.size(), &data[0], iDrawingHint);
-//		bDataUploaded = true;
-//		data.clear();
-//	}
-//
-//	/*-----------------------------------------------
-//
-//	Name:	AddData
-//
-//	Params:	ptrData - pointer to arbitrary data
-//	uiDataSize - data size in bytes
-//
-//	Result:	Adds arbitrary data to VBO.
-//
-//	/*---------------------------------------------*/
-//
-//	void CVertexBufferObject::AddData(void* ptrData, UINT uiDataSize)
-//	{
-//		data.insert(data.end(), (BYTE*)ptrData, (BYTE*)ptrData + uiDataSize);
-//		iCurrentSize += uiDataSize;
-//	}
-//
-//	/*-----------------------------------------------
-//
-//	Name:	GetDataPointer
-//
-//	Params:	none
-//
-//	Result:	Returns data pointer (only before uploading).
-//
-//	/*---------------------------------------------*/
-//
-//	void* CVertexBufferObject::GetDataPointer()
-//	{
-//		if (bDataUploaded)return NULL;
-//		return (void*)data[0];
-//	}
-//
-//	/*-----------------------------------------------
-//
-//	Name:	GetBufferID
-//
-//	Params:	none
-//
-//	Result:	Returns VBO ID.
-//
-//	/*---------------------------------------------*/
-//
-//	UINT CVertexBufferObject::GetBufferID()
-//	{
-//		return uiBuffer;
-//	}
-//
-//	/*-----------------------------------------------
-//
-//	Name:	GetCurrentSize
-//
-//	Params:	none
-//
-//	Result: Returns size of data that has been added to
-//	the buffer object.
-//
-//	/*---------------------------------------------*/
-//
-//	int CVertexBufferObject::GetCurrentSize()
-//	{
-//		return iCurrentSize;
-//	}
+{	
+	VertexBufferObject::VertexBufferObject()
+	{
+		data_uploaded_ = false;
+		buffer_id_ = 0;
+	}
+
+	VertexBufferObject::~VertexBufferObject()
+	{
+		Delete();
+	}
+
+	void VertexBufferObject::Create(uint32_t size /*= 0*/)
+	{
+		glGenBuffers(1, &buffer_id_);
+		data_.reserve(size);
+		size_ = size;
+		current_size_ = 0;
+	}
+
+	void VertexBufferObject::Delete()
+	{
+		if (buffer_id_ != 0)
+		{
+			glDeleteBuffers(1, &buffer_id_);
+			data_uploaded_ = false;
+			data_.clear();
+			buffer_id_ = 0;
+		}
+	}
+		
+	void* VertexBufferObject::MapBufferToMemory(GLint usage)
+	{
+		if (!data_uploaded_)
+			return nullptr;
+		
+		void* ptrRes = glMapBuffer(buffer_type_, usage);
+		return ptrRes;
+	}
+
+	void* VertexBufferObject::MapSubBufferToMemory(GLint usage, uint32_t offset, uint32_t length)
+	{
+		if (!data_uploaded_)return NULL;
+		void* ptrRes = glMapBufferRange(buffer_type_, offset, length, usage);
+		return ptrRes;
+	}
+	
+	void VertexBufferObject::UnmapBuffer()
+	{
+		glUnmapBuffer(buffer_type_);
+	}
+	
+	void VertexBufferObject::Bind(GLint buffer_type /*= GL_ARRAY_BUFFER*/)
+	{
+		buffer_type_ = buffer_type;
+		glBindBuffer(buffer_type_, buffer_id_);
+	}
+	
+	void VertexBufferObject::UploadDataToGPU(GLint usage_hint)
+	{
+		glBufferData(buffer_type_, data_.size(), data_.data(), usage_hint);
+		data_uploaded_ = true;
+		data_.clear();
+	}
+		
+	void VertexBufferObject::AddData(void* data_pointer, std::size_t data_size)
+	{
+		auto start_pointer = reinterpret_cast<uint8_t*>(data_pointer);
+		auto end_pointer = start_pointer + static_cast<ptrdiff_t>(data_size);
+		data_.insert(data_.end(), start_pointer, end_pointer);
+		current_size_ += data_size;
+	}
+		
+	void* VertexBufferObject::GetDataPointer()
+	{
+		return data_uploaded_ ? nullptr : (void*)data_[0];
+	}
+		
+	GLuint VertexBufferObject::GetBufferID()
+	{
+		return buffer_id_;
+	}
+	
+	std::size_t VertexBufferObject::GetCurrentSize()
+	{
+		return current_size_;
+	}
 }

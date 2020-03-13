@@ -112,7 +112,7 @@ namespace kgl
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
-    void GBuffer::Initialise(GLuint window_width, GLuint window_height)
+	void GBuffer::Initialise(GLuint window_width, GLuint window_height, bool is_pos_depth_together)
     {
         window_height_ = window_height;
         window_width_ = window_width;
@@ -144,11 +144,8 @@ namespace kgl
         glGenTextures(1, &position_info_texture_);
         glBindTexture(GL_TEXTURE_2D, position_info_texture_);
         glTexImage2D(GL_TEXTURE_2D,0, 
-                     GL_RGB16F, // 纹理中每个像素有三个分量，每个分量是一个16位的浮点数
-                     window_width_, window_height_, 0, 
-                     GL_RGB,
-                     GL_FLOAT,
-                     nullptr);
+			is_pos_depth_together ? GL_RGBA16F : GL_RGB16F, // 如果位置和深度信息放在一起，纹理中每个像素有四个分量，否则三个分量，每个分量是一个16位的浮点数
+			window_width_, window_height_, 0, GL_RGB,GL_FLOAT,nullptr);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 

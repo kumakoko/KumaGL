@@ -1,0 +1,871 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		189F155322A0E40400DBCB88 /* kgl_wfx_light.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14C622A0E3FE00DBCB88 /* kgl_wfx_light.h */; };
+		189F155422A0E40400DBCB88 /* kgl_vertex_attribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14C722A0E3FE00DBCB88 /* kgl_vertex_attribute.h */; };
+		189F155522A0E40400DBCB88 /* kgl_basic_skinned_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14C822A0E3FE00DBCB88 /* kgl_basic_skinned_mesh.h */; };
+		189F155622A0E40400DBCB88 /* kgl_error.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14C922A0E3FE00DBCB88 /* kgl_error.h */; };
+		189F155722A0E40400DBCB88 /* kgl_primitive.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14CA22A0E3FE00DBCB88 /* kgl_primitive.cc */; };
+		189F155822A0E40400DBCB88 /* kgl_message_box.mm in Sources */ = {isa = PBXBuildFile; fileRef = 189F14CB22A0E3FE00DBCB88 /* kgl_message_box.mm */; };
+		189F155922A0E40400DBCB88 /* kgl_terrain.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14CC22A0E3FE00DBCB88 /* kgl_terrain.h */; };
+		189F155A22A0E40400DBCB88 /* libkgl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 189F14CD22A0E3FE00DBCB88 /* libkgl.cpp */; };
+		189F155B22A0E40400DBCB88 /* kgl_wfx_water_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14CE22A0E3FE00DBCB88 /* kgl_wfx_water_renderer.h */; };
+		189F155C22A0E40400DBCB88 /* kgl_wfx_water_frame_buffer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14CF22A0E3FE00DBCB88 /* kgl_wfx_water_frame_buffer.cc */; };
+		189F155D22A0E40400DBCB88 /* kgl_font_uv_rect.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14D022A0E3FE00DBCB88 /* kgl_font_uv_rect.cc */; };
+		189F155E22A0E40400DBCB88 /* kgl_imgui_opengl_bridge.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14D122A0E3FE00DBCB88 /* kgl_imgui_opengl_bridge.cc */; };
+		189F155F22A0E40400DBCB88 /* kgl_aabb.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14D222A0E3FE00DBCB88 /* kgl_aabb.h */; };
+		189F156022A0E40400DBCB88 /* kgl_render_state_blend.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14D322A0E3FE00DBCB88 /* kgl_render_state_blend.h */; };
+		189F156122A0E40400DBCB88 /* kgl_gbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14D422A0E3FE00DBCB88 /* kgl_gbuffer.h */; };
+		189F156222A0E40400DBCB88 /* kgl_light.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14D522A0E3FE00DBCB88 /* kgl_light.cc */; };
+		189F156322A0E40400DBCB88 /* kgl_message_box.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14D622A0E3FF00DBCB88 /* kgl_message_box.cc */; };
+		189F156422A0E40400DBCB88 /* kgl_font_primitive.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14D722A0E3FF00DBCB88 /* kgl_font_primitive.cc */; };
+		189F156522A0E40400DBCB88 /* kgl_render_state_depth.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14D822A0E3FF00DBCB88 /* kgl_render_state_depth.h */; };
+		189F156622A0E40400DBCB88 /* kgl_material.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14D922A0E3FF00DBCB88 /* kgl_material.h */; };
+		189F156722A0E40400DBCB88 /* kgl_wfx_water_tile.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14DA22A0E3FF00DBCB88 /* kgl_wfx_water_tile.h */; };
+		189F156822A0E40400DBCB88 /* kgl_font_texture.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14DB22A0E3FF00DBCB88 /* kgl_font_texture.cc */; };
+		189F156922A0E40400DBCB88 /* kgl_string_convertor.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14DC22A0E3FF00DBCB88 /* kgl_string_convertor.h */; };
+		189F156A22A0E40400DBCB88 /* kgl_math_tools.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14DD22A0E3FF00DBCB88 /* kgl_math_tools.h */; };
+		189F156B22A0E40400DBCB88 /* kgl_font_vertex.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14DE22A0E3FF00DBCB88 /* kgl_font_vertex.cc */; };
+		189F156C22A0E40400DBCB88 /* kgl_assimp_bridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14DF22A0E3FF00DBCB88 /* kgl_assimp_bridge.h */; };
+		189F156D22A0E40400DBCB88 /* kgl_render_state_draw_mode.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14E022A0E3FF00DBCB88 /* kgl_render_state_draw_mode.h */; };
+		189F156E22A0E40400DBCB88 /* kgl_error.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14E122A0E3FF00DBCB88 /* kgl_error.cc */; };
+		189F156F22A0E40400DBCB88 /* kgl_view_frustum.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14E222A0E3FF00DBCB88 /* kgl_view_frustum.h */; };
+		189F157022A0E40400DBCB88 /* kgl_wfx_raw_model.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14E322A0E3FF00DBCB88 /* kgl_wfx_raw_model.cc */; };
+		189F157122A0E40400DBCB88 /* kgl_wfx_terrin_texture.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14E422A0E3FF00DBCB88 /* kgl_wfx_terrin_texture.h */; };
+		189F157222A0E40400DBCB88 /* kgl_wfx_loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14E522A0E3FF00DBCB88 /* kgl_wfx_loader.h */; };
+		189F157322A0E40400DBCB88 /* kgl_transform.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14E622A0E3FF00DBCB88 /* kgl_transform.cc */; };
+		189F157422A0E40400DBCB88 /* kgl_render_state_blend.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14E722A0E3FF00DBCB88 /* kgl_render_state_blend.cc */; };
+		189F157522A0E40400DBCB88 /* kgl_message_box.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14E822A0E3FF00DBCB88 /* kgl_message_box.h */; };
+		189F157622A0E40400DBCB88 /* kgl_standard_index_generator.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14E922A0E3FF00DBCB88 /* kgl_standard_index_generator.h */; };
+		189F157722A0E40400DBCB88 /* kgl_primitive_tool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14EA22A0E3FF00DBCB88 /* kgl_primitive_tool.cc */; };
+		189F157822A0E40400DBCB88 /* kgl_gpu_program.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14EB22A0E3FF00DBCB88 /* kgl_gpu_program.h */; };
+		189F157922A0E40400DBCB88 /* kgl_font_uv_rect.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14EC22A0E3FF00DBCB88 /* kgl_font_uv_rect.h */; };
+		189F157A22A0E40400DBCB88 /* kgl_imgui_opengl_bridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14ED22A0E3FF00DBCB88 /* kgl_imgui_opengl_bridge.h */; };
+		189F157B22A0E40400DBCB88 /* kgl_source_texture.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14EE22A0E3FF00DBCB88 /* kgl_source_texture.h */; };
+		189F157C22A0E40400DBCB88 /* kgl_vertex_type.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14EF22A0E3FF00DBCB88 /* kgl_vertex_type.h */; };
+		189F157D22A0E40400DBCB88 /* kgl_gpu_particle_system.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14F022A0E40000DBCB88 /* kgl_gpu_particle_system.cc */; };
+		189F157E22A0E40400DBCB88 /* kgl_image_file_reader.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14F122A0E40000DBCB88 /* kgl_image_file_reader.h */; };
+		189F157F22A0E40400DBCB88 /* kgl_wfx_terrin_texture.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14F222A0E40000DBCB88 /* kgl_wfx_terrin_texture.cc */; };
+		189F158022A0E40400DBCB88 /* kgl_lib_pch.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14F322A0E40000DBCB88 /* kgl_lib_pch.cc */; };
+		189F158122A0E40400DBCB88 /* kgl_sky_box.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14F422A0E40000DBCB88 /* kgl_sky_box.cc */; };
+		189F158222A0E40400DBCB88 /* kgl_render_state_cull_mode.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14F522A0E40000DBCB88 /* kgl_render_state_cull_mode.cc */; };
+		189F158322A0E40400DBCB88 /* kgl_font_veretx.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14F622A0E40000DBCB88 /* kgl_font_veretx.h */; };
+		189F158422A0E40400DBCB88 /* kgl_imgui_glfw_bridge.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14F722A0E40000DBCB88 /* kgl_imgui_glfw_bridge.cc */; };
+		189F158522A0E40400DBCB88 /* kgl_vertex_attribute.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14F822A0E40000DBCB88 /* kgl_vertex_attribute.cc */; };
+		189F158622A0E40400DBCB88 /* kgl_render_pass.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14F922A0E40000DBCB88 /* kgl_render_pass.h */; };
+		189F158722A0E40400DBCB88 /* kgl_camera.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14FA22A0E40000DBCB88 /* kgl_camera.cc */; };
+		189F158822A0E40400DBCB88 /* kgl_font_glyph_info.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14FB22A0E40000DBCB88 /* kgl_font_glyph_info.h */; };
+		189F158922A0E40400DBCB88 /* kgl_render_pass.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14FC22A0E40000DBCB88 /* kgl_render_pass.cc */; };
+		189F158A22A0E40400DBCB88 /* kgl_rectangle.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14FD22A0E40000DBCB88 /* kgl_rectangle.h */; };
+		189F158B22A0E40400DBCB88 /* kgl_frame_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F14FE22A0E40000DBCB88 /* kgl_frame_buffer.h */; };
+		189F158C22A0E40400DBCB88 /* kgl_wfx_terrin_texture_group.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F14FF22A0E40000DBCB88 /* kgl_wfx_terrin_texture_group.cc */; };
+		189F158D22A0E40400DBCB88 /* kgl_debug_tool.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F150022A0E40000DBCB88 /* kgl_debug_tool.cc */; };
+		189F158E22A0E40400DBCB88 /* kgl_camera.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F150122A0E40000DBCB88 /* kgl_camera.h */; };
+		189F158F22A0E40400DBCB88 /* kgl_plane.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F150222A0E40000DBCB88 /* kgl_plane.cc */; };
+		189F159022A0E40400DBCB88 /* kgl_wfx_water_tile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F150322A0E40000DBCB88 /* kgl_wfx_water_tile.cc */; };
+		189F159122A0E40400DBCB88 /* kgl_smooth_normals_generator.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F150422A0E40100DBCB88 /* kgl_smooth_normals_generator.h */; };
+		189F159222A0E40400DBCB88 /* kgl_sky_box.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F150522A0E40100DBCB88 /* kgl_sky_box.h */; };
+		189F159322A0E40400DBCB88 /* kgl_texture_manager.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F150622A0E40100DBCB88 /* kgl_texture_manager.cc */; };
+		189F159422A0E40400DBCB88 /* kgl_terrain_renderer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F150722A0E40100DBCB88 /* kgl_terrain_renderer.cc */; };
+		189F159522A0E40400DBCB88 /* kgl_rendered_texture.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F150822A0E40100DBCB88 /* kgl_rendered_texture.h */; };
+		189F159622A0E40400DBCB88 /* kgl_render_state_depth.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F150922A0E40100DBCB88 /* kgl_render_state_depth.cc */; };
+		189F159722A0E40400DBCB88 /* kgl_app.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F150A22A0E40100DBCB88 /* kgl_app.cc */; };
+		189F159822A0E40400DBCB88 /* kgl_transform.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F150B22A0E40100DBCB88 /* kgl_transform.h */; };
+		189F159922A0E40400DBCB88 /* kgl_wfx_terrin_texture_group.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F150C22A0E40100DBCB88 /* kgl_wfx_terrin_texture_group.h */; };
+		189F159A22A0E40400DBCB88 /* kgl_terrain_generator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F150D22A0E40100DBCB88 /* kgl_terrain_generator.cc */; };
+		189F159B22A0E40400DBCB88 /* kgl_wfx_resource_handle.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F150E22A0E40100DBCB88 /* kgl_wfx_resource_handle.cc */; };
+		189F159C22A0E40400DBCB88 /* kgl_defines.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F150F22A0E40100DBCB88 /* kgl_defines.h */; };
+		189F159D22A0E40400DBCB88 /* kgl_terrain_generator.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F151022A0E40100DBCB88 /* kgl_terrain_generator.h */; };
+		189F159E22A0E40400DBCB88 /* kgl_smooth_normals_generator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F151122A0E40100DBCB88 /* kgl_smooth_normals_generator.cc */; };
+		189F159F22A0E40400DBCB88 /* kgl_font_texture.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F151222A0E40100DBCB88 /* kgl_font_texture.h */; };
+		189F15A022A0E40400DBCB88 /* kgl_frame_buffer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F151322A0E40100DBCB88 /* kgl_frame_buffer.cc */; };
+		189F15A122A0E40400DBCB88 /* kgl_primitive_tool.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F151422A0E40100DBCB88 /* kgl_primitive_tool.h */; };
+		189F15A222A0E40400DBCB88 /* kgl_render_state_draw_mode.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F151522A0E40100DBCB88 /* kgl_render_state_draw_mode.cc */; };
+		189F15A322A0E40400DBCB88 /* kgl_flat_terrain_generator.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F151622A0E40100DBCB88 /* kgl_flat_terrain_generator.h */; };
+		189F15A422A0E40400DBCB88 /* kgl_water_generator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F151722A0E40100DBCB88 /* kgl_water_generator.cc */; };
+		189F15A522A0E40400DBCB88 /* kgl_perlin_noise.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F151822A0E40100DBCB88 /* kgl_perlin_noise.h */; };
+		189F15A622A0E40400DBCB88 /* kgl_wfx_resource_handle.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F151922A0E40200DBCB88 /* kgl_wfx_resource_handle.h */; };
+		189F15A722A0E40400DBCB88 /* kgl_light.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F151A22A0E40200DBCB88 /* kgl_light.h */; };
+		189F15A822A0E40400DBCB88 /* kgl_perlin_noise.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F151B22A0E40200DBCB88 /* kgl_perlin_noise.cc */; };
+		189F15A922A0E40400DBCB88 /* kgl_flat_terrain_generator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F151C22A0E40200DBCB88 /* kgl_flat_terrain_generator.cc */; };
+		189F15AA22A0E40400DBCB88 /* kgl_stb_image.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F151D22A0E40200DBCB88 /* kgl_stb_image.h */; };
+		189F15AB22A0E40400DBCB88 /* kgl_font_primitive.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F151E22A0E40200DBCB88 /* kgl_font_primitive.h */; };
+		189F15AC22A0E40400DBCB88 /* kgl_gpu_particle_system.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F151F22A0E40200DBCB88 /* kgl_gpu_particle_system.h */; };
+		189F15AD22A0E40400DBCB88 /* kgl_source_texture.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F152022A0E40200DBCB88 /* kgl_source_texture.cc */; };
+		189F15AE22A0E40400DBCB88 /* kgl_wfx_loader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F152122A0E40200DBCB88 /* kgl_wfx_loader.cc */; };
+		189F15AF22A0E40400DBCB88 /* kgl_cubemap_texture.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F152222A0E40200DBCB88 /* kgl_cubemap_texture.h */; };
+		189F15B022A0E40400DBCB88 /* kgl_wfx_water_renderer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F152322A0E40200DBCB88 /* kgl_wfx_water_renderer.cc */; };
+		189F15B122A0E40400DBCB88 /* kgl_particle_system.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F152422A0E40200DBCB88 /* kgl_particle_system.h */; };
+		189F15B222A0E40400DBCB88 /* kgl_gbuffer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F152522A0E40200DBCB88 /* kgl_gbuffer.cc */; };
+		189F15B322A0E40400DBCB88 /* kgl_color_generator.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F152622A0E40200DBCB88 /* kgl_color_generator.h */; };
+		189F15B422A0E40400DBCB88 /* kgl_rendered_texture.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F152722A0E40200DBCB88 /* kgl_rendered_texture.cc */; };
+		189F15B522A0E40400DBCB88 /* kgl_terrain_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F152822A0E40200DBCB88 /* kgl_terrain_renderer.h */; };
+		189F15B622A0E40400DBCB88 /* kgl_gpu_program.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F152922A0E40200DBCB88 /* kgl_gpu_program.cc */; };
+		189F15B722A0E40400DBCB88 /* kgl_plane.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F152A22A0E40200DBCB88 /* kgl_plane.h */; };
+		189F15B822A0E40400DBCB88 /* kgl_string_convertor.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F152B22A0E40200DBCB88 /* kgl_string_convertor.cc */; };
+		189F15B922A0E40400DBCB88 /* kgl_terrain.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F152C22A0E40200DBCB88 /* kgl_terrain.cc */; };
+		189F15BA22A0E40400DBCB88 /* libkgl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 189F152D22A0E40300DBCB88 /* libkgl.hpp */; };
+		189F15BB22A0E40400DBCB88 /* kgl_basic_static_mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F152E22A0E40300DBCB88 /* kgl_basic_static_mesh.h */; };
+		189F15BC22A0E40400DBCB88 /* kgl_color_generator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F152F22A0E40300DBCB88 /* kgl_color_generator.cc */; };
+		189F15BD22A0E40400DBCB88 /* kgl_basic_static_mesh.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F153022A0E40300DBCB88 /* kgl_basic_static_mesh.cc */; };
+		189F15BE22A0E40400DBCB88 /* kgl_particle_system.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F153122A0E40300DBCB88 /* kgl_particle_system.cc */; };
+		189F15BF22A0E40400DBCB88 /* kgl_texture.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F153222A0E40300DBCB88 /* kgl_texture.h */; };
+		189F15C022A0E40400DBCB88 /* kgl_view_frustum.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F153322A0E40300DBCB88 /* kgl_view_frustum.cc */; };
+		189F15C122A0E40400DBCB88 /* kgl_sprite.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F153422A0E40300DBCB88 /* kgl_sprite.cc */; };
+		189F15C222A0E40400DBCB88 /* kgl_app.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F153522A0E40300DBCB88 /* kgl_app.h */; };
+		189F15C322A0E40400DBCB88 /* kgl_wfx_light.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F153622A0E40300DBCB88 /* kgl_wfx_light.cc */; };
+		189F15C422A0E40400DBCB88 /* libkglPriv.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 189F153722A0E40300DBCB88 /* libkglPriv.hpp */; };
+		189F15C522A0E40400DBCB88 /* kgl_material.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F153822A0E40300DBCB88 /* kgl_material.cc */; };
+		189F15C622A0E40400DBCB88 /* kgl_imgui_glfw_bridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F153922A0E40300DBCB88 /* kgl_imgui_glfw_bridge.h */; };
+		189F15C722A0E40400DBCB88 /* kgl_texture.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F153A22A0E40300DBCB88 /* kgl_texture.cc */; };
+		189F15C822A0E40400DBCB88 /* kgl_wfx_water_frame_buffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F153B22A0E40300DBCB88 /* kgl_wfx_water_frame_buffer.h */; };
+		189F15C922A0E40400DBCB88 /* kgl_sprite.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F153C22A0E40300DBCB88 /* kgl_sprite.h */; };
+		189F15CA22A0E40400DBCB88 /* kgl_standard_index_generator.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F153D22A0E40300DBCB88 /* kgl_standard_index_generator.cc */; };
+		189F15CB22A0E40400DBCB88 /* kgl_debug_tool.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F153E22A0E40300DBCB88 /* kgl_debug_tool.h */; };
+		189F15CC22A0E40400DBCB88 /* kgl_render_state_cull_mode.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F153F22A0E40300DBCB88 /* kgl_render_state_cull_mode.h */; };
+		189F15CD22A0E40400DBCB88 /* kgl_lib_pch.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F154022A0E40300DBCB88 /* kgl_lib_pch.h */; };
+		189F15CE22A0E40400DBCB88 /* kgl_math_tools.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F154122A0E40400DBCB88 /* kgl_math_tools.cc */; };
+		189F15CF22A0E40400DBCB88 /* kgl_assimp_bridge.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F154222A0E40400DBCB88 /* kgl_assimp_bridge.cc */; };
+		189F15D022A0E40400DBCB88 /* kgl_aabb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F154322A0E40400DBCB88 /* kgl_aabb.cc */; };
+		189F15D122A0E40400DBCB88 /* kgl_wfx_terrain.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F154422A0E40400DBCB88 /* kgl_wfx_terrain.h */; };
+		189F15D222A0E40400DBCB88 /* kgl_font_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F154522A0E40400DBCB88 /* kgl_font_renderer.h */; };
+		189F15D322A0E40400DBCB88 /* kgl_primitive.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F154622A0E40400DBCB88 /* kgl_primitive.h */; };
+		189F15D422A0E40400DBCB88 /* kgl_font_renderer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F154722A0E40400DBCB88 /* kgl_font_renderer.cc */; };
+		189F15D522A0E40400DBCB88 /* kgl_indices_generator.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F154822A0E40400DBCB88 /* kgl_indices_generator.h */; };
+		189F15D622A0E40400DBCB88 /* kgl_wfx_terrain.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F154922A0E40400DBCB88 /* kgl_wfx_terrain.cc */; };
+		189F15D722A0E40400DBCB88 /* kgl_water_generator.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F154A22A0E40400DBCB88 /* kgl_water_generator.h */; };
+		189F15D822A0E40400DBCB88 /* kgl_stb_image.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F154B22A0E40400DBCB88 /* kgl_stb_image.cc */; };
+		189F15D922A0E40400DBCB88 /* kgl_basic_skinned_mesh.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F154C22A0E40400DBCB88 /* kgl_basic_skinned_mesh.cc */; };
+		189F15DA22A0E40400DBCB88 /* kgl_wfx_raw_model.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F154D22A0E40400DBCB88 /* kgl_wfx_raw_model.h */; };
+		189F15DB22A0E40400DBCB88 /* kgl_cubemap_texture.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F154E22A0E40400DBCB88 /* kgl_cubemap_texture.cc */; };
+		189F15DC22A0E40400DBCB88 /* kgl_font_glyph_info.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F154F22A0E40400DBCB88 /* kgl_font_glyph_info.cc */; };
+		189F15DD22A0E40400DBCB88 /* kgl_image_file_reader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F155022A0E40400DBCB88 /* kgl_image_file_reader.cc */; };
+		189F15DE22A0E40400DBCB88 /* kgl_texture_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 189F155122A0E40400DBCB88 /* kgl_texture_manager.h */; };
+		189F15DF22A0E40400DBCB88 /* kgl_vertex_type.cc in Sources */ = {isa = PBXBuildFile; fileRef = 189F155222A0E40400DBCB88 /* kgl_vertex_type.cc */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		189F13A422A0E2C200DBCB88 /* liblibkgl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibkgl.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		189F14C622A0E3FE00DBCB88 /* kgl_wfx_light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_wfx_light.h; sourceTree = "<group>"; };
+		189F14C722A0E3FE00DBCB88 /* kgl_vertex_attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_vertex_attribute.h; sourceTree = "<group>"; };
+		189F14C822A0E3FE00DBCB88 /* kgl_basic_skinned_mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_basic_skinned_mesh.h; sourceTree = "<group>"; };
+		189F14C922A0E3FE00DBCB88 /* kgl_error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_error.h; sourceTree = "<group>"; };
+		189F14CA22A0E3FE00DBCB88 /* kgl_primitive.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_primitive.cc; sourceTree = "<group>"; };
+		189F14CB22A0E3FE00DBCB88 /* kgl_message_box.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = kgl_message_box.mm; sourceTree = "<group>"; };
+		189F14CC22A0E3FE00DBCB88 /* kgl_terrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_terrain.h; sourceTree = "<group>"; };
+		189F14CD22A0E3FE00DBCB88 /* libkgl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = libkgl.cpp; sourceTree = "<group>"; };
+		189F14CE22A0E3FE00DBCB88 /* kgl_wfx_water_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_wfx_water_renderer.h; sourceTree = "<group>"; };
+		189F14CF22A0E3FE00DBCB88 /* kgl_wfx_water_frame_buffer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_wfx_water_frame_buffer.cc; sourceTree = "<group>"; };
+		189F14D022A0E3FE00DBCB88 /* kgl_font_uv_rect.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_font_uv_rect.cc; sourceTree = "<group>"; };
+		189F14D122A0E3FE00DBCB88 /* kgl_imgui_opengl_bridge.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_imgui_opengl_bridge.cc; sourceTree = "<group>"; };
+		189F14D222A0E3FE00DBCB88 /* kgl_aabb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_aabb.h; sourceTree = "<group>"; };
+		189F14D322A0E3FE00DBCB88 /* kgl_render_state_blend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_render_state_blend.h; sourceTree = "<group>"; };
+		189F14D422A0E3FE00DBCB88 /* kgl_gbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_gbuffer.h; sourceTree = "<group>"; };
+		189F14D522A0E3FE00DBCB88 /* kgl_light.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_light.cc; sourceTree = "<group>"; };
+		189F14D622A0E3FF00DBCB88 /* kgl_message_box.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_message_box.cc; sourceTree = "<group>"; };
+		189F14D722A0E3FF00DBCB88 /* kgl_font_primitive.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_font_primitive.cc; sourceTree = "<group>"; };
+		189F14D822A0E3FF00DBCB88 /* kgl_render_state_depth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_render_state_depth.h; sourceTree = "<group>"; };
+		189F14D922A0E3FF00DBCB88 /* kgl_material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_material.h; sourceTree = "<group>"; };
+		189F14DA22A0E3FF00DBCB88 /* kgl_wfx_water_tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_wfx_water_tile.h; sourceTree = "<group>"; };
+		189F14DB22A0E3FF00DBCB88 /* kgl_font_texture.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_font_texture.cc; sourceTree = "<group>"; };
+		189F14DC22A0E3FF00DBCB88 /* kgl_string_convertor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_string_convertor.h; sourceTree = "<group>"; };
+		189F14DD22A0E3FF00DBCB88 /* kgl_math_tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_math_tools.h; sourceTree = "<group>"; };
+		189F14DE22A0E3FF00DBCB88 /* kgl_font_vertex.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_font_vertex.cc; sourceTree = "<group>"; };
+		189F14DF22A0E3FF00DBCB88 /* kgl_assimp_bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_assimp_bridge.h; sourceTree = "<group>"; };
+		189F14E022A0E3FF00DBCB88 /* kgl_render_state_draw_mode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_render_state_draw_mode.h; sourceTree = "<group>"; };
+		189F14E122A0E3FF00DBCB88 /* kgl_error.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_error.cc; sourceTree = "<group>"; };
+		189F14E222A0E3FF00DBCB88 /* kgl_view_frustum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_view_frustum.h; sourceTree = "<group>"; };
+		189F14E322A0E3FF00DBCB88 /* kgl_wfx_raw_model.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_wfx_raw_model.cc; sourceTree = "<group>"; };
+		189F14E422A0E3FF00DBCB88 /* kgl_wfx_terrin_texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_wfx_terrin_texture.h; sourceTree = "<group>"; };
+		189F14E522A0E3FF00DBCB88 /* kgl_wfx_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_wfx_loader.h; sourceTree = "<group>"; };
+		189F14E622A0E3FF00DBCB88 /* kgl_transform.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_transform.cc; sourceTree = "<group>"; };
+		189F14E722A0E3FF00DBCB88 /* kgl_render_state_blend.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_render_state_blend.cc; sourceTree = "<group>"; };
+		189F14E822A0E3FF00DBCB88 /* kgl_message_box.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_message_box.h; sourceTree = "<group>"; };
+		189F14E922A0E3FF00DBCB88 /* kgl_standard_index_generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_standard_index_generator.h; sourceTree = "<group>"; };
+		189F14EA22A0E3FF00DBCB88 /* kgl_primitive_tool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_primitive_tool.cc; sourceTree = "<group>"; };
+		189F14EB22A0E3FF00DBCB88 /* kgl_gpu_program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_gpu_program.h; sourceTree = "<group>"; };
+		189F14EC22A0E3FF00DBCB88 /* kgl_font_uv_rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_font_uv_rect.h; sourceTree = "<group>"; };
+		189F14ED22A0E3FF00DBCB88 /* kgl_imgui_opengl_bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_imgui_opengl_bridge.h; sourceTree = "<group>"; };
+		189F14EE22A0E3FF00DBCB88 /* kgl_source_texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_source_texture.h; sourceTree = "<group>"; };
+		189F14EF22A0E3FF00DBCB88 /* kgl_vertex_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_vertex_type.h; sourceTree = "<group>"; };
+		189F14F022A0E40000DBCB88 /* kgl_gpu_particle_system.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_gpu_particle_system.cc; sourceTree = "<group>"; };
+		189F14F122A0E40000DBCB88 /* kgl_image_file_reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_image_file_reader.h; sourceTree = "<group>"; };
+		189F14F222A0E40000DBCB88 /* kgl_wfx_terrin_texture.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_wfx_terrin_texture.cc; sourceTree = "<group>"; };
+		189F14F322A0E40000DBCB88 /* kgl_lib_pch.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_lib_pch.cc; sourceTree = "<group>"; };
+		189F14F422A0E40000DBCB88 /* kgl_sky_box.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_sky_box.cc; sourceTree = "<group>"; };
+		189F14F522A0E40000DBCB88 /* kgl_render_state_cull_mode.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_render_state_cull_mode.cc; sourceTree = "<group>"; };
+		189F14F622A0E40000DBCB88 /* kgl_font_veretx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_font_veretx.h; sourceTree = "<group>"; };
+		189F14F722A0E40000DBCB88 /* kgl_imgui_glfw_bridge.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_imgui_glfw_bridge.cc; sourceTree = "<group>"; };
+		189F14F822A0E40000DBCB88 /* kgl_vertex_attribute.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_vertex_attribute.cc; sourceTree = "<group>"; };
+		189F14F922A0E40000DBCB88 /* kgl_render_pass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_render_pass.h; sourceTree = "<group>"; };
+		189F14FA22A0E40000DBCB88 /* kgl_camera.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_camera.cc; sourceTree = "<group>"; };
+		189F14FB22A0E40000DBCB88 /* kgl_font_glyph_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_font_glyph_info.h; sourceTree = "<group>"; };
+		189F14FC22A0E40000DBCB88 /* kgl_render_pass.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_render_pass.cc; sourceTree = "<group>"; };
+		189F14FD22A0E40000DBCB88 /* kgl_rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_rectangle.h; sourceTree = "<group>"; };
+		189F14FE22A0E40000DBCB88 /* kgl_frame_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_frame_buffer.h; sourceTree = "<group>"; };
+		189F14FF22A0E40000DBCB88 /* kgl_wfx_terrin_texture_group.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_wfx_terrin_texture_group.cc; sourceTree = "<group>"; };
+		189F150022A0E40000DBCB88 /* kgl_debug_tool.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_debug_tool.cc; sourceTree = "<group>"; };
+		189F150122A0E40000DBCB88 /* kgl_camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_camera.h; sourceTree = "<group>"; };
+		189F150222A0E40000DBCB88 /* kgl_plane.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_plane.cc; sourceTree = "<group>"; };
+		189F150322A0E40000DBCB88 /* kgl_wfx_water_tile.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_wfx_water_tile.cc; sourceTree = "<group>"; };
+		189F150422A0E40100DBCB88 /* kgl_smooth_normals_generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_smooth_normals_generator.h; sourceTree = "<group>"; };
+		189F150522A0E40100DBCB88 /* kgl_sky_box.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_sky_box.h; sourceTree = "<group>"; };
+		189F150622A0E40100DBCB88 /* kgl_texture_manager.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_texture_manager.cc; sourceTree = "<group>"; };
+		189F150722A0E40100DBCB88 /* kgl_terrain_renderer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_terrain_renderer.cc; sourceTree = "<group>"; };
+		189F150822A0E40100DBCB88 /* kgl_rendered_texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_rendered_texture.h; sourceTree = "<group>"; };
+		189F150922A0E40100DBCB88 /* kgl_render_state_depth.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_render_state_depth.cc; sourceTree = "<group>"; };
+		189F150A22A0E40100DBCB88 /* kgl_app.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_app.cc; sourceTree = "<group>"; };
+		189F150B22A0E40100DBCB88 /* kgl_transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_transform.h; sourceTree = "<group>"; };
+		189F150C22A0E40100DBCB88 /* kgl_wfx_terrin_texture_group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_wfx_terrin_texture_group.h; sourceTree = "<group>"; };
+		189F150D22A0E40100DBCB88 /* kgl_terrain_generator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_terrain_generator.cc; sourceTree = "<group>"; };
+		189F150E22A0E40100DBCB88 /* kgl_wfx_resource_handle.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_wfx_resource_handle.cc; sourceTree = "<group>"; };
+		189F150F22A0E40100DBCB88 /* kgl_defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_defines.h; sourceTree = "<group>"; };
+		189F151022A0E40100DBCB88 /* kgl_terrain_generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_terrain_generator.h; sourceTree = "<group>"; };
+		189F151122A0E40100DBCB88 /* kgl_smooth_normals_generator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_smooth_normals_generator.cc; sourceTree = "<group>"; };
+		189F151222A0E40100DBCB88 /* kgl_font_texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_font_texture.h; sourceTree = "<group>"; };
+		189F151322A0E40100DBCB88 /* kgl_frame_buffer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_frame_buffer.cc; sourceTree = "<group>"; };
+		189F151422A0E40100DBCB88 /* kgl_primitive_tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_primitive_tool.h; sourceTree = "<group>"; };
+		189F151522A0E40100DBCB88 /* kgl_render_state_draw_mode.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_render_state_draw_mode.cc; sourceTree = "<group>"; };
+		189F151622A0E40100DBCB88 /* kgl_flat_terrain_generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_flat_terrain_generator.h; sourceTree = "<group>"; };
+		189F151722A0E40100DBCB88 /* kgl_water_generator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_water_generator.cc; sourceTree = "<group>"; };
+		189F151822A0E40100DBCB88 /* kgl_perlin_noise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_perlin_noise.h; sourceTree = "<group>"; };
+		189F151922A0E40200DBCB88 /* kgl_wfx_resource_handle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_wfx_resource_handle.h; sourceTree = "<group>"; };
+		189F151A22A0E40200DBCB88 /* kgl_light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_light.h; sourceTree = "<group>"; };
+		189F151B22A0E40200DBCB88 /* kgl_perlin_noise.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_perlin_noise.cc; sourceTree = "<group>"; };
+		189F151C22A0E40200DBCB88 /* kgl_flat_terrain_generator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_flat_terrain_generator.cc; sourceTree = "<group>"; };
+		189F151D22A0E40200DBCB88 /* kgl_stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_stb_image.h; sourceTree = "<group>"; };
+		189F151E22A0E40200DBCB88 /* kgl_font_primitive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_font_primitive.h; sourceTree = "<group>"; };
+		189F151F22A0E40200DBCB88 /* kgl_gpu_particle_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_gpu_particle_system.h; sourceTree = "<group>"; };
+		189F152022A0E40200DBCB88 /* kgl_source_texture.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_source_texture.cc; sourceTree = "<group>"; };
+		189F152122A0E40200DBCB88 /* kgl_wfx_loader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_wfx_loader.cc; sourceTree = "<group>"; };
+		189F152222A0E40200DBCB88 /* kgl_cubemap_texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_cubemap_texture.h; sourceTree = "<group>"; };
+		189F152322A0E40200DBCB88 /* kgl_wfx_water_renderer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_wfx_water_renderer.cc; sourceTree = "<group>"; };
+		189F152422A0E40200DBCB88 /* kgl_particle_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_particle_system.h; sourceTree = "<group>"; };
+		189F152522A0E40200DBCB88 /* kgl_gbuffer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_gbuffer.cc; sourceTree = "<group>"; };
+		189F152622A0E40200DBCB88 /* kgl_color_generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_color_generator.h; sourceTree = "<group>"; };
+		189F152722A0E40200DBCB88 /* kgl_rendered_texture.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_rendered_texture.cc; sourceTree = "<group>"; };
+		189F152822A0E40200DBCB88 /* kgl_terrain_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_terrain_renderer.h; sourceTree = "<group>"; };
+		189F152922A0E40200DBCB88 /* kgl_gpu_program.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_gpu_program.cc; sourceTree = "<group>"; };
+		189F152A22A0E40200DBCB88 /* kgl_plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_plane.h; sourceTree = "<group>"; };
+		189F152B22A0E40200DBCB88 /* kgl_string_convertor.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_string_convertor.cc; sourceTree = "<group>"; };
+		189F152C22A0E40200DBCB88 /* kgl_terrain.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_terrain.cc; sourceTree = "<group>"; };
+		189F152D22A0E40300DBCB88 /* libkgl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = libkgl.hpp; sourceTree = "<group>"; };
+		189F152E22A0E40300DBCB88 /* kgl_basic_static_mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_basic_static_mesh.h; sourceTree = "<group>"; };
+		189F152F22A0E40300DBCB88 /* kgl_color_generator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_color_generator.cc; sourceTree = "<group>"; };
+		189F153022A0E40300DBCB88 /* kgl_basic_static_mesh.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_basic_static_mesh.cc; sourceTree = "<group>"; };
+		189F153122A0E40300DBCB88 /* kgl_particle_system.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_particle_system.cc; sourceTree = "<group>"; };
+		189F153222A0E40300DBCB88 /* kgl_texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_texture.h; sourceTree = "<group>"; };
+		189F153322A0E40300DBCB88 /* kgl_view_frustum.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_view_frustum.cc; sourceTree = "<group>"; };
+		189F153422A0E40300DBCB88 /* kgl_sprite.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_sprite.cc; sourceTree = "<group>"; };
+		189F153522A0E40300DBCB88 /* kgl_app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_app.h; sourceTree = "<group>"; };
+		189F153622A0E40300DBCB88 /* kgl_wfx_light.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_wfx_light.cc; sourceTree = "<group>"; };
+		189F153722A0E40300DBCB88 /* libkglPriv.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = libkglPriv.hpp; sourceTree = "<group>"; };
+		189F153822A0E40300DBCB88 /* kgl_material.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_material.cc; sourceTree = "<group>"; };
+		189F153922A0E40300DBCB88 /* kgl_imgui_glfw_bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_imgui_glfw_bridge.h; sourceTree = "<group>"; };
+		189F153A22A0E40300DBCB88 /* kgl_texture.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_texture.cc; sourceTree = "<group>"; };
+		189F153B22A0E40300DBCB88 /* kgl_wfx_water_frame_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_wfx_water_frame_buffer.h; sourceTree = "<group>"; };
+		189F153C22A0E40300DBCB88 /* kgl_sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_sprite.h; sourceTree = "<group>"; };
+		189F153D22A0E40300DBCB88 /* kgl_standard_index_generator.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_standard_index_generator.cc; sourceTree = "<group>"; };
+		189F153E22A0E40300DBCB88 /* kgl_debug_tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_debug_tool.h; sourceTree = "<group>"; };
+		189F153F22A0E40300DBCB88 /* kgl_render_state_cull_mode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_render_state_cull_mode.h; sourceTree = "<group>"; };
+		189F154022A0E40300DBCB88 /* kgl_lib_pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_lib_pch.h; sourceTree = "<group>"; };
+		189F154122A0E40400DBCB88 /* kgl_math_tools.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_math_tools.cc; sourceTree = "<group>"; };
+		189F154222A0E40400DBCB88 /* kgl_assimp_bridge.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_assimp_bridge.cc; sourceTree = "<group>"; };
+		189F154322A0E40400DBCB88 /* kgl_aabb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_aabb.cc; sourceTree = "<group>"; };
+		189F154422A0E40400DBCB88 /* kgl_wfx_terrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_wfx_terrain.h; sourceTree = "<group>"; };
+		189F154522A0E40400DBCB88 /* kgl_font_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_font_renderer.h; sourceTree = "<group>"; };
+		189F154622A0E40400DBCB88 /* kgl_primitive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_primitive.h; sourceTree = "<group>"; };
+		189F154722A0E40400DBCB88 /* kgl_font_renderer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_font_renderer.cc; sourceTree = "<group>"; };
+		189F154822A0E40400DBCB88 /* kgl_indices_generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_indices_generator.h; sourceTree = "<group>"; };
+		189F154922A0E40400DBCB88 /* kgl_wfx_terrain.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_wfx_terrain.cc; sourceTree = "<group>"; };
+		189F154A22A0E40400DBCB88 /* kgl_water_generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_water_generator.h; sourceTree = "<group>"; };
+		189F154B22A0E40400DBCB88 /* kgl_stb_image.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_stb_image.cc; sourceTree = "<group>"; };
+		189F154C22A0E40400DBCB88 /* kgl_basic_skinned_mesh.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_basic_skinned_mesh.cc; sourceTree = "<group>"; };
+		189F154D22A0E40400DBCB88 /* kgl_wfx_raw_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_wfx_raw_model.h; sourceTree = "<group>"; };
+		189F154E22A0E40400DBCB88 /* kgl_cubemap_texture.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_cubemap_texture.cc; sourceTree = "<group>"; };
+		189F154F22A0E40400DBCB88 /* kgl_font_glyph_info.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_font_glyph_info.cc; sourceTree = "<group>"; };
+		189F155022A0E40400DBCB88 /* kgl_image_file_reader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_image_file_reader.cc; sourceTree = "<group>"; };
+		189F155122A0E40400DBCB88 /* kgl_texture_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kgl_texture_manager.h; sourceTree = "<group>"; };
+		189F155222A0E40400DBCB88 /* kgl_vertex_type.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kgl_vertex_type.cc; sourceTree = "<group>"; };
+		189F15E022A0E40E00DBCB88 /* dp */ = {isa = PBXFileReference; lastKnownFileType = folder; path = dp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		189F13A222A0E2C200DBCB88 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		189F139B22A0E2C200DBCB88 = {
+			isa = PBXGroup;
+			children = (
+				189F15E022A0E40E00DBCB88 /* dp */,
+				189F154322A0E40400DBCB88 /* kgl_aabb.cc */,
+				189F14D222A0E3FE00DBCB88 /* kgl_aabb.h */,
+				189F150A22A0E40100DBCB88 /* kgl_app.cc */,
+				189F153522A0E40300DBCB88 /* kgl_app.h */,
+				189F154222A0E40400DBCB88 /* kgl_assimp_bridge.cc */,
+				189F14DF22A0E3FF00DBCB88 /* kgl_assimp_bridge.h */,
+				189F154C22A0E40400DBCB88 /* kgl_basic_skinned_mesh.cc */,
+				189F14C822A0E3FE00DBCB88 /* kgl_basic_skinned_mesh.h */,
+				189F153022A0E40300DBCB88 /* kgl_basic_static_mesh.cc */,
+				189F152E22A0E40300DBCB88 /* kgl_basic_static_mesh.h */,
+				189F14FA22A0E40000DBCB88 /* kgl_camera.cc */,
+				189F150122A0E40000DBCB88 /* kgl_camera.h */,
+				189F152F22A0E40300DBCB88 /* kgl_color_generator.cc */,
+				189F152622A0E40200DBCB88 /* kgl_color_generator.h */,
+				189F154E22A0E40400DBCB88 /* kgl_cubemap_texture.cc */,
+				189F152222A0E40200DBCB88 /* kgl_cubemap_texture.h */,
+				189F150022A0E40000DBCB88 /* kgl_debug_tool.cc */,
+				189F153E22A0E40300DBCB88 /* kgl_debug_tool.h */,
+				189F150F22A0E40100DBCB88 /* kgl_defines.h */,
+				189F14E122A0E3FF00DBCB88 /* kgl_error.cc */,
+				189F14C922A0E3FE00DBCB88 /* kgl_error.h */,
+				189F151C22A0E40200DBCB88 /* kgl_flat_terrain_generator.cc */,
+				189F151622A0E40100DBCB88 /* kgl_flat_terrain_generator.h */,
+				189F154F22A0E40400DBCB88 /* kgl_font_glyph_info.cc */,
+				189F14FB22A0E40000DBCB88 /* kgl_font_glyph_info.h */,
+				189F14D722A0E3FF00DBCB88 /* kgl_font_primitive.cc */,
+				189F151E22A0E40200DBCB88 /* kgl_font_primitive.h */,
+				189F154722A0E40400DBCB88 /* kgl_font_renderer.cc */,
+				189F154522A0E40400DBCB88 /* kgl_font_renderer.h */,
+				189F14DB22A0E3FF00DBCB88 /* kgl_font_texture.cc */,
+				189F151222A0E40100DBCB88 /* kgl_font_texture.h */,
+				189F14D022A0E3FE00DBCB88 /* kgl_font_uv_rect.cc */,
+				189F14EC22A0E3FF00DBCB88 /* kgl_font_uv_rect.h */,
+				189F14F622A0E40000DBCB88 /* kgl_font_veretx.h */,
+				189F14DE22A0E3FF00DBCB88 /* kgl_font_vertex.cc */,
+				189F151322A0E40100DBCB88 /* kgl_frame_buffer.cc */,
+				189F14FE22A0E40000DBCB88 /* kgl_frame_buffer.h */,
+				189F152522A0E40200DBCB88 /* kgl_gbuffer.cc */,
+				189F14D422A0E3FE00DBCB88 /* kgl_gbuffer.h */,
+				189F14F022A0E40000DBCB88 /* kgl_gpu_particle_system.cc */,
+				189F151F22A0E40200DBCB88 /* kgl_gpu_particle_system.h */,
+				189F152922A0E40200DBCB88 /* kgl_gpu_program.cc */,
+				189F14EB22A0E3FF00DBCB88 /* kgl_gpu_program.h */,
+				189F155022A0E40400DBCB88 /* kgl_image_file_reader.cc */,
+				189F14F122A0E40000DBCB88 /* kgl_image_file_reader.h */,
+				189F14F722A0E40000DBCB88 /* kgl_imgui_glfw_bridge.cc */,
+				189F153922A0E40300DBCB88 /* kgl_imgui_glfw_bridge.h */,
+				189F14D122A0E3FE00DBCB88 /* kgl_imgui_opengl_bridge.cc */,
+				189F14ED22A0E3FF00DBCB88 /* kgl_imgui_opengl_bridge.h */,
+				189F154822A0E40400DBCB88 /* kgl_indices_generator.h */,
+				189F14F322A0E40000DBCB88 /* kgl_lib_pch.cc */,
+				189F154022A0E40300DBCB88 /* kgl_lib_pch.h */,
+				189F14D522A0E3FE00DBCB88 /* kgl_light.cc */,
+				189F151A22A0E40200DBCB88 /* kgl_light.h */,
+				189F153822A0E40300DBCB88 /* kgl_material.cc */,
+				189F14D922A0E3FF00DBCB88 /* kgl_material.h */,
+				189F154122A0E40400DBCB88 /* kgl_math_tools.cc */,
+				189F14DD22A0E3FF00DBCB88 /* kgl_math_tools.h */,
+				189F14D622A0E3FF00DBCB88 /* kgl_message_box.cc */,
+				189F14E822A0E3FF00DBCB88 /* kgl_message_box.h */,
+				189F14CB22A0E3FE00DBCB88 /* kgl_message_box.mm */,
+				189F153122A0E40300DBCB88 /* kgl_particle_system.cc */,
+				189F152422A0E40200DBCB88 /* kgl_particle_system.h */,
+				189F151B22A0E40200DBCB88 /* kgl_perlin_noise.cc */,
+				189F151822A0E40100DBCB88 /* kgl_perlin_noise.h */,
+				189F150222A0E40000DBCB88 /* kgl_plane.cc */,
+				189F152A22A0E40200DBCB88 /* kgl_plane.h */,
+				189F14EA22A0E3FF00DBCB88 /* kgl_primitive_tool.cc */,
+				189F151422A0E40100DBCB88 /* kgl_primitive_tool.h */,
+				189F14CA22A0E3FE00DBCB88 /* kgl_primitive.cc */,
+				189F154622A0E40400DBCB88 /* kgl_primitive.h */,
+				189F14FD22A0E40000DBCB88 /* kgl_rectangle.h */,
+				189F14FC22A0E40000DBCB88 /* kgl_render_pass.cc */,
+				189F14F922A0E40000DBCB88 /* kgl_render_pass.h */,
+				189F14E722A0E3FF00DBCB88 /* kgl_render_state_blend.cc */,
+				189F14D322A0E3FE00DBCB88 /* kgl_render_state_blend.h */,
+				189F14F522A0E40000DBCB88 /* kgl_render_state_cull_mode.cc */,
+				189F153F22A0E40300DBCB88 /* kgl_render_state_cull_mode.h */,
+				189F150922A0E40100DBCB88 /* kgl_render_state_depth.cc */,
+				189F14D822A0E3FF00DBCB88 /* kgl_render_state_depth.h */,
+				189F151522A0E40100DBCB88 /* kgl_render_state_draw_mode.cc */,
+				189F14E022A0E3FF00DBCB88 /* kgl_render_state_draw_mode.h */,
+				189F152722A0E40200DBCB88 /* kgl_rendered_texture.cc */,
+				189F150822A0E40100DBCB88 /* kgl_rendered_texture.h */,
+				189F14F422A0E40000DBCB88 /* kgl_sky_box.cc */,
+				189F150522A0E40100DBCB88 /* kgl_sky_box.h */,
+				189F151122A0E40100DBCB88 /* kgl_smooth_normals_generator.cc */,
+				189F150422A0E40100DBCB88 /* kgl_smooth_normals_generator.h */,
+				189F152022A0E40200DBCB88 /* kgl_source_texture.cc */,
+				189F14EE22A0E3FF00DBCB88 /* kgl_source_texture.h */,
+				189F153422A0E40300DBCB88 /* kgl_sprite.cc */,
+				189F153C22A0E40300DBCB88 /* kgl_sprite.h */,
+				189F153D22A0E40300DBCB88 /* kgl_standard_index_generator.cc */,
+				189F14E922A0E3FF00DBCB88 /* kgl_standard_index_generator.h */,
+				189F154B22A0E40400DBCB88 /* kgl_stb_image.cc */,
+				189F151D22A0E40200DBCB88 /* kgl_stb_image.h */,
+				189F152B22A0E40200DBCB88 /* kgl_string_convertor.cc */,
+				189F14DC22A0E3FF00DBCB88 /* kgl_string_convertor.h */,
+				189F150D22A0E40100DBCB88 /* kgl_terrain_generator.cc */,
+				189F151022A0E40100DBCB88 /* kgl_terrain_generator.h */,
+				189F150722A0E40100DBCB88 /* kgl_terrain_renderer.cc */,
+				189F152822A0E40200DBCB88 /* kgl_terrain_renderer.h */,
+				189F152C22A0E40200DBCB88 /* kgl_terrain.cc */,
+				189F14CC22A0E3FE00DBCB88 /* kgl_terrain.h */,
+				189F150622A0E40100DBCB88 /* kgl_texture_manager.cc */,
+				189F155122A0E40400DBCB88 /* kgl_texture_manager.h */,
+				189F153A22A0E40300DBCB88 /* kgl_texture.cc */,
+				189F153222A0E40300DBCB88 /* kgl_texture.h */,
+				189F14E622A0E3FF00DBCB88 /* kgl_transform.cc */,
+				189F150B22A0E40100DBCB88 /* kgl_transform.h */,
+				189F14F822A0E40000DBCB88 /* kgl_vertex_attribute.cc */,
+				189F14C722A0E3FE00DBCB88 /* kgl_vertex_attribute.h */,
+				189F155222A0E40400DBCB88 /* kgl_vertex_type.cc */,
+				189F14EF22A0E3FF00DBCB88 /* kgl_vertex_type.h */,
+				189F153322A0E40300DBCB88 /* kgl_view_frustum.cc */,
+				189F14E222A0E3FF00DBCB88 /* kgl_view_frustum.h */,
+				189F151722A0E40100DBCB88 /* kgl_water_generator.cc */,
+				189F154A22A0E40400DBCB88 /* kgl_water_generator.h */,
+				189F153622A0E40300DBCB88 /* kgl_wfx_light.cc */,
+				189F14C622A0E3FE00DBCB88 /* kgl_wfx_light.h */,
+				189F152122A0E40200DBCB88 /* kgl_wfx_loader.cc */,
+				189F14E522A0E3FF00DBCB88 /* kgl_wfx_loader.h */,
+				189F14E322A0E3FF00DBCB88 /* kgl_wfx_raw_model.cc */,
+				189F154D22A0E40400DBCB88 /* kgl_wfx_raw_model.h */,
+				189F150E22A0E40100DBCB88 /* kgl_wfx_resource_handle.cc */,
+				189F151922A0E40200DBCB88 /* kgl_wfx_resource_handle.h */,
+				189F154922A0E40400DBCB88 /* kgl_wfx_terrain.cc */,
+				189F154422A0E40400DBCB88 /* kgl_wfx_terrain.h */,
+				189F14FF22A0E40000DBCB88 /* kgl_wfx_terrin_texture_group.cc */,
+				189F150C22A0E40100DBCB88 /* kgl_wfx_terrin_texture_group.h */,
+				189F14F222A0E40000DBCB88 /* kgl_wfx_terrin_texture.cc */,
+				189F14E422A0E3FF00DBCB88 /* kgl_wfx_terrin_texture.h */,
+				189F14CF22A0E3FE00DBCB88 /* kgl_wfx_water_frame_buffer.cc */,
+				189F153B22A0E40300DBCB88 /* kgl_wfx_water_frame_buffer.h */,
+				189F152322A0E40200DBCB88 /* kgl_wfx_water_renderer.cc */,
+				189F14CE22A0E3FE00DBCB88 /* kgl_wfx_water_renderer.h */,
+				189F150322A0E40000DBCB88 /* kgl_wfx_water_tile.cc */,
+				189F14DA22A0E3FF00DBCB88 /* kgl_wfx_water_tile.h */,
+				189F14CD22A0E3FE00DBCB88 /* libkgl.cpp */,
+				189F152D22A0E40300DBCB88 /* libkgl.hpp */,
+				189F153722A0E40300DBCB88 /* libkglPriv.hpp */,
+				189F13A522A0E2C200DBCB88 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		189F13A522A0E2C200DBCB88 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				189F13A422A0E2C200DBCB88 /* liblibkgl.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		189F13A022A0E2C200DBCB88 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				189F15B122A0E40400DBCB88 /* kgl_particle_system.h in Headers */,
+				189F156D22A0E40400DBCB88 /* kgl_render_state_draw_mode.h in Headers */,
+				189F15AA22A0E40400DBCB88 /* kgl_stb_image.h in Headers */,
+				189F155622A0E40400DBCB88 /* kgl_error.h in Headers */,
+				189F155422A0E40400DBCB88 /* kgl_vertex_attribute.h in Headers */,
+				189F155B22A0E40400DBCB88 /* kgl_wfx_water_renderer.h in Headers */,
+				189F15C422A0E40400DBCB88 /* libkglPriv.hpp in Headers */,
+				189F156722A0E40400DBCB88 /* kgl_wfx_water_tile.h in Headers */,
+				189F15C622A0E40400DBCB88 /* kgl_imgui_glfw_bridge.h in Headers */,
+				189F15DA22A0E40400DBCB88 /* kgl_wfx_raw_model.h in Headers */,
+				189F15AB22A0E40400DBCB88 /* kgl_font_primitive.h in Headers */,
+				189F15C922A0E40400DBCB88 /* kgl_sprite.h in Headers */,
+				189F157C22A0E40400DBCB88 /* kgl_vertex_type.h in Headers */,
+				189F157E22A0E40400DBCB88 /* kgl_image_file_reader.h in Headers */,
+				189F156C22A0E40400DBCB88 /* kgl_assimp_bridge.h in Headers */,
+				189F15D522A0E40400DBCB88 /* kgl_indices_generator.h in Headers */,
+				189F157222A0E40400DBCB88 /* kgl_wfx_loader.h in Headers */,
+				189F15D122A0E40400DBCB88 /* kgl_wfx_terrain.h in Headers */,
+				189F159222A0E40400DBCB88 /* kgl_sky_box.h in Headers */,
+				189F158B22A0E40400DBCB88 /* kgl_frame_buffer.h in Headers */,
+				189F15AF22A0E40400DBCB88 /* kgl_cubemap_texture.h in Headers */,
+				189F159122A0E40400DBCB88 /* kgl_smooth_normals_generator.h in Headers */,
+				189F157A22A0E40400DBCB88 /* kgl_imgui_opengl_bridge.h in Headers */,
+				189F157822A0E40400DBCB88 /* kgl_gpu_program.h in Headers */,
+				189F15B722A0E40400DBCB88 /* kgl_plane.h in Headers */,
+				189F155522A0E40400DBCB88 /* kgl_basic_skinned_mesh.h in Headers */,
+				189F158322A0E40400DBCB88 /* kgl_font_veretx.h in Headers */,
+				189F15C222A0E40400DBCB88 /* kgl_app.h in Headers */,
+				189F15A522A0E40400DBCB88 /* kgl_perlin_noise.h in Headers */,
+				189F15A622A0E40400DBCB88 /* kgl_wfx_resource_handle.h in Headers */,
+				189F15A722A0E40400DBCB88 /* kgl_light.h in Headers */,
+				189F157122A0E40400DBCB88 /* kgl_wfx_terrin_texture.h in Headers */,
+				189F159922A0E40400DBCB88 /* kgl_wfx_terrin_texture_group.h in Headers */,
+				189F155322A0E40400DBCB88 /* kgl_wfx_light.h in Headers */,
+				189F156F22A0E40400DBCB88 /* kgl_view_frustum.h in Headers */,
+				189F156922A0E40400DBCB88 /* kgl_string_convertor.h in Headers */,
+				189F15A122A0E40400DBCB88 /* kgl_primitive_tool.h in Headers */,
+				189F15D322A0E40400DBCB88 /* kgl_primitive.h in Headers */,
+				189F15CC22A0E40400DBCB88 /* kgl_render_state_cull_mode.h in Headers */,
+				189F156522A0E40400DBCB88 /* kgl_render_state_depth.h in Headers */,
+				189F157522A0E40400DBCB88 /* kgl_message_box.h in Headers */,
+				189F15CD22A0E40400DBCB88 /* kgl_lib_pch.h in Headers */,
+				189F159522A0E40400DBCB88 /* kgl_rendered_texture.h in Headers */,
+				189F156122A0E40400DBCB88 /* kgl_gbuffer.h in Headers */,
+				189F15BF22A0E40400DBCB88 /* kgl_texture.h in Headers */,
+				189F158A22A0E40400DBCB88 /* kgl_rectangle.h in Headers */,
+				189F157622A0E40400DBCB88 /* kgl_standard_index_generator.h in Headers */,
+				189F159822A0E40400DBCB88 /* kgl_transform.h in Headers */,
+				189F15A322A0E40400DBCB88 /* kgl_flat_terrain_generator.h in Headers */,
+				189F15B322A0E40400DBCB88 /* kgl_color_generator.h in Headers */,
+				189F156622A0E40400DBCB88 /* kgl_material.h in Headers */,
+				189F15AC22A0E40400DBCB88 /* kgl_gpu_particle_system.h in Headers */,
+				189F155922A0E40400DBCB88 /* kgl_terrain.h in Headers */,
+				189F159C22A0E40400DBCB88 /* kgl_defines.h in Headers */,
+				189F157922A0E40400DBCB88 /* kgl_font_uv_rect.h in Headers */,
+				189F157B22A0E40400DBCB88 /* kgl_source_texture.h in Headers */,
+				189F158822A0E40400DBCB88 /* kgl_font_glyph_info.h in Headers */,
+				189F156A22A0E40400DBCB88 /* kgl_math_tools.h in Headers */,
+				189F15C822A0E40400DBCB88 /* kgl_wfx_water_frame_buffer.h in Headers */,
+				189F15DE22A0E40400DBCB88 /* kgl_texture_manager.h in Headers */,
+				189F15B522A0E40400DBCB88 /* kgl_terrain_renderer.h in Headers */,
+				189F15D222A0E40400DBCB88 /* kgl_font_renderer.h in Headers */,
+				189F158622A0E40400DBCB88 /* kgl_render_pass.h in Headers */,
+				189F155F22A0E40400DBCB88 /* kgl_aabb.h in Headers */,
+				189F159F22A0E40400DBCB88 /* kgl_font_texture.h in Headers */,
+				189F15BA22A0E40400DBCB88 /* libkgl.hpp in Headers */,
+				189F15CB22A0E40400DBCB88 /* kgl_debug_tool.h in Headers */,
+				189F159D22A0E40400DBCB88 /* kgl_terrain_generator.h in Headers */,
+				189F158E22A0E40400DBCB88 /* kgl_camera.h in Headers */,
+				189F15D722A0E40400DBCB88 /* kgl_water_generator.h in Headers */,
+				189F156022A0E40400DBCB88 /* kgl_render_state_blend.h in Headers */,
+				189F15BB22A0E40400DBCB88 /* kgl_basic_static_mesh.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		189F13A322A0E2C200DBCB88 /* libkgl */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 189F13AF22A0E2C200DBCB88 /* Build configuration list for PBXNativeTarget "libkgl" */;
+			buildPhases = (
+				189F13A022A0E2C200DBCB88 /* Headers */,
+				189F13A122A0E2C200DBCB88 /* Sources */,
+				189F13A222A0E2C200DBCB88 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libkgl;
+			productName = libkgl;
+			productReference = 189F13A422A0E2C200DBCB88 /* liblibkgl.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		189F139C22A0E2C200DBCB88 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = apple;
+				TargetAttributes = {
+					189F13A322A0E2C200DBCB88 = {
+						CreatedOnToolsVersion = 10.0;
+					};
+				};
+			};
+			buildConfigurationList = 189F139F22A0E2C200DBCB88 /* Build configuration list for PBXProject "libkgl" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 189F139B22A0E2C200DBCB88;
+			productRefGroup = 189F13A522A0E2C200DBCB88 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				189F13A322A0E2C200DBCB88 /* libkgl */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		189F13A122A0E2C200DBCB88 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				189F15B822A0E40400DBCB88 /* kgl_string_convertor.cc in Sources */,
+				189F158922A0E40400DBCB88 /* kgl_render_pass.cc in Sources */,
+				189F156322A0E40400DBCB88 /* kgl_message_box.cc in Sources */,
+				189F15CE22A0E40400DBCB88 /* kgl_math_tools.cc in Sources */,
+				189F15A422A0E40400DBCB88 /* kgl_water_generator.cc in Sources */,
+				189F15D022A0E40400DBCB88 /* kgl_aabb.cc in Sources */,
+				189F15A822A0E40400DBCB88 /* kgl_perlin_noise.cc in Sources */,
+				189F15CF22A0E40400DBCB88 /* kgl_assimp_bridge.cc in Sources */,
+				189F158222A0E40400DBCB88 /* kgl_render_state_cull_mode.cc in Sources */,
+				189F155E22A0E40400DBCB88 /* kgl_imgui_opengl_bridge.cc in Sources */,
+				189F15D422A0E40400DBCB88 /* kgl_font_renderer.cc in Sources */,
+				189F158C22A0E40400DBCB88 /* kgl_wfx_terrin_texture_group.cc in Sources */,
+				189F15D822A0E40400DBCB88 /* kgl_stb_image.cc in Sources */,
+				189F155D22A0E40400DBCB88 /* kgl_font_uv_rect.cc in Sources */,
+				189F15A022A0E40400DBCB88 /* kgl_frame_buffer.cc in Sources */,
+				189F156822A0E40400DBCB88 /* kgl_font_texture.cc in Sources */,
+				189F157F22A0E40400DBCB88 /* kgl_wfx_terrin_texture.cc in Sources */,
+				189F15DD22A0E40400DBCB88 /* kgl_image_file_reader.cc in Sources */,
+				189F155C22A0E40400DBCB88 /* kgl_wfx_water_frame_buffer.cc in Sources */,
+				189F158722A0E40400DBCB88 /* kgl_camera.cc in Sources */,
+				189F15CA22A0E40400DBCB88 /* kgl_standard_index_generator.cc in Sources */,
+				189F159722A0E40400DBCB88 /* kgl_app.cc in Sources */,
+				189F159322A0E40400DBCB88 /* kgl_texture_manager.cc in Sources */,
+				189F15AE22A0E40400DBCB88 /* kgl_wfx_loader.cc in Sources */,
+				189F157422A0E40400DBCB88 /* kgl_render_state_blend.cc in Sources */,
+				189F15DC22A0E40400DBCB88 /* kgl_font_glyph_info.cc in Sources */,
+				189F156222A0E40400DBCB88 /* kgl_light.cc in Sources */,
+				189F158422A0E40400DBCB88 /* kgl_imgui_glfw_bridge.cc in Sources */,
+				189F155822A0E40400DBCB88 /* kgl_message_box.mm in Sources */,
+				189F15DF22A0E40400DBCB88 /* kgl_vertex_type.cc in Sources */,
+				189F15C722A0E40400DBCB88 /* kgl_texture.cc in Sources */,
+				189F159B22A0E40400DBCB88 /* kgl_wfx_resource_handle.cc in Sources */,
+				189F15BC22A0E40400DBCB88 /* kgl_color_generator.cc in Sources */,
+				189F159022A0E40400DBCB88 /* kgl_wfx_water_tile.cc in Sources */,
+				189F157022A0E40400DBCB88 /* kgl_wfx_raw_model.cc in Sources */,
+				189F156422A0E40400DBCB88 /* kgl_font_primitive.cc in Sources */,
+				189F15B222A0E40400DBCB88 /* kgl_gbuffer.cc in Sources */,
+				189F157322A0E40400DBCB88 /* kgl_transform.cc in Sources */,
+				189F15C322A0E40400DBCB88 /* kgl_wfx_light.cc in Sources */,
+				189F155722A0E40400DBCB88 /* kgl_primitive.cc in Sources */,
+				189F157722A0E40400DBCB88 /* kgl_primitive_tool.cc in Sources */,
+				189F159E22A0E40400DBCB88 /* kgl_smooth_normals_generator.cc in Sources */,
+				189F15BE22A0E40400DBCB88 /* kgl_particle_system.cc in Sources */,
+				189F156B22A0E40400DBCB88 /* kgl_font_vertex.cc in Sources */,
+				189F15C122A0E40400DBCB88 /* kgl_sprite.cc in Sources */,
+				189F155A22A0E40400DBCB88 /* libkgl.cpp in Sources */,
+				189F15B422A0E40400DBCB88 /* kgl_rendered_texture.cc in Sources */,
+				189F158022A0E40400DBCB88 /* kgl_lib_pch.cc in Sources */,
+				189F157D22A0E40400DBCB88 /* kgl_gpu_particle_system.cc in Sources */,
+				189F15C522A0E40400DBCB88 /* kgl_material.cc in Sources */,
+				189F15D922A0E40400DBCB88 /* kgl_basic_skinned_mesh.cc in Sources */,
+				189F15D622A0E40400DBCB88 /* kgl_wfx_terrain.cc in Sources */,
+				189F15A222A0E40400DBCB88 /* kgl_render_state_draw_mode.cc in Sources */,
+				189F159422A0E40400DBCB88 /* kgl_terrain_renderer.cc in Sources */,
+				189F158522A0E40400DBCB88 /* kgl_vertex_attribute.cc in Sources */,
+				189F158122A0E40400DBCB88 /* kgl_sky_box.cc in Sources */,
+				189F15AD22A0E40400DBCB88 /* kgl_source_texture.cc in Sources */,
+				189F15BD22A0E40400DBCB88 /* kgl_basic_static_mesh.cc in Sources */,
+				189F15A922A0E40400DBCB88 /* kgl_flat_terrain_generator.cc in Sources */,
+				189F158F22A0E40400DBCB88 /* kgl_plane.cc in Sources */,
+				189F159A22A0E40400DBCB88 /* kgl_terrain_generator.cc in Sources */,
+				189F156E22A0E40400DBCB88 /* kgl_error.cc in Sources */,
+				189F159622A0E40400DBCB88 /* kgl_render_state_depth.cc in Sources */,
+				189F15C022A0E40400DBCB88 /* kgl_view_frustum.cc in Sources */,
+				189F158D22A0E40400DBCB88 /* kgl_debug_tool.cc in Sources */,
+				189F15DB22A0E40400DBCB88 /* kgl_cubemap_texture.cc in Sources */,
+				189F15B622A0E40400DBCB88 /* kgl_gpu_program.cc in Sources */,
+				189F15B022A0E40400DBCB88 /* kgl_wfx_water_renderer.cc in Sources */,
+				189F15B922A0E40400DBCB88 /* kgl_terrain.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		189F13AD22A0E2C200DBCB88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		189F13AE22A0E2C200DBCB88 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		189F13B022A0E2C200DBCB88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 535R9T3AY4;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				HEADER_SEARCH_PATHS = (
+					../third_lib/glew/2.1.0/include,
+					../third_lib/glfw/3.3/include,
+					../third_lib/icu4c/64.2/include,
+					../third_lib/glm/0.9.9.5/include,
+					../third_lib/libpng/1.6.37/include,
+					../third_lib/boost/1.69.0_2/include,
+					../third_lib/freeimage/3.18.0/include,
+					../third_lib/assimp/4.1.0/include,
+					../third_lib/tinyxml2/7.0.1/include,
+					"../third_lib/imgui-1.65",
+					../third_lib/freetype/2.10.0/include/freetype2,
+					../third_lib/freetype/2.10.0/include/freetype2/freetype,
+					../third_lib/stb,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		189F13B122A0E2C200DBCB88 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 535R9T3AY4;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				HEADER_SEARCH_PATHS = (
+					../third_lib/glew/2.1.0/include,
+					../third_lib/glfw/3.3/include,
+					../third_lib/icu4c/64.2/include,
+					../third_lib/glm/0.9.9.5/include,
+					../third_lib/libpng/1.6.37/include,
+					../third_lib/boost/1.69.0_2/include,
+					../third_lib/freeimage/3.18.0/include,
+					../third_lib/assimp/4.1.0/include,
+					../third_lib/tinyxml2/7.0.1/include,
+					"../third_lib/imgui-1.65",
+					../third_lib/freetype/2.10.0/include/freetype2,
+					../third_lib/freetype/2.10.0/include/freetype2/freetype,
+					../third_lib/stb,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		189F139F22A0E2C200DBCB88 /* Build configuration list for PBXProject "libkgl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				189F13AD22A0E2C200DBCB88 /* Debug */,
+				189F13AE22A0E2C200DBCB88 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		189F13AF22A0E2C200DBCB88 /* Build configuration list for PBXNativeTarget "libkgl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				189F13B022A0E2C200DBCB88 /* Debug */,
+				189F13B122A0E2C200DBCB88 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 189F139C22A0E2C200DBCB88 /* Project object */;
+}

@@ -52,40 +52,40 @@ float randZeroOne()
 
 void main()
 {
-  vLocalSeed = vRandomSeed;
-  
-  // gl_Position doesn't matter now, as rendering is discarded, so I don't set it at all
-
-  vPositionOut = vPositionPass[0];
-  vVelocityOut = vVelocityPass[0];
-  if(iTypePass[0] != 0)vPositionOut += vVelocityOut*fTimePassed;
-  if(iTypePass[0] != 0)vVelocityOut += vGenGravityVector*fTimePassed;
-
-  vColorOut = vColorPass[0];
-  fLifeTimeOut = fLifeTimePass[0]-fTimePassed;
-  fSizeOut = fSizePass[0];
-  iTypeOut = iTypePass[0];
+    vLocalSeed = vRandomSeed;
     
-  if(iTypeOut == 0)
-  {
+    // gl_Position doesn't matter now, as rendering is discarded, so I don't set it at all
+    
+    vPositionOut = vPositionPass[0];
+    vVelocityOut = vVelocityPass[0];
+    if(iTypePass[0] != 0)vPositionOut += vVelocityOut*fTimePassed;
+    if(iTypePass[0] != 0)vVelocityOut += vGenGravityVector*fTimePassed;
+    
+    vColorOut = vColorPass[0];
+    fLifeTimeOut = fLifeTimePass[0]-fTimePassed;
+    fSizeOut = fSizePass[0];
+    iTypeOut = iTypePass[0];
+    
+    if(iTypeOut == 0)
+    {
     EmitVertex();
     EndPrimitive();
     
     for(int i = 0; i < iNumToGenerate; i++)
     {
-      vPositionOut = vGenPosition;
-      vVelocityOut = vGenVelocityMin+vec3(vGenVelocityRange.x*randZeroOne(), vGenVelocityRange.y*randZeroOne(), vGenVelocityRange.z*randZeroOne());
-      vColorOut = vGenColor;
-      fLifeTimeOut = fGenLifeMin+fGenLifeRange*randZeroOne();
-      fSizeOut = fGenSize;
-      iTypeOut = 1;
-      EmitVertex();
-      EndPrimitive();
+        vPositionOut = vGenPosition;
+        vVelocityOut = vGenVelocityMin+vec3(vGenVelocityRange.x*randZeroOne(), vGenVelocityRange.y*randZeroOne(), vGenVelocityRange.z*randZeroOne());
+        vColorOut = vGenColor;
+        fLifeTimeOut = fGenLifeMin+fGenLifeRange*randZeroOne();
+        fSizeOut = fGenSize;
+        iTypeOut = 1;
+        EmitVertex();
+        EndPrimitive();
     }
-  }
-  else if(fLifeTimeOut > 0.0)
-  {
-      EmitVertex();
-      EndPrimitive(); 
-  }
+    }
+    else if(fLifeTimeOut > 0.0)
+    {
+        EmitVertex();
+        EndPrimitive(); 
+    }
 }

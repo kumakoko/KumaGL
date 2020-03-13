@@ -34,10 +34,10 @@ out int iTypePass;
 
 void main()
 {
-  vPositionPass = vPosition;
-  vVelocityPass = vVelocity;
-  vColorPass = vColor;
-  fLifeTimePass = fLifeTime;
-  fSizePass = fSize;
-  iTypePass = iType;
+    vPositionPass = vPosition;
+    vVelocityPass = vVelocity;
+    vColorPass = vColor;
+    fLifeTimePass = fLifeTime;
+    fSizePass = fSize;
+    iTypePass = iType;
 }

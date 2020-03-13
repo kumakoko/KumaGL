@@ -123,8 +123,6 @@ void KeyframeAnimationApp::RenderGUI()
 
 			if (is_selected)
 			{
-				// Set the initial focus when opening the combo (scrolling + for keyboard 
-				// navigation support in the upcoming navigation branch)
 				ImGui::SetItemDefaultFocus();   
 			}
 		}

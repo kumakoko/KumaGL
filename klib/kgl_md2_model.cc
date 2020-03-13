@@ -49,16 +49,8 @@ namespace kgl
 		{ 198, 198, 5 },	// BOOM
 	};
 
-
-
 #pragma warning( once : 4305 )
 
-	/*
-	vec3_t anorms[NUMVERTEXNORMALS] =
-	{
-	#include "anorms.h"
-	};
-	*/
 	MD2AnimClipInfoDictManager MD2Model::s_clip_info_dict_mgr;
 
 	MD2AnimClipInfoDict& MD2Model::GetClipInfoDictFromManager(const std::string& model_name)

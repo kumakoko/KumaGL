@@ -36,72 +36,59 @@ namespace kgl
     class GBuffer
     {
     public:
-        /// <summary>
-        /// <see cref="GBuffer"/> 类的构造函数
-        /// </summary>
+		/*********************************************************
+		类的构造函数
+		*********************************************************/
         GBuffer();
 
-        /// <summary>
-        /// Finalizes an instance of the <see cref="GBuffer"/> 类的析构函数
-        /// </summary>
+		/*********************************************************
+		类的析构函数
+		*********************************************************/
         ~GBuffer();
         
-        /// <summary>
-        /// 根据给定的窗口高宽，初始化G-buffer对象及其对应的缓冲区
-        /// </summary>
-        /// <param name="window_width">窗口宽度</param>
-        /// <param name="window_height">窗口高度</param>
-        /// <returns>创建成功返回true，失败返回false</returns>
-        void Initialise(GLuint window_width, GLuint window_height);
+        /*********************************************************
+        根据给定的窗口高宽，初始化G-buffer对象及其对应的缓冲区
+
+        @param  GLuint window_width  窗口宽度
+        @param  GLuint window_height 窗口高度
+		@param  bool is_pos_depth_together 记录位置信息的buffer，是否把深度信息一起存在这个buffer中
+        @return  创建成功返回true，失败返回false      
+        *********************************************************/
+        void Initialise(GLuint window_width, GLuint window_height,bool is_pos_depth_together = false);
         
-        /// <summary>
-        /// Starts the geometry render pass.
-        /// </summary>
+        /*********************************************************
+		启动GBuffer的render pass       
+        *********************************************************/
         void StartGeometryRenderPass();
 
-        /// <summary>
-        /// Starts the lighting render pass.
-        /// </summary>
+		/*********************************************************
+		启动光照计算的render pass
+		*********************************************************/
         void StartLightingRenderPass();
 
-        /// <summary>
-        /// Blits this instance.
-        /// </summary>
         void Blit();
 
-        /// <summary>
-        /// Ends the geometry render pass.
-        /// </summary>
+		/*********************************************************
+		结束GBuffer的render pass
+		*********************************************************/
         void EndGeometryRenderPass();
     private:
-        /// <summary>
-        /// frame buffer object id
-        /// </summary>
+		/** * @brief FRAME BUFER OBJECT的id */
         GLuint fbo_;
 
-        /// <summary>
-        /// The position_info_texture_
-        /// </summary>
+		/** * @brief 纪录位置信息的BUFFER的id */
         GLuint position_info_texture_ = 0;
 
-        /// <summary>
-        /// The normal_info_texture_
-        /// </summary>
+		/** * @brief 纪录法线信息的BUFFER的id */
         GLuint normal_info_texture_ = 0;
 
-        /// <summary>
-        /// The albedo_info_texture_
-        /// </summary>
+		/** * @brief 纪录反照率信息的BUFFER的id */
         GLuint albedo_info_texture_ = 0;
 
-        /// <summary>
-        /// The window_width_
-        /// </summary>
+		/** * @brief GBUFFER的宽度 */
         GLuint window_width_ = 0;
 
-        /// <summary>
-        /// The window_height_
-        /// </summary>
+		/** * @brief GBUFFER的高度 */
         GLuint window_height_ = 0;      
     };
 }

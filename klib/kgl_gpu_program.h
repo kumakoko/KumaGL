@@ -233,11 +233,25 @@ namespace kgl
         /// <param name="location">The location.</param>
         void ApplyInt(GLint int_data, GLint location);
 
-        /// <summary>
-        /// 要使用此方法去设置shader中的材质，则shader代码务必使用material.glsl中定义的Material结构
-        /// </summary>
-        /// <param name="material">The material.</param>
-        /// <param name="uniform_var_name">The uniform_var_name.</param>
+		/*********************************************************
+		
+		@param  bool bool_data
+		@param  const char * uniform_var_name       
+		*********************************************************/
+		void ApplyBoolean(bool bool_data, const char* uniform_var_name);
+
+		/*********************************************************
+		
+		@param  bool bool_data
+		@param  GLint location      
+		*********************************************************/
+		void ApplyBoolean(bool bool_data, GLint location);
+		
+		/*********************************************************
+        要使用此方法去设置shader中的材质，则shader代码务必使用material.glsl中定义的Material结构
+        @param  const Material * material 待设置的材质结构体
+        @param  const char * uniform_var_name uniform变量在shader代码中的名字       
+        *********************************************************/
         void ApplyMaterial(const Material* material, const char* uniform_var_name);
 
         /// <summary>

@@ -19,8 +19,8 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 uniform struct Matrices
 {
-	mat4 mProj;
-	mat4 mView;
+    mat4 mProj;
+    mat4 mView;
 } matrices;
 
 uniform vec3 vQuad1, vQuad2;

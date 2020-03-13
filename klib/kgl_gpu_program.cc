@@ -375,6 +375,17 @@ namespace kgl
         glUniform1i(location, int_data);
     }
 
+	void GPUProgram::ApplyBoolean(bool bool_data, const char* uniform_var_name)
+	{
+		GLint location = glGetUniformLocation(program_handle_, uniform_var_name);
+		glUniform1i(location, bool_data ? 1 : 0);
+	}
+
+	void GPUProgram::ApplyBoolean(bool bool_data, GLint location)
+	{
+		glUniform1i(location, bool_data ? 1 : 0);
+	}
+
     void GPUProgram::ApplyVector2(const GLfloat* vector2_data_pointer, const char* uniform_var_name)
     {
         GLint location = glGetUniformLocation(program_handle_, uniform_var_name);

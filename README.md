@@ -25,4 +25,5 @@ Simple R&amp;D framework of Computer graphic programming.Based on modern OpenGL
 |026_keyframeanimation|<img src="img/kgl/026_keyframeanimation.jpg"  width="250"/>|演示了渲染MD2模型，并且播放顶点帧动画的效果|
 |040_ImageEffect|<img src="img/kgl/040_ImageEffect.jpg"  width="250"/>|使用了若干二维图像后期处理的效果|
 |050_ParticleSystem|<img src="img/kgl/050_ParticleSystem.jpg"  width="250"/>|演示了使用几何着色器生成高效粒子系统的效果|
+|090_PbrLighting|<img src="img/kgl/090_PbrLighting.jpg"  width="250"/>|演示了基于物理的光照渲染模型
 |099_OldMovieEffect|<img src="img/kgl/099_OldMovieEffect.jpg"  width="250"/>|演示了老电影屏幕的花屏效果|

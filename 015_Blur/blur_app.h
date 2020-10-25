@@ -22,10 +22,6 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEAL
  * Contact: sun_of_lover@sina.com
  *
  * \brief 展示全屏模糊的渲染技术
- *
- * TODO: long description
- *
- * \note
 */
 
 #ifndef blur_app_h__

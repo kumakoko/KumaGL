@@ -23,7 +23,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 *
 * \brief
 *
-* TODO: long description
+* TODO:
 *
 * \note
 */

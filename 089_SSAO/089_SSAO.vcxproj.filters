@@ -14,27 +14,39 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="shader">
-      <UniqueIdentifier>{0e842c7c-dd1c-4eb4-9974-a05b167c90f8}</UniqueIdentifier>
+      <UniqueIdentifier>{43492256-ff66-442d-8fc6-626a5531d059}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="normal_mapping_app.cc">
+    <ClCompile Include="ssao_app.cc">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="normal_mapping_app.h">
+    <ClInclude Include="ssao_app.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\publish\resources\shader\normal_mapping_fs.glsl">
+    <None Include="..\publish\resources\shader\089_ssao_geometry_fs.glsl">
       <Filter>shader</Filter>
     </None>
-    <None Include="..\publish\resources\shader\normal_mapping_vs.glsl">
+    <None Include="..\publish\resources\shader\089_ssao_lighting_fs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\089_ssao_blur_fs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\089_ssao_geometry_vs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\089_ssao_vs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\089_ssao_main_fs.glsl">
       <Filter>shader</Filter>
     </None>
   </ItemGroup>

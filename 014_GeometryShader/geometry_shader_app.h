@@ -21,11 +21,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 * \author www.xionggf.com
 * Contact: sun_of_lover@sina.com
 *
-* \brief 
-*
-* TODO: 展示几何着色器的一些相关操作
-*
-* \note
+* \brief 展示几何着色器的一些相关操作
 */
 
 #ifndef geometry_shader_app_h__

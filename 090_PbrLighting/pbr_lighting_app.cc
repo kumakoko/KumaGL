@@ -74,7 +74,6 @@ void PbrLightingApp::RenderGUI()
 		ImGui::SliderFloat("粗糙度参数", &metallic_roughness_.w, 0.001f, 1.0f);
 	}
 
-
 	const char* material_name[MATERIAL_COUNT] = 
 	{
 		"生锈铁球", "花岗岩", "划痕金属", "竹子", "花纹黄铜器"

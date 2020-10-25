@@ -45,10 +45,12 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\publish\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
+    <IntDir>..\Temp\$(ProjectName)\$(Configuration)\)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\publish\</OutDir>
+    <IntDir>..\Temp\$(ProjectName)\$(Configuration)\)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

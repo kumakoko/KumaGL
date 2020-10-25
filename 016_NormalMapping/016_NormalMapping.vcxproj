@@ -45,10 +45,12 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\publish\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
+    <IntDir>..\Temp\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\publish\</OutDir>
+    <IntDir>..\Temp\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -100,6 +102,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="normal_mapping_app.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\publish\resources\shader\normal_mapping_fs.glsl" />
+    <None Include="..\publish\resources\shader\normal_mapping_vs.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

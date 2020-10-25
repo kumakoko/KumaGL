@@ -134,7 +134,7 @@ void FrameBufferApp::InitModel()
 
     // 初始化帧缓冲对象
     frame_buffer_ = new kgl::FrameBuffer;
-    frame_buffer_->Create(800, 600);
+    frame_buffer_->Create(window_width_, window_height_);
 
     // 初始化图元
     screen_ = kgl::PrimitiveTool::BuildNDCTexturedRectange(0.5f,1.f,0.5f,1.f);

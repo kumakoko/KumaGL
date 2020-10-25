@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8506A535-F4FD-422C-9C33-D3099D3DF84C}</ProjectGuid>
+    <ProjectGuid>{F35257E8-918E-479B-9CF1-8A9FDF50A243}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>My099_OldMovieEffect</RootNamespace>
+    <RootNamespace>My089_SSAO</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -97,11 +97,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ssao_app.cc" />
     <ClCompile Include="main.cc" />
-    <ClCompile Include="old_movie_effect_app.cc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="old_movie_effect_app.h" />
+    <ClInclude Include="ssao_app.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\publish\resources\shader\089_ssao_blur_fs.glsl" />
+    <None Include="..\publish\resources\shader\089_ssao_geometry_fs.glsl" />
+    <None Include="..\publish\resources\shader\089_ssao_geometry_vs.glsl" />
+    <None Include="..\publish\resources\shader\089_ssao_lighting_fs.glsl" />
+    <None Include="..\publish\resources\shader\089_ssao_main_fs.glsl" />
+    <None Include="..\publish\resources\shader\089_ssao_vs.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

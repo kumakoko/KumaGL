@@ -107,12 +107,12 @@ namespace kgl
         *********************************************************/
         void ApplyTexture(TextureSPtr texture, const char* uniform_var_name, GLuint slot_index);
 
-        /// <summary>
-        /// Applies the texture.
-        /// </summary>
-        /// <param name="texture">The texture.</param>
-        /// <param name="location">The location.</param>
-        /// <param name="slot_index">The slot_index.</param>
+        /*********************************************************
+        
+        @param  TextureSPtr texture
+        @param  GLint location
+        @param  GLuint slot_index       
+        *********************************************************/
         void ApplyTexture(TextureSPtr texture, GLint location, GLuint slot_index);
 
         /*********************************************************
@@ -136,6 +136,13 @@ namespace kgl
         /// <param name="texture_unit_slot">The texture_unit_slot.</param>
         /// <param name="texture_id">The texture_id.</param>
         /// <param name="target">The target.</param>
+        /*********************************************************
+        绑定一个纹理到shader的uniform变量中
+        @param  const char * uniform_var_name uniform变量名
+        @param  GLuint texture_unit_slot texture用的slot，比如GL_TEXTURE0，GL_TEXTURE1这些
+        @param  GLuint texture_id texture的id
+        @param  GLenum target       
+        *********************************************************/
         void ApplyTexture(const char* uniform_var_name, GLuint texture_unit_slot, GLuint texture_id, GLenum target = GL_TEXTURE_2D);
 
         /// <summary>

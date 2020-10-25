@@ -80,7 +80,7 @@ namespace kgl
             water_shader_->ApplyVector3(glm::value_ptr(camera->GetPosition()), loc_camera_position_);
 
             moveFactor_ += WAVE_SPEED * frame_interval;// moveFactor_ += WAVE_SPEED * DisplayManager::getFrameTime().asSeconds();
-            moveFactor_ = std::fmod(moveFactor_, 1);
+            moveFactor_ = static_cast<float>(std::fmod(moveFactor_, 1));
             water_shader_->ApplyFloat(moveFactor_, loc_move_factor_);//shader_.loadMoveFactor(moveFactor_);
 
             glBindVertexArray(quad_.getVaoId());

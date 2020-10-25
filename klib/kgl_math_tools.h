@@ -136,6 +136,12 @@ namespace kgl
         /// <param name="pos">The position.</param>
         /// <returns>float.</returns>
         static float BarryCentric(const glm::vec3& p1, const glm::vec3& p2, const glm::vec3& p3, const glm::vec2& pos);
+
+		template<typename T>
+		inline static T Lerp(T a, T b, T f)
+		{
+			return a + f * (b - a);
+		}
     };
 }
 

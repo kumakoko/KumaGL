@@ -308,7 +308,7 @@ namespace kgl
 
 			shader_->ApplyFloat(-1.0f, "u_interpolation");
 
-			for (auto i = 0; i < render_modes_.size(); ++i)
+			for (std::size_t i = 0; i < render_modes_.size(); ++i)
 			{
 				glDrawArrays(render_modes_[i], total_offset, render_vertices_num_[i]);
 				total_offset += render_vertices_num_[i];

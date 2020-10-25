@@ -48,8 +48,8 @@ namespace kgl
         {
             x = x < 0 ? 0 : x;
             z = z < 0 ? 0 : z;
-            x = x >= heights.size2() ? heights.size2() - 1 : x;
-            z = z >= heights.size1() ? heights.size1() - 1 : z;
+			x = x >= static_cast<int>(heights.size2()) ? static_cast<int>(heights.size2() - 1) : x;
+			z = z >= static_cast<int>(heights.size1()) ? static_cast<int>(heights.size1() - 1) : z;
             return heights(z, x);// [z][x];
         }
     }

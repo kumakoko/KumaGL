@@ -40,63 +40,41 @@ namespace kgl
     {
         NONE,
 
-        /// <summary>
-        /// 2D纹理
-        /// </summary>
+		/** * @brief 2D纹理 */
         SOURCE_2D_TEXTURE,
 
-        /// <summary>
-        /// 立方体纹理
-        /// </summary>
+		/** * @brief 立方体纹理 */
         CUBEMAP_TEXTURE,
 
-        /// <summary>
-        /// 可作为渲染目标的纹理
-        /// </summary>
+		/** * @brief 可作为渲染目标的纹理*/
         RENDERED_TEXTURE
     };
 
     struct TextureParams
     {
     public:
-        /// <summary>
-        /// The wrap_s_mode
-        /// </summary>
+		/** * @brief  wrap s mode */
         GLint wrap_s_mode;
 
-        /// <summary>
-        /// The wrap_t_mode
-        /// </summary>
+		/** * @brief wrap t mode */
         GLint wrap_t_mode;
 
-        /// <summary>
-        /// The min_filter_mode
-        /// </summary>
+		/** * @brief mag filter mode */
         GLint mag_filter_mode;
 
-        /// <summary>
-        /// The mag_filter_mode
-        /// </summary>
+		/** * @brief min filter mode */
         GLint min_filter_mode;
 
-        /// <summary>
-        /// 纹理在内存（系统或者显卡中）中的存储模式 
-        /// </summary>
+		/** * @brief 纹理在内存（系统或者显卡中）中的存储模式 */
         GLint internal_format;
 
-        /// <summary>
-        /// 原始图片中的颜色数据的格式
-        /// </summary>
+		/** * @brief 原始图片中的颜色数据的格式 */
         GLint src_img_format;
-        
-        /// <summary>
-        /// 原始图片中颜色每一个分量在内存中占用的字节类型
-        /// </summary>
+
+		/** * @brief 原始图片中颜色每一个分量在内存中占用的字节类型 */
         GLint src_img_px_component_type;
-        
-        /// <summary>
-        /// The is_use_mipmap
-        /// </summary>
+
+		/** * @brief 是否使用mipmap */
         bool  used_mipmap;
     };
 

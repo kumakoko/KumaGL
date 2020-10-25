@@ -14,7 +14,19 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
-#ifndef kgl_vertex_buffer_object_h__
+/*!
+ * \file kgl_vertex_buffer_object.h
+ * \date 2020/04/15 21:17
+ *
+ * \author www.xionggf.com
+ * Contact: sun_of_lover@sina.com
+ *
+ * \brief 定义一个vertex buffer object对象
+ *
+ * TODO: 
+ *
+ * \note https://www.cnblogs.com/hefee/p/3824300.html
+*/#ifndef kgl_vertex_buffer_object_h__
 #define kgl_vertex_buffer_object_h__
 
 namespace kgl
@@ -50,7 +62,13 @@ namespace kgl
 		void* MapSubBufferToMemory(GLint usage, uint32_t offset, uint32_t length);
 
 		/*********************************************************
-		解除对缓冲区的映射      
+		解除对缓冲区的映射
+
+		@see function MapBufferToMemory
+		@note 在完成VBO数据的修改之后，必须将缓存对象从客户端内存解除映射。
+		      如果成功，glUnmapBuffer()返回GL_TRUE。如返回GL_FALSE，绑
+			  定之后的VBO缓存内容是坏的。腐坏现象源自显示器分辨率的改变或
+			  窗口系统的特定事件。此种情况，数据必须重发。       
 		*********************************************************/
 		void UnmapBuffer();
 
@@ -61,7 +79,7 @@ namespace kgl
 		void Bind(GLint buffer_type = GL_ARRAY_BUFFER);
 		
 		/*********************************************************
-		把顶点数据uploda到GPU
+		把顶点数据upload到GPU
 		@param  int usage_hint GL_STATIC_DRAW, GL_DYNAMIC_DRAW等一系列的值       
 		*********************************************************/
 		void UploadDataToGPU(GLint usage_hint);

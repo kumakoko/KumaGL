@@ -229,4 +229,20 @@ namespace kgl
 		glTexSubImage2D(GL_TEXTURE_2D, 0, x_offset, y_offset, width, height, params_.internal_format, params_.src_img_px_component_type, data);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
+
+	void SourceTexture::BuildFromNoise(const void* pixels, int32_t width, int32_t height, const TextureParams& tp)
+	{
+		glGenTextures(1, &texture_id_);
+		glBindTexture(GL_TEXTURE_2D, texture_id_);
+		glTexImage2D(GL_TEXTURE_2D, 0, tp.internal_format/*GL_RGB16F*/, 
+			width, height, 0, tp.src_img_format/*GL_RGB*/, tp.src_img_px_component_type/*GL_FLOAT*/, pixels);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, tp.min_filter_mode/*GL_NEAREST*/);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, tp.mag_filter_mode/*GL_NEAREST*/);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,tp.wrap_s_mode /*GL_REPEAT*/);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, tp.wrap_t_mode /*GL_REPEAT*/);
+
+		width_ = width;
+		height_ = height;
+		params_ = tp;
+	}
 }

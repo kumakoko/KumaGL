@@ -72,7 +72,22 @@ namespace kgl
 		结束GBuffer的render pass
 		*********************************************************/
         void EndGeometryRenderPass();
-    private:
+
+		inline GLuint position_info_texture() const 
+		{
+			return position_info_texture_; 
+		}
+	
+		inline GLuint normal_info_texture() const 
+		{
+			return normal_info_texture_;
+		}
+
+		inline GLuint albedo_info_texture() const
+		{
+			return albedo_info_texture_;
+		}
+	private:
 		/** * @brief FRAME BUFER OBJECT的id */
         GLuint fbo_;
 

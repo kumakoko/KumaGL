@@ -21,11 +21,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 * \author www.xionggf.com
 * Contact: sun_of_lover@sina.com
 *
-* \brief
-*
-* TODO: 预编译头文件
-*
-* \note
+* \brief 预编译头文件
 */
 #ifndef kgl_lib_pch_h__
 #define kgl_lib_pch_h__
@@ -56,6 +52,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include <array>
 #include <cstdlib>
 #include <utility>
+#include <random>
 
 //#define GLEW_STATIC
 #include "GL/glew.h"

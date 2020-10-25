@@ -112,14 +112,23 @@ namespace kgl
 
     void FrameBuffer::ReleaseBuffer()
     {
-        if (0 != fbo_)
-            glDeleteFramebuffers(1, &fbo_);
+		if (0 != fbo_)
+		{
+			glDeleteFramebuffers(1, &fbo_);
+			fbo_ = 0;
+		}
 
-        if (0 != rbo_depth_)
-            glDeleteRenderbuffers(1, &rbo_depth_);
+		if (0 != rbo_depth_)
+		{
+			glDeleteRenderbuffers(1, &rbo_depth_);
+			rbo_depth_ = 0;
+		}
 
-        if (0 != rbo_stencil_)
-            glDeleteRenderbuffers(1, &rbo_stencil_);
+		if (0 != rbo_stencil_)
+		{
+			glDeleteRenderbuffers(1, &rbo_stencil_);
+			rbo_stencil_ = 0;
+		}
     }
 
     void FrameBuffer::StartWriting(const glm::vec4& clear_color, GLbitfield clear_mask, const IRect* rect)

@@ -149,6 +149,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "090_PbrLighting", "090_PbrLighting\090_PbrLighting.vcxproj", "{F6860B29-8260-4690-A296-73AFA35EEA21}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "089_SSAO", "089_SSAO\089_SSAO.vcxproj", "{F35257E8-918E-479B-9CF1-8A9FDF50A243}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

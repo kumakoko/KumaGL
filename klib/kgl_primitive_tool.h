@@ -21,11 +21,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 * \author www.xionggf.com
 * Contact: sun_of_lover@sina.com
 *
-* \brief
-*
-* TODO: 图元辅助工具
-*
-* \note
+* \brief 图元辅助工具
 */
 #ifndef kgl_primitive_tool_h__
 #define kgl_primitive_tool_h__
@@ -37,10 +33,15 @@ namespace kgl
     class PrimitiveTool
     {
     public:
-        /// <summary>
-        /// 生成一个只带长宽高为1和顶点RBGA颜色的一个方盒
-        /// </summary>
-        /// <returns>回图元对象的智能指针</returns>
+        /*********************************************************
+        生成一个只带长宽高为1和顶点RBGA颜色的一个方盒
+        @return  返回回图元对象的智能指针
+        @see function  
+        @note           
+        @attention      
+        @bug            
+        @warning        
+        *********************************************************/
         static PrimitiveSPtr BuildCube();
 
         /// <summary>
@@ -81,23 +82,23 @@ namespace kgl
         static PrimitiveSPtr BuildSquare(unsigned int quality, bool is_clock_wise, const glm::vec4& vertex_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),
             const glm::vec2& textureOffset = glm::vec2(0.0f, 0.0f), const glm::vec2& textureScale = glm::vec2(1.0f, 1.0f));
 
-        /// <summary>
-        /// 创建一个带有位置坐标，纹理映射坐标，法线值，顶点颜色值的球体
-        /// </summary>
-        /// <param name="quality">球体的精度</param>
-        /// <param name="is_ccw_cull">是否使用逆时针旋转.</param>
-        /// <param name="vertex_color">The vertex_color.</param>
-        /// <param name="textureOffset">The texture offset.</param>
-        /// <param name="textureScale">The texture scale.</param>
-        /// <returns>PrimitiveSPtr.</returns>
+        /*********************************************************
+        创建一个带有位置坐标，纹理映射坐标，法线值，顶点颜色值的球体
+        @param  uint32_t quality 球体的精度
+        @param  bool is_ccw_cull 是否使用逆时针旋转
+        @param  const glm::vec4 & vertex_color
+        @param  const glm::vec2 & texture_offset
+        @param  const glm::vec2 & texture_scale
+        @return        
+        *********************************************************/
         static PrimitiveSPtr BuildSphere(uint32_t quality, bool is_ccw_cull, const glm::vec4& vertex_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), const glm::vec2& texture_offset = glm::vec2(0.0f, 0.0f), const glm::vec2& texture_scale = glm::vec2(1.0f, 1.0f));
 
-        /// <summary>
-        /// 创建一个带有位置坐标，法线，切线，副法线，第一层纹理映射坐标的XY平面上的正方体面
-        /// </summary>
-        /// <param name="quality">The quality.</param>
-        /// <param name="is_clock_wise">The is_clock_wise.</param>
-        /// <returns>PrimitiveSPtr.</returns>
+        /*********************************************************
+        创建一个带有位置坐标，法线，切线，副法线，第一层纹理映射坐标的XY平面上的正方体面
+        @param  unsigned int quality
+        @param  bool is_clock_wise
+        @return        
+        *********************************************************/
         static PrimitiveSPtr BuildPNTBT1Square(unsigned int quality, bool is_clock_wise);
 
         static PrimitiveSPtr BuildNDCTextureNormalCube();

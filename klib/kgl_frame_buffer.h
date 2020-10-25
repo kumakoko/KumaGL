@@ -21,11 +21,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 * \author www.xionggf.com
 * Contact: sun_of_lover@sina.com
 *
-* \brief 
-*
-* TODO: 封装了帧缓冲区的类
-*
-* \note
+* \brief 封装了帧缓冲区的类
 */
 #ifndef kgl_frame_buffer_h__
 #define kgl_frame_buffer_h__
@@ -38,58 +34,59 @@ namespace kgl
     class FrameBuffer
     {
     public:
-        /// <summary>
-        /// 构造函数，创建一个 <see cref="FrameBuffer"/> 类的对象实例时被调用.
-        /// </summary>
+        /*********************************************************
+        构造函数       
+        *********************************************************/
         FrameBuffer();
 
-        /// <summary>
-        /// 析构函数，删除一个<see cref="FrameBuffer"/>类的对象实例时被调用.
-        /// </summary>
+        /*********************************************************
+        析构函数     
+        *********************************************************/
         ~FrameBuffer();
 
-        /// <summary>
-        /// 创建一个FrameBuffer实例对象
-        /// </summary>
-        /// <param name="frame_width">The 帧缓存的宽度.</param>
-        /// <param name="frame_height">The 帧缓存的高度.</param>
-        /// <param name="t">本帧缓存生成的颜色缓冲区的纹素类型</param>
-        /// <param name="use_depth">同时对本帧缓存生成深度缓冲区的render buffer object吗</param>
-        /// <param name="texture_params">创建纹理时的各个参数</param>
+        /*********************************************************
+        创建一个FrameBuffer实例对象
+        @param  int32_t frame_width 帧缓存的宽度
+        @param  int32_t frame_height 帧缓存的高度
+        @param  RenderedTexelType t 本帧缓存生成的颜色缓冲区的纹素类型
+        @param  bool use_depth 同时对本帧缓存生成深度缓冲区的render buffer object吗
+        @param  const TextureParams * texture_params 创建纹理时的各个参数      
+        *********************************************************/
         void Create(int32_t frame_width, int32_t frame_height, RenderedTexelType t = RenderedTexelType::RGBA, bool use_depth = true, const TextureParams* texture_params = nullptr);
         
-        /// <summary>
-        /// 返回frame buffer object的ID
-        /// </summary>
-        /// <returns>返回frame buffer对象ID</returns>
+        /*********************************************************
+        返回frame buffer object的ID
+        @return  返回frame buffer对象ID       
+        *********************************************************/
         inline GLuint GetBufferID() const
         {
             return fbo_;
         }
 
-        /// <summary>
-        /// 绑定一个rendered texture到本frame buffer中，以便能被写入
-        /// </summary>
-        /// <param name="rendered_texture">待绑定的rendered texture</param>
-        /// <param name="use_depth">同时对本帧缓存生成深度缓冲区的render buffer object吗</param>
+        /*********************************************************
+        绑定一个rendered texture到本frame buffer中，以便能被写入
+        @param  RenderedTextureSPtr rendered_texture 待绑定的rendered texture
+        @param  bool use_depth 同时对本帧缓存生成深度缓冲区的render buffer object吗       
+        *********************************************************/
         void AttachRenderedTexture(RenderedTextureSPtr rendered_texture, bool use_depth);
 
-        /// <summary>
-        /// 释放frame buffer对象
-        /// </summary>
+        /*********************************************************
+        释放frame buffer对象       
+        *********************************************************/
         void ReleaseBuffer();
 
-        /// <summary>
-        /// 开始往本frame buffer中写入
-        /// </summary>
-        /// <param name="clear_color">整体清空frame buffer所用到的颜色</param>
-        /// <param name="clear_mask">The clear_mask.</param>
-        /// <param name="rect">要清空的视口的大小</param>
+        /*********************************************************
+        开始往本frame buffer中写入
+        @param  const glm::vec4 & clear_color 整体清空frame buffer所用到的颜色
+        @param  GLbitfield clear_mask 颜色掩码
+        @param  const IRect * rect 要清空的视口的大小       
+        *********************************************************/
         void StartWriting(const glm::vec4& clear_color, GLbitfield clear_mask = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT, const IRect* rect = nullptr);
         
-        /// <summary>
-        /// Ends the writtng.
-        /// </summary>
+        /*********************************************************
+        结束往本frame buffer中写入
+        @param  const IRect * rect 要清空的视口的大小
+        *********************************************************/
         void EndWriting(const IRect* rect = nullptr);
 
         inline RenderedTextureSPtr GetTexture()
@@ -99,24 +96,16 @@ namespace kgl
 
         static const char* GetFrameBufferStatusInfo(GLenum check_result);
     protected:
-        /// <summary>
-        /// frame buffer object的ID值，由OpenGL管线创建
-        /// </summary>
+		/** * @brief frame buffer object的ID值，由OpenGL管线创建 */
         GLuint fbo_ = 0;
 
-        /// <summary>
-        /// The rbo_depth_
-        /// </summary>
+		/** * @brief  */
         GLuint rbo_depth_ = 0;
 
-        /// <summary>
-        /// The rbo_stencil_
-        /// </summary>
+		/** * @brief */
         GLuint rbo_stencil_ = 0;
 
-        /// <summary>
-        /// 
-        /// </summary>
+		/** * @brief */
         RenderedTextureSPtr rendered_texture_;
     };
 }

@@ -46,22 +46,22 @@ namespace kgl
             glDeleteFramebuffers(1, &fbo_);
         }
 
-        if (0 != position_info_texture_)
+        if (0 != position_info_texture())
         {
             glDeleteTextures(1, &position_info_texture_);
-            position_info_texture_ = 0;
+			position_info_texture_ = 0;
         }
 
-        if (0 != albedo_info_texture_)
+        if (0 != albedo_info_texture())
         {
             glDeleteTextures(1, &albedo_info_texture_);
-            albedo_info_texture_ = 0;
+			albedo_info_texture_ = 0;
         }
 
-        if (0 != normal_info_texture_)
+        if (0 != normal_info_texture())
         {
             glDeleteTextures(1, &normal_info_texture_);
-            normal_info_texture_ = 0;
+			normal_info_texture_ = 0;
         }
     }
 

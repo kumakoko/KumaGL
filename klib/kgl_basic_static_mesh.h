@@ -140,10 +140,10 @@ namespace kgl
         /// <returns>bool.</returns>
         bool LoadMesh(const std::string& file_name);
 
-        /// <summary>
-        /// 渲染网格
-        /// </summary>
-        void Render();
+		/*********************************************************
+		渲染网格    
+		*********************************************************/
+		void Render();
 
         /// <summary>
         /// 以instance方式，渲染instance_count个本实例的实例

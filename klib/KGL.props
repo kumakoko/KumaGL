@@ -3,24 +3,24 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
     <TINYXML2_HEADER>../third_lib/tinyxml2/inc</TINYXML2_HEADER>
-    <ASSIMP_HEADER>../third_lib/assimp_3_1_1/include</ASSIMP_HEADER>
+    <ASSIMP_HEADER>../third_lib/assimp/4.1.0/include</ASSIMP_HEADER>
     <GLFW_HEADER>../third_lib/glfw/3.3/include/</GLFW_HEADER>
     <GLEW_HEADER>../third_lib/glew/2.1.0/include/</GLEW_HEADER>
-    <GLM_HEADER>../third_lib/glm/0.9.8.4/include</GLM_HEADER>
+    <GLM_HEADER>../third_lib/glm/0.9.9.5/include</GLM_HEADER>
     <ICONV_HEADER>../third_lib/iconv/include</ICONV_HEADER>
     <VLD_HEADER>../third_lib/vld/include</VLD_HEADER>
     <FREEIMAGE_HEADER>../third_lib/freeimage/3.18.0/include</FREEIMAGE_HEADER>
     <FREETYPE_HEADER>../third_lib/freetype/2.3.5/include</FREETYPE_HEADER>
     <IMGUI_HEADER>../third_lib/imgui-1.65</IMGUI_HEADER>
-    <BOOST_HEADER>../third_lib/boost_1_64_0</BOOST_HEADER>
+    <BOOST_HEADER>../third_lib/boost/1.75.0</BOOST_HEADER>
     <FREEIMAGE_LIB>../third_lib/freeimage/3.18.0/lib</FREEIMAGE_LIB>
     <FREETYPE_LIB>../third_lib/freetype/2.3.5/lib</FREETYPE_LIB>
     <GLEW_LIB>../third_lib/glew/2.1.0/lib/Release/Win32</GLEW_LIB>
     <GLFW_LIB>../third_lib/glfw/3.3/lib</GLFW_LIB>
     <ICONV_LIB>../third_lib/iconv/prebuilt</ICONV_LIB>
     <VLD_LIB>../third_lib/vld/lib/Win32</VLD_LIB>
-    <ASSIMP_LIB>../third_lib/assimp_3_1_1/lib32</ASSIMP_LIB>
-    <BOOST_LIB>../third_lib/boost_1_64_0/stage/lib</BOOST_LIB>
+    <ASSIMP_LIB>../third_lib/assimp/4.1.0/lib32</ASSIMP_LIB>
+    <BOOST_LIB>../third_lib/boost/1.75.0/stage/lib</BOOST_LIB>
     <IMGUI_LIB>../third_lib/imgui-1.65</IMGUI_LIB>
     <MICROPROFILE_HEADER>../third_lib/microprofile</MICROPROFILE_HEADER>
     <STB_HEADER>../third_lib/stb</STB_HEADER>

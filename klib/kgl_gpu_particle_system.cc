@@ -106,7 +106,7 @@ namespace kgl
 
         update_shader_->Use();
 
-        glm::vec3 vUpload;
+
         update_shader_->ApplyFloat(time_passed, "fTimePassed");
         update_shader_->ApplyVector3(glm::value_ptr(generated_position_), "vGenPosition");
         update_shader_->ApplyVector3(glm::value_ptr(generated_velocity_min_), "vGenVelocityMin");

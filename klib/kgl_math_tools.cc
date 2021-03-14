@@ -19,81 +19,80 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 namespace kgl
 {
-    const double MathTools::PERSISTENCE = 0.25;
-    const int MathTools::OCTAVES_COUNT = 32;
+	const double MathTools::PERSISTENCE = 0.25;
+	const int MathTools::OCTAVES_COUNT = 32;
 
-    double MathTools::SmoothedNoise(float x, float y)
-    {
-        double corners = (Noise(x - 1.f, y - 1.f) + Noise(x + 1.f, y - 1.f) + Noise(x - 1.f, y + 1.f) + Noise(x + 1.f, y + 1.f)) / 16.0;
-        double sides = (Noise(x - 1.f, y) + Noise(x + 1.f, y) + Noise(x, y - 1) + Noise(x, y + 1.f)) / 8.0;
-        double center = Noise(x, y) / 4.0;
-        return corners + sides + center;
-    }
+	double MathTools::SmoothedNoise(float x, float y)
+	{
+		double corners = (Noise(x - 1.f, y - 1.f) + Noise(x + 1.f, y - 1.f) + Noise(x - 1.f, y + 1.f) + Noise(x + 1.f, y + 1.f)) / 16.0;
+		double sides = (Noise(x - 1.f, y) + Noise(x + 1.f, y) + Noise(x, y - 1) + Noise(x, y + 1.f)) / 8.0;
+		double center = Noise(x, y) / 4.0;
+		return corners + sides + center;
+	}
 
-    double MathTools::InterpolatedNoise(float x, float y)
-    {
-        int intX = (int)x;
-        double fractionalX = x - intX;
-        int intY = (int)y;
-        double fractionalY = y - intY;
+	double MathTools::InterpolatedNoise(float x, float y)
+	{
+		double integerX, integerY;
+		double fractionalX = modf(static_cast<double>(x), &integerX);
+		double fractionalY = modf(static_cast<double>(y), &integerY);
 
-        double v1 = SmoothedNoise(intX, intY);
-        double v2 = SmoothedNoise(intX + 1, intY);
-        double v3 = SmoothedNoise(intX, intY + 1);
-        double v4 = SmoothedNoise(intX + 1, intY + 1);
+		double v1 = SmoothedNoise(x, y);
+		double v2 = SmoothedNoise(x + 1.0f, y);
+		double v3 = SmoothedNoise(x, y + 1.0f);
+		double v4 = SmoothedNoise(x + 1.0f, y + 1.0f);
 
-        double i1 = InterpolateCos(v1, v2, fractionalX);
-        double i2 = InterpolateCos(v3, v4, fractionalX);
+		double i1 = InterpolateCos(v1, v2, fractionalX);
+		double i2 = InterpolateCos(v3, v4, fractionalX);
 
-        return InterpolateCos(i1, i2, fractionalY);
-    }
+		return InterpolateCos(i1, i2, fractionalY);
+	}
 
-    double MathTools::PerlinNoise2D(float x, float y)
-    {
-        double  total = 0.0;
+	double MathTools::PerlinNoise2D(float x, float y)
+	{
+		double  total = 0.0;
 
-        for (int i = 0; i < MathTools::OCTAVES_COUNT; i++)
-        {
-            double frequency = pow(2, i);
-            double amplitude = pow(MathTools::PERSISTENCE, i);
-            total += InterpolatedNoise(x * frequency, y * frequency) * amplitude;
-        }
+		for (int i = 0; i < MathTools::OCTAVES_COUNT; i++)
+		{
+			float frequency = powf(2, static_cast<float>(i));
+			float amplitude = powf(MathTools::PERSISTENCE, static_cast<float>(i));
+			total += InterpolatedNoise(x * frequency, y * frequency) * amplitude;
+		}
 
-        return total;
-    }
+		return total;
+	}
 
-    double MathTools::Gauss(float x, float y, float offset)
-    {
-        float a = 3.0f;
-        float e = 2.71828182846f;
-        float spread = 25.0f;
+	double MathTools::Gauss(float x, float y, float offset)
+	{
+		float a = 3.0f;
+		float e = 2.71828182846f;
+		float spread = 25.0f;
 
-        x = x + offset;
-        y = y + offset;
+		x = x + offset;
+		y = y + offset;
 
-        float term = -(pow(x, 2) / (2 * spread) + pow(y, 2) / (2 * spread));
-        return -a * pow(e, term);
-    }
+		float term = -(powf(x, 2.0f) / (2.0f * spread) + powf(y, 2) / (2.0 * spread));
+		return static_cast<double>(-a * powf(e, term));
+	}
 
-    glm::mat4 MathTools::CreateTransformationMatrix(const glm::vec3& translation, const glm::vec3& rotation, const glm::vec3& scale)
-    {
-        glm::mat4 matrix = glm::mat4();
+	glm::mat4 MathTools::CreateTransformationMatrix(const glm::vec3& translation, const glm::vec3& rotation, const glm::vec3& scale)
+	{
+		glm::mat4 matrix = glm::mat4();
 
-        matrix = glm::translate(matrix, translation);
-        matrix = glm::rotate(matrix, rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-        matrix = glm::rotate(matrix, rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-        matrix = glm::rotate(matrix, rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-        matrix = glm::scale(matrix, scale);
+		matrix = glm::translate(matrix, translation);
+		matrix = glm::rotate(matrix, rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+		matrix = glm::rotate(matrix, rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+		matrix = glm::rotate(matrix, rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+		matrix = glm::scale(matrix, scale);
 
-        return matrix;
-    }
+		return matrix;
+	}
 
-    float MathTools::BarryCentric(const glm::vec3& p1, const glm::vec3& p2, const glm::vec3& p3, const glm::vec2& pos)
-    {
-        float det = (p2.z - p3.z) * (p1.x - p3.x) + (p3.x - p2.x) * (p1.z - p3.z);
-        float l1 = ((p2.z - p3.z) * (pos.x - p3.x) + (p3.x - p2.x) * (pos.y - p3.z)) / det;
-        float l2 = ((p3.z - p1.z) * (pos.x - p3.x) + (p1.x - p3.x) * (pos.y - p3.z)) / det;
-        float l3 = 1.0f - l1 - l2;
-        return l1 * p1.y + l2 * p2.y + l3 * p3.y;
-    }
+	float MathTools::BarryCentric(const glm::vec3& p1, const glm::vec3& p2, const glm::vec3& p3, const glm::vec2& pos)
+	{
+		float det = (p2.z - p3.z) * (p1.x - p3.x) + (p3.x - p2.x) * (p1.z - p3.z);
+		float l1 = ((p2.z - p3.z) * (pos.x - p3.x) + (p3.x - p2.x) * (pos.y - p3.z)) / det;
+		float l2 = ((p3.z - p1.z) * (pos.x - p3.x) + (p1.x - p3.x) * (pos.y - p3.z)) / det;
+		float l3 = 1.0f - l1 - l2;
+		return l1 * p1.y + l2 * p2.y + l3 * p3.y;
+	}
 }

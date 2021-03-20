@@ -82,7 +82,7 @@ void NormalMappingApp::RenderScene()
     wall_square_->DrawIndexed();
 
 // ========================================================================
-    this->RenderText();
+//    this->RenderText();
 }
 
 void NormalMappingApp::RenderText()

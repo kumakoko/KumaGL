@@ -53,9 +53,9 @@ void TransformApp::InitModel()
     texture_moon_ = std::make_shared<kgl::SourceTexture>();
     texture_moon_->CreateFromFile("resources/image/moon.jpg", texture_param);
 
-    sun_ = kgl::PrimitiveTool::BuildSphere(30, true);
-    earth_ = kgl::PrimitiveTool::BuildSphere(30, true);
-    moon_ = kgl::PrimitiveTool::BuildSphere(30, true);
+    sun_ = kgl::PrimitiveTool::BuildTexturedCube();//kgl::PrimitiveTool::BuildSphere(30, true);
+    earth_ = kgl::PrimitiveTool::BuildTexturedCube();//kgl::PrimitiveTool::BuildSphere(30, true);
+    moon_ = kgl::PrimitiveTool::BuildTexturedCube();// kgl::PrimitiveTool::BuildSphere(30, true);
 }
 
 void TransformApp::InitShaders()
@@ -79,12 +79,14 @@ void TransformApp::InitMainCamera()
 
 void TransformApp::RenderGUI()
 {
+    /*
     const glm::vec3& camera_pos = main_camera_->GetPosition();
     ImGui::Begin("004 Transform -- 变换操作");
     ImGui::Text("按W键向前，S键向后移动摄像机");
     ImGui::Text("摄像机坐标: (%.1f,%.1f,%.1f)", camera_pos.x, camera_pos.y, camera_pos.z);
     ImGui::Text("FPS : %.1f", ImGui::GetIO().Framerate);
     ImGui::End();
+    */
 }
 
 void TransformApp::InitScene()
@@ -99,7 +101,7 @@ void TransformApp::InitScene()
 
 void TransformApp::RenderScene()
 {
-    float current_time = (GLfloat)glfwGetTime() * 0.5f;
+    float current_time = (GLfloat)glfwGetTime() * 0.05f;
 
     main_camera_->Update();
 
@@ -121,7 +123,7 @@ void TransformApp::RenderScene()
     sun_->DrawIndexed();
 
     glm::mat4 matrix_earth;
-    matrix_earth = glm::scale(matrix_earth, glm::vec3(2.5f, 2.5f, 2.5f)); // 自身放大1.5倍
+   // matrix_earth = glm::scale(matrix_earth, glm::vec3(2.5f, 2.5f, 2.5f)); // 自身放大1.5倍
     matrix_earth = glm::rotate(matrix_earth, current_time, glm::vec3(0.0f, 1.0f, 0.0f)); // 自身旋转
     matrix_earth = glm::translate(matrix_earth, glm::vec3(4.0f, 0.0f, 0.0f)); // 先沿着水平方向偏移4个单位
     matrix_earth = glm::rotate(matrix_earth, current_time, glm::vec3(0.0f, 1.0f, 0.0f)); // 绕世界坐标系下的Y轴旋转
@@ -132,7 +134,7 @@ void TransformApp::RenderScene()
 
     glm::mat4 matrix_moon;
 
-    matrix_moon = glm::scale(matrix_moon, glm::vec3(1.f / 2.5f, 1.f / 2.5f, 1.f / 2.5f));
+  //  matrix_moon = glm::scale(matrix_moon, glm::vec3(1.f / 2.5f, 1.f / 2.5f, 1.f / 2.5f));
     matrix_moon = glm::rotate(matrix_moon, current_time, glm::vec3(0.0f, 1.0f, 0.0f)); // 自旋
     matrix_earth = glm::translate(matrix_earth, glm::vec3(1.0f, 0.0f, 0.0f)); // 先沿着水平方向偏移4个单位
     matrix_earth = glm::rotate(matrix_earth, current_time, glm::vec3(0.0f, 1.0f, 0.0f)); // 绕地球局部系下的Y轴旋转

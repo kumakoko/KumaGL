@@ -19,6 +19,32 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include "../klib/kgl_string_convertor.h"
 #include "dynamic_texture_app.h"
 
+#if defined(DEBUG) || defined(_DEBUG)
+#pragma comment(lib,"FreeImage.lib")
+#pragma comment(lib,"opengl32.lib")
+#pragma comment(lib,"glew32.lib")
+#pragma comment(lib,"glfw3dll.lib")
+#pragma comment(lib,"assimp-vc142-mtd.lib")
+#pragma comment(lib,"vld.lib")
+#pragma comment(lib,"libiconv.lib")
+#pragma comment(lib,"freetype.lib")
+#pragma comment(lib,"imgui_d.lib")
+#pragma comment(lib,"klib_d.lib")
+#pragma comment(lib,"legacy_stdio_definitions.lib")
+#else
+#pragma comment(lib,"FreeImage.lib")
+#pragma comment(lib,"opengl32.lib")
+#pragma comment(lib,"glew32.lib")
+#pragma comment(lib,"glfw3dll.lib")
+#pragma comment(lib,"assimp-vc142-mt.lib")
+#pragma comment(lib,"vld.lib")
+#pragma comment(lib,"libiconv.lib")
+#pragma comment(lib,"freetype.lib")
+#pragma comment(lib,"imgui.lib")
+#pragma comment(lib,"klib.lib")
+#pragma comment(lib,"legacy_stdio_definitions.lib")
+#endif
+
 void main()
 {
     DynamicTextureApp* app = nullptr;

@@ -41,9 +41,6 @@ void TriangleApp::InitModel()
 #if defined(WIN32) || defined(_WIN32)
     vs_file_path = "resources/shader/002_triangle_vs.glsl";
     fs_file_path = "resources/shader/002_triangle_fs.glsl";
-#elif defined(__APPLE__) && defined(__MACH__)
-    vs_file_path = "/Users/xiongxinke/Desktop/SvnChina/kgl/publish/resources/shader/002_triangle_vs.glsl";
-    fs_file_path = "/Users/xiongxinke/Desktop/SvnChina/kgl/publish/resources/shader/002_triangle_fs.glsl";
 #endif
     gpu_program_->CreateFromFile(vs_file_path, fs_file_path, nullptr);
 

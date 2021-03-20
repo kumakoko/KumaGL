@@ -55,5 +55,5 @@ void main()
     vec3 halfway_dir = normalize(light_dir + view_dir);  
     float spec = pow(max(dot(normal, halfway_dir), 0.0), shininess);
     vec3 specular =  fs_in.specular * spec * attenuation;
-    FragColor = vec4(ambient + diffuse + specular, 1.0);
+    FragColor = vec4(1,0,0,1);//vec4(ambient + diffuse + specular, 1.0);
 }

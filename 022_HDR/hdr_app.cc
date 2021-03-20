@@ -91,7 +91,7 @@ void HDRApp::RenderScene()
     hdr_shader_->ApplyTexture(hdr_buffer_->GetTexture(), "u_hdr_buffer", 0);
     hdr_shader_->ApplyFloat(exposure_,"u_exposure");
     screen_rectangle_->Draw();
-    this->RenderHelpText(camera_position);
+  //  this->RenderHelpText(camera_position);
 }
 
 void HDRApp::RenderHelpText(const glm::vec3& view_pos)

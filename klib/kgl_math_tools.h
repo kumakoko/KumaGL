@@ -85,13 +85,6 @@ namespace kgl
             return (1.0 - ((n * (n*n * 15731 + 789221) + 1376312589) & 0x7fffffff) / 1073741824.0);
         }
 
-        static double Noise(float x, float y)
-        {
-            int ix = static_cast<int>(x);
-            int iy = static_cast<int>(y);
-            return Noise(ix, iy);
-        }
-
         /// <summary>
         /// 平滑噪声
         /// </summary>

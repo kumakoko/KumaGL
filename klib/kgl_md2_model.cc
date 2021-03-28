@@ -335,7 +335,7 @@ namespace kgl
 
 			shader_->ApplyFloat(anim_status->interpolation_percent(), "u_interpolation");
 
-			for (std::size_t i = 0; i < render_modes_.size(); ++i)
+			for (auto i = 0; i < render_modes_.size(); ++i)
 			{
 				glDrawArrays(render_modes_[i], total_offset, render_vertices_num_[i]);
 				total_offset += render_vertices_num_[i];

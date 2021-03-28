@@ -69,7 +69,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\bin;$(BOOST_LIB);$(ASSIMP_LIB);$(VLD_LIB);$(ICONV_LIB);$(GLFW_LIB);$(GLEW_LIB);$(FREETYPE_LIB);$(IMGUI_LIB)/Debug;$(FREEIMAGE_LIB)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\bin;$(BOOST_LIB);$(ASSIMP_LIB);$(VLD_LIB);$(ICONV_LIB);$(GLFW_LIB);$(GLEW_LIB);$(FREETYPE_LIB);$(IMGUI_LIB);$(FREEIMAGE_LIB)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
       <AdditionalOptions>/ignore:4099  /NODEFAULTLIB:"libcmt.lib"   /NODEFAULTLIB:"libcmtd.lib" %(AdditionalOptions)</AdditionalOptions>

@@ -112,7 +112,7 @@ void CameraApp::RenderScene()
     gpu_program_->ApplyTexture(texture_2_, "ourTexture2", 1);
 
     // 计算变换
-    glm::mat4 model_matrix;
+    glm::mat4 model_matrix = glm::identity<glm::mat4>();
     model_matrix = glm::rotate(model_matrix, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(0.0f, 0.0f, 1.0f));
     gpu_program_->ApplyMatrix(glm::value_ptr(model_matrix), "model");
 

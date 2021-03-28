@@ -120,7 +120,7 @@ void LowPolyTerrainApp::RenderScene()
     rs_depth_.Use();
     draw_mode_.SetCurrentDrawMode(draw_mode_line_ ? kgl::DM_LINE : kgl::DM_FILL);
     terrain_->Render(light_);
-    this->DrawHelpText(main_camera_->GetPosition());
+  //  this->DrawHelpText(main_camera_->GetPosition());
 }
 
 void LowPolyTerrainApp::DrawHelpText(const glm::vec3& view_pos)

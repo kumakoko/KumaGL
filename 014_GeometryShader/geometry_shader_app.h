@@ -39,77 +39,20 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 class GeometryShaderApp : public kgl::App
 {
 public:
-    /// <summary>
-    /// Initializes a new instance of the <see cref="GeometryShaderApp"/> class.
-    /// </summary>
     GeometryShaderApp();
-
-    /// <summary>
-    /// Finalizes an instance of the <see cref="GeometryShaderApp"/> class.
-    /// </summary>
     virtual ~GeometryShaderApp();
-
 protected:
-    /// <summary>
-    /// Pres the render frame.
-    /// </summary>
     virtual void PreRenderFrame() override;
-
-    /// <summary>
-    /// Initializes the model.
-    /// </summary>
     virtual void InitModel() override;
-
-    /// <summary>
-    /// Initializes the shader.
-    /// </summary>
     virtual void InitShaders() override;
-
-    /// <summary>
-    /// Initializes the main camera.
-    /// </summary>
     virtual void InitMainCamera() override;
-
-    /// <summary>
-    /// Initializes the font.
-    /// </summary>
     virtual void InitFont() override;
-
-    /// <summary>
-    /// Renders the frame.
-    /// </summary>
     virtual void RenderScene() override;
-
-    /// <summary>
-    /// Called when [key action].
-    /// </summary>
-    /// <param name="window">The window.</param>
-    /// <param name="key">The key.</param>
-    /// <param name="scancode">The scancode.</param>
-    /// <param name="action">The action.</param>
-    /// <param name="mode">The mode.</param>
     virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
-
-    /// <summary>
-    /// Called when [mouse action].
-    /// </summary>
-    /// <param name="window">The window.</param>
-    /// <param name="xpos">The xpos.</param>
-    /// <param name="ypos">The ypos.</param>
     virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
-
-    /// <summary>
-    /// Called when [scroll action].
-    /// </summary>
-    /// <param name="window">The window.</param>
-    /// <param name="xoffset">The xoffset.</param>
-    /// <param name="yoffset">The yoffset.</param>
     virtual void OnScrollAction(GLFWwindow* window, double xoffset, double yoffset) override;
-
-    /// <summary>
-    /// 处理外设输入的方法
-    /// </summary>
     virtual void ProcessInput() override;
+    virtual void RenderGUI() override;
 private:
     /// <summary>
     /// 绘制彩色多边形
@@ -120,12 +63,6 @@ private:
     /// 绘制爆炸的模型
     /// </summary>
     void RenderExplodeModel();
-
-    /// <summary>
-    /// 绘制帮助文本
-    /// </summary>
-    /// <param name="view_pos">摄像机的位置</param>
-    void DrawHelpText(const glm::vec3& view_pos);
 private:
     /// <summary>
     /// 绘制彩色多边形用的shader

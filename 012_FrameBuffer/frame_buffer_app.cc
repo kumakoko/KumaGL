@@ -78,7 +78,7 @@ void FrameBufferApp::RenderScene()
     depth_test_mode_.Use();
 
     // 绘制太阳
-    glm::mat4 matrix_sun;
+    glm::mat4 matrix_sun = glm::identity<glm::mat4>();
     matrix_sun = glm::scale(matrix_sun, glm::vec3(5.f, 5.f, 5.f));
     matrix_sun = glm::rotate(matrix_sun, current_time, glm::vec3(0.0f, 1.0f, 0.0f));
     scene_shader_->Use();
@@ -89,7 +89,7 @@ void FrameBufferApp::RenderScene()
     sun_->DrawIndexed();
 
     // 绘制地板
-    glm::mat4 matrix_floor;
+    glm::mat4 matrix_floor = glm::identity<glm::mat4>();
     matrix_floor = glm::rotate(matrix_floor, -glm::half_pi<float>(), glm::vec3(1.0f, 0.0f, 0.0f));
     matrix_floor = glm::scale(matrix_floor, glm::vec3(20.f, 20.f, 20.f));
     matrix_floor = glm::translate(matrix_floor, floor_translation_);

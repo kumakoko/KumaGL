@@ -34,6 +34,10 @@ uniform mat4 projection_matrix;
 void main()
 {
     gl_Position = projection_matrix * view_matrix * model_matrix * vec4(position, 1.0f);
-    output_normal = normal;
+
+    // 把顶点的法线变换到最终的投影空间，需要用到world矩阵的逆转置矩阵
+    mat3 normal_matrix = transpose(inverse(mat3(model_matrix)));
+    output_normal = normal_matrix * normal;
+
     output_tex_coords = vec2(tex_coords.x , tex_coords.y);
 }

@@ -101,7 +101,6 @@ void ShadowMappingApp::RenderScene()
     this->RenderSceneDepthToBuffer(); // 从灯光角度来观察，记录下深度信息
     this->RenderSceneWithShadow();
     this->RenderDebugScreen();
-    this->RenderHelpText(main_camera_->GetPosition());
 }
 
 void ShadowMappingApp::RenderDebugScreen()
@@ -145,18 +144,18 @@ void ShadowMappingApp::RenderSceneWithShadow()
 
     // 绘制地板
     cull_mode_draw_floor_.Use();
-    glm::mat4 model;
+    glm::mat4 model = glm::identity<glm::mat4>();
     shadow_mapping_pass_->SetWorldMatrix(model);
     floor_->Draw();
 
     // 绘制盒子
     cull_mode_draw_box_.Use();
-    model = glm::scale(glm::translate(glm::mat4(), glm::vec3(0.0f, 1.5f, 0.0f)), glm::vec3(0.5f));
+    model = glm::scale(glm::translate(glm::identity<glm::mat4>(), glm::vec3(0.0f, 1.5f, 0.0f)), glm::vec3(0.5f));
     shadow_mapping_pass_->SetWorldMatrix(model);
     shadow_mapping_pass_->SetDiffuseTexture(stone_texture_, 0);
     box_->Draw();
 
-    model = glm::scale(glm::translate(glm::mat4(), glm::vec3(2.0f, 0.0f, 1.0f)), glm::vec3(0.5f));
+    model = glm::scale(glm::translate(glm::identity<glm::mat4>() , glm::vec3(2.0f, 0.0f, 1.0f)), glm::vec3(0.5f));
     shadow_mapping_pass_->SetWorldMatrix(model);
     box_->Draw();
 
@@ -201,22 +200,13 @@ void ShadowMappingApp::RenderSceneDepthToBuffer()
     shadow_depth_buffer_->EndWriting(&view_port_rect);
 }
 
-void ShadowMappingApp::RenderHelpText(const glm::vec3& view_pos)
+void ShadowMappingApp::RenderGUI()
 {
-    const std::wstring& help_toggle = is_help_on_ ? toggle_help_off_text_ : toggle_help_on_text_;
-    kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
-    glm::vec4 text_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-    font_renderer->AddToRendered(help_toggle, 0, 0, text_color, 1.0f);
-
-    if (is_help_on_)
-    {
-        boost::format fmt("摄像机位置坐标：(%-8.3f,%-8.3f,%-8.3f)");
-        fmt % view_pos.x % view_pos.y % view_pos.z;
-        font_renderer->AddToRendered(camera_ctrl_text_, 0, 30, text_color, 1.0f);
-        font_renderer->AddToRendered(kgl::StringConvertor::UTF8toUTF16LE(fmt.str().c_str()), 0, 60, text_color, 1.0f);
-    }
-
-    font_renderer->Draw();
+	const glm::vec3& camera_pos = main_camera_->GetPosition();
+	ImGui::Begin("025 ShadowMapping 阴影贴图效果");
+	ImGui::Text("FPS : %.1f", ImGui::GetIO().Framerate);
+	ImGui::Text("摄像机坐标: (%.1f,%.1f,%.1f)", camera_pos.x, camera_pos.y, camera_pos.z);
+	ImGui::End();
 }
 
 void ShadowMappingApp::InitModel()
@@ -269,23 +259,6 @@ void ShadowMappingApp::InitMainCamera()
     main_camera_->SetMaxPitchDegreePerFrame(max_pitch_degree_per_frame);
     main_camera_->SetPitchAngle(pitch_angle);
     main_camera_->SetYawAngle(yaw_angle);
-}
-
-void ShadowMappingApp::InitFont()
-{
-    const char* font_name = "resources/font/wqy_wmh.ttf";
-    std::string font_texture_name("wqyht24");
-    int32_t font_size = 24;
-    uint32_t font_texture_width = 512;
-    uint32_t font_texture_height = 512;
-    kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
-    font_renderer->Initialize();
-    font_renderer->CreateFontTexture(font_name, font_texture_name.c_str(), font_size, font_texture_width, font_texture_height);
-    font_renderer->SetCurrentFont(font_texture_name);
-
-    toggle_help_on_text_ = kgl::StringConvertor::UTF8toUTF16LE("按下H键显示帮助");
-    toggle_help_off_text_ = kgl::StringConvertor::UTF8toUTF16LE("按下H键关闭帮助");
-    camera_ctrl_text_ = kgl::StringConvertor::UTF8toUTF16LE("持续按下W，S，U，J键，使得摄像机向前、后方向移动，增大或减小曝光度值");
 }
 
 void ShadowMappingApp::ProcessInput()

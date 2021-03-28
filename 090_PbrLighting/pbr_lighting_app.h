@@ -51,7 +51,6 @@ protected:
 	virtual void InitShaders() override;
 	virtual void InitLights() override;
 	void LoadTextures();
-    void RenderText();
 private:
 	/** * @brief 当前使用的拣选模式  */
     kgl::RenderStateCullMode cull_mode_;

@@ -106,7 +106,7 @@ void BlurApp::RenderScene()
     // ======================== 写入到离屏的frame buffer =============================
     frame_buffer_->StartWriting(glm::vec4(0.0f, 0.0f, 0.0f, 0.0f));
 
-    glm::mat4 world_matrix;
+    glm::mat4 world_matrix = glm::identity<glm::mat4>();
     world_matrix = glm::rotate(world_matrix, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(1.0f, 0.0f, 0.0f));
     world_matrix = glm::rotate(world_matrix, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(0.0f, 1.0f, 0.0f));
 

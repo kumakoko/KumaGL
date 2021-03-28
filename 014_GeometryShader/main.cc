@@ -55,6 +55,7 @@ void main()
         app->InitWindow(1024, 768, false, "014_GeometryShader");
         app->InitRenderer();
         app->InitScene();
+        app->InitGuiSystem(true, true, false);
         app->Run();
     }
     catch (kgl::Error e)

@@ -74,7 +74,7 @@ void HDRApp::RenderScene()
     }
 
     // 绘制盒子内部
-    glm::mat4 model = glm::mat4();
+    glm::mat4 model = glm::identity<glm::mat4>();
     model = glm::translate(model, glm::vec3(0.0f, 0.0f, 25.0f));
     model = glm::scale(model, glm::vec3(2.5f, 2.5f, 27.5f));
     lighting_shader_->ApplyMatrix(glm::value_ptr(model),"u_world_matrix");
@@ -91,31 +91,6 @@ void HDRApp::RenderScene()
     hdr_shader_->ApplyTexture(hdr_buffer_->GetTexture(), "u_hdr_buffer", 0);
     hdr_shader_->ApplyFloat(exposure_,"u_exposure");
     screen_rectangle_->Draw();
-  //  this->RenderHelpText(camera_position);
-}
-
-void HDRApp::RenderHelpText(const glm::vec3& view_pos)
-{
-    const std::wstring& help_toggle = is_help_on_ ? toggle_help_off_text_ : toggle_help_on_text_;
-    kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
-    glm::vec4 text_color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-    font_renderer->AddToRendered(help_toggle, 0, 0, text_color, 1.0f);
-
-    if (is_help_on_)
-    {
-        boost::format fmt("摄像机位置坐标：(%-8.3f,%-8.3f,%-8.3f)，曝光度值： %-8.3f, %s");
-        fmt % view_pos.x % view_pos.y % view_pos.z
-            % exposure_ 
-            % (use_hdr_ ? "已启用HDR效果" : "已关闭HDR效果");
-        font_renderer->AddToRendered(camera_ctrl_text_, 0, 30, text_color, 1.0f);
-        font_renderer->AddToRendered(kgl::StringConvertor::UTF8toUTF16LE(fmt.str().c_str()), 0, 60, text_color, 1.0f);
-        
-        font_renderer->AddToRendered(use_hdr_ ?
-            kgl::StringConvertor::UTF8toUTF16LE("按下R键关闭HDR效果") :
-            kgl::StringConvertor::UTF8toUTF16LE("按下R键启用HDR效果"), 0, 90, text_color, 1.0f);
-    }
-
-    font_renderer->Draw();
 }
 
 void HDRApp::InitMaterials()
@@ -183,21 +158,16 @@ void HDRApp::InitMainCamera()
     main_camera_->SetPitchAngle(pitch_angle);
 }
 
-void HDRApp::InitFont()
+void HDRApp::RenderGUI()
 {
-    const char* font_name = "resources/font/wqy_wmh.ttf";
-    std::string font_texture_name("wqyht24");
-    int32_t font_size = 24;
-    uint32_t font_texture_width = 512;
-    uint32_t font_texture_height = 512;
-    kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
-    font_renderer->Initialize();
-    font_renderer->CreateFontTexture(font_name, font_texture_name.c_str(), font_size, font_texture_width, font_texture_height);
-    font_renderer->SetCurrentFont(font_texture_name);
-
-    toggle_help_on_text_ = kgl::StringConvertor::UTF8toUTF16LE("按下H键显示帮助");
-    toggle_help_off_text_ = kgl::StringConvertor::UTF8toUTF16LE("按下H键关闭帮助");
-    camera_ctrl_text_ = kgl::StringConvertor::UTF8toUTF16LE("持续按下W，S，U，J键，使得摄像机向前、后方向移动，增大或减小曝光度值");
+	const glm::vec3& camera_pos = main_camera_->GetPosition();
+	ImGui::Begin("022 HDR 高动态范围光效果演示");
+	ImGui::Text("FPS : %.1f", ImGui::GetIO().Framerate);
+	ImGui::Text("摄像机坐标: (%.1f,%.1f,%.1f)", camera_pos.x, camera_pos.y, camera_pos.z);
+    ImGui::Text("曝光度值：%.1f",exposure_);
+	ImGui::Text("按WSADUJ键向前后左右上下移动摄像机,按下左右箭头键，增大或减小曝光度值");
+    ImGui::Checkbox("打开HDR效果", &use_hdr_);
+	ImGui::End();
 }
 
 void HDRApp::ProcessInput()
@@ -244,16 +214,6 @@ void HDRApp::ProcessInput()
 void HDRApp::OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
     App::OnKeyAction(window, key, scancode, action, mode);
-
-    if (GLFW_KEY_H == key && action == GLFW_RELEASE)
-    {
-        is_help_on_ = !is_help_on_;
-    }
-
-    if (GLFW_KEY_R == key && action == GLFW_RELEASE)
-    {
-        use_hdr_ = !use_hdr_;
-    }
 }
 
 void HDRApp::OnMouseAction(GLFWwindow* window, double xpos, double ypos)

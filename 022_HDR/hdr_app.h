@@ -65,8 +65,7 @@ protected:
     virtual void InitShaders() override;
     virtual void InitLights() override;
     virtual void InitMainCamera() override;
-    virtual void InitFont() override;
-    void RenderHelpText(const glm::vec3& view_pos);
+    virtual void RenderGUI() override;
 private:
     /// <summary>
     /// 用来执行hdr光照计算所用到的frame buffer
@@ -122,26 +121,6 @@ private:
     /// HDR曝光值
     /// </summary>
     float exposure_ = 2.0f;
-
-    /// <summary>
-    /// 提示如何关闭帮助文档的信息字符串
-    /// </summary>
-    std::wstring toggle_help_off_text_;
-
-    /// <summary>
-    ///  提示如何打开帮助文档的信息字符串
-    /// </summary>
-    std::wstring toggle_help_on_text_;
-
-    /// <summary>
-    /// 摄像机相关信息的字符串
-    /// </summary>
-    std::wstring camera_ctrl_text_;
-
-    /// <summary>
-    /// 帮助文档是否处于打开状态
-    /// </summary>
-    bool is_help_on_ = true;
 };
 
 

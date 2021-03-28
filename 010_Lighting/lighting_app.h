@@ -58,7 +58,7 @@ protected:
     virtual void InitShaders() override;
     virtual void InitLights() override;
     virtual void InitMainCamera() override;
-    virtual void InitFont() override;
+    virtual void RenderGUI() override;
 private:
     kgl::GPUProgramSPtr             lighting_shader_;
     kgl::DirectionalLight           directional_light_;
@@ -67,14 +67,9 @@ private:
     kgl::BasicStaticMesh*           model_ = nullptr;
     kgl::RenderStateDrawMode        draw_mode_;
     kgl::RenderStateDepth           rs_depth_;
-    std::wstring                    toggle_help_on_text_;
-    std::wstring                    toggle_help_off_text_;
-    std::wstring                    camera_ctrl_text_;
-    std::wstring                    material_ctrl_text_;
-    std::vector<std::wstring>       material_name_text_;
+    std::vector<std::string>        material_name_text_;
     std::vector<kgl::Material>      materials_;         // 程序中用到材质
     uint32_t                        cur_mat_index_ = 0;
-    bool                            is_help_on_ = false;
 };
 
 #endif // lighting_app_h__

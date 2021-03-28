@@ -38,6 +38,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include "../klib/kgl_source_texture.h"
 #include "../klib/kgl_render_state_cull_mode.h"
 #include "../klib/kgl_render_state_depth.h"
+#include "../klib/kgl_render_state_draw_mode.h"
 
 class TransformApp : public kgl::App
 {
@@ -54,17 +55,18 @@ protected:
     virtual void InitLights() override;
     virtual void InitMainCamera() override;
     virtual void RenderGUI() override;
-    void RenderText();
 private:
-    kgl::GPUProgram*        object_shader_ = nullptr;
-    kgl::SourceTextureSPtr  texture_sun_;
-    kgl::SourceTextureSPtr  texture_earth_;
-    kgl::SourceTextureSPtr  texture_moon_;
-    kgl::PrimitiveSPtr sun_;
-    kgl::PrimitiveSPtr earth_;
-    kgl::PrimitiveSPtr moon_;
-    kgl::RenderStateCullMode cull_mode_;
-    kgl::RenderStateDepth depth_test_mode_;
+    kgl::GPUProgram*            object_shader_;
+    kgl::SourceTextureSPtr      texture_sun_;
+    kgl::SourceTextureSPtr      texture_earth_;
+    kgl::SourceTextureSPtr      texture_moon_;
+    kgl::PrimitiveSPtr          sun_;
+    kgl::PrimitiveSPtr          earth_;
+    kgl::PrimitiveSPtr          moon_;
+    kgl::RenderStateCullMode    cull_mode_;
+    kgl::RenderStateDepth       depth_test_mode_;
+	kgl::RenderStateDrawMode    draw_mode_;
+    bool                        wireframe_mode_;
 };
 
 #endif // transform_app_h__

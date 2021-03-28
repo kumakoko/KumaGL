@@ -36,21 +36,21 @@ void AssimpApp::InitScene()
 {
     App::InitScene();
     rs_depth_.SetEnable(GL_TRUE);
-    rs_blend_.SetEnable(GL_TRUE);
     rs_blend_.SetBlendFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void AssimpApp::InitMainCamera()
 {
-    glm::vec3 camera_pos(0.0f, 0.000005f, -4.799932f);
-    float pitch_angle = 0.0f;
-    float yaw_angle = 0.f;// 180.0f;
-    float fov = 120.f;
-    float near_clip_distance = 0.1f;
-    float far_clip_distance = 1000.0f;
-
-    main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, camera_pos,
-        pitch_angle, yaw_angle, fov, near_clip_distance, far_clip_distance);
+	glm::vec3 camera_pos(0.0f, 1.78f, 6.11f);
+	float pitch_angle = -18.5f;
+	float move_speed = 0.1f;
+	float max_yaw_degree_per_frame = 1.0f;
+	float max_pitch_degree_per_frame = 1.0f;
+	main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, camera_pos,  pitch_angle, 180.0f, 120.f, 0.1f, 1000.0f);
+	main_camera_->SetCameraSpeed(move_speed);
+	main_camera_->SetMaxYawDegreePerFrame(max_yaw_degree_per_frame);
+	main_camera_->SetMaxPitchDegreePerFrame(max_pitch_degree_per_frame);
+	main_camera_->SetPitchAngle(pitch_angle);
 }
 
 void AssimpApp::InitModel()
@@ -69,25 +69,12 @@ void AssimpApp::InitShaders()
     model_shader_->CreateFromFile(vs_file_path, fs_file_path, gs_file_path);
 }
 
-void AssimpApp::InitFont()
-{
-    const char* font_name = "resources/font/fzss_gbk.ttf";
-    const char* texture_name = "fzss24";
-    int32_t font_size = 24;
-    uint32_t texture_width = 512;
-    uint32_t texture_height = 512;
-    kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
-    font_renderer->Initialize();
-    font_renderer->CreateFontTexture(font_name, texture_name, font_size, texture_width, texture_height);
-    font_renderer->SetCurrentFont("fzss24");
-}
-
 void AssimpApp::RenderScene()
 {
     main_camera_->Update();
 
-    glm::mat4 model_matrix;
-    //model_matrix = glm::rotate(model_matrix, 3.1415926f * 0.5f, glm::vec3(1.0f, 0.0f, 0.0f));
+    glm::mat4 model_matrix = glm::identity<glm::mat4>();
+    model_matrix = glm::scale(model_matrix, glm::vec3(box_scale_factor_));
     model_matrix = glm::rotate(model_matrix, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(0.0f, 1.0f, 0.0f));
 
     const glm::mat4& view_matrix = main_camera_->GetViewMatrix();
@@ -101,20 +88,17 @@ void AssimpApp::RenderScene()
     model_shader_->ApplyMatrix(glm::value_ptr(view_matrix), "view_matrix");
     model_shader_->ApplyMatrix(glm::value_ptr(projection_matrix), "projection_matrix");
     model_->Render();
-
-    this->RenderText();
 }
 
-void AssimpApp::RenderText()
+void AssimpApp::RenderGUI()
 {
-    const glm::vec3& pos = main_camera_->GetPosition();
-    boost::wformat f(L"Camea position : (%f,%f,%f)");
-    f % pos.x % pos.y % pos.z;
-    glm::vec4 font_color(1.0f, 0.0f, 0.0f, 1.0f);
-
-    kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
-    font_renderer->AddToRendered(f.str(), 0, 0, font_color, font_color, font_color, font_color, 1.5f);
-    font_renderer->Draw();
+	const glm::vec3& camera_pos = main_camera_->GetPosition();
+	ImGui::Begin("009 Assimp -- 使用Assimp库装载模型");
+	ImGui::Text("FPS : %.1f", ImGui::GetIO().Framerate);
+	ImGui::Text("按WSADUJ键向前后左右上下移动摄像机");
+	ImGui::Text("摄像机坐标: (%.1f,%.1f,%.1f)", camera_pos.x, camera_pos.y, camera_pos.z);
+	ImGui::SliderFloat("缩放系数值", &box_scale_factor_, 0.1f, 2.0f);
+	ImGui::End();
 }
 
 void AssimpApp::ProcessInput()
@@ -139,12 +123,12 @@ void AssimpApp::ProcessInput()
         main_camera_->Move(kgl::CameraDirection::RIGHT);
     }
 
-    if (key_state_[GLFW_KEY_J])
+    if (key_state_[GLFW_KEY_U])
     {
         main_camera_->Move(kgl::CameraDirection::UP);
     }
 
-    if (key_state_[GLFW_KEY_U])
+    if (key_state_[GLFW_KEY_J])
     {
         main_camera_->Move(kgl::CameraDirection::DOWN);
     }

@@ -60,8 +60,7 @@ protected:
     virtual void InitShaders() override;
     virtual void InitLights() override;
     virtual void InitMainCamera() override;
-    virtual void InitFont() override;
-    void RenderHelpText(const glm::vec3& view_pos);
+    virtual void RenderGUI() override;
     void RenderSceneDepthToBuffer();
     void RenderSceneWithShadow();
     void RenderDebugScreen();

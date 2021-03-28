@@ -40,7 +40,7 @@ ParallaxMappingApp::~ParallaxMappingApp()
 void ParallaxMappingApp::RenderGUI()
 {
 	const glm::vec3& camera_pos = main_camera_->GetPosition();
-    ImGui::Begin("视差贴图效果演示");
+    ImGui::Begin("017 ParallaxMapping 视差贴图效果演示");
 	ImGui::Checkbox("使用视差贴图效果吗", &use_parallax_effect_);
 	ImGui::SliderFloat("水平方向纹理坐标偏移值", &(uv_offset_value_.x), 0.01f, 0.04f);
 	ImGui::SliderFloat("垂直方向纹理坐标偏移值", &(uv_offset_value_.y), 0.01f, 0.04f);
@@ -77,7 +77,7 @@ void ParallaxMappingApp::RenderScene()
 
 	const glm::mat4& projection = main_camera_->GetProjectionMatrix();
 	const glm::mat4& view = main_camera_->GetViewMatrix();
-	glm::mat4 model;
+	glm::mat4 model = glm::identity<glm::mat4>();
 
 	parallax_mapping_shader_->Use();
 	parallax_mapping_shader_->ApplyMatrix(glm::value_ptr(projection), "projection_matrix");

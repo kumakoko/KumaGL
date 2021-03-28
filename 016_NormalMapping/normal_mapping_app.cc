@@ -66,7 +66,7 @@ void NormalMappingApp::RenderScene()
 
     const glm::mat4& projection = main_camera_->GetProjectionMatrix();
     const glm::mat4& view = main_camera_->GetViewMatrix();
-    glm::mat4 model;
+    glm::mat4 model = glm::identity<glm::mat4>();
 
     normal_mapping_shader_->Use();
     normal_mapping_shader_->ApplyMatrix(glm::value_ptr(projection), "projection_matrix");

@@ -63,7 +63,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h> 
 #if defined(DEBUG) || defined(_DEBUG)
-#include "vld.h"
+//#include "vld.h"
 #endif
 #pragma execution_character_set("utf-8")
 #define U8

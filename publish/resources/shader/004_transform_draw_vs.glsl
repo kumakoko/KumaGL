@@ -35,6 +35,6 @@ uniform mat4 projection_matrix; // 把顶点从观察空间变换到投影空间
 void main()
 {
     gl_Position = projection_matrix * view_matrix * world_matrix * vec4(vertex_position, 1.0f);
-    fragment_tex_coord_1 = vertex_texture_coord_1;
+    fragment_tex_coord_1 = vec2(vertex_texture_coord_1.x,1-vertex_texture_coord_1.y);
     fragment_color = vertex_color;
 }

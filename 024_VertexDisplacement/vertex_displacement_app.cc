@@ -95,7 +95,7 @@ void VertexDisplacementApp::RenderScene()
     gpu_program_->Use();
     gpu_program_->ApplyTexture(texture_1_, "source_texture_1", 0);
 
-    glm::mat4 model_matrix;
+    glm::mat4 model_matrix = glm::identity<glm::mat4>();
     model_matrix = glm::translate(model_matrix, glm::vec3(flag_left_top_x_, flag_left_top_y_, 0.f));
     //model_matrix = glm::rotate(model_matrix, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(0.0f, 0.0f, 1.0f));
     gpu_program_->ApplyMatrix(glm::value_ptr(model_matrix), "u_world_matrix");

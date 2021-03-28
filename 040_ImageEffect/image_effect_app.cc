@@ -127,10 +127,10 @@ void ImageEffectApp::RenderColorToGray()
     color_to_gray_shader_->ApplyTexture(main_texture_, "main_texture", 0);
     rectangle_primitive_->Draw();
 
-    kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
+    /*kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
     glm::vec4 text_color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
     font_renderer->AddToRendered(kgl::StringConvertor::UTF8toUTF16LE("Image Effect : 彩色图转灰度图"), 0, 0, text_color, 1.0f);
-    font_renderer->Draw();
+    font_renderer->Draw();*/
 }
 
 void ImageEffectApp::RenderEmboss()
@@ -139,10 +139,10 @@ void ImageEffectApp::RenderEmboss()
     emboss_shader_->ApplyTexture(main_texture_, "main_texture", 0);
     rectangle_primitive_->Draw();
 
-    kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
+    /*kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
     glm::vec4 text_color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
     font_renderer->AddToRendered(kgl::StringConvertor::UTF8toUTF16LE("Image Effect : 浮雕效果"), 0, 0, text_color, 1.0f);
-    font_renderer->Draw();
+    font_renderer->Draw();*/
 }
 
 void ImageEffectApp::RenderSaturation()
@@ -152,14 +152,14 @@ void ImageEffectApp::RenderSaturation()
     saturation_shader_->ApplyFloat(saturation_factor_, "saturation_factor");
     rectangle_primitive_->Draw();
 
-    kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
+    /*kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
     glm::vec4 text_color = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
 
     boost::format fmt("Image Effect : 色彩饱和度调整，当前的饱和度控制值为 %f");
     fmt % saturation_factor_;
 
     font_renderer->AddToRendered(kgl::StringConvertor::UTF8toUTF16LE(fmt.str().c_str()), 0, 0, text_color, 1.0f);
-    font_renderer->Draw();
+    font_renderer->Draw();*/
 }
 
 void ImageEffectApp::OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode)

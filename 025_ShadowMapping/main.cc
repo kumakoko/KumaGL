@@ -57,6 +57,7 @@ void main()
         app->InitWindow(1024, 768, false, "025 Shadow Mapping");
         app->InitRenderer();
         app->InitScene();
+        app->InitGuiSystem(true);
         app->Run();
     }
     catch (kgl::Error e)

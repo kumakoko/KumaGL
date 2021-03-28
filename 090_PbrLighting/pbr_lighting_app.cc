@@ -79,7 +79,7 @@ void PbrLightingApp::RenderGUI()
 		"生锈铁球", "花岗岩", "划痕金属", "竹子", "花纹黄铜器"
 	};
 
-	// 当前选中的那个animation clip的名字
+	// 当前选中的那个 animation clip 的名字
 	static const char* item_current = material_name[0];
 
 	if (ImGui::BeginCombo("材质名", item_current, 0))
@@ -220,7 +220,7 @@ void PbrLightingApp::RenderScene()
 	const glm::mat4& view_matrix = main_camera_->GetViewMatrix();
 	const glm::mat4& projection_matrix = main_camera_->GetProjectionMatrix();
 
-	glm::mat4 world_matrix;
+	auto world_matrix = glm::identity<glm::mat4>();
 	world_matrix = glm::scale(world_matrix, glm::vec3(5.f, 5.f, 5.f));
 	world_matrix = glm::rotate(world_matrix, (GLfloat)glfwGetTime() * 0.5f, glm::vec3(0.0f, 1.0f, 0.0f));
 

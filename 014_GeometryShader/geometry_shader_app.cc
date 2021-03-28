@@ -79,7 +79,6 @@ void GeometryShaderApp::InitModel()
     std::string model_path("resources/model/nanosuit.obj");
     model_ = new kgl::BasicStaticMesh;
     model_->LoadMesh(model_path);
-    
 
     rs_depth_.SetEnable(GL_TRUE);
 }
@@ -109,19 +108,6 @@ void GeometryShaderApp::InitMainCamera()
     main_camera_->InitViewProjection(kgl::CameraType::PERSPECTIVE, glm::vec3(0.0f, 0.0f, 40.0f));
 }
 
-void GeometryShaderApp::InitFont()
-{
-    kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
-    font_renderer->Initialize();
-    font_renderer->CreateFontTexture("resources/font/fzkt_sim.ttf", "fzktsim24", 24, 512, 512);
-    font_renderer->SetCurrentFont("fzktsim24");
-
-    toggle_help_on_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下H键显示帮助");
-    toggle_help_off_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下H键关闭帮助");
-    camera_ctrl_text_ = kgl::StringConvertor::ANSItoUTF16LE("持续按下W、S、A、D、U、J键，使得摄像机向前、后、左、右、上、下方向移动");
-    material_ctrl_text_ = kgl::StringConvertor::ANSItoUTF16LE("按下左右箭头键，切换模型使用的材质");
-}
-
 void GeometryShaderApp::RenderScene()
 {
     main_camera_->Update();
@@ -133,28 +119,6 @@ void GeometryShaderApp::RenderScene()
     case 0:this->RenderColoredPolygon(); break;
     case 1:this->RenderExplodeModel(); break;
     }
-
-    this->DrawHelpText(main_camera_->GetPosition());
-}
-
-void GeometryShaderApp::DrawHelpText(const glm::vec3& view_pos)
-{
-    const std::wstring& help_toggle = is_help_on_ ? toggle_help_off_text_ : toggle_help_on_text_;
-    kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
-
-    glm::vec4 text_color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-
-    font_renderer->AddToRendered(help_toggle, 0, 0, text_color, 1.0f);
-
-    if (is_help_on_)
-    {
-        boost::format fmt("摄像机位置坐标： x = %f , y = %f , z = %f");
-        fmt % view_pos.x % view_pos.y % view_pos.z;
-        font_renderer->AddToRendered(camera_ctrl_text_, 0, 25, text_color, 1.0f);
-        font_renderer->AddToRendered(kgl::StringConvertor::ANSItoUTF16LE(fmt.str().c_str()), 0, 100, text_color, 1.0f);
-    }
-
-    font_renderer->Draw();
 }
 
 void GeometryShaderApp::RenderColoredPolygon()
@@ -165,7 +129,7 @@ void GeometryShaderApp::RenderColoredPolygon()
 
 void GeometryShaderApp::RenderExplodeModel()
 {
-    glm::mat4 model_matrix;
+    glm::mat4 model_matrix = glm::identity<glm::mat4>();
     const glm::mat4& view_matrix = main_camera_->GetViewMatrix();
     const glm::mat4& projection_matrix = main_camera_->GetProjectionMatrix();
     explode_effect_shader_->Use();
@@ -174,6 +138,16 @@ void GeometryShaderApp::RenderExplodeModel()
     explode_effect_shader_->ApplyMatrix(glm::value_ptr(projection_matrix), "projection");
     explode_effect_shader_->ApplyFloat(static_cast<float>(glfwGetTime()), "time");
     model_->Render();
+}
+
+void GeometryShaderApp::RenderGUI()
+{
+	const glm::vec3& camera_pos = main_camera_->GetPosition();
+	ImGui::Begin("014 Geometry Shader -- 几何着色器的简单使用");
+	ImGui::Text("FPS : %.1f", ImGui::GetIO().Framerate);
+	ImGui::Text("摄像机坐标: (%.1f,%.1f,%.1f)", camera_pos.x, camera_pos.y, camera_pos.z);
+	ImGui::Text("按WSADUJ键向前后左右上下移动摄像机,按下左右箭头键，切换当前渲染的内容");
+	ImGui::End();
 }
 
 void GeometryShaderApp::ProcessInput()
@@ -249,14 +223,10 @@ void GeometryShaderApp::OnKeyAction(GLFWwindow* window, int key, int scancode, i
             current_render_ = 0;
     }
 
-    if (GLFW_KEY_H == key && action == GLFW_RELEASE)
-    {
-        is_help_on_ = !is_help_on_;
-    }
-
     switch (current_render_)
     {
-    case 0:break;
+    case 0:
+        break;
     case 1:
         main_camera_->SetPosition(glm::vec3(0.000001f,6.5f,47.0f));
         break;

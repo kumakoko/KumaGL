@@ -52,14 +52,14 @@ protected:
     virtual void ProcessInput() override;
     virtual void InitModel() override;
     virtual void InitShaders() override;
-    virtual void InitFont() override;
     virtual void InitMainCamera() override;
-    void RenderText();
+    virtual void RenderGUI() override;
 private:
     kgl::GPUProgramSPtr         model_shader_;
     kgl::BasicStaticMesh*       model_;
     kgl::RenderStateDepth       rs_depth_;
     kgl::RenderStateBlend       rs_blend_;
+    float                       box_scale_factor_ = 1.0f;
 };
 
 #endif // assimp_app_h__

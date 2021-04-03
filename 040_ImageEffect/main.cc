@@ -14,6 +14,7 @@ void main()
         app->InitWindow(1024, 768, false, "040 Image Effect");
         app->InitRenderer();
         app->InitScene();
+        app->InitGuiSystem(true, true, false);
         app->Run();
     }
     catch (kgl::Error e)

@@ -45,14 +45,18 @@ namespace kgl
 			COMPAT
 		};
 	public:
-		/// <summary>
-		/// 类<see cref="App"/>的构造函数
-		/// </summary>
+		/*********************************************************
+		类App的构造函数
+
+		@return 
+		*********************************************************/
 		App();
 
-		/// <summary>
-		/// 类 <see cref="App"/>的析构函数
-		/// </summary>
+		/*********************************************************
+		类App的析构函数
+
+		@return 
+		*********************************************************/
 		virtual ~App();
 
 		/*********************************************************
@@ -65,11 +69,14 @@ namespace kgl
 		@param  int32_t context_version_major GL设备上下文的主版本
 		@param  int32_t context_version_minor GL设备上下文的次版本
 		@param  App::GLProfile profile GL的profile
+		@return void
 		*********************************************************/
 		virtual void InitWindow(int32_t wnd_width, int32_t wnd_height, bool wnd_resizable, const char* wnd_title, int32_t context_version_major = 3, int32_t context_version_minor = 3, App::GLProfile profile = App::CORE);
 
 		/*********************************************************
 		初始化OpenGL渲染器
+
+		@return void
 		*********************************************************/
 		virtual void InitRenderer();
 
@@ -82,17 +89,22 @@ namespace kgl
 		@param  bool install_scroll_callback 是否响应对鼠标滚轮的输入并且安装回调
 		@param  bool install_char_callback 是否响应对字符信息的输入并且安装回调
 		@param  bool install_mouse_btn_callback 是否响应对鼠标按键的输入并且安装回调
+		@return void
 		*********************************************************/
 		void InitGuiSystem(bool use_gui = true, bool install_callbacks = true, bool install_key_callback = true, bool install_scroll_callback = true,
 			bool install_char_callback = true, bool install_mouse_btn_callback = true);
 
 		/*********************************************************
 		初始化demo场景
+
+		@return void
 		*********************************************************/
 		virtual void InitScene();
 
 		/*********************************************************
 		应用程序运行的主循环
+
+		@return void
 		*********************************************************/
 		void Run();
 
@@ -104,6 +116,7 @@ namespace kgl
 		@param  int scancode
 		@param  int action
 		@param  int mode
+		@return void
 		*********************************************************/
 		static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
@@ -116,20 +129,24 @@ namespace kgl
 		*********************************************************/
 		static void MouseCallback(GLFWwindow* window, double xpos, double ypos);
 
-		/// <summary>
-		/// Scrolls the callback.
-		/// </summary>
-		/// <param name="window">The window.</param>
-		/// <param name="xoffset">The xoffset.</param>
-		/// <param name="yoffset">The yoffset.</param>
+		/*********************************************************
+		Scrolls the callback.
+
+		@param  GLFWwindow * window
+		@param  double xoffset
+		@param  double yoffset
+		@return void
+		*********************************************************/
 		static void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 
-		/// <summary>
-		/// Sizes the changed callback.
-		/// </summary>
-		/// <param name="window">The window.</param>
-		/// <param name="width">The width.</param>
-		/// <param name="height">The height.</param>
+		/*********************************************************
+		Sizes the changed callback.
+
+		@param  GLFWwindow * window
+		@param  int width
+		@param  int height
+		@return void
+		*********************************************************/
 		static void SizeChangedCallback(GLFWwindow* window, int width, int height);
 
 		/*********************************************************
@@ -154,11 +171,13 @@ namespace kgl
 		*********************************************************/
 		static void GLFWErrorCallback(int error_code, const char* err_str);
 
-		/// <summary>
-		/// Characters the callback.
-		/// </summary>
-		/// <param name="window">The window.</param>
-		/// <param name="x">The x.</param>
+		/*********************************************************
+		Characters the callback.
+
+		@param  GLFWwindow * window
+		@param  unsigned int x
+		@return void
+		*********************************************************/
 		static void CharCallback(GLFWwindow *window, unsigned int x);
 	protected:
 		static App* s_instance_;
@@ -210,10 +229,22 @@ namespace kgl
 		 *********************************************************/
 		virtual void RenderGUI();
 
+		/*********************************************************
+		
+		@return void
+		*********************************************************/
 		void PreRenderGUI();
 
+		/*********************************************************
+		
+		@return void
+		*********************************************************/
 		void PostRenderGUI();
 
+		/*********************************************************
+		
+		@return void
+		*********************************************************/
 		virtual void PostRenderFrame();
 
 		/*********************************************************

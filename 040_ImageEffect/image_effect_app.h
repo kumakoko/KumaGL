@@ -47,42 +47,27 @@ public:
 protected:
     virtual void RenderScene() override;
     virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
-    virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
     virtual void InitShaders() override;
     virtual void InitModel() override;
     virtual void InitFont() override;
     virtual void ProcessInput() override;
+    virtual void RenderGUI() override;
     void RenderColorToGray();
     void RenderEmboss();
     void RenderSaturation();
 private:
-    glm::vec2               screen_resolution_;
+    glm::vec2               screen_resolution_ = {0.0f,0.0f};
     kgl::GPUProgram*        color_to_gray_shader_ = nullptr;
-
-    /// <summary>
-    /// 浮雕效果相关的shader
-    /// </summary>
-    kgl::GPUProgram*        emboss_shader_ = nullptr;
-
-    /// <summary>
-    /// 饱和度效果相关的shader
-    /// </summary>
-    kgl::GPUProgram*        saturation_shader_ = nullptr;
-
-    /// <summary>
-    /// 饱和度控制系数
-    /// </summary>
-    float saturation_factor_ = 0.78f;
-
+    kgl::GPUProgram*        emboss_shader_ = nullptr;       // 浮雕效果相关的shader
+    kgl::GPUProgram*        saturation_shader_ = nullptr;   // 饱和度效果相关的shader
+    kgl::RenderStateBlend   rs_blend_;
     kgl::PrimitiveSPtr      rectangle_primitive_ ;
     kgl::SourceTextureSPtr  main_texture_;                  // 主画面纹理
     int                     current_effect_index_ = 0;      // 当前要渲染的效果
     int                     effect_count_ = 3;
-
-    /// <summary>
-    /// The rs_blend_
-    /// </summary>
-    kgl::RenderStateBlend rs_blend_;
+    float                   saturation_factor_ = 0.78f;     // 饱和度控制系数
+    bool                    effect_changed_ = true;
+    std::string             info_message_;
 };
 
 #endif // image_effect_app_h__

@@ -26,7 +26,8 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
  * TODO: 
  *
  * \note https://www.cnblogs.com/hefee/p/3824300.html
-*/#ifndef kgl_vertex_buffer_object_h__
+*/
+#ifndef kgl_vertex_buffer_object_h__
 #define kgl_vertex_buffer_object_h__
 
 namespace kgl
@@ -109,17 +110,25 @@ namespace kgl
 		*********************************************************/
 		std::size_t GetCurrentSize();
 
+		/*********************************************************
+		
+		@return 
+		*********************************************************/
 		VertexBufferObject();
 
+		/*********************************************************
+		
+		@return 
+		*********************************************************/
 		~VertexBufferObject();
 
 	private:
-		GLuint buffer_id_;
-		std::size_t size_;
-		std::size_t current_size_;
-		int buffer_type_;
-		bool data_uploaded_;
-		std::vector<uint8_t> data_;	
+		std::vector<uint8_t>	data_;
+		std::size_t				size_;
+		std::size_t				current_size_;
+		int						buffer_type_;
+		bool					data_uploaded_;
+		GLuint					buffer_id_;
 	};
 
 	typedef std::shared_ptr<VertexBufferObject> VBOSPtr;

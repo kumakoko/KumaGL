@@ -127,10 +127,11 @@ void ImageEffectApp::RenderColorToGray()
     color_to_gray_shader_->ApplyTexture(main_texture_, "main_texture", 0);
     rectangle_primitive_->Draw();
 
-    /*kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
-    glm::vec4 text_color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-    font_renderer->AddToRendered(kgl::StringConvertor::UTF8toUTF16LE("Image Effect : 彩色图转灰度图"), 0, 0, text_color, 1.0f);
-    font_renderer->Draw();*/
+    if (effect_changed_)
+    {
+        effect_changed_ = false;
+        info_message_ = "彩色图转灰度图";
+    }
 }
 
 void ImageEffectApp::RenderEmboss()
@@ -139,10 +140,11 @@ void ImageEffectApp::RenderEmboss()
     emboss_shader_->ApplyTexture(main_texture_, "main_texture", 0);
     rectangle_primitive_->Draw();
 
-    /*kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
-    glm::vec4 text_color = glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
-    font_renderer->AddToRendered(kgl::StringConvertor::UTF8toUTF16LE("Image Effect : 浮雕效果"), 0, 0, text_color, 1.0f);
-    font_renderer->Draw();*/
+	if (effect_changed_)
+	{
+		effect_changed_ = false;
+		info_message_ = "浮雕效果";
+	}
 }
 
 void ImageEffectApp::RenderSaturation()
@@ -152,14 +154,22 @@ void ImageEffectApp::RenderSaturation()
     saturation_shader_->ApplyFloat(saturation_factor_, "saturation_factor");
     rectangle_primitive_->Draw();
 
-    /*kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
-    glm::vec4 text_color = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
+	if (effect_changed_)
+	{
+        effect_changed_ = false;
+		boost::format fmt("Image Effect : 色彩饱和度调整，按上下键调整饱和度，当前的饱和度控制值为 %1.3f");
+		fmt% saturation_factor_;
+        info_message_ = fmt.str();
+	}
+}
 
-    boost::format fmt("Image Effect : 色彩饱和度调整，当前的饱和度控制值为 %f");
-    fmt % saturation_factor_;
-
-    font_renderer->AddToRendered(kgl::StringConvertor::UTF8toUTF16LE(fmt.str().c_str()), 0, 0, text_color, 1.0f);
-    font_renderer->Draw();*/
+void ImageEffectApp::RenderGUI()
+{
+	const glm::vec3& camera_pos = main_camera_->GetPosition();
+	ImGui::Begin("040 Image Effect 图像处理效果");
+	ImGui::Text("按左右键切换各种图像处理效果");
+	ImGui::Text(info_message_.c_str());
+	ImGui::End();
 }
 
 void ImageEffectApp::OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -170,6 +180,8 @@ void ImageEffectApp::OnKeyAction(GLFWwindow* window, int key, int scancode, int 
 
         if (current_effect_index_ >= effect_count_)
             current_effect_index_ = 0;
+
+        effect_changed_ = true;
     }
 
     if (key == GLFW_KEY_LEFT && action == GLFW_RELEASE)
@@ -178,6 +190,8 @@ void ImageEffectApp::OnKeyAction(GLFWwindow* window, int key, int scancode, int 
 
         if (current_effect_index_ < 0)
             current_effect_index_ = effect_count_ - 1;
+
+        effect_changed_ = true;
     }
 
     App::OnKeyAction(window, key, scancode, action, mode);
@@ -193,6 +207,8 @@ void ImageEffectApp::ProcessInput()
 
             if (saturation_factor_ > 3.0f)
                 saturation_factor_ = 0.0f;
+
+            effect_changed_ = true;
         }
     }
 
@@ -204,11 +220,8 @@ void ImageEffectApp::ProcessInput()
 
             if (saturation_factor_ < 0.0f)
                 saturation_factor_ = 3.0f;
+
+            effect_changed_ = true;
         }
     }
-}
-
-void ImageEffectApp::OnMouseAction(GLFWwindow* window, double xpos, double ypos)
-{
-   
 }

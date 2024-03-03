@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\misc">
+      <UniqueIdentifier>{bc137a30-d3ee-4d16-8e7a-8038408a5bb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\editing">
+      <UniqueIdentifier>{753d5288-ad73-4da8-a0c5-73e88a9121f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\editng">
+      <UniqueIdentifier>{1b3149ec-2e3a-46c2-904a-3c6118e872d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\editing\tools">
+      <UniqueIdentifier>{20d4f3ff-6f40-4879-85c2-05d49d0bc621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\editng\tools">
+      <UniqueIdentifier>{90d54e58-6534-447a-8062-649048e3b7cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\mesh">
+      <UniqueIdentifier>{da372b07-c7c6-40a3-a2da-633382958e34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\mesh">
+      <UniqueIdentifier>{a8d8de74-44a3-4ba4-818a-84b726086085}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="digital_sculpt_app.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="editing\tools\sculpt_base.cc">
+      <Filter>源文件\editing\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh\mesh.cc">
+      <Filter>源文件\mesh</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="digital_sculpt_app.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\enums.h">
+      <Filter>头文件\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\utils.h">
+      <Filter>头文件\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="editing\tools\sculpt_base.h">
+      <Filter>头文件\editng\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\mesh.h">
+      <Filter>头文件\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\mesh_data.h">
+      <Filter>头文件\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\render_data.h">
+      <Filter>头文件\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\transform_data.h">
+      <Filter>头文件\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\array_1d.h">
+      <Filter>头文件\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\array_2d.h">
+      <Filter>头文件\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="misc\array_nd.h">
+      <Filter>头文件\misc</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,6 +1,7 @@
 #ifndef digital_sculpt_array_1d_h__
 #define digital_sculpt_array_1d_h__
 
+#include <cstdint>
 #include "./misc/array_nd.h"
 
 namespace DigitalSculpt
@@ -63,6 +64,9 @@ namespace DigitalSculpt
             return 1;
         }
     };
+
+
+    typedef Array1D<std::uint32_t> Uint32Array1D;
 }
 
 #endif // digital_sculpt_array_1d_h__

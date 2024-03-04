@@ -101,11 +101,15 @@
     <ClCompile Include="digital_sculpt_app.cc" />
     <ClCompile Include="editing\tools\sculpt_base.cc" />
     <ClCompile Include="main.cc" />
+    <ClCompile Include="math3d\octree_cell.cc" />
     <ClCompile Include="mesh\mesh.cc" />
+    <ClCompile Include="mesh\mesh_octree.cc" />
+    <ClCompile Include="mesh\mesh_transform_data.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h" />
     <ClInclude Include="editing\tools\sculpt_base.h" />
+    <ClInclude Include="math3d\octree_cell.h" />
     <ClInclude Include="mesh\mesh.h" />
     <ClInclude Include="mesh\mesh_data.h" />
     <ClInclude Include="mesh\render_data.h" />

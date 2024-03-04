@@ -1,6 +1,8 @@
 #ifndef digital_sculpt_array_nd_h__
 #define digital_sculpt_array_nd_h__
 
+#include <cstdint>
+
 namespace DigitalSculpt
 {
     template<typename T>
@@ -14,6 +16,8 @@ namespace DigitalSculpt
             return sizeof(T);
         }
     };
+
+    typedef IArrayND<std::uint32_t> IUint32ArrayND;
 }
 
 #endif // digital_sculpt_array_nd_h__

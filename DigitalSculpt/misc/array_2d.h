@@ -1,6 +1,7 @@
 #ifndef digital_sculpt_array_2d_h__
 #define digital_sculpt_array_2d_h__
 
+#include <cstdint>
 #include "./misc/array_nd.h"
 
 namespace DigitalSculpt
@@ -33,6 +34,8 @@ namespace DigitalSculpt
             return _Array[index];
         }
     };
+
+    typedef Array2D<std::uint32_t> Uint32Array2D;
 }
 
 #endif // digital_sculpt_array_2d_h__

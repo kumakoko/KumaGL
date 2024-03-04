@@ -3,8 +3,10 @@
 
 #include <cstdint>
 #include <memory>
+#include <array>
 #include "./misc/utils.h"
 #include "./misc/array_nd.h"
+#include "math3d/octree_cell.h"
 
 namespace DigitalSculpt
 {
@@ -25,10 +27,10 @@ namespace DigitalSculpt
         Float32Array _colorsRGB;// : null, // color vertices (Float32Array)Array) roughness/metallic/masking
 
         Uint8Array _vertOnEdge; //: null, // (1 :> on edge, 0 otherwise) (Uint8ClampedArray)
-        IArrayND<std::uint32_t>* _vertRingFace;// : null, // array of neighborhood id faces (Uint32Array)
+        IUint32ArrayND* _vertRingFace;// : null, // array of neighborhood id faces (Uint32Array)
         Uint32Array _vrfStartCount;// : null, // reference vertRingFace start and count ring (start/count) (Uint32Array)
         Uint32Array _vrvStartCount;// : null, // array of neighborhood id vertices (start/count) (Uint32Array)
-        IArrayND<std::uint32_t>* _vertRingVert;// : null, // reference vertRingVert start and count ring (Uint32Array)
+        IUint32ArrayND* _vertRingVert;// : null, // reference vertRingVert start and count ring (Uint32Array)
 
         Int32Array _vertTagFlags; //: null, // general purposes flag, (<: Utils.TAG_FLAG) (Int32Array)
         Int32Array _vertSculptFlags; // : null, // editing flag (tag vertices when starting sculpting session) (<: Utils.SCULPT_FLAG) (Int32Array),
@@ -85,16 +87,16 @@ namespace DigitalSculpt
         // Octree data
         //////////////
 
-        Octree* _octree;//: null, // root octree cell
+        OctreeCell* _octree;//: null, // root octree cell
 
         Float32Array    _faceBoxes;// : null, // faces bbox (Float32Array)
         Float32Array    _faceCentersXYZ;// : null, // faces center (Float32Array)
 
         Uint32Array   _facePosInLeaf;// : null, // position index in the leaf (Uint32Array)
-        std::vector<Octree*> _faceLeaf;//: [] , // octree leaf
-        Float32Array _leavesToUpdate;// : [] , // leaves of the octree to check
+        std::vector<OctreeCell*> _faceLeaf;//: [] , // octree leaf
+        std::vector<OctreeCell*>  _leavesToUpdate;// : [] , // leaves of the octree to check
 
-        Float32Array _worldBound;// [Infinity, Infinity, Infinity, -Infinity, -Infinity, -Infinity] ,
+        std::array<float,6> _worldBound;// [Infinity, Infinity, Infinity, -Infinity, -Infinity, -Infinity] ,
     };
 
     typedef std::shared_ptr<MeshData> MeshDataSPtr;

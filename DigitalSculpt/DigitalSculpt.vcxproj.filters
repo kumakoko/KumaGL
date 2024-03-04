@@ -34,6 +34,12 @@
     <Filter Include="源文件\mesh">
       <UniqueIdentifier>{a8d8de74-44a3-4ba4-818a-84b726086085}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\math3d">
+      <UniqueIdentifier>{39a552a7-c48d-4223-9413-650073dd8921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\math3d">
+      <UniqueIdentifier>{d7f205a8-324a-41fc-93c2-afbf59a5fad2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc">
@@ -47,6 +53,15 @@
     </ClCompile>
     <ClCompile Include="mesh\mesh.cc">
       <Filter>源文件\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh\mesh_transform_data.cc">
+      <Filter>源文件\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh\mesh_octree.cc">
+      <Filter>源文件\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="math3d\octree_cell.cc">
+      <Filter>源文件\math3d</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="misc\array_nd.h">
       <Filter>头文件\misc</Filter>
+    </ClInclude>
+    <ClInclude Include="math3d\octree_cell.h">
+      <Filter>头文件\math3d</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

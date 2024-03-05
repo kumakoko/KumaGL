@@ -104,7 +104,10 @@
     <ClCompile Include="math3d\octree_cell.cc" />
     <ClCompile Include="mesh\mesh.cc" />
     <ClCompile Include="mesh\mesh_octree.cc" />
+    <ClCompile Include="mesh\mesh_render_data.cc" />
     <ClCompile Include="mesh\mesh_transform_data.cc" />
+    <ClCompile Include="mesh\render_data.cc" />
+    <ClCompile Include="render\buffer.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h" />
@@ -119,6 +122,7 @@
     <ClInclude Include="misc\array_nd.h" />
     <ClInclude Include="misc\enums.h" />
     <ClInclude Include="misc\utils.h" />
+    <ClInclude Include="render\buffer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,9 +3,10 @@
 
 #include "glm/vec3.hpp"
 #include "glm/mat4x4.hpp"
-#include "mesh_data.h"
-#include "transform_data.h"
-
+#include "mesh/mesh_data.h"
+#include "mesh/transform_data.h"
+#include "mesh/render_data.h"
+#include "misc/enums.h"
 /*
 import { vec3, mat3, mat4 } from 'gl-matrix';
 import Enums from 'misc/Enums';
@@ -122,17 +123,17 @@ namespace DigitalSculpt
             return _id;
         }
 
-        inline RenderDataSPtr getRenderData()
+        inline RenderData* getRenderData()
         {
             return _renderData;
         }
 
-        inline MeshDataSPtr getMeshData()
+        inline MeshData* getMeshData()
         {
             return _meshData;
         }
 
-        inline TransformDataSPtr getTransformData()
+        inline TransformData* getTransformData()
         {
             return _transformData;
         }
@@ -651,10 +652,10 @@ namespace DigitalSculpt
         void setAlreadyDrawArrays();
 
         /** Updates the arrays that are going to be used by webgl */
-        void updateDrawArrays(const Uint32Array& iFaces);
+        void updateDrawArrays(Uint32Array* iFaces);
 
         /** Updates the UV array data for drawArrays */
-        void updateDrawArraysTexCoord(const Uint32Array& iFaces);
+        void updateDrawArraysTexCoord(Uint32Array* iFaces);
 
         /////////////////
         // TRANSFORM DATA
@@ -744,175 +745,217 @@ namespace DigitalSculpt
         //////////////
         // RENDER DATA
         //////////////
-        setFlatColor(val) {
+        inline void setFlatColor(val)
+        {
             getFlatColor().set(val);
         }
 
-        setAlbedo(val) {
+        inline void setAlbedo(val)
+        {
             getAlbedo().set(val);
         }
 
-        setMode(mode) {
-            _renderData._mode = mode;
+        inline void setMode(GLenum mode) 
+        {
+            _renderData->_mode = mode;
         }
 
-        setRoughness(val) {
-            _renderData._roughness = val;
+        inline void setRoughness(float val)
+        {
+            _renderData->_roughness = val;
         }
 
-        setMetallic(val) {
-            _renderData._metallic = val;
+        inline void setMetallic(float val)
+        {
+            _renderData->_metallic = val;
         }
 
-        setOpacity(alpha) {
-            _renderData._alpha = alpha;
+        inline void setOpacity(float alpha)
+        {
+            _renderData->_alpha = alpha;
         }
 
-        setTexture0(tex) {
-            _renderData._texture0 = tex;
+        inline void setTexture0(kgl::TextureSPtr tex)
+        {
+            _renderData->_texture0 = tex;
         }
 
-        setMatcap(idMat) {
-            _renderData._matcap = idMat;
+        inline void setMatcap(int idMat)
+        {
+            _renderData->_matcap = idMat;
         }
 
-        setCurvature(cur) {
-            _renderData._curvature = cur;
+        inline void setCurvature(int cur) 
+        {
+            _renderData->_curvature = cur;
         }
 
-        setFlatShading(flatShading) {
-            _renderData._flatShading = flatShading;
+        inline void setFlatShading(bool flatShading)
+        {
+            _renderData->_flatShading = flatShading;
         }
 
-        setShowWireframe(showWireframe) {
-            _renderData._showWireframe = RenderData.ONLY_DRAW_ARRAYS ? false : showWireframe;
-            updateWireframeBuffer();
+        void setShowWireframe(bool showWireframe);
+
+        inline void setUseDrawArrays(bool b) 
+        {
+            _renderData->_useDrawArrays = b;
         }
 
-        setUseDrawArrays(bool) {
-            _renderData._useDrawArrays = bool;
+        std::uint32_t getCount() const;
+
+        inline Buffer* getVertexBuffer()
+        {
+            return _renderData->_vertexBuffer;
         }
 
-        getGL() {
-            return _renderData._gl;
+        inline const Buffer* getVertexBuffer() const
+        {
+            return _renderData->_vertexBuffer;
         }
 
-        getCount() {
-            var gl = getGL();
-            if (getMode() == = gl.TRIANGLES) return getNbTriangles() * 3;
-            if (getMode() == = gl.LINES) return getNbVertices();
-            return 0;
+        inline Buffer* getNormalBuffer() 
+        {
+            return _renderData->_normalBuffer;
         }
 
-        getVertexBuffer() {
-            return _renderData._vertexBuffer;
+        inline Buffer* getColorBuffer() 
+        {
+            return _renderData->_colorBuffer;
         }
 
-        getNormalBuffer() {
-            return _renderData._normalBuffer;
+        inline Buffer* getMaterialBuffer() 
+        {
+            return _renderData->_materialBuffer;
         }
 
-        getColorBuffer() {
-            return _renderData._colorBuffer;
+        inline Buffer* getTexCoordBuffer() {
+            return _renderData->_texCoordBuffer;
         }
 
-        getMaterialBuffer() {
-            return _renderData._materialBuffer;
+        inline Buffer* getIndexBuffer() 
+        {
+            return _renderData->_indexBuffer;
         }
 
-        getTexCoordBuffer() {
-            return _renderData._texCoordBuffer;
+        inline Buffer* getWireframeBuffer()
+        {
+            return _renderData->_wireframeBuffer;
         }
 
-        getIndexBuffer() {
-            return _renderData._indexBuffer;
+        inline const Buffer* getNormalBuffer() const
+        {
+            return _renderData->_normalBuffer;
         }
 
-        getWireframeBuffer() {
-            return _renderData._wireframeBuffer;
+        inline const Buffer* getColorBuffer() const
+        {
+            return _renderData->_colorBuffer;
         }
 
-        getRoughness() {
-            return _renderData._roughness;
+        inline const Buffer* getMaterialBuffer() const
+        {
+            return _renderData->_materialBuffer;
         }
 
-        getMetallic() {
-            return _renderData._metallic;
+        inline const Buffer* getTexCoordBuffer() const
+        {
+            return _renderData->_texCoordBuffer;
         }
 
-        getOpacity() {
-            return _renderData._alpha;
+        inline const Buffer* getIndexBuffer() const
+        {
+            return _renderData->_indexBuffer;
         }
 
-        getFlatColor() {
-            return _renderData._flatColor;
+        inline const Buffer* getWireframeBuffer() const 
+        {
+            return _renderData->_wireframeBuffer;
         }
 
-        getMode() {
-            return _renderData._mode;
+        inline float getRoughness() const {
+            return _renderData->_roughness;
         }
 
-        getAlbedo() {
-            return _renderData._albedo;
+        inline float getMetallic() const {
+            return _renderData->_metallic;
         }
 
-        getTexture0() {
-            return _renderData._texture0;
+        inline float getOpacity() const {
+            return _renderData->_alpha;
         }
 
-        getMatcap() {
-            return _renderData._matcap;
+        inline glm::vec3& getFlatColor() 
+        {
+            return _renderData->_flatColor;
         }
 
-        getCurvature() {
-            return _renderData._curvature;
+        inline const glm::vec3& getFlatColor() const 
+        {
+            return _renderData->_flatColor;
         }
 
-        getFlatShading() {
-            return _renderData._flatShading;
+        inline GLenum getMode() const 
+        {
+            return _renderData->_mode;
         }
 
-        getShowWireframe() {
-            return _renderData._showWireframe;
+        inline glm::vec3& getAlbedo()
+        {
+            return _renderData->_albedo;
         }
 
-        isUsingDrawArrays() {
-            return _renderData._useDrawArrays || RenderData.ONLY_DRAW_ARRAYS;
+        inline const glm::vec3& getAlbedo() const
+        {
+            return _renderData->_albedo;
         }
 
-        isUsingTexCoords() {
-            var shaderType = _renderData._shaderType;
-            return shaderType == = Enums.Shader.UV || shaderType == = Enums.Shader.PAINTUV;
+        inline kgl::TextureSPtr getTexture0()
+        {
+            return _renderData->_texture0;
         }
 
-        isTransparent() {
-            return _renderData._alpha < 0.99;
+        inline int getMatcap() const
+        {
+            return _renderData->_matcap;
         }
 
-        getShaderType() {
-            return _renderData._shaderType;
+        inline int getCurvature() const
+        {
+            return _renderData->_curvature;
         }
 
-        setShaderType(shaderName) {
-            var hasUV = hasUV();
-            if (shaderName == = Enums.Shader.UV && !hasUV) {
-                if (_renderData._shaderType != = Enums.Shader.UV)
-                    return;
-                shaderName = Enums.Shader.MATCAP;
-            }
-
-            _renderData._shaderType = shaderName;
-            if (hasUV) {
-                updateDuplicateGeometry();
-                updateDrawArrays();
-            }
-            updateBuffers();
+        inline bool getFlatShading() const
+        {
+            return _renderData->_flatShading;
         }
 
-        initRender() {
-            setShaderType(_renderData._shaderType);
-            setShowWireframe(getShowWireframe());
+        inline bool getShowWireframe() const
+        {
+            return _renderData->_showWireframe;
         }
+
+        inline bool isUsingDrawArrays() const{
+            return _renderData->_useDrawArrays || RenderData::ONLY_DRAW_ARRAYS;
+        }
+
+        inline bool isUsingTexCoords() const
+        {
+            return _renderData->_shaderType == Enums::Shader::UV || _renderData->_shaderType == Enums::Shader::PAINTUV;
+        }
+
+        inline bool isTransparent() const {
+            return _renderData->_alpha < 0.99;
+        }
+
+        inline int getShaderType() const
+        {
+            return _renderData->_shaderType;
+        }
+
+        void setShaderType(int shaderName);
+
+        void initRender();
 
         /////////
         // RENDER

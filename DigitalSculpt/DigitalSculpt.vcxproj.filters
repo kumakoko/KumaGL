@@ -40,6 +40,12 @@
     <Filter Include="源文件\math3d">
       <UniqueIdentifier>{d7f205a8-324a-41fc-93c2-afbf59a5fad2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\render">
+      <UniqueIdentifier>{f5a1bb91-1e73-4129-94a2-a9d2e7dcfaad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\render">
+      <UniqueIdentifier>{a4b615cf-a8f1-4288-b8dd-5253e4860422}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc">
@@ -62,6 +68,15 @@
     </ClCompile>
     <ClCompile Include="math3d\octree_cell.cc">
       <Filter>源文件\math3d</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh\mesh_render_data.cc">
+      <Filter>源文件\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="render\buffer.cc">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh\render_data.cc">
+      <Filter>源文件\mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="math3d\octree_cell.h">
       <Filter>头文件\math3d</Filter>
+    </ClInclude>
+    <ClInclude Include="render\buffer.h">
+      <Filter>头文件\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

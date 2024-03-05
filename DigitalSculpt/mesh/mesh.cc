@@ -1468,7 +1468,7 @@ namespace DigitalSculpt
         _meshData->_DAmaterialsPBR = getMaterials();
     }
 
-    void Mesh::updateDrawArrays(const Uint32Array& iFaces)
+    void Mesh::updateDrawArrays(Uint32Array* iFaces)
     {
         if (!isUsingDrawArrays())
             return;
@@ -1481,7 +1481,7 @@ namespace DigitalSculpt
 
         std::uint32_t nbTriangles = getNbTriangles();
         bool has_only_triangles = hasOnlyTriangles();
-        bool full = iFaces.size();// undefined;
+        bool full = iFaces == nullptr;// undefined;
 
         if (cdv.size() == 0 || cdv.size() < nbTriangles * 9)
         {
@@ -1492,11 +1492,11 @@ namespace DigitalSculpt
             _meshData->_DAmaterialsPBR.resize(nbTriangles * 9, 0.0f);// = _meshData->_DAmaterialsPBR = new Float32Array(nbTriangles * 9);
         }
 
-        std::uint32_t  nbFaces = full ? getNbFaces() : iFaces.size();
+        std::uint32_t  nbFaces = full ? getNbFaces() : iFaces->size();
 
         for (std::uint32_t i = 0; i < nbFaces; ++i)
         {
-            std::uint32_t idFace = full ? i : iFaces[i];
+            std::uint32_t idFace = full ? i : iFaces->at(i);
             std::uint32_t ftt = has_only_triangles ? getFacesToTriangles()[idFace] : idFace;
             std::uint32_t vId = ftt * 9;
 
@@ -1606,12 +1606,12 @@ namespace DigitalSculpt
             updateDrawArraysTexCoord(iFaces);
     }
 
-    void Mesh::updateDrawArraysTexCoord(const Uint32Array& iFaces)
+    void Mesh::updateDrawArraysTexCoord(Uint32Array* iFaces)
     {
         std::uint32_t  nbTriangles = getNbTriangles();
         const Uint32Array& facesToTris = getFacesToTriangles();
 
-        bool full = iFaces.size() == 0;// == = undefined;
+        bool full = iFaces == nullptr;// .size() == 0;// == = undefined;
         //var cdt = _meshData->_DAtexCoordsST;
         //if (!cdt || cdt.length != = nbTriangles * 6)
         if (_meshData->_DAtexCoordsST.size() == 0 || _meshData->_DAtexCoordsST.size() != nbTriangles * 6)
@@ -1619,11 +1619,11 @@ namespace DigitalSculpt
 
         const Float32Array& tAr = getTexCoords();
         const Uint32Array& fArUV = getFacesTexCoord();
-        std::uint32_t nbFaces = full ? getNbFaces() : iFaces.size();
+        std::uint32_t nbFaces = full ? getNbFaces() : iFaces->size();
 
         for (std::uint32_t i = 0; i < nbFaces; ++i)
         {
-            std::uint32_t idFace = full ? i : iFaces[i];
+            std::uint32_t idFace = full ? i : iFaces->at(i);
             std::uint32_t ftt = facesToTris[idFace];
             std::uint32_t vIduv = ftt * 6;
 

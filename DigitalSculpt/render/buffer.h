@@ -1,5 +1,8 @@
 #include "../klib/kgl_lib_pch.h"
+#include "misc/utils.h"
 #include <memory>
+#include <cstdint>
+#include <vector>
 
 namespace DigitalSculpt
 {
@@ -7,43 +10,68 @@ namespace DigitalSculpt
     {
     public:
         /******************************************************************************************************************
-         * Desc: 
+         * Desc:
          * Method:    Buffer
-         * Returns:   
+         * Returns:
          * Parameter: GLenum type
          * Parameter: GLenum hint
          ****************************************************************************************************************/
-         Buffer(GLenum type, GLenum hint);
+        Buffer(GLenum type, GLenum hint);
 
         /******************************************************************************************************************
-         * Desc: 
+         * Desc:
          * Method:    ~Buffer
-         * Returns:   
+         * Returns:
          ****************************************************************************************************************/
-         ~Buffer();
+        ~Buffer();
 
         /******************************************************************************************************************
-         * Desc: 
+         * Desc:
          * Method:    bind
          * Returns:   void
          ****************************************************************************************************************/
-         void bind();
+        void bind();
 
         /******************************************************************************************************************
-         * Desc: 
+         * Desc:
          * Method:    release
          * Returns:   void
          ****************************************************************************************************************/
-         void release();
+        void release();
 
         /******************************************************************************************************************
-         * Desc: 
+         * Desc:
          * Method:    update
          * Returns:   void
          * Parameter: const void * data
          * Parameter: size_t size
          ****************************************************************************************************************/
-         void update(const void* data, size_t size);
+        void update(const void* data, size_t size);
+
+        /******************************************************************************************************************
+         * Desc:
+         * Method:    update
+         * Returns:   void
+         * Parameter: const std::vector<T> & data
+         * Parameter: size_t size
+         ****************************************************************************************************************/
+        template<typename T>
+        void update(const std::vector<T>& data, size_t size)
+        {
+            bind();
+            const std::uint8_t* u8ptr = reinterpret_cast<const std::uint8_t*>(data.data());
+
+            if (size > _size)
+            {
+
+                glBufferData(_type, size, u8ptr, _hint);
+                _size = size;
+            }
+            else
+            {
+                glBufferSubData(_type, 0, size, u8ptr);
+            }
+        }
     private:
         GLuint _buffer = 0; // Buffer ID
         GLenum _type; // Buffer type (GL_ARRAY_BUFFER, GL_ELEMENT_ARRAY_BUFFER, etc.)

@@ -59,6 +59,16 @@ namespace DigitalSculpt
             return _Array[index];
         }
 
+        T* Array()
+        {
+            return _Array;
+        }
+
+        const T* Array() const
+        {
+            return _Array;
+        }
+
         virtual int Dimension() const override
         {
             return 1;

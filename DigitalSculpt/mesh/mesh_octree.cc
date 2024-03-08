@@ -8,7 +8,6 @@
 #include "misc/array_2d.h"
 #include "math3d/octree_cell.h"
 
-
 namespace DigitalSculpt
 {
     Uint32Array Mesh::intersectRay(const glm::vec3& vNear, const glm::vec3& eyeDir, bool collectLeaves)

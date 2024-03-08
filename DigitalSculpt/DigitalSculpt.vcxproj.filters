@@ -46,6 +46,15 @@
     <Filter Include="源文件\render">
       <UniqueIdentifier>{a4b615cf-a8f1-4288-b8dd-5253e4860422}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\misc">
+      <UniqueIdentifier>{1830ad1b-a1f1-4727-bd2d-555a10656196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\drawables">
+      <UniqueIdentifier>{2ba28200-b750-43c8-a29b-ee660ffea437}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\drawables">
+      <UniqueIdentifier>{4a2a6de5-9b3d-4998-875b-5b1e9df72490}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc">
@@ -77,6 +86,30 @@
     </ClCompile>
     <ClCompile Include="mesh\render_data.cc">
       <Filter>源文件\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh\mesh_render.cc">
+      <Filter>源文件\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh\mesh_update_buffer.cc">
+      <Filter>源文件\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="math3d\picking.cc">
+      <Filter>源文件\math3d</Filter>
+    </ClCompile>
+    <ClCompile Include="math3d\alpha_info.cc">
+      <Filter>源文件\math3d</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\utils.cc">
+      <Filter>源文件\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="drawables\selection.cc">
+      <Filter>源文件\drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="math3d\geometry.cc">
+      <Filter>源文件\math3d</Filter>
+    </ClCompile>
+    <ClCompile Include="math3d\camera.cc">
+      <Filter>源文件\math3d</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +151,27 @@
     </ClInclude>
     <ClInclude Include="render\buffer.h">
       <Filter>头文件\render</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\cache_store_info.h">
+      <Filter>头文件\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="math3d\picking.h">
+      <Filter>头文件\math3d</Filter>
+    </ClInclude>
+    <ClInclude Include="math3d\alpha_info.h">
+      <Filter>头文件\math3d</Filter>
+    </ClInclude>
+    <ClInclude Include="drawables\selection.h">
+      <Filter>头文件\drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="math3d\camera.h">
+      <Filter>头文件\math3d</Filter>
+    </ClInclude>
+    <ClInclude Include="math3d\geometry.h">
+      <Filter>头文件\math3d</Filter>
+    </ClInclude>
+    <ClInclude Include="math3d\glm_extension.h">
+      <Filter>头文件\math3d</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -99,20 +99,35 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="digital_sculpt_app.cc" />
+    <ClCompile Include="drawables\selection.cc" />
     <ClCompile Include="editing\tools\sculpt_base.cc" />
     <ClCompile Include="main.cc" />
+    <ClCompile Include="math3d\alpha_info.cc" />
+    <ClCompile Include="math3d\camera.cc" />
+    <ClCompile Include="math3d\geometry.cc" />
     <ClCompile Include="math3d\octree_cell.cc" />
+    <ClCompile Include="math3d\picking.cc" />
     <ClCompile Include="mesh\mesh.cc" />
     <ClCompile Include="mesh\mesh_octree.cc" />
+    <ClCompile Include="mesh\mesh_render.cc" />
     <ClCompile Include="mesh\mesh_render_data.cc" />
     <ClCompile Include="mesh\mesh_transform_data.cc" />
+    <ClCompile Include="mesh\mesh_update_buffer.cc" />
     <ClCompile Include="mesh\render_data.cc" />
+    <ClCompile Include="misc\utils.cc" />
     <ClCompile Include="render\buffer.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h" />
+    <ClInclude Include="drawables\selection.h" />
     <ClInclude Include="editing\tools\sculpt_base.h" />
+    <ClInclude Include="math3d\alpha_info.h" />
+    <ClInclude Include="math3d\camera.h" />
+    <ClInclude Include="math3d\geometry.h" />
+    <ClInclude Include="math3d\glm_extension.h" />
     <ClInclude Include="math3d\octree_cell.h" />
+    <ClInclude Include="math3d\picking.h" />
+    <ClInclude Include="mesh\cache_store_info.h" />
     <ClInclude Include="mesh\mesh.h" />
     <ClInclude Include="mesh\mesh_data.h" />
     <ClInclude Include="mesh\render_data.h" />

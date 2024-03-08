@@ -3,11 +3,15 @@
 #include "mesh.h"
 #include "misc/array_1d.h"
 #include "misc/array_2d.h"
+#include "math3d/glm_extension.h"
 
 namespace DigitalSculpt
 {
     float DEF_ROUGHNESS = 0.18; // 0.18;
     float DEF_METALNESS = 0.08; // 0.08;
+
+    bool Mesh::OPTIMIZE = true;
+    int Mesh::ID = 0;
 
     void Mesh::setVertices(const Float32Array& vAr)
     {
@@ -95,7 +99,7 @@ namespace DigitalSculpt
         */
         glm::vec3 orig(0.0f, 0.0f, 0.0f);
         float offset = _transformData->_symmetryOffset * computeLocalRadius();
-        return Utils::scaleAndAdd(orig, _transformData->_center, _transformData->_symmetryNormal, offset);
+        return GlmExtension::scaleAndAdd(orig, _transformData->_center, _transformData->_symmetryNormal, offset);
     }
 
     void Mesh::init()
@@ -103,7 +107,7 @@ namespace DigitalSculpt
         initColorsAndMaterials();
         allocateArrays();
         initTopology();
-        updateGeometry();
+        updateGeometry(nullptr,nullptr);
         if (_renderData != nullptr)
             updateDuplicateColorsAndMaterials();
         updateCenter();
@@ -118,13 +122,15 @@ namespace DigitalSculpt
         initRenderTriangles();
     }
 
-    void Mesh::updateGeometry(iFaces, iVerts)
+    void Mesh::updateGeometry(Uint32Array* iFaces, Uint32Array* iVerts)
     {
-        updateFacesAabbAndNormal(iFaces);
-        updateVerticesNormal(iVerts);
-        updateOctree(iFaces);
-        if (_renderData) {
-            updateDuplicateGeometry(iVerts);
+        updateFacesAabbAndNormal(*iFaces);
+        updateVerticesNormal(*iVerts);
+        updateOctree(*iFaces);
+        
+        if (_renderData) 
+        {
+            updateDuplicateGeometry(*iVerts);
             updateDrawArrays(iFaces);
         }
     }

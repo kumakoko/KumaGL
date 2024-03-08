@@ -37,7 +37,6 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #pragma comment(lib,"glew32.lib")
 #pragma comment(lib,"glfw3dll.lib")
 #pragma comment(lib,"assimp-vc142-mt.lib")
-#pragma comment(lib,"vld.lib")
 #pragma comment(lib,"libiconv.lib")
 #pragma comment(lib,"freetype.lib")
 #pragma comment(lib,"imgui.lib")

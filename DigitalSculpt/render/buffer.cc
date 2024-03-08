@@ -1,3 +1,4 @@
+#include "misc/utils.h"
 #include "render/buffer.h"
 
 namespace DigitalSculpt

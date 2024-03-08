@@ -43,6 +43,5 @@ namespace DigitalSculpt
         RenderData();
     };
 }
-RenderData.ONLY_DRAW_ARRAYS = false;
 
 #endif // digital_sculpt_render_data_h__

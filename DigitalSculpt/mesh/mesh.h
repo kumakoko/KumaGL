@@ -9,6 +9,7 @@
 #include "mesh/cache_store_info.h"
 #include "misc/enums.h"
 #include "math3d/camera.h"
+#include "scene.h"
 
 /*
 import { vec3, mat3, mat4 } from 'gl-matrix';
@@ -792,12 +793,12 @@ namespace DigitalSculpt
         //////////////
         inline void setFlatColor(const glm::vec3& val)
         {
-            getFlatColor().set(val);
+            _renderData->_flatColor = val;// getFlatColor().set(val);
         }
 
         inline void setAlbedo(const glm::vec3& val)
         {
-            getAlbedo().set(val);
+            _renderData->_albedo = val;//getAlbedo().set(val);
         }
 
         inline void setMode(GLenum mode) 

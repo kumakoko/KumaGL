@@ -111,6 +111,9 @@
     <ClCompile Include="math3d\camera.cc">
       <Filter>源文件\math3d</Filter>
     </ClCompile>
+    <ClCompile Include="scene.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h">
@@ -172,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="math3d\glm_extension.h">
       <Filter>头文件\math3d</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

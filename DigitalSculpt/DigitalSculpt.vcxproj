@@ -116,6 +116,7 @@
     <ClCompile Include="mesh\render_data.cc" />
     <ClCompile Include="misc\utils.cc" />
     <ClCompile Include="render\buffer.cc" />
+    <ClCompile Include="scene.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="misc\enums.h" />
     <ClInclude Include="misc\utils.h" />
     <ClInclude Include="render\buffer.h" />
+    <ClInclude Include="scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -55,6 +55,12 @@
     <Filter Include="源文件\drawables">
       <UniqueIdentifier>{4a2a6de5-9b3d-4998-875b-5b1e9df72490}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\render\shaders">
+      <UniqueIdentifier>{a4cc2ec8-c05b-4017-a4b6-20729eb4f648}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\render\shaders">
+      <UniqueIdentifier>{ba928655-9069-45b7-b202-9135b77db526}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc">
@@ -113,6 +119,15 @@
     </ClCompile>
     <ClCompile Include="scene.cc">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="render\shaders\shader_base.cc">
+      <Filter>源文件\render\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="render\shaders\shader_flat.cc">
+      <Filter>源文件\render\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="render\shader_lib.cc">
+      <Filter>源文件\render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +193,15 @@
     </ClInclude>
     <ClInclude Include="scene.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\shader_base.h">
+      <Filter>头文件\render\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\shader_flat.h">
+      <Filter>头文件\render\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shader_lib.h">
+      <Filter>头文件\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #ifndef mesh_h__
 #define mesh_h__
 
+#include <memory>
 #include "glm/vec3.hpp"
 #include "glm/mat4x4.hpp"
 #include "mesh/mesh_data.h"
@@ -474,11 +475,18 @@ namespace DigitalSculpt
             return _meshData->_octree;
         }
 
-        inline glm::vec3 getCenter() {
+        inline glm::vec3& getCenter()
+        {
             return _transformData->_center;
         }
 
-        inline glm::mat4& getMV() {
+        inline const glm::vec3& getCenter() const
+        {
+            return _transformData->_center;
+        }
+
+        inline glm::mat4& getMV() 
+        {
             return _transformData->_lastComputedMV;
         }
 
@@ -1050,8 +1058,7 @@ namespace DigitalSculpt
         /***************************** update buffer相关的模块 begin *****************************/
     };
 
-   
-
+    typedef std::shared_ptr<Mesh> MeshSPtr;
 }
 
 #endif // mesh_h__

@@ -79,9 +79,9 @@ namespace DigitalSculpt
 
     float Mesh::getScale2() const
     {
-        const glm::mat4& m = _transformData->_matrix;
-        //return m[0] * m[0] + m[4] * m[4] + m[8] * m[8];
-        return m[0][0] * m[0][0] + m[1][0] * m[1][0] + m[2][0];
+        const float* m = glm::value_ptr(_transformData->_matrix);
+        return m[0] * m[0] + m[4] * m[4] + m[8] * m[8];
+        //return m[0][0] * m[0][0] + m[1][0] * m[1][0] + m[2][0];
     }
 
     float Mesh::getScale() const

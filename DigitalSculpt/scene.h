@@ -1,12 +1,14 @@
 #ifndef digital_sculpt_scene_h__
 #define digital_sculpt_scene_h__
 
+#include <memory>
 #include <vector>
 #include "misc/enums.h"
 #include "mesh/mesh.h"
 #include "math3d/camera.h"
 #include "math3d/picking.h"
 #include "drawables/rtt.h"
+#include "states/state_manager.h"
 
 namespace DigitalSculpt
 {
@@ -34,7 +36,7 @@ namespace DigitalSculpt
         Picking* _pickingSym; // the symmetrical picking
 
         // TODO primitive builder
-        Mesh* _meshPreview;
+        MeshSPtr _meshPreview;
         float _torusLength;
         float _torusWidth;
         float _torusRadius;
@@ -45,11 +47,11 @@ namespace DigitalSculpt
         //var opts = getOptionsURL();
         bool _showContour;// = opts.outline;
         bool _showGrid;// = opts.grid;
-        Mesh* _grid;
+        MeshSPtr _grid;
         Background* _background;
-        std::vector<Mesh*> _meshes; // the meshes
-        std::vector<Mesh*> _selectMeshes; // multi selection
-        Mesh* _mesh = null; // the selected mesh
+        std::vector<MeshSPtr> _meshes; // the meshes
+        std::vector<MeshSPtr> _selectMeshes; // multi selection
+        MeshSPtr _mesh;// = null; // the selected mesh
 
         Rtt* _rttContour; // rtt for contour
         Rtt* _rttMerge; // rtt decode opaque + merge transparent
@@ -122,17 +124,17 @@ namespace DigitalSculpt
             return this->_gui;
         }
 
-        inline std::vector<Mesh*>& getMeshes()
+        inline std::vector<MeshSPtr>& getMeshes()
         {
             return this->_meshes;
         }
 
-        inline Mesh* getMesh()
+        inline MeshSPtr getMesh()
         {
             return this->_mesh;
         }
 
-        inline std::vector<Mesh*>& getSelectedMeshes()
+        inline std::vector<MeshSPtr>& getSelectedMeshes()
         {
             return this->_selectMeshes;
         }
@@ -152,12 +154,12 @@ namespace DigitalSculpt
             return this->_sculptManager;
         }
 
-        inline Picking* getStateManager()
+        inline StateManager* getStateManager()
         {
             return this->_stateManager;
         }
 
-        inline Mesh* setMesh(Mesh* mesh)
+        inline MeshSPtr setMesh(MeshSPtr mesh)
         {
             return this->setOrUnsetMesh(mesh);
         }
@@ -169,7 +171,7 @@ namespace DigitalSculpt
         
         void initGrid();
 
-        Mesh* setOrUnsetMesh(Mesh* mesh, bool multiSelect = false);
+        MeshSPtr setOrUnsetMesh(MeshSPtr mesh, bool multiSelect = false);
 
         void renderSelectOverRtt();
 
@@ -196,43 +198,45 @@ namespace DigitalSculpt
 
         float computeRadiusFromBoundingBox(const SixElemArray& box);
 
-        SixElemArray computeBoundingBoxMeshes(std::vector<Mesh*>& meshes);
+        SixElemArray computeBoundingBoxMeshes(std::vector<MeshSPtr>& meshes);
 
         SixElemArray computeBoundingBoxScene();
 
-        void normalizeAndCenterMeshes(std::vector<Mesh*>& meshes);
+        void normalizeAndCenterMeshes(std::vector<MeshSPtr>& meshes);
 
-        Mesh* addSphere();
+        MeshSPtr addSphere();
 
-        Mesh* addCube();
+        MeshSPtr addCube();
 
-        Mesh* addCylinder();
+        MeshSPtr addCylinder();
 
         void addTorus(bool preview);
 
-        void subdivideClamp(Mesh* mesh, bool linear);
+        void subdivideClamp(MeshSPtr mesh, bool linear);
 
-        void addNewMesh(Mesh* mesh);
+        void addNewMesh(MeshSPtr mesh);
 
-        std::vector<Mesh*> loadScene(std::uint8_t* fileData, const std::string& fileType);
+        std::vector<MeshSPtr> loadScene(std::uint8_t* fileData, const std::string& fileType);
 
         void clearScene();
 
         void deleteCurrentSelection();
 
-        void removeMeshes(std::vector<Mesh*> rm);
+        void removeMeshes(std::vector<MeshSPtr> rm);
 
-        std::int32_t getIndexMesh(Mesh* mesh, bool select);
+        std::int32_t getIndexMesh(MeshSPtr mesh, bool select);
 
-        inline std::int32_t getIndexSelectMesh(Mesh* mesh);
+        inline std::int32_t getIndexSelectMesh(MeshSPtr mesh);
 
         /** Replace a mesh in the scene */
-        void replaceMesh(Mesh* mesh, Mesh* newMesh);
+        void replaceMesh(MeshSPtr mesh, MeshSPtr newMesh);
 
         void duplicateSelection();
 
         void onLoadAlphaImage(img, name, tool);
-    }
+    };
+
+    typedef std::shared_ptr<Scene> SceneSPtr;
 }
 
 #endif // digital_sculpt_scene_h__

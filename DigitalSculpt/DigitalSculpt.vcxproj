@@ -133,6 +133,13 @@
     <ClCompile Include="render\shaders\shader_pbr.cc" />
     <ClCompile Include="render\shader_lib.cc" />
     <ClCompile Include="scene.cc" />
+    <ClCompile Include="states\state_add_remove.cc" />
+    <ClCompile Include="states\state_color_and_material.cc" />
+    <ClCompile Include="states\state_custom.cc" />
+    <ClCompile Include="states\state_dynamic.cc" />
+    <ClCompile Include="states\state_geometry.cc" />
+    <ClCompile Include="states\state_manager.cc" />
+    <ClCompile Include="states\state_multi_resolution.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h" />
@@ -176,6 +183,14 @@
     <ClInclude Include="render\shaders\shader_pbr.h" />
     <ClInclude Include="render\shader_lib.h" />
     <ClInclude Include="scene.h" />
+    <ClInclude Include="states\state.h" />
+    <ClInclude Include="states\state_add_remove.h" />
+    <ClInclude Include="states\state_color_and_material.h" />
+    <ClInclude Include="states\state_custom.h" />
+    <ClInclude Include="states\state_dynamic.h" />
+    <ClInclude Include="states\state_geometry.h" />
+    <ClInclude Include="states\state_manager.h" />
+    <ClInclude Include="states\state_multi_resolution.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -111,7 +111,7 @@ namespace DigitalSculpt
         _grid->setFlatColor(glm::vec3(0.04, 0.04, 0.04));
     }
 
-    Mesh* Scene::setOrUnsetMesh(Mesh* mesh, bool multiSelect = false)
+    MeshSPtr Scene::setOrUnsetMesh(MeshSPtr mesh, bool multiSelect = false)
     {
         if (mesh == nullptr)
         {
@@ -419,7 +419,7 @@ namespace DigitalSculpt
         return 0.5 * Math.sqrt(dx * dx + dy * dy + dz * dz);
     }
 
-    SixElemArray Scene::computeBoundingBoxMeshes(std::vector<Mesh*>& meshes)
+    SixElemArray Scene::computeBoundingBoxMeshes(std::vector<MeshSPtr>& meshes)
     {
         SixElemArray bound = {
             std::numeric_limits<float>::infinity(),
@@ -450,13 +450,13 @@ namespace DigitalSculpt
     {
         //var scene = _meshes.slice();
         //slice()数组等同于直接复制一个新的数组出来
-        std::vector<Mesh*> scene(_meshes);
+        std::vector<MeshSPtr> scene(_meshes);
         scene.emplace_back(_grid);//scene.push(_grid);
         _sculptManager->addSculptToScene(scene);
         return computeBoundingBoxMeshes(scene);
     }
 
-    void Scene::normalizeAndCenterMeshes(std::vector<Mesh*>& meshes)
+    void Scene::normalizeAndCenterMeshes(std::vector<MeshSPtr>& meshes)
     {
         SixElemArray box = computeBoundingBoxMeshes(meshes);
         //var scale = Utils::SCALE / vec3.dist([box[0], box[1], box[2]], [box[3], box[4], box[5]]);
@@ -474,7 +474,7 @@ namespace DigitalSculpt
         }
     }
 
-    Mesh* Scene::addSphere()
+    MeshSPtr Scene::addSphere()
     {
         // make a cube and subdivide it
         Multimesh* mesh = new Multimesh(Primitives::createCube());
@@ -483,7 +483,7 @@ namespace DigitalSculpt
         return addNewMesh(mesh);
     }
 
-    Mesh* Scene::addCube()
+    MeshSPtr Scene::addCube()
     {
         Multimesh* mesh = new Multimesh(Primitives::createCube());
         mesh->normalizeSize();
@@ -493,7 +493,7 @@ namespace DigitalSculpt
         return addNewMesh(mesh);
     }
 
-    Mesh* Scene::addCylinder()
+    MeshSPtr Scene::addCylinder()
     {
         Multimesh* mesh = new Multimesh(Primitives::createCylinder());
         mesh->normalizeSize();
@@ -522,7 +522,7 @@ namespace DigitalSculpt
         addNewMesh(mesh);
     }
 
-    void Scene::subdivideClamp(Mesh* mesh, bool linear)
+    void Scene::subdivideClamp(MeshSPtr mesh, bool linear)
     {
         Subdivision::LINEAR = !!linear;
         while (mesh->getNbFaces() < 50000)
@@ -533,7 +533,7 @@ namespace DigitalSculpt
         Subdivision::LINEAR = false;
     }
 
-    void Scene::addNewMesh(Mesh* mesh)
+    void Scene::addNewMesh(MeshSPtr mesh)
     {
         _meshes.emplace_back(mesh);//push(mesh);
         _stateManager.pushStateAdd(mesh);
@@ -541,7 +541,7 @@ namespace DigitalSculpt
         return mesh;
     }
 
-    std::vector<Mesh*> Scene::loadScene(std::uint8_t* fileData, const std::string& fileType)
+    std::vector<MeshSPtr> Scene::loadScene(std::uint8_t* fileData, const std::string& fileType)
     {
         var newMeshes;
         if (fileType == "obj") newMeshes = Import::importOBJ(fileData);
@@ -597,14 +597,14 @@ namespace DigitalSculpt
         setMesh(null);
     }
 
-    void Scene::removeMeshes(std::vector<Mesh*>& rm)
+    void Scene::removeMeshes(std::vector<MeshSPtr>& rm)
     {
         var meshes = _meshes;
         for (var i = 0; i < rm.length; ++i)
             meshes.splice(getIndexMesh(rm[i]), 1);
     }
 
-    std::int32_t Scene::getIndexMesh(Mesh* mesh, bool select)
+    std::int32_t Scene::getIndexMesh(MeshSPtr mesh, bool select)
     {
         var meshes = select ? _selectMeshes : _meshes;
         var id = mesh.getID();
@@ -618,7 +618,7 @@ namespace DigitalSculpt
 
 
     /** Replace a mesh in the scene */
-    void Scene::replaceMesh(Mesh* mesh, Mesh* newMesh)
+    void Scene::replaceMesh(MeshSPtr mesh, MeshSPtr newMesh)
     {
         var index = getIndexMesh(mesh);
         if (index >= 0) _meshes[index] = newMesh;

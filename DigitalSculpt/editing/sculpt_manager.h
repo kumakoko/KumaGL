@@ -2,12 +2,11 @@
 #define digital_sculpt_sculpt_manager_h__
 
 #include <vector>
+#include <cstdint>
 #include "drawables/selection.h"
 #include "editing/tools/tools.h"
 #include "editing/tools/sculpt_base.h"
 #include "misc/enums.h"
-
-
 
 namespace DigitalSculpt
 {
@@ -75,39 +74,17 @@ namespace DigitalSculpt
             return this->_continuous && this->canBeContinuous();
         }
 
-        start(ctrl) {
-            var tool = this->getCurrentTool();
-            var canEdit = tool.start(ctrl);
-            if (this->_main.getPicking().getMesh() && this->isUsingContinuous())
-                this->_sculptTimer = window.setInterval(tool._cbContinuous, 16.6);
-            return canEdit;
-        }
+        bool start(bool ctrl);
 
-        end() {
-            this->getCurrentTool().end();
-            if (this->_sculptTimer != = -1) {
-                clearInterval(this->_sculptTimer);
-                this->_sculptTimer = -1;
-            }
-        }
+        void end();
 
-        preUpdate() {
-            this->getCurrentTool().preUpdate(this->canBeContinuous());
-        }
+        void preUpdate();
 
-        update() {
-            if (this->isUsingContinuous())
-                return;
-            this->getCurrentTool().update();
-        }
+        void update();
 
-        postRender() {
-            this->getCurrentTool().postRender(this->_selection);
-        }
+        void postRender();
 
-        addSculptToScene(scene) {
-            return this->getCurrentTool().addSculptToScene(scene);
-        }
+        void addSculptToScene(Scene* scene);
     };
 
 }

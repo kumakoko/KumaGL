@@ -45,4 +45,54 @@ namespace DigitalSculpt
             return true;
         }
     }
+
+    bool SculptManager::isUsingContinuous()
+    {
+        return _continuous && canBeContinuous();
+    }
+
+    bool SculptManager::start(bool ctrl) 
+    {
+        SculptBase* tool = getCurrentTool();
+        bool canEdit = tool->start(ctrl);
+
+        if (_main->getPicking()->getMesh() != nullptr && isUsingContinuous())
+            _sculptTimer = window.setInterval(tool._cbContinuous, 16.6);
+        
+        return canEdit;
+    }
+
+    void SculptManager::end()
+    {
+        getCurrentTool()->end();
+        
+        if (_sculptTimer != = -1)
+        {
+            clearInterval(_sculptTimer);
+            _sculptTimer = -1;
+        }
+    }
+
+    void SculptManager::preUpdate() 
+    {
+        getCurrentTool()->preUpdate(canBeContinuous());
+    }
+
+    void SculptManager::update()
+    {
+        if (isUsingContinuous())
+            return;
+
+        getCurrentTool()->update();
+    }
+
+    void SculptManager::postRender()
+    {
+        getCurrentTool()->postRender(_selection);
+    }
+
+    void SculptManager::addSculptToScene(Scene* scene)
+    {
+        return getCurrentTool()->addSculptToScene(scene);
+    }
 }

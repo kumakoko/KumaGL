@@ -147,7 +147,7 @@ namespace DigitalSculpt
             return this->_pickingSym;
         }
 
-        inline Picking* getSculptManager()
+        inline SculptManager* getSculptManager()
         {
             return this->_sculptManager;
         }

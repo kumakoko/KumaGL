@@ -1,0 +1,5 @@
+#ifndef digital_sculpt_glsl_main_background_h__
+#define digital_sculpt_glsl_main_background_h__
+
+
+#endif // digital_sculpt_glsl_main_background_h__

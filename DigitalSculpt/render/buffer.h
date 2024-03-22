@@ -1,3 +1,6 @@
+#ifndef digital_sculpt_buffer_h__
+#define digital_sculpt_buffer_h__
+
 #include "../klib/kgl_lib_pch.h"
 #include "misc/utils.h"
 #include <memory>
@@ -81,3 +84,5 @@ namespace DigitalSculpt
 
     typedef std::shared_ptr<Buffer> BufferSPtr;
 }
+
+#endif // digital_sculpt_buffer_h__

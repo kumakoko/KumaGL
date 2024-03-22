@@ -63,6 +63,8 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);$(IMGUI_HEADER);../klib;./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -100,6 +102,7 @@
   <ItemGroup>
     <ClCompile Include="digital_sculpt_app.cc" />
     <ClCompile Include="drawables\selection.cc" />
+    <ClCompile Include="editing\sculpt_manager.cc" />
     <ClCompile Include="editing\tools\sculpt_base.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="math3d\alpha_info.cc" />
@@ -115,15 +118,26 @@
     <ClCompile Include="mesh\mesh_update_buffer.cc" />
     <ClCompile Include="mesh\render_data.cc" />
     <ClCompile Include="misc\utils.cc" />
+    <ClCompile Include="render\attribute.cc" />
     <ClCompile Include="render\buffer.cc" />
+    <ClCompile Include="render\shaders\shader_background.cc" />
     <ClCompile Include="render\shaders\shader_base.cc" />
+    <ClCompile Include="render\shaders\shader_blur.cc" />
+    <ClCompile Include="render\shaders\shader_contour.cc" />
     <ClCompile Include="render\shaders\shader_flat.cc" />
+    <ClCompile Include="render\shaders\shader_fxaa.cc" />
+    <ClCompile Include="render\shaders\shader_matcap.cc" />
+    <ClCompile Include="render\shaders\shader_merge.cc" />
+    <ClCompile Include="render\shaders\shader_normal.cc" />
+    <ClCompile Include="render\shaders\shader_paintuv.cc" />
+    <ClCompile Include="render\shaders\shader_pbr.cc" />
     <ClCompile Include="render\shader_lib.cc" />
     <ClCompile Include="scene.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h" />
     <ClInclude Include="drawables\selection.h" />
+    <ClInclude Include="editing\sculpt_manager.h" />
     <ClInclude Include="editing\tools\sculpt_base.h" />
     <ClInclude Include="math3d\alpha_info.h" />
     <ClInclude Include="math3d\camera.h" />
@@ -141,9 +155,25 @@
     <ClInclude Include="misc\array_nd.h" />
     <ClInclude Include="misc\enums.h" />
     <ClInclude Include="misc\utils.h" />
+    <ClInclude Include="render\attribute.h" />
     <ClInclude Include="render\buffer.h" />
+    <ClInclude Include="render\shaders\glsl\glsl_color_space.h" />
+    <ClInclude Include="render\shaders\glsl\glsl_curvature.h" />
+    <ClInclude Include="render\shaders\glsl\glsl_fxaa.h" />
+    <ClInclude Include="render\shaders\glsl\glsl_main_background.h" />
+    <ClInclude Include="render\shaders\glsl\glsl_outline.h" />
+    <ClInclude Include="render\shaders\glsl\glsl_pbr.h" />
+    <ClInclude Include="render\shaders\shader_background.h" />
     <ClInclude Include="render\shaders\shader_base.h" />
+    <ClInclude Include="render\shaders\shader_blur.h" />
+    <ClInclude Include="render\shaders\shader_contour.h" />
     <ClInclude Include="render\shaders\shader_flat.h" />
+    <ClInclude Include="render\shaders\shader_fxaa.h" />
+    <ClInclude Include="render\shaders\shader_matcap.h" />
+    <ClInclude Include="render\shaders\shader_merge.h" />
+    <ClInclude Include="render\shaders\shader_normal.h" />
+    <ClInclude Include="render\shaders\shader_paintuv.h" />
+    <ClInclude Include="render\shaders\shader_pbr.h" />
     <ClInclude Include="render\shader_lib.h" />
     <ClInclude Include="scene.h" />
   </ItemGroup>

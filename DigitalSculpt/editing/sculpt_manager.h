@@ -1,109 +1,114 @@
-import Selection from 'drawables/Selection';
-import Tools from 'editing/tools/Tools';
-import Enums from 'misc/Enums';
+#ifndef digital_sculpt_sculpt_manager_h__
+#define digital_sculpt_sculpt_manager_h__
 
-class SculptManager {
+#include <vector>
+#include "drawables/selection.h"
+#include "editing/tools/tools.h"
+#include "editing/tools/sculpt_base.h"
+#include "misc/enums.h"
 
-  constructor(main) {
-    this._main = main;
 
-    this._toolIndex = Enums.Tools.BRUSH; // sculpting mode
-    this._tools = []; // the sculpting tools
 
-    // symmetry stuffs
-    this._symmetry = true; // if symmetric sculpting is enabled  
+namespace DigitalSculpt
+{
+    class Scene;
 
-    // continuous stuffs
-    this._continuous = false; // continuous sculpting
-    this._sculptTimer = -1; // continuous interval timer
+    class SculptManager
+    {
+    private:
+        Scene* _main;
+        Enums::Tools _toolIndex;
+        std::vector<SculptBase*> _tools;
+        bool _symmetry;
+        bool _continuous;
+        std::int32_t _sculptTimer;
+        Selection* _selection;
+    public:
+        SculptManager(Scene* main);
 
-    this._selection = new Selection(main._gl); // the selection geometry (red hover circle)
+        inline void setToolIndex(Enums::Tools id)
+        {
+            this->_toolIndex = id;
+        }
 
-    this.init();
-  }
+        inline Enums::Tools getToolIndex()
+        {
+            return this->_toolIndex;
+        }
 
-  setToolIndex(id) {
-    this._toolIndex = id;
-  }
+        inline SculptBase* getCurrentTool()
+        {
+            return this->_tools[this->_toolIndex];
+        }
 
-  getToolIndex() {
-    return this._toolIndex;
-  }
+        inline bool getSymmetry() const
+        {
+            return this->_symmetry;
+        }
 
-  getCurrentTool() {
-    return this._tools[this._toolIndex];
-  }
+        inline SculptBase* getTool(Enums::Tools index)
+        {
+            return this->_tools[index];
+        }
 
-  getSymmetry() {
-    return this._symmetry;
-  }
+        inline const SculptBase* getTool(Enums::Tools index) const
+        {
+            return this->_tools[index];
+        }
 
-  getTool(index) {
-    return this._tools[index];
-  }
+        inline Selection* getSelection()
+        {
+            return this->_selection;
+        }
 
-  getSelection() {
-    return this._selection;
-  }
+        inline const Selection* getSelection() const
+        {
+            return this->_selection;
+        }
 
-  init() {
-    var main = this._main;
-    var tools = this._tools;
-    for (var i = 0, nb = Tools.length; i < nb; ++i) {
-      if (Tools[i]) tools[i] = new Tools[i](main);
-    }
-  }
+        void init();
 
-  canBeContinuous() {
-    switch (this._toolIndex) {
-    case Enums.Tools.TWIST:
-    case Enums.Tools.MOVE:
-    case Enums.Tools.DRAG:
-    case Enums.Tools.LOCALSCALE:
-    case Enums.Tools.TRANSFORM:
-      return false;
-    default:
-      return true;
-    }
-  }
+        bool canBeContinuous();
 
-  isUsingContinuous() {
-    return this._continuous && this.canBeContinuous();
-  }
+        inline bool isUsingContinuous()
+        {
+            return this->_continuous && this->canBeContinuous();
+        }
 
-  start(ctrl) {
-    var tool = this.getCurrentTool();
-    var canEdit = tool.start(ctrl);
-    if (this._main.getPicking().getMesh() && this.isUsingContinuous())
-      this._sculptTimer = window.setInterval(tool._cbContinuous, 16.6);
-    return canEdit;
-  }
+        start(ctrl) {
+            var tool = this->getCurrentTool();
+            var canEdit = tool.start(ctrl);
+            if (this->_main.getPicking().getMesh() && this->isUsingContinuous())
+                this->_sculptTimer = window.setInterval(tool._cbContinuous, 16.6);
+            return canEdit;
+        }
 
-  end() {
-    this.getCurrentTool().end();
-    if (this._sculptTimer !== -1) {
-      clearInterval(this._sculptTimer);
-      this._sculptTimer = -1;
-    }
-  }
+        end() {
+            this->getCurrentTool().end();
+            if (this->_sculptTimer != = -1) {
+                clearInterval(this->_sculptTimer);
+                this->_sculptTimer = -1;
+            }
+        }
 
-  preUpdate() {
-    this.getCurrentTool().preUpdate(this.canBeContinuous());
-  }
+        preUpdate() {
+            this->getCurrentTool().preUpdate(this->canBeContinuous());
+        }
 
-  update() {
-    if (this.isUsingContinuous())
-      return;
-    this.getCurrentTool().update();
-  }
+        update() {
+            if (this->isUsingContinuous())
+                return;
+            this->getCurrentTool().update();
+        }
 
-  postRender() {
-    this.getCurrentTool().postRender(this._selection);
-  }
+        postRender() {
+            this->getCurrentTool().postRender(this->_selection);
+        }
 
-  addSculptToScene(scene) {
-    return this.getCurrentTool().addSculptToScene(scene);
-  }
+        addSculptToScene(scene) {
+            return this->getCurrentTool().addSculptToScene(scene);
+        }
+    };
+
 }
-
-export default SculptManager;
+#endif // digital_sculpt_sculpt_manager_h__

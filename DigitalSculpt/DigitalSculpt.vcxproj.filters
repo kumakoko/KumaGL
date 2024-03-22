@@ -19,14 +19,8 @@
     <Filter Include="源文件\editing">
       <UniqueIdentifier>{753d5288-ad73-4da8-a0c5-73e88a9121f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\editng">
-      <UniqueIdentifier>{1b3149ec-2e3a-46c2-904a-3c6118e872d5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="源文件\editing\tools">
       <UniqueIdentifier>{20d4f3ff-6f40-4879-85c2-05d49d0bc621}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="头文件\editng\tools">
-      <UniqueIdentifier>{90d54e58-6534-447a-8062-649048e3b7cc}</UniqueIdentifier>
     </Filter>
     <Filter Include="头文件\mesh">
       <UniqueIdentifier>{da372b07-c7c6-40a3-a2da-633382958e34}</UniqueIdentifier>
@@ -60,6 +54,15 @@
     </Filter>
     <Filter Include="源文件\render\shaders">
       <UniqueIdentifier>{ba928655-9069-45b7-b202-9135b77db526}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\render\shaders\glsl">
+      <UniqueIdentifier>{ecc997a1-d3d6-434e-a413-8a4e0f00a9e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\editing">
+      <UniqueIdentifier>{1b3149ec-2e3a-46c2-904a-3c6118e872d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\editing\tools">
+      <UniqueIdentifier>{90d54e58-6534-447a-8062-649048e3b7cc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +132,39 @@
     <ClCompile Include="render\shader_lib.cc">
       <Filter>源文件\render</Filter>
     </ClCompile>
+    <ClCompile Include="render\shaders\shader_background.cc">
+      <Filter>源文件\render\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="render\shaders\shader_blur.cc">
+      <Filter>源文件\render\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="render\shaders\shader_contour.cc">
+      <Filter>源文件\render\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="render\shaders\shader_fxaa.cc">
+      <Filter>源文件\render\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="render\shaders\shader_matcap.cc">
+      <Filter>源文件\render\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="render\shaders\shader_merge.cc">
+      <Filter>源文件\render\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="render\shaders\shader_normal.cc">
+      <Filter>源文件\render\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="render\shaders\shader_paintuv.cc">
+      <Filter>源文件\render\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="render\shaders\shader_pbr.cc">
+      <Filter>源文件\render\shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="render\attribute.cc">
+      <Filter>源文件\render</Filter>
+    </ClCompile>
+    <ClCompile Include="editing\sculpt_manager.cc">
+      <Filter>源文件\editing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h">
@@ -141,7 +177,7 @@
       <Filter>头文件\misc</Filter>
     </ClInclude>
     <ClInclude Include="editing\tools\sculpt_base.h">
-      <Filter>头文件\editng\tools</Filter>
+      <Filter>头文件\editing\tools</Filter>
     </ClInclude>
     <ClInclude Include="mesh\mesh.h">
       <Filter>头文件\mesh</Filter>
@@ -202,6 +238,57 @@
     </ClInclude>
     <ClInclude Include="render\shader_lib.h">
       <Filter>头文件\render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\shader_pbr.h">
+      <Filter>头文件\render\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\shader_paintuv.h">
+      <Filter>头文件\render\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\shader_normal.h">
+      <Filter>头文件\render\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\shader_merge.h">
+      <Filter>头文件\render\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\shader_matcap.h">
+      <Filter>头文件\render\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\shader_fxaa.h">
+      <Filter>头文件\render\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\shader_contour.h">
+      <Filter>头文件\render\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\shader_blur.h">
+      <Filter>头文件\render\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\shader_background.h">
+      <Filter>头文件\render\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\glsl\glsl_color_space.h">
+      <Filter>头文件\render\shaders\glsl</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\glsl\glsl_curvature.h">
+      <Filter>头文件\render\shaders\glsl</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\glsl\glsl_fxaa.h">
+      <Filter>头文件\render\shaders\glsl</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\glsl\glsl_main_background.h">
+      <Filter>头文件\render\shaders\glsl</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\glsl\glsl_outline.h">
+      <Filter>头文件\render\shaders\glsl</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shaders\glsl\glsl_pbr.h">
+      <Filter>头文件\render\shaders\glsl</Filter>
+    </ClInclude>
+    <ClInclude Include="render\attribute.h">
+      <Filter>头文件\render</Filter>
+    </ClInclude>
+    <ClInclude Include="editing\sculpt_manager.h">
+      <Filter>头文件\editing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,8 +1,3 @@
-#ifndef digital_sculpt_mesh_resolution_h__
-#define digital_sculpt_mesh_resolution_h__
-
-
-
 import Utils from 'misc/Utils';
 import Subdivision from 'editing/Subdivision';
 import Mesh from 'mesh/Mesh';
@@ -294,4 +289,4 @@ class MeshResolution extends Mesh {
   }
 }
 
-#endif // digital_sculpt_mesh_resolution_h__
+export default MeshResolution;

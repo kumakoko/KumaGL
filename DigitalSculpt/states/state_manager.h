@@ -20,7 +20,7 @@ namespace DigitalSculpt
     public:
         StateManager(SceneSPtr main);
 
-        void pushStateCustom(std::fuction<void(void)> undocb, std::fuction<void(void)> redocb, bool squash);
+        void pushStateCustom(std::function<void(void)> undocb, std::function<void(void)> redocb, bool squash);
 
         void pushStateAddRemove(std::vector<MeshSPtr>& addMesh, std::vector<MeshSPtr>& remMesh, bool squash);
 

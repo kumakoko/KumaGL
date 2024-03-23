@@ -102,7 +102,14 @@
   <ItemGroup>
     <ClCompile Include="digital_sculpt_app.cc" />
     <ClCompile Include="drawables\selection.cc" />
+    <ClCompile Include="editing\gizmo.cc" />
+    <ClCompile Include="editing\hole_filling.cc" />
+    <ClCompile Include="editing\marching_cubes.cc" />
+    <ClCompile Include="editing\remesh.cc" />
+    <ClCompile Include="editing\reversion.cc" />
     <ClCompile Include="editing\sculpt_manager.cc" />
+    <ClCompile Include="editing\subdivision.cc" />
+    <ClCompile Include="editing\surface_nets.cc" />
     <ClCompile Include="editing\tools\sculpt_base.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="math3d\alpha_info.cc" />
@@ -116,6 +123,8 @@
     <ClCompile Include="mesh\mesh_render_data.cc" />
     <ClCompile Include="mesh\mesh_transform_data.cc" />
     <ClCompile Include="mesh\mesh_update_buffer.cc" />
+    <ClCompile Include="mesh\multi_resolution\mesh_resolution.cc" />
+    <ClCompile Include="mesh\multi_resolution\multi_mesh.cc" />
     <ClCompile Include="mesh\render_data.cc" />
     <ClCompile Include="misc\utils.cc" />
     <ClCompile Include="render\attribute.cc" />
@@ -144,7 +153,14 @@
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h" />
     <ClInclude Include="drawables\selection.h" />
+    <ClInclude Include="editing\gizmo.h" />
+    <ClInclude Include="editing\hole_filling.h" />
+    <ClInclude Include="editing\marching_cubes.h" />
+    <ClInclude Include="editing\remesh.h" />
+    <ClInclude Include="editing\reversion.h" />
     <ClInclude Include="editing\sculpt_manager.h" />
+    <ClInclude Include="editing\subdivision.h" />
+    <ClInclude Include="editing\surface_nets.h" />
     <ClInclude Include="editing\tools\sculpt_base.h" />
     <ClInclude Include="math3d\alpha_info.h" />
     <ClInclude Include="math3d\camera.h" />
@@ -155,6 +171,8 @@
     <ClInclude Include="mesh\cache_store_info.h" />
     <ClInclude Include="mesh\mesh.h" />
     <ClInclude Include="mesh\mesh_data.h" />
+    <ClInclude Include="mesh\multi_resolution\mesh_resolution.h" />
+    <ClInclude Include="mesh\multi_resolution\multi_mesh.h" />
     <ClInclude Include="mesh\render_data.h" />
     <ClInclude Include="mesh\transform_data.h" />
     <ClInclude Include="misc\array_1d.h" />

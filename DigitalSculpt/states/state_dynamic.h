@@ -28,7 +28,7 @@ namespace DigitalSculpt
 
         virtual bool isNoop() override;
 
-        virtual bool undo() override;
+        virtual void undo() override;
 
         virtual void redo() override;
 

@@ -70,6 +70,12 @@
     <Filter Include="源文件\states">
       <UniqueIdentifier>{076555e7-43e9-4593-8a4d-1d55d22484b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\mesh\multi_resolution">
+      <UniqueIdentifier>{1f0c8f4a-c663-4bc3-a9b8-95f194cce27a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\mesh\multi_resolution">
+      <UniqueIdentifier>{1d4e7457-1609-4d00-aecc-def3750aba29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc">
@@ -191,6 +197,33 @@
     </ClCompile>
     <ClCompile Include="states\state_multi_resolution.cc">
       <Filter>源文件\states</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh\multi_resolution\mesh_resolution.cc">
+      <Filter>源文件\mesh\multi_resolution</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh\multi_resolution\multi_mesh.cc">
+      <Filter>源文件\mesh\multi_resolution</Filter>
+    </ClCompile>
+    <ClCompile Include="editing\gizmo.cc">
+      <Filter>源文件\editing</Filter>
+    </ClCompile>
+    <ClCompile Include="editing\hole_filling.cc">
+      <Filter>源文件\editing</Filter>
+    </ClCompile>
+    <ClCompile Include="editing\marching_cubes.cc">
+      <Filter>源文件\editing</Filter>
+    </ClCompile>
+    <ClCompile Include="editing\remesh.cc">
+      <Filter>源文件\editing</Filter>
+    </ClCompile>
+    <ClCompile Include="editing\reversion.cc">
+      <Filter>源文件\editing</Filter>
+    </ClCompile>
+    <ClCompile Include="editing\subdivision.cc">
+      <Filter>源文件\editing</Filter>
+    </ClCompile>
+    <ClCompile Include="editing\surface_nets.cc">
+      <Filter>源文件\editing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -340,6 +373,33 @@
     </ClInclude>
     <ClInclude Include="states\state.h">
       <Filter>头文件\states</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\multi_resolution\mesh_resolution.h">
+      <Filter>头文件\mesh\multi_resolution</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\multi_resolution\multi_mesh.h">
+      <Filter>头文件\mesh\multi_resolution</Filter>
+    </ClInclude>
+    <ClInclude Include="editing\gizmo.h">
+      <Filter>头文件\editing</Filter>
+    </ClInclude>
+    <ClInclude Include="editing\hole_filling.h">
+      <Filter>头文件\editing</Filter>
+    </ClInclude>
+    <ClInclude Include="editing\marching_cubes.h">
+      <Filter>头文件\editing</Filter>
+    </ClInclude>
+    <ClInclude Include="editing\remesh.h">
+      <Filter>头文件\editing</Filter>
+    </ClInclude>
+    <ClInclude Include="editing\reversion.h">
+      <Filter>头文件\editing</Filter>
+    </ClInclude>
+    <ClInclude Include="editing\subdivision.h">
+      <Filter>头文件\editing</Filter>
+    </ClInclude>
+    <ClInclude Include="editing\surface_nets.h">
+      <Filter>头文件\editing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

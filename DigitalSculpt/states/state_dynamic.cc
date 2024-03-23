@@ -34,7 +34,7 @@ namespace DigitalSculpt
         return this->_idVertState.size() == 0 && this->_idFaceState.size() == 0;
     }
 
-    bool StateDynamic::undo()
+    void StateDynamic::undo()
     {
         this->pullVertices();
         this->pullFaces();

@@ -76,6 +76,9 @@
     <Filter Include="头文件\mesh\multi_resolution">
       <UniqueIdentifier>{1d4e7457-1609-4d00-aecc-def3750aba29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\mesh\mesh_static">
+      <UniqueIdentifier>{1107cbd2-10ee-4408-a307-7c93212c38c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc">
@@ -400,6 +403,9 @@
     </ClInclude>
     <ClInclude Include="editing\surface_nets.h">
       <Filter>头文件\editing</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\mesh_static\mesh_static.h">
+      <Filter>头文件\mesh\mesh_static</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

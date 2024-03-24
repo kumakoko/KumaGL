@@ -1,3 +1,4 @@
+#include "mesh/mesh.h"
 #include "mesh/render_data.h"
 #include "kgl_texture.h"
 
@@ -5,7 +6,7 @@ namespace DigitalSculpt
 {
     bool RenderData::ONLY_DRAW_ARRAYS = false;
 
-    RenderData::RenderData()
+    RenderData::RenderData(Mesh* mesh)
     {
         _shaderType;// : opts.shader,
         _flatShading = true;// : opts.flatshading,

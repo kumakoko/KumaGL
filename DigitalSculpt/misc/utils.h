@@ -395,6 +395,35 @@ namespace DigitalSculpt
                 vec.insert(vec.begin() + start, itemsToAdd.begin(), itemsToAdd.end());
             }
         }
+
+        template<typename T>
+        static void SetVectorLength(std::vector<T>& vec, size_t newLength,T defaultValue)
+        {
+            if (0 == newLength)
+            {
+                vec.clear();
+                return;
+            }
+
+            auto sz = vec.size();
+
+            if (sz > newLength)
+            {
+                while (vec.size() > newLength)
+                    vec.pop_back();
+
+                return;
+            }
+            else if (sz == newLength)
+            {
+                return;
+            }
+            else
+            {
+                while (vec.size() < newLength)
+                    vec.emplace_back(defaultValue)
+            }
+        }
     };
 }
 

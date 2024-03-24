@@ -398,7 +398,7 @@ namespace DigitalSculpt
                     alpha = 1.0f - (beta + gamma) * count;
                 }
 
-                even[j + 0] = vArOld[j] * alpha + avx * beta + oppx * gamma;
+                even[j + 0] = vArOld[j + 0] * alpha + avx * beta + oppx * gamma;
                 even[j + 1] = vArOld[j + 1] * alpha + avy * beta + oppy * gamma;
                 even[j + 2] = vArOld[j + 2] * alpha + avz * beta + oppz * gamma;
                 continue;

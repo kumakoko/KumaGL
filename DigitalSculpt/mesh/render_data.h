@@ -9,6 +9,8 @@
 
 namespace DigitalSculpt
 {
+    class Mesh;
+
     class RenderData
     {
     public:
@@ -40,7 +42,7 @@ namespace DigitalSculpt
         GLenum _mode;// : gl.TRIANGLES
 
     public:
-        RenderData();
+        RenderData(Mesh* mesh);
     };
 }
 

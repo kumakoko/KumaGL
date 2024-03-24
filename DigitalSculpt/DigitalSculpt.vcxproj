@@ -171,6 +171,7 @@
     <ClInclude Include="mesh\cache_store_info.h" />
     <ClInclude Include="mesh\mesh.h" />
     <ClInclude Include="mesh\mesh_data.h" />
+    <ClInclude Include="mesh\mesh_static\mesh_static.h" />
     <ClInclude Include="mesh\multi_resolution\mesh_resolution.h" />
     <ClInclude Include="mesh\multi_resolution\multi_mesh.h" />
     <ClInclude Include="mesh\render_data.h" />

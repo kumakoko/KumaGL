@@ -1,19 +1,24 @@
-import Mesh from 'mesh/Mesh';
-import TransformData from 'mesh/TransformData';
-import MeshData from 'mesh/MeshData';
-import RenderData from 'mesh/RenderData';
+#ifndef digital_sculpt_mesh_static_h__
+#define digital_sculpt_mesh_static_h__
 
-class MeshStatic extends Mesh {
+#include "mesh/mesh.h"
+#include "mesh/transform_data.h"
+#include "mesh/mesh_data.h"
+#include "mesh/render_data.h"
 
-  constructor(gl) {
-    super();
+namespace DigitalSculpt
+{
+    class MeshStatic : public Mesh 
+    {
+    public:
+        MeshStatic()
+        {
+            this->_id = Mesh::ID++; // useful id to retrieve a mesh (dynamic mesh, multires mesh, voxel mesh)
 
-    this._id = Mesh.ID++; // useful id to retrieve a mesh (dynamic mesh, multires mesh, voxel mesh)
-
-    if (gl) this._renderData = new RenderData(gl, this);
-    this._meshData = new MeshData();
-    this._transformData = new TransformData();
-  }
+            this->_renderData = new RenderData(this);
+            this->_meshData = new MeshData();
+            this->_transformData = new TransformData();
+        }
+    };
 }
-
-export default MeshStatic;
+#endif // digital_sculpt_mesh_static_h__

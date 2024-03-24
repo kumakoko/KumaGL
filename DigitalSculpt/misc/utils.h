@@ -299,22 +299,24 @@ namespace DigitalSculpt
         }
 
         /******************************************************************************************************************
-         * Desc: 把dataSource的内容，依次拷贝到self数组中，self数组的目标索引值范围是[offset,offset+dataSource.Length]。这也就是说，
-                 self数组本身要有足够多的空间存储拷贝数据，否则就回抛出异常，本方法是模仿javascript的TypedArray的实现。参照网页
-                 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set
-         * Method:    set
-         * Returns:   void
-         * Parameter: std::vector<T> & self
-         * Parameter: const std::vector<T> & dataSource
-         * Parameter: std::size_t offset
-         ****************************************************************************************************************/
+        * Desc: 把dataSource的内容，依次拷贝到self数组中，self数组的目标索引值范围是[offset,offset+dataSource.Length]。这也就是说，
+                self数组本身要有足够多的空间存储拷贝数据，否则就回抛出异常，本方法是模仿javascript的TypedArray的实现。参照网页
+                https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set
+       @name: DigitalSculpt::Utils::set
+       @return: void
+       @param: std::vector<T> & self
+       @param: const std::vector<T> & dataSource
+       @param: std::size_t offset
+       @param: std::size_t src_start_offset
+       @param: std::size_t src_copy_count
+       ****************************************************************************************************************/
         template<typename T>
-        static void set(std::vector<T>& self, const std::vector<T>& dataSource, std::size_t offset = 0)
+        static void set(std::vector<T>& self, const std::vector<T>& dataSource, std::size_t offset = 0, std::size_t src_start_offset = 0, std::size_t src_copy_count = 0)
         {
-            std::size_t copyL = dataSource.size();
+            std::size_t copyL = src_copy_count == 0 ? dataSource.size() : src_copy_count;
 
             for (std::size_t i = 0; i < copyL; ++i)
-                self[i + offset] = dataSource[i];
+                self[i + offset] = dataSource[i + src_start_offset];
 
             return self;
         }
@@ -384,11 +386,11 @@ namespace DigitalSculpt
         static void splice(std::vector<T>& vec, size_t start, size_t deleteCount, const std::vector<T>& itemsToAdd = {})
         {
             // 删除元素
-            if (deleteCount > 0 && start < vec.size()) 
+            if (deleteCount > 0 && start < vec.size())
             {
                 vec.erase(vec.begin() + start, vec.begin() + start + deleteCount);
             }
-            
+
             // 添加元素
             if (!itemsToAdd.empty())
             {
@@ -397,7 +399,7 @@ namespace DigitalSculpt
         }
 
         template<typename T>
-        static void SetVectorLength(std::vector<T>& vec, size_t newLength,T defaultValue)
+        static void SetVectorLength(std::vector<T>& vec, size_t newLength, T defaultValue)
         {
             if (0 == newLength)
             {

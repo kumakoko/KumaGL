@@ -18,6 +18,7 @@ namespace DigitalSculpt
     typedef std::vector<std::uint8_t> Uint8Array;
     typedef std::vector<std::uint32_t> Uint32Array;
     typedef std::vector<std::int32_t> Int32Array;
+    typedef std::vector<std::int8_t> Int8Array;
     typedef std::vector<float>  Float32Array;
     typedef std::array<float, 6> SixElemArray;
 
@@ -352,6 +353,41 @@ namespace DigitalSculpt
                 min = c;
         }
 
+
+        /******************************************************************************************************************
+         * Desc:
+         * Method:    slice
+         * Returns:
+         * Parameter: const std::vector<T> & vec
+         * Parameter: int start 切片对应于源数组的起始索引
+         * Parameter: int end 切片对应于源数组的结束索引
+         ****************************************************************************************************************/
+        template <typename T>
+        std::vector<T> slice(const std::vector<T>& vec, int start, int end)
+        {
+            // 处理负索引的情况
+            int vecSize = static_cast<int>(vec.size());
+            if (start < 0) start = vecSize + start;
+            if (end < 0) end = vecSize + end;
+
+            // 保证起始和结束位置的有效性
+            start = std::max(start, 0);
+            end = std::min(end, vecSize);
+
+            // 如果起始位置大于结束位置或数组长度，返回一个空的vector
+            if (start >= end || start >= vecSize) {
+                return std::vector<T>();
+            }
+
+            // 使用迭代器构造新vector
+            auto first = vec.begin() + start;
+            auto last = vec.begin() + end;
+            return std::vector<T>(first, last);
+        }
+
+
+
+
         /******************************************************************************************************************
          * Desc:
          * Method:    easeOutQuart
@@ -398,6 +434,14 @@ namespace DigitalSculpt
             }
         }
 
+        /******************************************************************************************************************
+         * Desc:
+         * Method:    SetVectorLength
+         * Returns:   void
+         * Parameter: std::vector<T> & vec
+         * Parameter: size_t newLength
+         * Parameter: T defaultValue
+         ****************************************************************************************************************/
         template<typename T>
         static void SetVectorLength(std::vector<T>& vec, size_t newLength, T defaultValue)
         {
@@ -426,6 +470,35 @@ namespace DigitalSculpt
                     vec.emplace_back(defaultValue)
             }
         }
+
+    private:
+        /******************************************************************************************************************
+         * Desc:
+         * Method:    PushToVector
+         * Returns:   void
+         * Parameter: std::vector<T> & self
+         * Parameter: T value
+         ****************************************************************************************************************/
+        template <typename T>
+        static void PushToVector(std::vector<T>& self, T value)
+        {
+            self.emplace_back(value);
+        }
+
+    public:
+        /******************************************************************************************************************
+         * Desc:
+         * Method:    PushToVector
+         * Returns:   void
+         * Parameter: std::vector<T> & self
+         * Parameter: Args & & ... args
+         ****************************************************************************************************************/
+        template <typename T, typename... Args>
+        static void PushToVector(std::vector<T>& self, Args&&... args)
+        {
+            return PushToVector(self, args...);
+        }
+
     };
 }
 

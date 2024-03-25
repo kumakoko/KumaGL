@@ -407,5 +407,11 @@
     <ClInclude Include="mesh\mesh_static\mesh_static.h">
       <Filter>头文件\mesh\mesh_static</Filter>
     </ClInclude>
+    <ClInclude Include="editing\voxels.h">
+      <Filter>头文件\editing</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh\mesh_atrribute.h">
+      <Filter>头文件\mesh</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

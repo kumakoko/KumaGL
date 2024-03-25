@@ -1,4 +1,6 @@
 #include <cmath>
+#include <string>
+#include "boost/format.hpp"
 #include "editing/marching_cubes.h"
 
 namespace DigitalSculpt
@@ -566,8 +568,8 @@ namespace DigitalSculpt
         auto invSum = 0;
 
         auto mask = 0;
-        auto rx = dims[ 0 ];
-        auto rxy = dims[ 0 ] *dims[ 1 ];
+        auto rx = dims[0];
+        auto rxy = dims[0] * dims[1];
 
         for (auto i = 0; i < 8; ++i)
         {
@@ -608,95 +610,97 @@ namespace DigitalSculpt
         return mask;
     };
 
-    void MarchingCubes::computeSurface(voxels)
+    Voxel MarchingCubes::computeSurface(voxels)
     {
         auto dims = voxels.dims;
 
         auto mapVertices = new Map();
 
-        auto vertices = {};
-        auto cols = {};
-        auto mats = {};
-        auto faces = {};
-        auto n = 0;
-        auto x = new Int32Array(3);
-        auto grid = new Float32Array(8);
+        Float32Array vertices;//auto vertices = {};
+        Float32Array cols;//auto cols = {};
+        Float32Array mats;//auto mats = {};
+        Uint32Array faces;//auto faces = {};
+        std::uint32_t n = 0;
+        Int32Array x(3, 0);//auto x = new Int32Array(3);
+        Float32Array grid(8, 0.0f);//auto grid = new Float32Array(8);
 
-        auto edges = new Array(12);
+        Uint32Array edges(12, 0);// auto edges = new Array(12);
 
-        auto tmpV = new Float32Array(3);
-        auto tmpC = new Float32Array(3);
-        auto tmpM = new Float32Array(3);
+        Float32Array tmpV(3, 0.0f);//auto tmpV = new Float32Array(3);
+        Float32Array tmpC(3, 0.0f);//auto tmpC = new Float32Array(3);
+        Float32Array tmpM(3, 0.0f);//auto tmpM = new Float32Array(3);
 
         //March over the voxel grid
         for (x[2] = 0; x[2] < dims[2] - 1; ++x[2], n += dims[0])
         {
             for (x[1] = 0; x[1] < dims[1] - 1; ++x[1], ++n)
             {
-                for (x[0] = 0; x{ 0] < dims[0] - 1; ++x[0], ++n)
+                for (x[0] = 0; x[0] < dims[0] - 1; ++x[0], ++n)
                 {
-                  auto cubeIndex = readScalarValues(voxels, grid, dims, n, tmpC, tmpM);
+                    std::uint32_t cubeIndex = readScalarValues(voxels, grid, dims, n, tmpC, tmpM);
+                    std::uint32_t edgeMask = edgeTable[cubeIndex];
 
-                  auto edgeMask = edgeTable[cubeIndex];
-
-                  if (edgeMask == 0)
-                  {
-                    continue;
-                  }
-
-                  for (auto k = 0; k < 12; ++k)
-                  {
-                    if (!(edgeMask & (1 << k))) continue;
-
-                    auto e = edgeIndex[k];
-                    auto p0 = cubeVerts[e[0]];
-                    auto p1 = cubeVerts[e[1]];
-                    auto a = grid[e[0]];
-                    auto b = grid[e[1]];
-                    auto d = a - b;
-                    auto t = 0;
-
-                    if (Math.abs(d) > 1e-6)
+                    if (edgeMask == 0)
                     {
-                      t = a / d;
+                        continue;
                     }
 
-                    for (auto h = 0; h < 3; ++h)
+                    for (auto k = 0; k < 12; ++k)
                     {
-                      tmpV[h] = x[h] + p0[h] + t * (p1[h] - p0[h]);
+                        if (!(edgeMask & (1 << k)))
+                            continue;
+
+                        std::vector<std::uint32_t>& e = edgeIndex[k];
+                        std::vector<std::uint32_t>& p0 = cubeVerts[e[0]];
+                        std::vector<std::uint32_t>& p1 = cubeVerts[e[1]];
+                        float a = grid[e[0]];
+                        float b = grid[e[1]];
+                        float d = a - b;
+                        float t = 0.0f;
+
+                        if (fabs(d) > 1e-6)
+                        {
+                            t = a / d;
+                        }
+
+                        for (std::uint32_t h = 0; h < 3; ++h)
+                        {
+                            tmpV[h] = x[h] + p0[h] + t * (p1[h] - p0[h]);
+                        }
+
+                        std::string hash = (boost::format("%1+%2+%3") % tmpV[0] % tmpV[1] % tmpV[2]).str();//auto hash = tmpV[0] + '+' + tmpV[1] + '+' + tmpV[2];
+                        auto idVertex = mapVertices.get(hash);
+
+                        if (idVertex >= 0)
+                        {
+                            edges[k] = idVertex;
+                        }
+                        else
+                        {
+                            edges[k] = vertices.size() / 3;
+                            mapVertices.set(hash, edges[k]);
+                            Utils::PushToVector(vertices, tmpV[0], tmpV[1], tmpV[2]);//vertices.push(tmpV[0], tmpV[1], tmpV[2]);
+                            Utils::PushToVector(cols, tmpC[0], tmpC[1], tmpC[2]);//cols.push(tmpC[0], tmpC[1], tmpC[2]);
+                            Utils::PushToVector(mats, tmpM[0], tmpM[1], tmpM[2]);//mats.push(tmpM[0], tmpM[1], tmpM[2]);
+                        }
                     }
 
-                    auto hash = tmpV[0] + '+' + tmpV[1] + '+' + tmpV[2];
-                    auto idVertex = mapVertices.get(hash);
+                    std::vector<std::uint32_t>& f = triTable[cubeIndex];
 
-                    if (idVertex >= 0)
+                    for (auto l = 0; l < f.size(); l += 3) 
                     {
-                      edges[k] = idVertex;
+                        Utils::PushToVector(faces, edges[f[l+0]], edges[f[l + 1]], edges[f[l + 2]], Utils::TRI_INDEX);////faces.push(edges[f[l]], edges[f[l + 1]], edges[f[l + 2]], Utils::TRI_INDEX);
                     }
-                    else
-                    {
-                      edges[k] = vertices.length / 3;
-                      mapVertices.set(hash, edges[k]);
-                      vertices.push(tmpV[0], tmpV[1], tmpV[2]);
-                      cols.push(tmpC[0], tmpC[1], tmpC[2]);
-                      mats.push(tmpM[0], tmpM[1], tmpM[2]);
-                    }
-                    }
-
-                    auto f = triTable[cubeIndex];
-                  for (auto l = 0; l < f.length; l += 3) {
-                    faces.push(edges[f[l]], edges[f[l + 1]], edges[f[l + 2]], Utils::TRI_INDEX);
-                  }
-                }
                 }
             }
         }
-        //All done!  Return the result
-        return aa{
-          colors: new Float32Array(cols),
-          materials : new Float32Array(mats),
-          vertices : new Float32Array(vertices),
-          faces : new Uint32Array(faces)
-        };
-    }
+    
+    //All done!  Return the result
+    return aa{
+      colors: new Float32Array(cols),
+      materials : new Float32Array(mats),
+      vertices : new Float32Array(vertices),
+      faces : new Uint32Array(faces)
+    };
+}
 }

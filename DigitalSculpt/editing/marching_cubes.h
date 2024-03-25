@@ -22,7 +22,7 @@ namespace DigitalSculpt
 
         static std::uint32_t readScalarValues(voxels, grid, dims, n, cols, mats);
 
-        static void computeSurface(voxels);
+        static Voxel computeSurface(voxels);
     };
 }
 

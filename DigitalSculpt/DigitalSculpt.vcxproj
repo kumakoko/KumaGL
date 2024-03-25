@@ -162,6 +162,7 @@
     <ClInclude Include="editing\subdivision.h" />
     <ClInclude Include="editing\surface_nets.h" />
     <ClInclude Include="editing\tools\sculpt_base.h" />
+    <ClInclude Include="editing\voxels.h" />
     <ClInclude Include="math3d\alpha_info.h" />
     <ClInclude Include="math3d\camera.h" />
     <ClInclude Include="math3d\geometry.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="math3d\picking.h" />
     <ClInclude Include="mesh\cache_store_info.h" />
     <ClInclude Include="mesh\mesh.h" />
+    <ClInclude Include="mesh\mesh_atrribute.h" />
     <ClInclude Include="mesh\mesh_data.h" />
     <ClInclude Include="mesh\mesh_static\mesh_static.h" />
     <ClInclude Include="mesh\multi_resolution\mesh_resolution.h" />

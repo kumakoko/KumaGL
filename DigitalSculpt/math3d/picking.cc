@@ -11,6 +11,7 @@
 #include "misc/utils.h"
 #include "misc/array_1d.h"
 #include "misc/array_2d.h"
+#include "math3d/glm_extension.h"
 
 namespace DigitalSculpt
 {
@@ -460,9 +461,9 @@ namespace DigitalSculpt
 
         float invSum = 1.0f / (len1 + len2 + len3 + len4);
         out.x = out.y = out.z = 0.0f; //vec3.set(out, 0.0, 0.0, 0.0);
-        Utils::scaleAndAdd(out, out, glm::vec3(vAr[iv1], vAr[iv1 + 1], vAr[iv1 + 2])/*vField.subarray(iv1, iv1 + 3)*/, len1 * invSum);
-        Utils::scaleAndAdd(out, out, glm::vec3(vAr[iv2], vAr[iv2 + 1], vAr[iv2 + 2])/*vField.subarray(iv2, iv2 + 3)*/, len2 * invSum);
-        Utils::scaleAndAdd(out, out, glm::vec3(vAr[iv3], vAr[iv3 + 1], vAr[iv3 + 2])/*vField.subarray(iv3, iv3 + 3)*/, len3 * invSum);
+        GlmExtension::scaleAndAdd(out, out, glm::vec3(vAr[iv1], vAr[iv1 + 1], vAr[iv1 + 2])/*vField.subarray(iv1, iv1 + 3)*/, len1 * invSum);
+        GlmExtension::scaleAndAdd(out, out, glm::vec3(vAr[iv2], vAr[iv2 + 1], vAr[iv2 + 2])/*vField.subarray(iv2, iv2 + 3)*/, len2 * invSum);
+        GlmExtension::scaleAndAdd(out, out, glm::vec3(vAr[iv3], vAr[iv3 + 1], vAr[iv3 + 2])/*vField.subarray(iv3, iv3 + 3)*/, len3 * invSum);
 
         if (isQuad)
             Utils::scaleAndAdd(out, out, glm::vec3(vAr[iv4], vAr[iv4 + 1], vAr[iv4 + 2]), len4 * invSum);

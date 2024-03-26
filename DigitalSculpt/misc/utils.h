@@ -385,8 +385,17 @@ namespace DigitalSculpt
             return std::vector<T>(first, last);
         }
 
+        template<typename T>
+        static T min(T a, T b)
+        {
+            return a < b ? a : b;
+        }
 
-
+        template<typename T>
+        static T max(T a, T b)
+        {
+            return a > b ? a : b;
+        }
 
         /******************************************************************************************************************
          * Desc:
@@ -394,7 +403,7 @@ namespace DigitalSculpt
          * Returns:   float
          * Parameter: float r
          ****************************************************************************************************************/
-        static float Utils::easeOutQuart(float r);
+        static float easeOutQuart(float r);
 
         /******************************************************************************************************************
          * Desc: https://blog.csdn.net/weixin_45726044/article/details/120151153

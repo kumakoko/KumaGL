@@ -4,6 +4,7 @@
 #include <vector>
 #include <cstdint>
 #include "misc/utils.h"//import Utils from 'misc/Utils';
+#include "editing/voxels.h"
 
 namespace DigitalSculpt
 {
@@ -20,9 +21,9 @@ namespace DigitalSculpt
 
         static std::vector<std::vector<std::uint32_t>> edgeIndex;
 
-        static std::uint32_t readScalarValues(voxels, grid, dims, n, cols, mats);
+        static std::uint32_t readScalarValues(const Voxels& voxels, grid, dims, n, cols, mats);
 
-        static Voxel computeSurface(voxels);
+        static Voxels computeSurface(voxels);
     };
 }
 

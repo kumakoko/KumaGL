@@ -610,7 +610,7 @@ namespace DigitalSculpt
         return mask;
     };
 
-    Voxel MarchingCubes::computeSurface(voxels)
+    Voxels MarchingCubes::computeSurface(const Voxels& voxels)
     {
         auto dims = voxels.dims;
 

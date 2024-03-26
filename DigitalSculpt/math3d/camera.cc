@@ -651,7 +651,7 @@ namespace DigitalSculpt
 
         if (_projectionType == Enums::Projection::ORTHOGRAPHIC)
         {
-            x = std::min(_width, _height) / _near * 0.5f;
+            x = Utils::min<float>(_width, _height) / _near * 0.5f;
             return std::sqrt(1.0f + x * x) / x;
         }
 
@@ -663,7 +663,7 @@ namespace DigitalSculpt
         float vertical2 = std::fabs(right - left);
         float horizontal2 = std::fabs(top - bottom);
 
-        x = std::min(horizontal2, vertical2) / _near * 0.5f;
+        x = Utils::min<float>(horizontal2, vertical2) / _near * 0.5f;
         return (_fov / 45.0f) * std::sqrt(1.0f + x * x) / x;
     }
 }

@@ -5,9 +5,11 @@
 
 namespace DigitalSculpt
 {
-    class Enums {
+    class Enums
+    {
     public:
-        enum Action {
+        enum Action
+        {
             NOTHING = 0,
             MASK_EDIT = 1,
             SCULPT_EDIT = 2,
@@ -17,7 +19,8 @@ namespace DigitalSculpt
             CAMERA_PAN_ZOOM_ALT = 6
         };
 
-        enum Tools {
+        enum Tools
+        {
             BRUSH = 0,
             INFLATE = 1,
             TWIST = 2,
@@ -33,7 +36,8 @@ namespace DigitalSculpt
             TRANSFORM = 12
         };
 
-        enum Shader {
+        enum Shader
+        {
             PBR = 0,
             FLAT = 1,
             NORMAL = 2,
@@ -49,25 +53,29 @@ namespace DigitalSculpt
             BLUR = 12
         };
 
-        enum Projection {
+        enum Projection
+        {
             PERSPECTIVE = 0,
             ORTHOGRAPHIC = 1
         };
 
-        enum CameraMode {
+        enum CameraMode
+        {
             ORBIT = 0,
             SPHERICAL = 1,
             PLANE = 2
         };
 
-        enum MultiState {
+        enum MultiState
+        {
             NONE = 0,
             SCULPT = 1,
             CAMERA = 2,
             PICKING = 3
         };
 
-        enum KeyAction {
+        enum KeyAction
+        {
             INTENSITY,
             RADIUS,
             NEGATIVE,

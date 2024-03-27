@@ -228,6 +228,12 @@
     <ClCompile Include="editing\surface_nets.cc">
       <Filter>源文件\editing</Filter>
     </ClCompile>
+    <ClCompile Include="drawables\rtt.cc">
+      <Filter>源文件\drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="drawables\back_ground.cc">
+      <Filter>源文件\drawables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h">
@@ -412,6 +418,18 @@
     </ClInclude>
     <ClInclude Include="mesh\mesh_atrribute.h">
       <Filter>头文件\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="drawables\rtt.h">
+      <Filter>头文件\drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="drawables\back_ground.h">
+      <Filter>头文件\drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="render\canvas.h">
+      <Filter>头文件\render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\view_port.h">
+      <Filter>头文件\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

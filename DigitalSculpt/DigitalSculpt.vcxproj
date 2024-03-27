@@ -101,6 +101,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="digital_sculpt_app.cc" />
+    <ClCompile Include="drawables\back_ground.cc" />
+    <ClCompile Include="drawables\rtt.cc" />
     <ClCompile Include="drawables\selection.cc" />
     <ClCompile Include="editing\gizmo.cc" />
     <ClCompile Include="editing\hole_filling.cc" />
@@ -152,6 +154,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h" />
+    <ClInclude Include="drawables\back_ground.h" />
+    <ClInclude Include="drawables\rtt.h" />
     <ClInclude Include="drawables\selection.h" />
     <ClInclude Include="editing\gizmo.h" />
     <ClInclude Include="editing\hole_filling.h" />
@@ -185,6 +189,7 @@
     <ClInclude Include="misc\utils.h" />
     <ClInclude Include="render\attribute.h" />
     <ClInclude Include="render\buffer.h" />
+    <ClInclude Include="render\canvas.h" />
     <ClInclude Include="render\shaders\glsl\glsl_color_space.h" />
     <ClInclude Include="render\shaders\glsl\glsl_curvature.h" />
     <ClInclude Include="render\shaders\glsl\glsl_fxaa.h" />
@@ -203,6 +208,7 @@
     <ClInclude Include="render\shaders\shader_paintuv.h" />
     <ClInclude Include="render\shaders\shader_pbr.h" />
     <ClInclude Include="render\shader_lib.h" />
+    <ClInclude Include="render\view_port.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="states\state.h" />
     <ClInclude Include="states\state_add_remove.h" />

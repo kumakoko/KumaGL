@@ -8,8 +8,8 @@ namespace DigitalSculpt
 
         //che canvas stuffs
         _pixelRatio = 1.0f;
-        _viewport //= document.getElementById('viewport');
-            _canvas;// = document.getElementById('canvas');
+       // _viewport = 0.0f; //= document.getElementById('viewport');
+        //   _canvas;// = document.getElementById('canvas');
         _canvasWidth = 0.0f;
         _canvasHeight = 0.0f;
         _canvasOffsetLeft = 0.0f;
@@ -31,7 +31,7 @@ namespace DigitalSculpt
         _torusTubular = 128.0f;
 
         //nderable stuffs
-        pts = getOptionsURL();
+        //pts = getOptionsURL();
         _showContour = false;// opts.outline;
         _showGrid = opts.grid;
         _grid = nullptr;
@@ -60,10 +60,13 @@ namespace DigitalSculpt
         _sculptManager = new SculptManager(this);
         _background = new Background(this);
 
-        _rttContour = new Rtt(Enums::Shader::CONTOUR, null);
-        _rttMerge = new Rtt(Enums::Shader::MERGE, null);
-        _rttOpaque = new Rtt(Enums::Shader::FXAA);
-        _rttTransparent = new Rtt(nullptr, _rttOpaque.getDepth(), true);
+        _rttContour = new Rtt(Enums::Shader::CONTOUR, 0, false);
+        _rttMerge = new Rtt(Enums::Shader::MERGE, 0, 0, false);
+
+        GLuint rbOpaque = 0;
+        glCreateRenderbuffers(1, &rbOpaque);
+        _rttOpaque = new Rtt(Enums::Shader::FXAA, rbOpaque, false);
+        _rttTransparent = new Rtt(nullptr, _rttOpaque->getDepth(), true);
 
         _grid = Primitives::createGrid();
         initGrid();
@@ -141,7 +144,7 @@ namespace DigitalSculpt
         }
 
         _mesh = mesh;
-        getGui().updateMesh();
+        //getGui().updateMesh();
         render();
         return mesh;
     }
@@ -206,7 +209,7 @@ namespace DigitalSculpt
         glDisable(GL_DEPTH_TEST);//glDisable(gl.DEPTH_TEST);
         bool showContour = _selectMeshes.size() > 0 &&
             _showContour &&
-            ShaderLib[Enums::Shader::CONTOUR].color[3] > 0.0f;
+            ShaderLib[Enums::Shader::CONTOUR]->color[3] > 0.0f;
 
         if (showContour)
         {
@@ -291,20 +294,38 @@ namespace DigitalSculpt
     /** Pre compute matrices and sort meshes */
     void Scene::updateMatricesAndSort()
     {
-        var meshes = _meshes;
-        var cam = _camera;
-        if (meshes.length > 0) {
-            cam.optimizeNearFar(computeBoundingBoxScene());
+        //var meshes = _meshes;
+        //var cam = _camera;
+        if (_meshes.size() > 0)
+        {
+            _camera->optimizeNearFar(computeBoundingBoxScene());
         }
 
-        for (var i = 0, nb = meshes.length; i < nb; ++i) {
-            meshes[i].updateMatrices(cam);
+        std::size_t nb = _meshes.size();
+        for (std::size_t i = 0; i < nb; ++i)
+        {
+            _meshes[i]->updateMatrices(*_camera);
         }
 
-        meshes.sort(Mesh.sortFunction);
+        //_meshes.sort(Mesh.sortFunction);
+        std::sort(_meshes.begin(), _meshes.end(), [](MeshSPtr meshA, MeshSPtr meshB)
+            {
+                bool aTr = meshA->isTransparent();
+                bool bTr = meshB->isTransparent();
+                if (aTr && !bTr)
+                    return true;//a透明，b不透明，先绘制b，再绘制a，所以算作b深度值大于a，返回true;
+                if (!aTr && bTr)
+                    return false;//a不透明，b透明，先绘制a，再绘制b，所以算作a深度值大于b，返回false;
 
-        if (_meshPreview) _meshPreview.updateMatrices(cam);
-        if (_grid) _grid.updateMatrices(cam);
+                // 都透明或者都不透明，则比较深度值
+                return meshA->getDepth() < meshB->getDepth();
+                //return (meshB.getDepth() - meshA.getDepth()) * (aTr && bTr ? 1.0 : -1.0);
+            });
+
+        if (_meshPreview)
+            _meshPreview->updateMatrices(*_camera);
+        if (_grid)
+            _grid->updateMatrices(*_camera);
     }
 
     void Scene::initWebGL()
@@ -373,8 +394,8 @@ namespace DigitalSculpt
 
     void Scene::initAlphaTextures()
     {
-        var alphas = Picking::INIT_ALPHAS_PATHS;
-        var names = Picking::INIT_ALPHAS_NAMES;
+        const char* const alphas = Picking::INIT_ALPHAS_PATHS;
+        const char* const names = Picking::INIT_ALPHAS_NAMES;
         /*
         for (var i = 0, nbA = alphas.length; i < nbA; ++i) {
             var am = new Image();

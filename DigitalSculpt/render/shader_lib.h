@@ -15,7 +15,7 @@ namespace DigitalSculpt
         static ShaderLibrary* _instance;
         ShaderLibrary();
     public:
-        ShaderLibrary& GetInstance();
+        static ShaderLibrary& GetInstance();
         ShaderBase* operator [] (Enums::Shader index);
     };
 

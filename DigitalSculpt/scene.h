@@ -3,12 +3,19 @@
 
 #include <memory>
 #include <vector>
+
+#include "glm/mat4x4.hpp"
+
 #include "misc/enums.h"
 #include "mesh/mesh.h"
 #include "math3d/camera.h"
 #include "math3d/picking.h"
 #include "drawables/rtt.h"
+#include "drawables/back_ground.h"
 #include "states/state_manager.h"
+#include "editing/sculpt_manager.h"
+#include "render/canvas.h"
+#include "render/view_port.h"
 
 namespace DigitalSculpt
 {
@@ -21,8 +28,8 @@ namespace DigitalSculpt
 
         // cache canvas stuffs
         float _pixelRatio;
-        float _viewport;// = document.getElementById('viewport');
-        float _canvas;// = document.getElementById('canvas');
+        Viewport _viewport;// = document.getElementById('viewport');
+        Canvas _canvas;// = document.getElementById('canvas');
         float _canvasWidth = 0;
         float _canvasHeight = 0;
         float _canvasOffsetLeft = 0;
@@ -60,7 +67,7 @@ namespace DigitalSculpt
 
         // ui stuffs
         bool _focusGui; // if the gui is being focused
-        Gui* _gui;// = new Gui(this);
+        //Gui* _gui;// = new Gui(this);
 
         bool _preventRender; // prevent multiple render per frame
         bool _drawFullScene; // render everything on the rtt
@@ -84,12 +91,22 @@ namespace DigitalSculpt
             return this->_background;
         }
 
-        inline getViewport() 
+        inline Viewport& getViewport() 
         {
             return this->_viewport;
         }
 
-        inline getCanvas() 
+        inline const Viewport& getViewport() const
+        {
+            return this->_viewport;
+        }
+
+        inline Canvas& getCanvas() 
+        {
+            return this->_canvas;
+        }
+
+        inline const Canvas& getCanvas() const
         {
             return this->_canvas;
         }
@@ -119,10 +136,12 @@ namespace DigitalSculpt
             return this->_camera;
         }
 
+        /*
         Gui* getGui()
         {
             return this->_gui;
         }
+        */
 
         inline std::vector<MeshSPtr>& getMeshes()
         {

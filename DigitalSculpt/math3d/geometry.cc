@@ -1,4 +1,5 @@
 #include <cmath>
+#include "glm/gtx/norm.hpp"
 #include "math3d/glm_extension.h"
 #include "math3d/geometry.h"
 

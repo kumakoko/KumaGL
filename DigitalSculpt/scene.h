@@ -6,6 +6,8 @@
 
 #include "glm/mat4x4.hpp"
 
+#include "../klib/kgl_image_file_reader.h"
+
 #include "misc/enums.h"
 #include "mesh/mesh.h"
 #include "math3d/camera.h"
@@ -74,8 +76,8 @@ namespace DigitalSculpt
         bool _autoMatrix;// = opts.scalecenter; // scale and center the imported meshes
         bool _vertexSRGB = true; // srgb vs linear colorspace for vertex color
 
-    public:
         Scene();
+    public:
 
         void start();
 
@@ -252,7 +254,7 @@ namespace DigitalSculpt
 
         void duplicateSelection();
 
-        void onLoadAlphaImage(img, name, tool);
+        void onLoadAlphaImage(const kgl::ImageFileReader& img, name, tool);
     };
 
     typedef std::shared_ptr<Scene> SceneSPtr;

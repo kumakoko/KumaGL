@@ -27,16 +27,18 @@ namespace DigitalSculpt
         static void InitSTACK(); // 本八叉树节点的子节点列表
         static bool _IsSTACKinit;
     public:
+        static std::uint32_t FLAG;
+        static std::uint32_t MAX_DEPTH;
+        static std::uint32_t MAX_FACES;
+        static std::vector<OctreeCell*> STACK;
+    public:
         int _depth = 0; // 本八叉树节点在树的第几层，如果是根节点，则在第0层，其余类推
         SixElemArray _aabbLoose;
         SixElemArray _aabbSplit;
         // 如果本节点是一个叶子节点的话，那么就会存储着归属于本节点的面的id信息
         std::vector<std::uint32_t> _iFaces;// = nullptr;//[]; // faces (if cell is a leaf)
         std::int32_t _flag = 0; // to track deleted cell
-        static std::uint32_t FLAG;
-        static std::uint32_t MAX_DEPTH;
-        static std::uint32_t MAX_FACES;
-        static std::vector<OctreeCell*> STACK;
+        
   
         /******************************************************************************************************************
          * Desc: 
@@ -80,8 +82,30 @@ namespace DigitalSculpt
          void constructChildren(Mesh* mesh);
 
     public:
+        /***************************************************
+        
+        @name: DigitalSculpt::OctreeCell::setAabbSplit
+        @return: void
+        @param: float xmin
+        @param: float ymin
+        @param: float zmin
+        @param: float xmax
+        @param: float ymax
+        @param: float zmax
+        ***************************************************/
         void setAabbSplit(float xmin, float ymin, float zmin, float xmax, float ymax, float zmax);
 
+        /***************************************************
+        
+        @name: DigitalSculpt::OctreeCell::setAabbLoose
+        @return: void
+        @param: float xmin
+        @param: float ymin
+        @param: float zmin
+        @param: float xmax
+        @param: float ymax
+        @param: float zmax
+        ***************************************************/
         void setAabbLoose(float xmin, float ymin, float zmin, float xmax, float ymax, float zmax);
 
         /******************************************************************************************************************

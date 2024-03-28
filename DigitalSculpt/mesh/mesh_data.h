@@ -4,8 +4,8 @@
 #include <cstdint>
 #include <memory>
 #include <array>
-#include "./misc/utils.h"
-#include "./misc/array_nd.h"
+#include "misc/utils.h"
+#include "misc/array_nd.h"
 #include "math3d/octree_cell.h"
 
 namespace DigitalSculpt

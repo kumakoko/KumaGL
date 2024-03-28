@@ -34,6 +34,14 @@ namespace DigitalSculpt
             return target;
         }
 
+        /***************************************************
+        
+        @name: DigitalSculpt::GlmExtension::rotateY
+        @return: glm::quat&
+        @param: glm::quat & target
+        @param: const glm::quat & src
+        @param: const float rotateYAngle
+        ***************************************************/
         static glm::quat& rotateY(glm::quat& target, const glm::quat& src, const float rotateYAngle)
         {
             glm::quat qY = glm::angleAxis(rotateYAngle, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -41,6 +49,13 @@ namespace DigitalSculpt
             return target;
         }
 
+        /***************************************************
+        
+        @name: DigitalSculpt::GlmExtension::negate
+        @return: glm::vec3&
+        @param: glm::vec3 & target
+        @param: const glm::vec3 & src
+        ***************************************************/
         static glm::vec3& negate(glm::vec3& target, const glm::vec3& src)
         {
             target.x = -src.x;
@@ -49,6 +64,15 @@ namespace DigitalSculpt
             return target;
         }
 
+        /***************************************************
+        
+        @name: DigitalSculpt::GlmExtension::set
+        @return: glm::vec3&
+        @param: glm::vec3 & out
+        @param: float x
+        @param: float y
+        @param: float z
+        ***************************************************/
         static glm::vec3& set(glm::vec3& out, float x, float y, float z)
         {
             out.x = x;
@@ -57,6 +81,15 @@ namespace DigitalSculpt
             return out;
         }
 
+        /***************************************************
+        
+        @name: DigitalSculpt::GlmExtension::scaleAndAdd
+        @return: glm::vec3&
+        @param: glm::vec3 & out
+        @param: const glm::vec3 & a
+        @param: const glm::vec3 & b
+        @param: float scale
+        ***************************************************/
         static glm::vec3& scaleAndAdd(glm::vec3& out, const glm::vec3& a, const glm::vec3& b, float scale)
         {
             out[0] = a[0] + b[0] * scale;

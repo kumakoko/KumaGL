@@ -620,18 +620,23 @@ namespace DigitalSculpt
 
     void Scene::removeMeshes(std::vector<MeshSPtr>& rm)
     {
-        var meshes = _meshes;
-        for (var i = 0; i < rm.length; ++i)
-            meshes.splice(getIndexMesh(rm[i]), 1);
+        //var meshes = _meshes;
+        std::size_t len = rm.size();
+        for (var i = 0; i < len; ++i)
+        {
+            Utils::splice(_meshes, getIndexMesh(rm[i]), 1);
+            //meshes.splice(getIndexMesh(rm[i]), 1);
+        }
     }
 
     std::int32_t Scene::getIndexMesh(MeshSPtr mesh, bool select)
     {
-        var meshes = select ? _selectMeshes : _meshes;
-        var id = mesh.getID();
-        for (var i = 0, nbMeshes = meshes.length; i < nbMeshes; ++i) {
-            var testMesh = meshes[i];
-            if (testMesh == mesh || testMesh.getID() == id)
+        std::vector<MeshSPtr>& meshes = select ? _selectMeshes : _meshes;
+        std::uint32_t id = mesh->getID();
+        std::size_t nbMeshes = meshes.size();
+        for (std::size_t i = 0; i < nbMeshes; ++i)
+        {
+            if (meshes[i] == mesh || meshes[i]->getID() == id)
                 return i;
         }
         return -1;
@@ -641,9 +646,12 @@ namespace DigitalSculpt
     /** Replace a mesh in the scene */
     void Scene::replaceMesh(MeshSPtr mesh, MeshSPtr newMesh)
     {
-        var index = getIndexMesh(mesh);
-        if (index >= 0) _meshes[index] = newMesh;
-        if (_mesh == mesh) setMesh(newMesh);
+        std::int32_t index = getIndexMesh(mesh);
+        
+        if (index >= 0) 
+            _meshes[index] = newMesh;
+        if (_mesh == mesh)
+            setMesh(newMesh);
     }
 
     void Scene::duplicateSelection()
@@ -661,8 +669,9 @@ namespace DigitalSculpt
         setMesh(mesh);
     }
 
-    void Scene::onLoadAlphaImage(img, name, tool)
+    void Scene::onLoadAlphaImage(const kgl::ImageFileReader& img, name, tool)
     {
+        /*
         var can = document.createElement('canvas');
         can.width = img.width;
         can.height = img.height;
@@ -681,5 +690,7 @@ namespace DigitalSculpt
         getGui().addAlphaOptions(entry);
         if (tool && tool._ctrlAlpha)
             tool._ctrlAlpha.setValue(name);
+
+        */
     }
 }

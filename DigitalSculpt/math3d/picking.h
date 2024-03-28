@@ -25,41 +25,30 @@ namespace DigitalSculpt
     public:
         static constexpr const char* INIT_ALPHAS_NAMES[] = { "alphaSquare", "alphaSkin" };
         static constexpr const char* INIT_ALPHAS_PATHS[] = { "asquare.jpg", "skin.jpg" };
-
-        static void readAlphas();
-
         static std::map<std::string, AlphaInfo*> ALPHAS;
+    public:
+        static void readAlphas();
+        static AlphaInfo* addAlpha(kgl::TextureSPtr u8, float width, float height, const std::string& name);
     private:
-        Mesh* _mesh = null; // mesh
-        Scene* _main = main; // the camera
-        std::int32_t _pickedFace;// = -1; // face picked
+        Mesh* _mesh; // mesh
+        Scene* _main; // the camera
+        AlphaInfo* _alpha;// = null;
         Uint32Array _pickedVertices;// = []; // vertices selected
-        glm::vec3 _interPoint;// = [0.0, 0.0, 0.0]; // intersection point (mesh local space)
+        std::int32_t _pickedFace;// = -1; // face picked
+        bool _xSym;// = !!xSym;
+        float _alphaSide;// = 0.0;
         float _rLocal2;// = 0.0; // radius of the selection area (local/object space)
         float _rWorld2;// = 0.0; // radius of the selection area (world space)
-        glm::vec3  _eyeDir;// = [0.0, 0.0, 0.0]; // eye direction
-
-        bool _xSym;// = !!xSym;
-
         glm::vec3 _pickedNormal;// = [0.0, 0.0, 0.0];
-        // alpha stuffs
-        glm::vec3 _alphaOrigin;// = [0.0, 0.0, 0.0];
-        float _alphaSide;// = 0.0;
+        glm::vec3 _alphaOrigin;// = [0.0, 0.0, 0.0]; // alpha stuffs
         glm::mat4 _alphaLookAt;// = mat4.create();
-        AlphaInfo* _alpha;// = null;
+        glm::vec3 _interPoint;// = [0.0, 0.0, 0.0]; // intersection point (mesh local space)
+        glm::vec3  _eyeDir;// = [0.0, 0.0, 0.0]; // eye direction
     public:
-        static AlphaInfo* addAlpha(kgl::TextureSPtr u8, float width, float height, const std::string& name);
-
-        Picking(Scene* main, bool xSym);
-
         inline void setIdAlpha(const std::string& id)
         {
             _alpha = Picking::ALPHAS[id];
         }
-
-        float getAlpha(float x, float  y, float  z);
-
-        void updateAlpha(bool keepOrigin);
 
         inline void initAlpha()
         {
@@ -146,6 +135,33 @@ namespace DigitalSculpt
         {
             return _pickedNormal;
         }
+
+        /***************************************************
+        
+        @name: DigitalSculpt::Picking::Picking
+        @return: 
+        @param: Scene * main
+        @param: bool xSym
+        ***************************************************/
+        Picking(Scene* main, bool xSym);
+
+        /***************************************************
+        
+        @name: DigitalSculpt::Picking::getAlpha
+        @return: float
+        @param: float x
+        @param: float y
+        @param: float z
+        ***************************************************/
+        float getAlpha(float x, float  y, float  z);
+
+        /***************************************************
+        
+        @name: DigitalSculpt::Picking::updateAlpha
+        @return: void
+        @param: bool keepOrigin
+        ***************************************************/
+        void updateAlpha(bool keepOrigin);
 
         /******************************************************************************************************************
          * Desc:

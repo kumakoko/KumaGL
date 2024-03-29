@@ -4,9 +4,10 @@
 #include <memory>
 #include <vector>
 
-#include "glm/mat4x4.hpp"
-
 #include "../klib/kgl_image_file_reader.h"
+#include "glm/mat4x4.hpp"
+#include "boost/intrusive_ptr.hpp"
+#include "reference_counter.h"
 
 #include "misc/enums.h"
 #include "mesh/mesh.h"
@@ -21,7 +22,7 @@
 
 namespace DigitalSculpt
 {
-    class Scene
+    class Scene : public ReferenceCounter
     {
     protected:
         //this->_gl = null; // webgl context
@@ -78,6 +79,7 @@ namespace DigitalSculpt
 
         Scene();
     public:
+        virtual ~Scene();
 
         void start();
 
@@ -257,7 +259,7 @@ namespace DigitalSculpt
         void onLoadAlphaImage(const kgl::ImageFileReader& img, name, tool);
     };
 
-    typedef std::shared_ptr<Scene> SceneSPtr;
+    typedef boost::intrusive_ptr<Scene> SceneSPtr;
 }
 
 #endif // digital_sculpt_scene_h__

@@ -55,6 +55,10 @@ namespace DigitalSculpt
         _vertexSRGB = true; // srgb vs linear colorspace for vertex color
     }
 
+    Scene::~Scene()
+    {
+    }
+
     void Scene::start()
     {
         _sculptManager = new SculptManager(this);

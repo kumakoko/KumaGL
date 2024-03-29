@@ -234,6 +234,9 @@
     <ClCompile Include="drawables\back_ground.cc">
       <Filter>源文件\drawables</Filter>
     </ClCompile>
+    <ClCompile Include="reference_counter.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h">
@@ -430,6 +433,9 @@
     </ClInclude>
     <ClInclude Include="render\view_port.h">
       <Filter>头文件\render</Filter>
+    </ClInclude>
+    <ClInclude Include="reference_counter.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

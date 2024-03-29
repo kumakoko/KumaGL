@@ -55,13 +55,13 @@ namespace DigitalSculpt
 
     void Selection::_updateMatricesBackground(Camera* camera, Scene* main)
     {
-        float screenRadius = main->getSculptManager().getCurrentTool().getScreenRadius();
+        float screenRadius = main->getSculptManager()->getCurrentTool()->getScreenRadius();
         float w = camera->_width * 0.5f;
         float h = camera->_height * 0.5f;
         // no need to recompute the ortho proj each time though
         _TMP_MATPV = glm::ortho(-w, w, -h, h, -10.0f, 10.0f);//mat4.ortho(_TMP_MATPV, -w, w, -h, h, -10.0, 10.0);
 
-        _TMP_MAT = glm::identity();// mat4.identity(_TMP_MAT);
+        _TMP_MAT = glm::identity<glm::mat4>();// mat4.identity(_TMP_MAT);
         _TMP_VEC.x = -w + main->_mouseX + _offsetX;
         _TMP_VEC.y = h - main->_mouseY;
         _TMP_VEC.z = 0.0f;
@@ -90,7 +90,7 @@ namespace DigitalSculpt
         Picking* picking = main->getPicking();
         Picking* pickingSym = main->getPickingSymmetry();
         float worldRadius = std::sqrt(picking->computeWorldRadius2(true));
-        float screenRadius = main->getSculptManager().getCurrentTool().getScreenRadius();
+        float screenRadius = main->getSculptManager()->getCurrentTool()->getScreenRadius();
 
         Mesh* mesh = picking->getMesh();
         float constRadius = DOT_RADIUS * (worldRadius / screenRadius);

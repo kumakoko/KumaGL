@@ -63,5 +63,7 @@ namespace DigitalSculpt
         /** Compute the detail vectors */
         void computeDetails(Float32Array& subdVerts, Float32Array& subdColors, Float32Array& subdMaterials, Float32Array& nbVerticesUp);
     };
+    
+    typedef std::shared_ptr<MeshResolution> MeshResolutionSPtr;
 }
 #endif // digital_sculpt_mesh_resolution_h__

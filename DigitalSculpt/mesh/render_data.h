@@ -23,13 +23,13 @@ namespace DigitalSculpt
         kgl::TextureSPtr _texture0;//: null,
 
         bool _useDrawArrays;// : false,
-        Buffer* _vertexBuffer;// : new Buffer(gl, gl.ARRAY_BUFFER, gl.DYNAMIC_DRAW),
-        Buffer* _normalBuffer;// : new Buffer(gl, gl.ARRAY_BUFFER, gl.DYNAMIC_DRAW),
-        Buffer* _colorBuffer;// : new Buffer(gl, gl.ARRAY_BUFFER, gl.DYNAMIC_DRAW),
-        Buffer* _materialBuffer;//: new Buffer(gl, gl.ARRAY_BUFFER, gl.DYNAMIC_DRAW),
-        Buffer* _texCoordBuffer;// : new Buffer(gl, gl.ARRAY_BUFFER, gl.STATIC_DRAW),
-        Buffer* _indexBuffer;// : new Buffer(gl, gl.ELEMENT_ARRAY_BUFFER, gl.STATIC_DRAW),
-        Buffer* _wireframeBuffer;//: new Buffer(gl, gl.ELEMENT_ARRAY_BUFFER, gl.STATIC_DRAW),
+        BufferSPtr _vertexBuffer;// : new Buffer(gl, gl.ARRAY_BUFFER, gl.DYNAMIC_DRAW),
+        BufferSPtr _normalBuffer;// : new Buffer(gl, gl.ARRAY_BUFFER, gl.DYNAMIC_DRAW),
+        BufferSPtr _colorBuffer;// : new Buffer(gl, gl.ARRAY_BUFFER, gl.DYNAMIC_DRAW),
+        BufferSPtr _materialBuffer;//: new Buffer(gl, gl.ARRAY_BUFFER, gl.DYNAMIC_DRAW),
+        BufferSPtr _texCoordBuffer;// : new Buffer(gl, gl.ARRAY_BUFFER, gl.STATIC_DRAW),
+        BufferSPtr _indexBuffer;// : new Buffer(gl, gl.ELEMENT_ARRAY_BUFFER, gl.STATIC_DRAW),
+        BufferSPtr _wireframeBuffer;//: new Buffer(gl, gl.ELEMENT_ARRAY_BUFFER, gl.STATIC_DRAW),
 
         // these material values overrides the vertex attributes
         // it's here for debug or preview

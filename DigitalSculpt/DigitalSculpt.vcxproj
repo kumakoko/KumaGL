@@ -129,6 +129,7 @@
     <ClCompile Include="mesh\multi_resolution\multi_mesh.cc" />
     <ClCompile Include="mesh\render_data.cc" />
     <ClCompile Include="misc\utils.cc" />
+    <ClCompile Include="reference_counter.cc" />
     <ClCompile Include="render\attribute.cc" />
     <ClCompile Include="render\buffer.cc" />
     <ClCompile Include="render\shaders\shader_background.cc" />
@@ -187,6 +188,7 @@
     <ClInclude Include="misc\array_nd.h" />
     <ClInclude Include="misc\enums.h" />
     <ClInclude Include="misc\utils.h" />
+    <ClInclude Include="reference_counter.h" />
     <ClInclude Include="render\attribute.h" />
     <ClInclude Include="render\buffer.h" />
     <ClInclude Include="render\canvas.h" />

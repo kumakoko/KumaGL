@@ -4,6 +4,9 @@
 #include <memory>
 #include "glm/vec3.hpp"
 #include "glm/mat4x4.hpp"
+#include "boost/intrusive_ptr.hpp"
+#include "reference_counter.h"
+
 #include "mesh/mesh_data.h"
 #include "mesh/transform_data.h"
 #include "mesh/render_data.h"
@@ -40,7 +43,7 @@ namespace DigitalSculpt
     extern float DEF_ROUGHNESS = 0.18; // 0.18;
     extern float DEF_METALNESS = 0.08; // 0.08;
 
-    class Mesh
+    class Mesh : public ReferenceCounter
     {
     protected:
         static bool OPTIMIZE;
@@ -62,6 +65,8 @@ namespace DigitalSculpt
             _renderData = null;
             _isVisible = true;
         }
+
+        virtual ~Mesh();
 
         static float sortFunction(const Mesh& meshA, const Mesh& meshB)
         {
@@ -998,8 +1003,9 @@ namespace DigitalSculpt
             return _renderData->_shaderType == Enums::Shader::UV || _renderData->_shaderType == Enums::Shader::PAINTUV;
         }
 
-        inline bool isTransparent() const {
-            return _renderData->_alpha < 0.99;
+        inline bool isTransparent() const 
+        {
+            return _renderData->_alpha < 0.99f;
         }
 
         inline int getShaderType() const
@@ -1012,9 +1018,9 @@ namespace DigitalSculpt
         void initRender();
 
         /***************************** render相关的模块 begin *****************************/
-        void render(Scene* main);
+        virtual void render(Scene* main);
 
-        void renderWireframe(Scene* main);
+        virtual void renderWireframe(Scene* main);
 
         void renderFlatColor(Scene* main);
         /***************************** render相关的模块 end *****************************/
@@ -1058,7 +1064,7 @@ namespace DigitalSculpt
         /***************************** update buffer相关的模块 begin *****************************/
     };
 
-    typedef std::shared_ptr<Mesh> MeshSPtr;
+    typedef boost::intrusive_ptr<Mesh> MeshSPtr;
 }
 
 #endif // mesh_h__

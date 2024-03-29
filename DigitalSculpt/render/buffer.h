@@ -1,15 +1,18 @@
 #ifndef digital_sculpt_buffer_h__
 #define digital_sculpt_buffer_h__
 
-#include "../klib/kgl_lib_pch.h"
-#include "misc/utils.h"
 #include <memory>
 #include <cstdint>
 #include <vector>
 
+#include "boost/intrusive_ptr.hpp"
+#include "reference_counter.h"
+#include "../klib/kgl_lib_pch.h"
+#include "misc/utils.h"
+
 namespace DigitalSculpt
 {
-    class Buffer
+    class Buffer : public ReferenceCounter
     {
     public:
         /******************************************************************************************************************
@@ -26,7 +29,7 @@ namespace DigitalSculpt
          * Method:    ~Buffer
          * Returns:
          ****************************************************************************************************************/
-        ~Buffer();
+        virtual ~Buffer();
 
         /******************************************************************************************************************
          * Desc:
@@ -82,7 +85,7 @@ namespace DigitalSculpt
         size_t _size; // Size of the buffer in bytes
     };
 
-    typedef std::shared_ptr<Buffer> BufferSPtr;
+    typedef boost::intrusive_ptr<Buffer> BufferSPtr;
 }
 
 #endif // digital_sculpt_buffer_h__

@@ -13,6 +13,11 @@ namespace DigitalSculpt
     bool Mesh::OPTIMIZE = true;
     int Mesh::ID = 0;
 
+    Mesh::~Mesh()
+    {
+
+    }
+
     void Mesh::setVertices(const Float32Array& vAr)
     {
         _meshData->_verticesXYZ.clear();

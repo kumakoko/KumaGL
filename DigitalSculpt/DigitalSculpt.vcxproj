@@ -14,14 +14,13 @@
     <ProjectGuid>{C5DB148E-5747-4B4D-9251-67B6A17FAB8D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>MyDigitalSculpt</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -61,10 +60,10 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);$(IMGUI_HEADER);../klib;./;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);$(IMGUI_HEADER);../klib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -101,125 +100,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="digital_sculpt_app.cc" />
-    <ClCompile Include="drawables\back_ground.cc" />
-    <ClCompile Include="drawables\rtt.cc" />
-    <ClCompile Include="drawables\selection.cc" />
-    <ClCompile Include="editing\gizmo.cc" />
-    <ClCompile Include="editing\hole_filling.cc" />
-    <ClCompile Include="editing\marching_cubes.cc" />
-    <ClCompile Include="editing\remesh.cc" />
-    <ClCompile Include="editing\reversion.cc" />
-    <ClCompile Include="editing\sculpt_manager.cc" />
-    <ClCompile Include="editing\subdivision.cc" />
-    <ClCompile Include="editing\surface_nets.cc" />
-    <ClCompile Include="editing\tools\sculpt_base.cc" />
     <ClCompile Include="main.cc" />
-    <ClCompile Include="math3d\alpha_info.cc" />
-    <ClCompile Include="math3d\camera.cc" />
-    <ClCompile Include="math3d\geometry.cc" />
-    <ClCompile Include="math3d\octree_cell.cc" />
-    <ClCompile Include="math3d\picking.cc" />
-    <ClCompile Include="mesh\mesh.cc" />
-    <ClCompile Include="mesh\mesh_octree.cc" />
-    <ClCompile Include="mesh\mesh_render.cc" />
-    <ClCompile Include="mesh\mesh_render_data.cc" />
-    <ClCompile Include="mesh\mesh_transform_data.cc" />
-    <ClCompile Include="mesh\mesh_update_buffer.cc" />
-    <ClCompile Include="mesh\multi_resolution\mesh_resolution.cc" />
-    <ClCompile Include="mesh\multi_resolution\multi_mesh.cc" />
-    <ClCompile Include="mesh\render_data.cc" />
-    <ClCompile Include="misc\utils.cc" />
     <ClCompile Include="reference_counter.cc" />
-    <ClCompile Include="render\attribute.cc" />
-    <ClCompile Include="render\buffer.cc" />
-    <ClCompile Include="render\shaders\shader_background.cc" />
-    <ClCompile Include="render\shaders\shader_base.cc" />
-    <ClCompile Include="render\shaders\shader_blur.cc" />
-    <ClCompile Include="render\shaders\shader_contour.cc" />
-    <ClCompile Include="render\shaders\shader_flat.cc" />
-    <ClCompile Include="render\shaders\shader_fxaa.cc" />
-    <ClCompile Include="render\shaders\shader_matcap.cc" />
-    <ClCompile Include="render\shaders\shader_merge.cc" />
-    <ClCompile Include="render\shaders\shader_normal.cc" />
-    <ClCompile Include="render\shaders\shader_paintuv.cc" />
-    <ClCompile Include="render\shaders\shader_pbr.cc" />
-    <ClCompile Include="render\shader_lib.cc" />
-    <ClCompile Include="scene.cc" />
-    <ClCompile Include="states\state_add_remove.cc" />
-    <ClCompile Include="states\state_color_and_material.cc" />
-    <ClCompile Include="states\state_custom.cc" />
-    <ClCompile Include="states\state_dynamic.cc" />
-    <ClCompile Include="states\state_geometry.cc" />
-    <ClCompile Include="states\state_manager.cc" />
-    <ClCompile Include="states\state_multi_resolution.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h" />
-    <ClInclude Include="drawables\back_ground.h" />
-    <ClInclude Include="drawables\rtt.h" />
-    <ClInclude Include="drawables\selection.h" />
-    <ClInclude Include="editing\gizmo.h" />
-    <ClInclude Include="editing\hole_filling.h" />
-    <ClInclude Include="editing\marching_cubes.h" />
-    <ClInclude Include="editing\remesh.h" />
-    <ClInclude Include="editing\reversion.h" />
-    <ClInclude Include="editing\sculpt_manager.h" />
-    <ClInclude Include="editing\subdivision.h" />
-    <ClInclude Include="editing\surface_nets.h" />
-    <ClInclude Include="editing\tools\sculpt_base.h" />
-    <ClInclude Include="editing\voxels.h" />
-    <ClInclude Include="math3d\alpha_info.h" />
-    <ClInclude Include="math3d\camera.h" />
-    <ClInclude Include="math3d\geometry.h" />
-    <ClInclude Include="math3d\glm_extension.h" />
-    <ClInclude Include="math3d\octree_cell.h" />
-    <ClInclude Include="math3d\picking.h" />
-    <ClInclude Include="mesh\cache_store_info.h" />
-    <ClInclude Include="mesh\mesh.h" />
-    <ClInclude Include="mesh\mesh_atrribute.h" />
-    <ClInclude Include="mesh\mesh_data.h" />
-    <ClInclude Include="mesh\mesh_static\mesh_static.h" />
-    <ClInclude Include="mesh\multi_resolution\mesh_resolution.h" />
-    <ClInclude Include="mesh\multi_resolution\multi_mesh.h" />
-    <ClInclude Include="mesh\render_data.h" />
-    <ClInclude Include="mesh\transform_data.h" />
-    <ClInclude Include="misc\array_1d.h" />
-    <ClInclude Include="misc\array_2d.h" />
-    <ClInclude Include="misc\array_nd.h" />
-    <ClInclude Include="misc\enums.h" />
-    <ClInclude Include="misc\utils.h" />
     <ClInclude Include="reference_counter.h" />
-    <ClInclude Include="render\attribute.h" />
-    <ClInclude Include="render\buffer.h" />
-    <ClInclude Include="render\canvas.h" />
-    <ClInclude Include="render\shaders\glsl\glsl_color_space.h" />
-    <ClInclude Include="render\shaders\glsl\glsl_curvature.h" />
-    <ClInclude Include="render\shaders\glsl\glsl_fxaa.h" />
-    <ClInclude Include="render\shaders\glsl\glsl_main_background.h" />
-    <ClInclude Include="render\shaders\glsl\glsl_outline.h" />
-    <ClInclude Include="render\shaders\glsl\glsl_pbr.h" />
-    <ClInclude Include="render\shaders\shader_background.h" />
-    <ClInclude Include="render\shaders\shader_base.h" />
-    <ClInclude Include="render\shaders\shader_blur.h" />
-    <ClInclude Include="render\shaders\shader_contour.h" />
-    <ClInclude Include="render\shaders\shader_flat.h" />
-    <ClInclude Include="render\shaders\shader_fxaa.h" />
-    <ClInclude Include="render\shaders\shader_matcap.h" />
-    <ClInclude Include="render\shaders\shader_merge.h" />
-    <ClInclude Include="render\shaders\shader_normal.h" />
-    <ClInclude Include="render\shaders\shader_paintuv.h" />
-    <ClInclude Include="render\shaders\shader_pbr.h" />
-    <ClInclude Include="render\shader_lib.h" />
-    <ClInclude Include="render\view_port.h" />
-    <ClInclude Include="scene.h" />
-    <ClInclude Include="states\state.h" />
-    <ClInclude Include="states\state_add_remove.h" />
-    <ClInclude Include="states\state_color_and_material.h" />
-    <ClInclude Include="states\state_custom.h" />
-    <ClInclude Include="states\state_dynamic.h" />
-    <ClInclude Include="states\state_geometry.h" />
-    <ClInclude Include="states\state_manager.h" />
-    <ClInclude Include="states\state_multi_resolution.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

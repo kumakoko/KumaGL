@@ -35,6 +35,10 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include "../klib/kgl_gpu_program.h"
 #include "../klib/kgl_primitive.h"
 #include "../klib/kgl_source_texture.h"
+#include "../klib/kgl_basic_static_mesh.h"
+#include "../klib/kgl_font_renderer.h"
+#include "../klib/kgl_render_state_blend.h"
+#include "../klib/kgl_render_state_depth.h"
 
 class DigitalSculptApp : public kgl::App
 {
@@ -44,31 +48,17 @@ public:
     virtual void InitScene()  override;
 protected:
     virtual void RenderScene() override;
-    virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
-    virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
     virtual void ProcessInput() override;
-    void RenderBeatHeart();
-    void RenderColorfulRing();
-    void RenderMobius();
-    void RenderSun();
-    void RenderJapanFlag();
-    void RenderChinaFlag();
+    virtual void InitModel() override;
+    virtual void InitShaders() override;
+    virtual void InitMainCamera() override;
+    virtual void RenderGUI() override;
 private:
-    kgl::GPUProgram*        colorful_ring_shader_;
-    kgl::GPUProgram*        heart_beat_shader_;
-    kgl::GPUProgram*        mobius_shader_;
-    kgl::GPUProgram*        sun_shader_;
-    kgl::GPUProgram*        japan_flag_shader_;
-    kgl::GPUProgram*        china_flag_shader_;
-    kgl::Primitive*         rectangle_primitive_;
-    kgl::SourceTextureSPtr  texture_1_;
-    kgl::SourceTextureSPtr  texture_2_;
-    kgl::SourceTextureSPtr  texture_rock_;
-    glm::vec2               screen_resolution_;
-    glm::vec2               mouse_input_pos_;
-    int                     current_effect_index_;      // 当前要渲染的效果
-    int                     effect_count_;              // 待渲染的效果的总数
-    float                   china_flag_scale_ = 150.0f;
+    kgl::GPUProgramSPtr         model_shader_;
+    kgl::BasicStaticMesh* model_;
+    kgl::RenderStateDepth       rs_depth_;
+    kgl::RenderStateBlend       rs_blend_;
+    float                       box_scale_factor_ = 1.0f;
 };
 
 #endif // digital_sculpt_app_h__

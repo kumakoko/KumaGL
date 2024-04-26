@@ -101,10 +101,12 @@
   <ItemGroup>
     <ClCompile Include="digital_sculpt_app.cc" />
     <ClCompile Include="main.cc" />
+    <ClCompile Include="mesh_data.cc" />
     <ClCompile Include="reference_counter.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h" />
+    <ClInclude Include="mesh_data.h" />
     <ClInclude Include="reference_counter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -94,13 +94,13 @@ void DigitalSculptApp::RenderScene()
 
 void DigitalSculptApp::RenderGUI()
 {
-    const glm::vec3& camera_pos = main_camera_->GetPosition();
+    /*const glm::vec3& camera_pos = main_camera_->GetPosition();
     ImGui::Begin("009 Assimp -- 使用Assimp库装载模型");
     ImGui::Text("FPS : %.1f", ImGui::GetIO().Framerate);
     ImGui::Text("按WSADUJ键向前后左右上下移动摄像机");
     ImGui::Text("摄像机坐标: (%.1f,%.1f,%.1f)", camera_pos.x, camera_pos.y, camera_pos.z);
     ImGui::SliderFloat("缩放系数值", &box_scale_factor_, 0.1f, 2.0f);
-    ImGui::End();
+    ImGui::End();*/
 }
 
 void DigitalSculptApp::ProcessInput()

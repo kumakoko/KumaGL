@@ -1,16 +1,3 @@
-/*!
- * \file pixel_magic_app.h
- * \date 2017/12/31 15:26
- *
- * \author www.xionggf.com
- * Contact: sun_of_lover@sina.com
- *
- * \brief 
- *
- * TODO: long description
- *
- * \note
-*/
 /**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 

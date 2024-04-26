@@ -24,12 +24,18 @@
     <ClCompile Include="reference_counter.cc">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="mesh_data.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="reference_counter.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh_data.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

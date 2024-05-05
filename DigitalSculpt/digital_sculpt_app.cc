@@ -23,14 +23,15 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include "../klib/kgl_vertex_type.h"
 #include "../klib/kgl_texture_manager.h"
 
-DigitalSculptApp::DigitalSculptApp() :model_(nullptr)
+DigitalSculptApp::DigitalSculptApp()/* :model_(nullptr)*/
 {
 
 }
 
 DigitalSculptApp::~DigitalSculptApp()
 {
-    KGL_SAFE_DELETE(model_);
+    mesh_data_.Clear();
+  //  KGL_SAFE_DELETE(model_);
     model_shader_.reset();
 }
 
@@ -58,8 +59,9 @@ void DigitalSculptApp::InitMainCamera()
 void DigitalSculptApp::InitModel()
 {
     const char* model_path = "resources/model/box2/box.obj";
-    model_ = new kgl::BasicStaticMesh;
-    model_->LoadMesh(std::string(model_path));
+    //model_ = new kgl::BasicStaticMesh;
+    //model_->LoadMesh(std::string(model_path));
+    mesh_data_.LoadMesh(std::string(model_path));
 }
 
 void DigitalSculptApp::InitShaders()
@@ -89,7 +91,8 @@ void DigitalSculptApp::RenderScene()
     model_shader_->ApplyMatrix(glm::value_ptr(model_matrix), "model_matrix");
     model_shader_->ApplyMatrix(glm::value_ptr(view_matrix), "view_matrix");
     model_shader_->ApplyMatrix(glm::value_ptr(projection_matrix), "projection_matrix");
-    model_->Render();
+    //model_->Render();
+    mesh_data_.Render();
 }
 
 void DigitalSculptApp::RenderGUI()

@@ -27,6 +27,8 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include "../klib/kgl_render_state_blend.h"
 #include "../klib/kgl_render_state_depth.h"
 
+#include "mesh_data.h"
+
 class DigitalSculptApp : public kgl::App
 {
 public:
@@ -41,11 +43,12 @@ protected:
     virtual void InitMainCamera() override;
     virtual void RenderGUI() override;
 private:
-    kgl::GPUProgramSPtr         model_shader_;
-    kgl::BasicStaticMesh* model_;
-    kgl::RenderStateDepth       rs_depth_;
-    kgl::RenderStateBlend       rs_blend_;
-    float                       box_scale_factor_ = 1.0f;
+    kgl::GPUProgramSPtr     model_shader_;
+    //kgl::BasicStaticMesh*   model_;
+    DigitalSculpt::MeshData mesh_data_;
+    kgl::RenderStateDepth   rs_depth_;
+    kgl::RenderStateBlend   rs_blend_;
+    float                   box_scale_factor_ = 1.0f;
 };
 
 #endif // digital_sculpt_app_h__

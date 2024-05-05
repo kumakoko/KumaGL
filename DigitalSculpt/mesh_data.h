@@ -7,6 +7,22 @@ namespace DigitalSculpt
 {
     class MeshData
     {
+    private:
+        struct BasicMeshEntry
+        {
+            BasicMeshEntry()
+            {
+                NumIndices = 0;
+                BaseVertex = 0;
+                BaseIndex = 0;
+                MaterialIndex = INVALID_MATERIAL;
+            }
+
+            std::uint32_t NumIndices;
+            std::uint32_t BaseVertex;
+            std::uint32_t BaseIndex;
+            std::uint32_t MaterialIndex;
+        };
     public:
         std::vector<glm::vec3> positions_;
         std::vector<glm::vec3> normals_;
@@ -14,9 +30,73 @@ namespace DigitalSculpt
         std::vector<std::uint32_t> indices_;
     public:
         bool LoadMesh(const std::string& file_name);
+        void Clear();
+        void Render();
     private:
         bool InitFromAssetScene(const aiScene* scene, const std::string& file_name);
-        void InitMesh(const aiMesh* mesh)
+        void InitMesh(const aiMesh* mesh);
+    private:
+        /// <summary>
+        /// vertex attribute object
+        /// </summary>
+        GLuint  vao_;
+
+        /// <summary>
+        /// 用来存储vertex attribute描述字段的六个buffer
+        /// </summary>
+        GLuint  vertex_attribute_buffers_[6];
+
+        std::vector<BasicMeshEntry> entries_;
+    private:
+        /// <summary>
+        /// 无效的材质索引
+        /// </summary>
+        static const int INVALID_MATERIAL = 0xFFFFFFFF;
+
+        /// <summary>
+        /// vertex_attribute_buffers_数组中，顶点索引的attribute buffer排第0位
+        /// </summary>
+        static const int INDEX_BUFFER = 0;
+
+        /// <summary>
+        /// vertex_attribute_buffers_数组中，顶点位置坐标的attribute buffer排第1位
+        /// </summary>
+        static const int POS_VB = 1;
+
+        /// <summary>
+        /// vertex_attribute_buffers_数组中，顶点法线的attribute buffer排第2位
+        /// </summary>
+        static const int NORMAL_VB = 2;
+
+        /// <summary>
+        /// vertex_attribute_buffers_数组中，顶点第一层纹理坐标的attribute buffer排第3位
+        /// </summary>
+        static const int TEXCOORD_VB = 3;
+
+        /// <summary>
+        /// vertex_attribute_buffers_数组中，顶点的wvp变换矩阵的attribute buffer排第4位
+        /// </summary>
+        static const int WVP_MAT_VB = 4;
+
+        /// <summary>
+        /// vertex_attribute_buffers_数组中，顶点的world矩阵的attribute buffer排第4位
+        /// </summary>
+        static const int WORLD_MAT_VB = 5;
+
+        /// <summary>
+        /// 在vertex shader中，顶点中的position的layout值为0
+        /// </summary>
+        static const int POSITION_LOCATION = 0;
+
+        /// <summary>
+        /// 在vertex shader中，顶点中的第一层纹理映射坐标的layout值为1
+        /// </summary>
+        static const int TEX_COORD_LOCATION = 1;
+
+        /// <summary>
+        /// T在vertex shader中，顶点中的法线值的layout值为1
+        /// </summary>
+        static const int NORMAL_LOCATION = 2;
     };
 }
 #endif // mesh_data_h__

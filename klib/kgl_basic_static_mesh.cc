@@ -130,22 +130,22 @@ namespace kgl
 
 		// 顶点的position，texture coord1，normal分别在layout的0，1，2中
 		glBindBuffer(GL_ARRAY_BUFFER, vertex_attribute_buffers_[POS_VB]);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(positions[0]) * positions.size(), &positions[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * positions.size(), positions.data(), GL_STATIC_DRAW);
 		glEnableVertexAttribArray(POSITION_LOCATION);
 		glVertexAttribPointer(POSITION_LOCATION, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 		glBindBuffer(GL_ARRAY_BUFFER, vertex_attribute_buffers_[TEXCOORD_VB]);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(texture_coords[0]) * texture_coords.size(), &texture_coords[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * texture_coords.size(), texture_coords.data(), GL_STATIC_DRAW);
 		glEnableVertexAttribArray(TEX_COORD_LOCATION);
 		glVertexAttribPointer(TEX_COORD_LOCATION, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
 		glBindBuffer(GL_ARRAY_BUFFER, vertex_attribute_buffers_[NORMAL_VB]);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(normals[0]) * normals.size(), &normals[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * normals.size(), normals.data(), GL_STATIC_DRAW);
 		glEnableVertexAttribArray(NORMAL_LOCATION);
 		glVertexAttribPointer(NORMAL_LOCATION, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vertex_attribute_buffers_[INDEX_BUFFER]);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices[0]) * indices.size(), &indices[0], GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), indices.data(), GL_STATIC_DRAW);
 
 		return true;// GLCheckError();
 	}
@@ -205,7 +205,7 @@ namespace kgl
 					dir.append("/").append(texture_name.data);
 					kgl::TextureParams texture_param = kgl::TextureManager::MakeTextureParamsRGB(GL_REPEAT, GL_LINEAR);
 					texture_param.min_filter_mode = GL_LINEAR_MIPMAP_LINEAR;
-					// texture_param.mag_filter_mode = GL_LINEAR_MIPMAP_LINEAR;
+					texture_param.mag_filter_mode = GL_LINEAR_MIPMAP_LINEAR;
 					texture_param.used_mipmap = true;
 					textures_[i] = kgl::KTextureManager::GetInstance()->CreateTextureFromFile(dir, kgl::SOURCE_2D_TEXTURE, texture_param);
 				}

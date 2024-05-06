@@ -44,7 +44,6 @@ protected:
     virtual void RenderGUI() override;
 private:
     kgl::GPUProgramSPtr     model_shader_;
-    //kgl::BasicStaticMesh*   model_;
     DigitalSculpt::MeshData mesh_data_;
     kgl::RenderStateDepth   rs_depth_;
     kgl::RenderStateBlend   rs_blend_;

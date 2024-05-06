@@ -101,13 +101,19 @@
   <ItemGroup>
     <ClCompile Include="digital_sculpt_app.cc" />
     <ClCompile Include="main.cc" />
+    <ClCompile Include="mesh.cc" />
     <ClCompile Include="mesh_data.cc" />
+    <ClCompile Include="octree_cell.cc" />
     <ClCompile Include="reference_counter.cc" />
+    <ClCompile Include="utils.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h" />
+    <ClInclude Include="mesh.h" />
     <ClInclude Include="mesh_data.h" />
+    <ClInclude Include="octree_cell.h" />
     <ClInclude Include="reference_counter.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

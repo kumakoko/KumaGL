@@ -27,6 +27,15 @@
     <ClCompile Include="mesh_data.cc">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="octree_cell.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="digital_sculpt_app.h">
@@ -36,6 +45,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="mesh_data.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="octree_cell.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

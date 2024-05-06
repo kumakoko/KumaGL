@@ -53,6 +53,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include <cstdlib>
 #include <utility>
 #include <random>
+#include <limits>
 
 //#define GLEW_STATIC
 #include "GL/glew.h"
@@ -121,6 +122,7 @@ extern "C"
 #include "boost/multi_array.hpp"
 #include "boost/numeric/ublas/matrix.hpp"
 #include "boost/filesystem.hpp"
+#include "boost/intrusive_ptr.hpp"
 
 namespace ublas = boost::numeric::ublas;
 namespace bfs = boost::filesystem;

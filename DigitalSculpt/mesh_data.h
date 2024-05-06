@@ -2,6 +2,7 @@
 #define mesh_data_h__
 
 #include "../klib/kgl_lib_pch.h"
+#include "utils.h"
 
 namespace DigitalSculpt
 {
@@ -97,6 +98,29 @@ namespace DigitalSculpt
         /// T在vertex shader中，顶点中的法线值的layout值为1
         /// </summary>
         static const int NORMAL_LOCATION = 2;
+
+
+
+
+    public:
+        /// <summary>
+        /// 存储着三角形面或者四边形面的数组
+        /// </summary>
+        Uint32Array _facesABCD;//: null, // faces tri or quad, tri will have D:Utils.TRI_INDEX (Uint32Array)
+
+        /// <summary>
+        /// 本mesh中的面的个数
+        /// </summary>
+        std::uint32_t _nbFaces;// : 0,
+
+        // 每个面的中心点坐标列表
+        Vec3Array _faceCentersXYZ;
+
+        // 每个面的法线列表
+        Vec3Array _faceNormalsXYZ;
+
+        // 每个面的包围盒的数组
+        Float32Array    _faceBoxes;
     };
 }
 #endif // mesh_data_h__

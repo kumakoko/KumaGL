@@ -3,6 +3,8 @@
 
 #include "../klib/kgl_lib_pch.h"
 #include "utils.h"
+#include "array_nd.h"
+#include "octree_cell.h"
 
 namespace DigitalSculpt
 {
@@ -108,6 +110,9 @@ namespace DigitalSculpt
 
 
     public:
+        OctreeCell* _octree = nullptr;
+
+
         /// <summary>
         /// 存储着三角形面或者四边形面的数组
         /// </summary>
@@ -128,6 +133,10 @@ namespace DigitalSculpt
         Float32Array    _faceBoxes;
 
         Uint32Array _vrfStartCount;// : null, // reference vertRingFace start and count ring (start/count) (Uint32Array)
+
+        IArrayND* _vertRingFace;
+
+
     };
 }
 #endif // mesh_data_h__

@@ -103,11 +103,15 @@
     <ClCompile Include="main.cc" />
     <ClCompile Include="mesh.cc" />
     <ClCompile Include="mesh_data.cc" />
+    <ClCompile Include="mesh_octree.cc" />
     <ClCompile Include="octree_cell.cc" />
     <ClCompile Include="reference_counter.cc" />
     <ClCompile Include="utils.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="array_1d.h" />
+    <ClInclude Include="array_2d.h" />
+    <ClInclude Include="array_nd.h" />
     <ClInclude Include="digital_sculpt_app.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="mesh_data.h" />

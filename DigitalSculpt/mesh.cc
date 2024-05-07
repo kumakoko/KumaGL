@@ -1,4 +1,6 @@
 #include "mesh.h"
+#include "array_1d.h"
+#include "array_2d.h"
 
 namespace DigitalSculpt
 {
@@ -24,7 +26,7 @@ namespace DigitalSculpt
     void Mesh::UpdateGeometry(Uint32Array* iFaces, Uint32Array* iVerts)
     {
         updateFacesAabbAndNormal(iFaces);
-        updateVerticesNormal(*iVerts);
+        updateVerticesNormal(iVerts);
         updateOctree(*iFaces);
 
         if (_renderData)
@@ -43,7 +45,9 @@ namespace DigitalSculpt
         //std::uint32_t nbFaces = mesh_data_->faces_count_;//getNbFaces();
         std::uint32_t i = 0;
         std::uint32_t id = 0;
-        Uint32Array countRing;
+
+        // count_ring数组存储的内容是：每一个顶点，作为了多少个面的组成顶点，如下示意图所示：
+        Uint32Array countRing(vertices_count, 0);
         countRing.resize(vertices_count, 0); //var countRing = new Uint32Array(vertices_count);
 
         /*    
@@ -90,8 +94,8 @@ namespace DigitalSculpt
         }
 
         //var vrf = new Uint32Array(Utils.getMemory(4 * nbFaces * 6), 0, nbFaces * 6);
-        Uint32Array vrf;
-        vrf.resize(mesh_data_->faces_count_ * 6, 0);
+        Uint32Array vrf(mesh_data_->faces_count_ * 6, 0);
+        //vrf.resize(mesh_data_->faces_count_ * 6, 0);
         acc = 0;
 
         // 遍历每一个面
@@ -104,6 +108,9 @@ namespace DigitalSculpt
             std::uint32_t iv2 = mesh_data_->_facesABCD[id + 1];
             std::uint32_t iv3 = mesh_data_->_facesABCD[id + 2];
             std::uint32_t iv4 = mesh_data_->_facesABCD[id + 3];
+
+            // 记录下索引值为i的面，由哪几个顶点组成，
+            // 起始索引点 + 数量偏移
             vrf[mesh_data_->_vrfStartCount[iv1 * 2] + (--countRing[iv1])] = i;
             vrf[mesh_data_->_vrfStartCount[iv2 * 2] + (--countRing[iv2])] = i;
             vrf[mesh_data_->_vrfStartCount[iv3 * 2] + (--countRing[iv3])] = i;
@@ -117,8 +124,7 @@ namespace DigitalSculpt
 
         //_meshData->_vertRingFace = new Uint32Array(vrf.subarray(0, nbFaces * 3 + acc));
         std::uint32_t* tmp = Utils::subarray<std::uint32_t>(vrf, 0, nbFaces * 3 + acc);
-        Array1D<std::uint32_t>* array1d = new Array1D<std::uint32_t>(tmp);
-        _meshData->_vertRingFace = array1d;
+        mesh_data_->_vertRingFace = new Array1D<std::uint32_t>(tmp);
         delete[] tmp;
     }
 

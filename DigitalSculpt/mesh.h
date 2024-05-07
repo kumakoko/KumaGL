@@ -31,9 +31,32 @@ namespace DigitalSculpt
          ****************************************************************************************************************/
          void InitTopology();
 
-         void UpdateGeometry(Uint32Array* iFaces, Uint32Array* iVerts);
+         /******************************************************************************************************************
+          * Desc: 
+          * Method:    UpdateGeometry
+          * Returns:   void
+          * Parameter: Uint32Array * iFaces
+          * Parameter: Uint32Array * iVerts
+          ****************************************************************************************************************/
+          void UpdateGeometry(Uint32Array* iFaces, Uint32Array* iVerts);
 
-         void updateFacesAabbAndNormal(Uint32Array* iFaces);
+         /******************************************************************************************************************
+          * Desc: 
+          * Method:    updateFacesAabbAndNormal
+          * Returns:   void
+          * Parameter: Uint32Array * iFaces
+          ****************************************************************************************************************/
+          void updateFacesAabbAndNormal(Uint32Array* iFaces);
+
+         /******************************************************************************************************************
+          * Desc: 
+          * Method:    updateVerticesNormal
+          * Returns:   void
+          * Parameter: const Uint32Array * iVerts
+          ****************************************************************************************************************/
+          void updateVerticesNormal(const Uint32Array* iVerts);
+
+          void initFaceRings();
     public:
         Float32Array face_boxes_;
         Vec3Array face_centers_;

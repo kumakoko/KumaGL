@@ -33,6 +33,11 @@ namespace DigitalSculpt
         bool LoadMesh(const std::string& file_name);
         void Clear();
         void Render();
+        
+        inline std::size_t vertices_count() const
+        {
+            return positions_.size();
+        }
     private:
         bool InitFromAssetScene(const aiScene* scene, const std::string& file_name);
         void InitMesh(const aiMesh* mesh);
@@ -111,7 +116,7 @@ namespace DigitalSculpt
         /// <summary>
         /// 本mesh中的面的个数
         /// </summary>
-        std::uint32_t _nbFaces;// : 0,
+        std::uint32_t faces_count_;// : 0, _nbFaces 
 
         // 每个面的中心点坐标列表
         Vec3Array _faceCentersXYZ;
@@ -121,6 +126,8 @@ namespace DigitalSculpt
 
         // 每个面的包围盒的数组
         Float32Array    _faceBoxes;
+
+        Uint32Array _vrfStartCount;// : null, // reference vertRingFace start and count ring (start/count) (Uint32Array)
     };
 }
 #endif // mesh_data_h__

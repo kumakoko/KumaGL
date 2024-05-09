@@ -6,10 +6,6 @@
 
 namespace DigitalSculpt
 {
-    class OctreeCell;
-
-    typedef boost::intrusive_ptr<OctreeCell> OctreeCellPtr;
-
     class Mesh
     {
     public:
@@ -78,9 +74,9 @@ namespace DigitalSculpt
           /** Compute the octree */
           void computeOctree();
 
-          Uint32Array updateOctreeRemove(const Uint32Array& iFaces);
+          Uint32Array updateOctreeRemove(const Uint32Array* iFaces);
 
-          void updateOctreeAdd(const Uint32Array& facesToMove);
+          void updateOctreeAdd(const Uint32Array* facesToMove);
 
           /** balance octree (cut empty leaves or go deeper if needed) */
           void balanceOctree();
@@ -88,10 +84,6 @@ namespace DigitalSculpt
 
 
     public:
-        Float32Array face_boxes_;
-        Vec3Array face_centers_;
-        Uint32Array face_pos_in_leaf_;
-        std::vector<OctreeCellPtr> face_leaves_;
 
 
         MeshData* mesh_data_;

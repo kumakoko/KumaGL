@@ -49,6 +49,15 @@ namespace DigitalSculpt
             */
         }
 
+        Array1D(const std::vector<T> srcArray)
+        {
+            auto elementCount = srcArray.size();
+            _Array = new T[elementCount];
+
+            for (auto i = 0; i < elementCount; ++i)
+                _Array[i] = srcArray[i];
+        }
+
         T& operator [](int index)
         {
             return _Array[index];
@@ -57,16 +66,6 @@ namespace DigitalSculpt
         const T& operator [](int index) const
         {
             return _Array[index];
-        }
-
-        T* Array()
-        {
-            return _Array;
-        }
-
-        const T* Array() const
-        {
-            return _Array;
         }
 
         virtual int Dimension() const override

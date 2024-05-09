@@ -134,9 +134,17 @@ namespace DigitalSculpt
 
         Uint32Array _vrfStartCount;// : null, // reference vertRingFace start and count ring (start/count) (Uint32Array)
 
-        IArrayND* _vertRingFace;
+        IUint32ArrayND* _vertRingFace;
 
+     
+     
+  
 
+        Uint32Array   _facePosInLeaf;// : null, // position index in the leaf (Uint32Array)
+        std::vector<OctreeCellPtr> _faceLeaf;//: [] , // octree leaf
+        std::vector<OctreeCellPtr>  _leavesToUpdate;// : [] , // leaves of the octree to check
+
+        std::array<float, 6> _worldBound;// [Infinity, Infinity, Infinity, -Infinity, -Infinity, -Infinity] ,
     };
 }
 #endif // mesh_data_h__

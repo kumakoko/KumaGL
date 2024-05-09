@@ -8,6 +8,7 @@
     purpose:	八叉树的节点类
 ******************************************************************************/
 #include "octree_cell.h"
+#include "mesh.h"
 
 namespace DigitalSculpt
 {
@@ -115,9 +116,9 @@ namespace DigitalSculpt
         //Uint32Array& facePosInLeaf = mesh->getFacePosInLeaf();
         //std::vector<OctreeCellPtr>& faceLeaf = mesh->getFaceLeaf(); // 获取叶子节点本身
 
-        std::uint32_t faceBoxesCount = mesh->face_boxes_.size();
-        std::uint32_t facePosInLeafCount = mesh->face_pos_in_leaf_.size();//facePosInLeaf.size();
-        std::uint32_t faceLeafCount = mesh->face_leaves_.size();//faceLeaf.size();
+        std::uint32_t faceBoxesCount = mesh->mesh_data_->_faceBoxes.size();
+        std::uint32_t facePosInLeafCount = mesh->mesh_data_->_facePosInLeaf.size();//facePosInLeaf.size();
+        std::uint32_t faceLeafCount = mesh->mesh_data_->_faceLeaf.size();//faceLeaf.size();
 
         // 遍历该叶子节点的所有面的AABB，然后算出一个最大的AABB包住这个叶子节点
         for (int i = 0; i < nbFaces; ++i)
@@ -127,7 +128,7 @@ namespace DigitalSculpt
 
             if (id >= 0 && id < faceLeafCount)
             {
-                mesh->face_leaves_[id] = this;
+                mesh->mesh_data_->_faceLeaf[id] = this;
             }
             else
             {
@@ -137,7 +138,7 @@ namespace DigitalSculpt
 
             if (id >= 0 && id < facePosInLeafCount)
             {
-                mesh->face_pos_in_leaf_[id] = i; // 记录下本叶子节点所管理的face的索引值
+                mesh->mesh_data_->_facePosInLeaf[id] = i; // 记录下本叶子节点所管理的face的索引值
             }
             else
             {
@@ -147,12 +148,12 @@ namespace DigitalSculpt
 
             id *= 6; // 每一个face对应一个faceBox，而每个faceBox是六个元素构成，所以访问时是6个6个地跳跃式访问
 
-            float xmin = mesh->face_boxes_[id + 0];
-            float ymin = mesh->face_boxes_[id + 1];
-            float zmin = mesh->face_boxes_[id + 2];
-            float xmax = mesh->face_boxes_[id + 3];
-            float ymax = mesh->face_boxes_[id + 4];
-            float zmax = mesh->face_boxes_[id + 5];
+            float xmin = mesh->mesh_data_->_faceBoxes[id + 0];
+            float ymin = mesh->mesh_data_->_faceBoxes[id + 1];
+            float zmin = mesh->mesh_data_->_faceBoxes[id + 2];
+            float xmax = mesh->mesh_data_->_faceBoxes[id + 3];
+            float ymax = mesh->mesh_data_->_faceBoxes[id + 4];
+            float zmax = mesh->mesh_data_->_faceBoxes[id + 5];
 
             if (xmin < bxmin) bxmin = xmin;
             if (xmax > bxmax) bxmax = xmax;
@@ -228,9 +229,9 @@ namespace DigitalSculpt
             // 面中点数组中取出中点坐标的三个分量
             std::int32_t iFace = _iFaces[i];
             std::int32_t id = iFace;// *3;
-            float cx = mesh->face_centers_[id/*+ 0*/].x;
-            float cy = mesh->face_centers_[id/*+ 1*/].y;
-            float cz = mesh->face_centers_[id/*+ 2*/].z;
+            float cx = mesh->mesh_data_->_faceCentersXYZ[id/*+ 0*/].x;
+            float cy = mesh->mesh_data_->_faceCentersXYZ[id/*+ 1*/].y;
+            float cz = mesh->mesh_data_->_faceCentersXYZ[id/*+ 2*/].z;
 
             if (cx > xcen)
             {

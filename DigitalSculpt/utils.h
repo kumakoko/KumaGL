@@ -500,6 +500,16 @@ namespace DigitalSculpt
             return PushToVector(self, args...);
         }
 
+        template<typename T>
+        static void ClearInstrutivePtrVector(std::vector<boost::intrusive_ptr<T>>& ptr_vector)
+        {
+            std::size_t sz = ptr_vector.size();
+            for (std::size_t i = 0; i < sz; ++i)
+                ptr_vector[i] = nullptr;
+
+            ptr_vector.clear();
+        }
+
     };
 }
 

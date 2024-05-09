@@ -17,12 +17,15 @@
 
 #include "../klib/kgl_lib_pch.h"
 #include "utils.h"
-#include "mesh.h"
 
 namespace DigitalSculpt
 {
+    class OctreeCell;
     class Mesh;
 
+    typedef boost::intrusive_ptr<OctreeCell> OctreeCellPtr;
+    typedef boost::intrusive_ptr<Mesh> MeshPtr;
+    
     class OctreeCell
     {
     private:
@@ -173,7 +176,7 @@ namespace DigitalSculpt
     }; //class
 
 
-    typedef boost::intrusive_ptr<OctreeCell> OctreeCellPtr;
+
 } //namespace
 
 #endif // digital_sculpt_octree_cell_h__

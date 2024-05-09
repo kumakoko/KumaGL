@@ -1,4 +1,5 @@
 #include "mesh.h"
+#include "utils.h"
 #include "array_1d.h"
 #include "array_2d.h"
 
@@ -15,7 +16,7 @@ namespace DigitalSculpt
     void Mesh::Init()
     {
         this->InitTopology();
-        this->UpdateGeometry();
+        this->UpdateGeometry(nullptr,nullptr);
     }
 
     void Mesh::InitTopology()
@@ -27,13 +28,15 @@ namespace DigitalSculpt
     {
         updateFacesAabbAndNormal(iFaces);
         updateVerticesNormal(iVerts);
-        updateOctree(*iFaces);
+        updateOctree(iFaces);
 
+        /*
         if (_renderData)
         {
             updateDuplicateGeometry(*iVerts);
             updateDrawArrays(iFaces);
         }
+        */
     }
 
 
@@ -123,16 +126,16 @@ namespace DigitalSculpt
         }
 
         //_meshData->_vertRingFace = new Uint32Array(vrf.subarray(0, nbFaces * 3 + acc));
-        std::uint32_t* tmp = Utils::subarray<std::uint32_t>(vrf, 0, nbFaces * 3 + acc);
+        Uint32Array tmp = Utils::subarray<std::uint32_t>(vrf, 0, mesh_data_->faces_count_/*nbFaces*/ * 3 + acc);
         mesh_data_->_vertRingFace = new Array1D<std::uint32_t>(tmp);
-        delete[] tmp;
+        //delete[] tmp;
     }
 
     void Mesh::updateVerticesNormal(const Uint32Array* iVerts)
     {
-        const Uint32Array& vrfStartCount = getVerticesRingFaceStartCount();
-        IUint32ArrayND* vertRingFace = getVerticesRingFace();
-        bool is2DArray = vertRingFace->Dimension() == 2;
+        // const Uint32Array& vrfStartCount = getVerticesRingFaceStartCount(); mesh_data_->_vrfStartCount;
+        //IUint32ArrayND* vertRingFace = getVerticesRingFace();//mesh_data_->_vertRingFace
+        bool is2DArray = mesh_data_->_vertRingFace->Dimension() == 2;
 
         /*
         * 下面的这句表示，在Java中，vertRingFace可能有两种类型，一种是UInt32Array，一种是原生的Array
@@ -143,14 +146,14 @@ namespace DigitalSculpt
         //var ringFaces = vertRingFace instanceof Array ? vertRingFace : null;
         //Float32Array& nAr = getNormals(); mesh_data_->normals_
         //const Float32Array& faceNormals = getFaceNormals(); //  mesh_data_->_faceNormalsXYZ
-       
+
 
         bool full = iVerts->size() == 0; //var full = iVerts == = undefined;
         std::uint32_t nbVerts = full ? mesh_data_->positions_.size()/* getNbVertices()*/ : iVerts->size();
 
         if (is2DArray)
         {
-            Uint32Array2D* array2D = dynamic_cast<Uint32Array2D*>(vertRingFace);// as Array2D<int>;
+            Uint32Array2D* array2D = dynamic_cast<Uint32Array2D*>(mesh_data_->_vertRingFace);// as Array2D<int>;
 
             for (std::uint32_t i = 0; i < nbVerts; ++i)
             {
@@ -179,17 +182,17 @@ namespace DigitalSculpt
                 mesh_data_->normals_[ind/*+ 0*/].x = nx * len;
                 mesh_data_->normals_[ind/*+ 1*/].y = ny * len;
                 mesh_data_->normals_[ind/*+ 2*/].z = nz * len;
-            }                                   
+            }
         }
         else
         {
-            Uint32Array1D* array1D = dynamic_cast<Uint32Array1D*>(vertRingFace); //Array1D<int> array1D = vertRingFace as Array1D<int>;
+            Uint32Array1D* array1D = dynamic_cast<Uint32Array1D*>(mesh_data_->_vertRingFace); //Array1D<int> array1D = vertRingFace as Array1D<int>;
 
             for (int i = 0; i < nbVerts; ++i)
             {
                 int ind = full ? i : static_cast<int>(iVerts->at(i));
-                int start = vrfStartCount[ind * 2 + 0];
-                int end = start + vrfStartCount[ind * 2 + 1];
+                int start = mesh_data_->_vrfStartCount[ind * 2 + 0];
+                int end = start + mesh_data_->_vrfStartCount[ind * 2 + 1];
 
                 float nx = 0.0f, ny = 0.0f, nz = 0.0f;
 
@@ -213,7 +216,7 @@ namespace DigitalSculpt
                 mesh_data_->normals_[ind/*+ 2*/].z = nz * len;
             }
         }
-
+    }
 
     /// <summary>
     /// 根据传递进来的面信息，计算AABB信息和面法线信息

@@ -15,58 +15,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="digital_sculpt_app.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="reference_counter.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="mesh_data.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="octree_cell.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="mesh.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="utils.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="mesh_octree.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
+    <ClInclude Include="v3d.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="indices.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="vertex_list.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="digital_sculpt_app.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="reference_counter.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="mesh_data.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="octree_cell.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="mesh.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="array_1d.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="array_2d.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="array_nd.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
+    <ClCompile Include="v3d.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="indices.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="vertex_list.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

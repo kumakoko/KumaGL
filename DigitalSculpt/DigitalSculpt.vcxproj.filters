@@ -24,6 +24,39 @@
     <ClInclude Include="vertex_list.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="triangle_list.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="indexed_triangle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="vertex_look_up.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="edge.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="edge_list.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="triangle_look_up.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_buffer_object.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="transformer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="math_definitions.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_data.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="open_gl_wrapper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="v3d.cc">
@@ -33,6 +66,39 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="vertex_list.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="triangle_list.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="indexed_triangle.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="vertex_look_up.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="edge.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="edge_list.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="triangle_look_up.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_buffer_object.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="transformer.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="math_definitions.h.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_data.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="open_gl_wrapper.cc">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

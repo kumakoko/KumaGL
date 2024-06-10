@@ -11,19 +11,42 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="edge.cc" />
+    <ClCompile Include="edge_list.cc" />
+    <ClCompile Include="graphics_buffer_object.cc" />
+    <ClCompile Include="graphics_data.cc" />
+    <ClCompile Include="indexed_triangle.cc" />
     <ClCompile Include="indices.cc" />
+    <ClCompile Include="math_definitions.h.cc" />
+    <ClCompile Include="open_gl_wrapper.cc" />
+    <ClCompile Include="transformer.cc" />
+    <ClCompile Include="triangle_list.cc" />
+    <ClCompile Include="triangle_look_up.cc" />
     <ClCompile Include="v3d.cc" />
     <ClCompile Include="vertex_list.cc" />
+    <ClCompile Include="vertex_look_up.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="edge.h" />
+    <ClInclude Include="edge_list.h" />
+    <ClInclude Include="graphics_buffer_object.h" />
+    <ClInclude Include="graphics_data.h" />
+    <ClInclude Include="indexed_triangle.h" />
     <ClInclude Include="indices.h" />
+    <ClInclude Include="math_definitions.h" />
+    <ClInclude Include="open_gl_wrapper.h" />
+    <ClInclude Include="transformer.h" />
+    <ClInclude Include="triangle_list.h" />
+    <ClInclude Include="triangle_look_up.h" />
     <ClInclude Include="v3d.h" />
     <ClInclude Include="vertex_list.h" />
+    <ClInclude Include="vertex_look_up.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C5DB148E-5747-4B4D-9251-67B6A17FAB8D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>MyDigitalSculpt</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -72,7 +95,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);$(IMGUI_HEADER);../klib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
-      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc11</LanguageStandard_C>
     </ClCompile>
     <Link>

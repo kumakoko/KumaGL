@@ -1,6 +1,7 @@
 // 顶点索引
+#ifndef indices_h__
+#define indices_h__
 
-#ifndef Indices_HPP
 #include "GL/glew.h"
 
 namespace DigitalSculpt
@@ -8,5 +9,4 @@ namespace DigitalSculpt
     extern const GLuint ImpossibleKey; // Impossible key value for any mesh.
 }
 
-
-#endif // !Indices_HPP
+#endif // indices_h__

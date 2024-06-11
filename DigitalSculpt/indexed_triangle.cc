@@ -1,3 +1,5 @@
+#include "spdlog/spdlog.h"
+#include "fmt/format.h"
 #include "indexed_triangle.h"
 
 namespace DigitalSculpt
@@ -44,6 +46,7 @@ namespace DigitalSculpt
 
     void IndexedTriangle::swapVertexIndex(int oldIndex, int newIndex)
     {
+
         if (indice[0] == oldIndex)
         {
             indice[0] = newIndex;
@@ -58,8 +61,10 @@ namespace DigitalSculpt
         }
         else
         {
-            /*say "Error:\tCannot swap vertex '" << oldIndex << "' for '" << newIndex << "'"
-                << "\n\tValid indices:" spc indice[0] spc indice[1] spc indice[2] done;*/
+            auto out = fmt::memory_buffer();
+            out.clear();
+            fmt::format_to(std::back_inserter(out), "Error:\tCannot swap vertex \'{}\' for \'{}\' \n\tValid indices: spc indice[0] spc indice[1] spc indice[2] done; ", oldIndex,newIndex);
+            spdlog::info(out.data());
         }
     }
 }

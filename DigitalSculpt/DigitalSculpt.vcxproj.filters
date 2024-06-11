@@ -57,6 +57,12 @@
     <ClInclude Include="open_gl_wrapper.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="mesh_stats.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="octree_stats.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="v3d.cc">
@@ -99,6 +105,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="open_gl_wrapper.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh_stats.cc">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

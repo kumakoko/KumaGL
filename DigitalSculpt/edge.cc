@@ -1,3 +1,7 @@
+#include <iterator>
+#include <string>
+#include "spdlog/spdlog.h"
+#include "fmt/format.h"
 #include "edge.h"
 
 namespace DigitalSculpt
@@ -30,10 +34,15 @@ namespace DigitalSculpt
 
     void Edge::printEdge()
     {
+        auto out = fmt::memory_buffer();
+       
         for (auto& key : vertexEdges)
         {
-            //say key << ' ';
+            out.clear();
+            fmt::format_to(std::back_inserter(out),"{} ", key);
+            spdlog::info(out.data());
         }
-        //say "\n";
+
+        spdlog::info("\n");
     }
 }

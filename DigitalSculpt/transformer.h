@@ -14,65 +14,186 @@ namespace DigitalSculpt
             glm::vec3 worldTranslation = glm::vec3(0);
         };
 
+        /******************************************************************************************************************
+         * Desc:
+         * Method:    ModelMatrix
+         * Returns:
+         ****************************************************************************************************************/
         ModelMatrix();
+
+        /******************************************************************************************************************
+         * Desc:
+         * Method:    ~ModelMatrix
+         * Returns:
+         ****************************************************************************************************************/
         ~ModelMatrix();
 
+        /******************************************************************************************************************
+         * Desc:
+         * Method:    resetModelMatrix
+         * Returns:   void
+         ****************************************************************************************************************/
         void resetModelMatrix();
+
+        /******************************************************************************************************************
+         * Desc:
+         * Method:    setModelMatrix
+         * Returns:   void
+         ****************************************************************************************************************/
         void setModelMatrix();
 
-        // rotate the model x rad
+        /******************************************************************************************************************
+         * Desc: 让模型绕着x轴旋转x弧度
+         * Method:    rotateX
+         * Returns:   void
+         * Parameter: const float x
+         ****************************************************************************************************************/
         void rotateX(const float x);
-        // rotate the model y rad
+
+        /******************************************************************************************************************
+         * Desc: 让模型绕着y轴旋转y弧度
+         * Method:    rotateY
+         * Returns:   void
+         * Parameter: const float y
+         ****************************************************************************************************************/
         void rotateY(const float y);
-        // rotate the model z rad
+
+        /******************************************************************************************************************
+         * Desc: 让模型绕着z轴旋转z弧度
+         * Method:    rotateZ
+         * Returns:   void
+         * Parameter: const float z
+         ****************************************************************************************************************/
         void rotateZ(const float z);
 
         // rotate the model x deg
+        /******************************************************************************************************************
+         * Desc: 让模型绕着x轴旋转x度
+         * Method:    rotateX_deg
+         * Returns:   void
+         * Parameter: const float x
+         ****************************************************************************************************************/
         void rotateX_deg(const float x);
-        // rotate the model y deg
+
+        /******************************************************************************************************************
+         * Desc:  让模型绕着y轴旋转y度
+         * Method:    rotateY_deg
+         * Returns:   void
+         * Parameter: const float y
+         ****************************************************************************************************************/
         void rotateY_deg(const float y);
-        // rotate the model z deg
+
+        /******************************************************************************************************************
+         * Desc: 让模型绕着z轴旋转z度
+         * Method:    rotateZ_deg
+         * Returns:   void
+         * Parameter: const float z
+         ****************************************************************************************************************/
         void rotateZ_deg(const float z);
         // set rotation in all axes
-        void setRotation(const glm::mat4 t);
+        /******************************************************************************************************************
+         * Desc: 直接设置模型的旋转度
+         * Method:    setRotation
+         * Returns:   void
+         * Parameter: const glm::mat4& t
+         ****************************************************************************************************************/
+        void setRotation(const glm::mat4& t);
 
-        // translate the model by a vector
+        /******************************************************************************************************************
+         * Desc: 让模型平移向量t指定的距离
+         * Method:    translateAll
+         * Returns:   void
+         * Parameter: const glm::vec3 & t
+         ****************************************************************************************************************/
         void translateAll(const glm::vec3& t);
-        // translate the model x units in x
+
+        /******************************************************************************************************************
+         * Desc: : 让模型沿着x轴移动x单位
+         * Method:    translateX
+         * Returns:   void
+         * Parameter: const float x
+         ****************************************************************************************************************/
         void translateX(const float x);
-        // translate the model y units in y
+
+        /******************************************************************************************************************
+         * Desc: 让模型沿着y轴移动y单位
+         * Method:    translateY
+         * Returns:   void
+         * Parameter: const float y
+         ****************************************************************************************************************/
         void translateY(const float y);
-        // translate the model z units in z
+
+        /******************************************************************************************************************
+         * Desc: 让模型沿着z轴移动z单位
+         * Method:    translateZ
+         * Returns:   void
+         * Parameter: const float z
+         ****************************************************************************************************************/
         void translateZ(const float z);
-        // set translation in all axes
+
+        /******************************************************************************************************************
+         * Desc: 直接设置模型的平移度
+         * Method:    setTranslation
+         * Returns:   void
+         * Parameter: const glm::vec3 & t
+         ****************************************************************************************************************/
         void setTranslation(const glm::vec3& t);
 
-
-
-        // scale the model uniformly
+        /******************************************************************************************************************
+         * Desc:
+         * Method:    scaleUniform
+         * Returns:   void
+         * Parameter: const float scalar
+         ****************************************************************************************************************/
         void scaleUniform(const float scalar);
 
-        // these are only here for *completeness*, you should not use them on any *deforming meshes*
-
-        // scale the model by a scalar factor of x
+        /******************************************************************************************************************
+         * Desc: 让模型沿着x轴缩放scalarx单位
+         * Method:    scaleX
+         * Returns:   void
+         * Parameter: const float scalarx
+         ****************************************************************************************************************/
         void scaleX(const float scalarx);
-        // scale the model by a scalar factor of y
+
+        /******************************************************************************************************************
+         * Desc:  让模型沿着y轴缩放scalary单位
+         * Method:    scaleY
+         * Returns:   void
+         * Parameter: const float scalary
+         ****************************************************************************************************************/
         void scaleY(const float scalary);
-        // scale the model by a scalar factor of z
+
+        /******************************************************************************************************************
+         * Desc:  让模型沿着z轴缩放scalarz单位
+         * Method:    scaleZ
+         * Returns:   void
+         * Parameter: const float scalarz
+         ****************************************************************************************************************/
         void scaleZ(const float scalarz);
-        // set scale in all axes
+
+        /******************************************************************************************************************
+         * Desc: 直接设置模型的缩放值
+         * Method:    setScale
+         * Returns:   void
+         * Parameter: const glm::vec3 & t
+         ****************************************************************************************************************/
         void setScale(const glm::vec3& t);
 
-        void scaleWithRadius(const float radius); // resets the model matrix then applies scale.
-
-        glm::mat4 model = glm::mat4(1);
+        /******************************************************************************************************************
+         * Desc:
+         * Method:    scaleWithRadius
+         * Returns:   void
+         * Parameter: const float radius
+         ****************************************************************************************************************/
+        void scaleWithRadius(const float radius);
 
         Transform transform;
-        glm::vec3 position;
 
-        glm::vec3 translationValues = glm::vec3(0);
-        glm::mat4 rotationMatrix = glm::mat4(1);
-        glm::vec3 scaleValues = glm::vec3(1);
+        glm::vec3 position;
+        glm::vec3 translationValues;
+        glm::vec3 scaleValues;
+        glm::mat4 rotationMatrix;
+        glm::mat4 model;
     };
 
     class CameraTransformer
@@ -81,8 +202,8 @@ namespace DigitalSculpt
         CameraTransformer();
         ~CameraTransformer();
 
-        glm::mat4 view = glm::mat4(1.0f);
-        glm::mat4 projection = glm::mat4(1.0f);
+        glm::mat4 view;
+        glm::mat4 projection;
         glm::vec3 pos;
         glm::vec3 startPos;
         glm::vec3 focalPoint;

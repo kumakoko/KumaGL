@@ -1,5 +1,6 @@
 #include <thread>
 #include <unordered_set>
+#include "spdlog/spdlog.h"
 #include "glm/common.hpp"
 #include "edge_list.h"
 
@@ -13,11 +14,11 @@ namespace DigitalSculpt
     {
     }
 
-    Edge& EdgeList::getEdge(GLuint key) 
+    Edge& EdgeList::getEdge(GLuint key)
     {
         return this->edges[key];
     }
-    
+
     const Edge& EdgeList::getEdge(GLuint key) const
     {
         return this->edges[key];
@@ -50,40 +51,40 @@ namespace DigitalSculpt
         for (int threadID = 0; threadID < nThreads; threadID++)
         {
             const int id = threadID;
-            threads.push_back(std::thread([&, id]() 
+            threads.push_back(std::thread([&, id]()
                 {
-                for (int vertexID = id; vertexID < countUniqueVertices; vertexID += nThreads)
-                {
-                    for(auto& tri : vertices[vertexID].triangleIDs)
+                    for (int vertexID = id; vertexID < countUniqueVertices; vertexID += nThreads)
                     {
-                        // edges[vertexID].vertexEdges.insert(triangles[tri][0]);
-                        // edges[vertexID].vertexEdges.insert(triangles[tri][1]);
-                        // edges[vertexID].vertexEdges.insert(triangles[tri][2]);
-                        // edges[vertexID].vertexEdges.erase(vertexID);
+                        for (auto& tri : vertices[vertexID].triangleIDs)
+                        {
+                            // edges[vertexID].vertexEdges.insert(triangles[tri][0]);
+                            // edges[vertexID].vertexEdges.insert(triangles[tri][1]);
+                            // edges[vertexID].vertexEdges.insert(triangles[tri][2]);
+                            // edges[vertexID].vertexEdges.erase(vertexID);
 
-                        if (triangles[tri][0] == vertexID)
-                        {
-                            edges[vertexID].vertexEdges.insert(triangles[tri][1]);
-                            edges[vertexID].vertexEdges.insert(triangles[tri][2]);
-                        }
-                        else if (triangles[tri][1] == vertexID)
-                        {
-                            edges[vertexID].vertexEdges.insert(triangles[tri][0]);
-                            edges[vertexID].vertexEdges.insert(triangles[tri][2]);
-                        }
-                        else
-                        {
-                            edges[vertexID].vertexEdges.insert(triangles[tri][0]);
-                            edges[vertexID].vertexEdges.insert(triangles[tri][1]);
+                            if (triangles[tri][0] == vertexID)
+                            {
+                                edges[vertexID].vertexEdges.insert(triangles[tri][1]);
+                                edges[vertexID].vertexEdges.insert(triangles[tri][2]);
+                            }
+                            else if (triangles[tri][1] == vertexID)
+                            {
+                                edges[vertexID].vertexEdges.insert(triangles[tri][0]);
+                                edges[vertexID].vertexEdges.insert(triangles[tri][2]);
+                            }
+                            else
+                            {
+                                edges[vertexID].vertexEdges.insert(triangles[tri][0]);
+                                edges[vertexID].vertexEdges.insert(triangles[tri][1]);
+                            }
                         }
                     }
-                }
                 }));
         }
-        
-        for(auto& t: threads) 
-        { 
-            t.join(); 
+
+        for (auto& t : threads)
+        {
+            t.join();
         }
     }
 
@@ -104,7 +105,7 @@ namespace DigitalSculpt
 
         for (int i = 0; i < edgeCount; i++)
         {
-            //say "id:" spc tracker << ":";
+            spdlog::info("id : spc tracker << :");
             tracker++;
             edges[i].printEdge();
         }
@@ -118,24 +119,23 @@ namespace DigitalSculpt
     glm::vec4 EdgeList::colorAverageAt(GLuint key)
     {
         glm::vec4 res = glm::vec4(0);
-
         auto& edge = edges[key].vertexEdges;
 
-        for(auto& element: edge)
+        for (auto& element : edge)
         {
             res += vertices[element].color;
         }
-        res /= (float)edge.size();
 
+        res /= (float)edge.size();
         return res;
     }
 
-    glm::vec3 EdgeList::averageAt(GLuint key) 
+    glm::vec3 EdgeList::averageAt(GLuint key)
     {
         glm::vec3 res = glm::vec3(0);
         auto& edge = edges[key].vertexEdges;
 
-        for(auto& element : edge)
+        for (auto& element : edge)
         {
             res += vertices[element].position;
         }
@@ -144,11 +144,11 @@ namespace DigitalSculpt
         return res;
     }
 
-    std::vector<GLuint> EdgeList::getEdgeTriangles(const std::pair<GLuint,GLuint>& edge) const
+    std::vector<GLuint> EdgeList::getEdgeTriangles(const std::pair<GLuint, GLuint>& edge) const
     {
         std::vector<GLuint> res;
 
-        for(auto& tri: vertices[edge.second].triangleIDs)
+        for (auto& tri : vertices[edge.second].triangleIDs)
         {
             if (vertices[edge.first].triangleIDs.contains(tri))
             {
@@ -163,7 +163,7 @@ namespace DigitalSculpt
     {
         std::vector<GLuint> res;
 
-        for(auto& tri: vertices[v2].triangleIDs)
+        for (auto& tri : vertices[v2].triangleIDs)
         {
             if (vertices[v1].triangleIDs.contains(tri))
             {

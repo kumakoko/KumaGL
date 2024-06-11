@@ -1,4 +1,5 @@
 // 三角形列表
+#include "spdlog/spdlog.h"
 #include "triangle_list.h"
 
 namespace DigitalSculpt
@@ -33,6 +34,6 @@ namespace DigitalSculpt
             tri.print();
         }
 
-        //say "\n";
+        spdlog::info("\n");
     }
 }

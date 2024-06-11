@@ -26,6 +26,8 @@
     <STB_HEADER>../third_lib/stb</STB_HEADER>
     <ASYNCPLUSPLUS_HEADER>../third_lib/asyncplusplus-1.1/include</ASYNCPLUSPLUS_HEADER>
     <ASYNCPLUSPLUS_LIB>../third_lib/asyncplusplus-1.1/Release</ASYNCPLUSPLUS_LIB>
+    <SPDLOG_HEADER>../third_lib/spdlog-1.x/include</SPDLOG_HEADER>
+    <FMT_HEADER>../third_lib/fmt-10.2.0/include</FMT_HEADER>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup>
@@ -105,6 +107,12 @@
     </BuildMacro>
     <BuildMacro Include="ASYNCPLUSPLUS_LIB">
       <Value>$(ASYNCPLUSPLUS_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="SPDLOG_HEADER">
+      <Value>$(SPDLOG_HEADER)</Value>
+    </BuildMacro>
+    <BuildMacro Include="FMT_HEADER">
+      <Value>$(FMT_HEADER)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>

@@ -10,6 +10,11 @@ namespace DigitalSculpt
 {
     ModelMatrix::ModelMatrix()
     {
+        model = glm::mat4(1);
+        position = glm::vec3(0);
+        translationValues = glm::vec3(0);
+        rotationMatrix = glm::mat4(1);
+        scaleValues = glm::vec3(1);
     }
 
     ModelMatrix::~ModelMatrix()
@@ -71,7 +76,7 @@ namespace DigitalSculpt
         model = rotationMatrix * model;
     }
 
-    void ModelMatrix::setRotation(const glm::mat4 r)
+    void ModelMatrix::setRotation(const glm::mat4& r)
     {
         model = rotationMatrix * model;
     }
@@ -145,6 +150,13 @@ namespace DigitalSculpt
 
     CameraTransformer::CameraTransformer()
     {
+        view = glm::mat4(1.0f);
+        projection = glm::mat4(1.0f);
+        pos = glm::vec3(0.0f);
+        startPos = glm::vec3(0.0f);
+        focalPoint = glm::vec3(0.0f);
+        orientation = glm::vec3(0.0f);
+        up = glm::vec3(0.0f);
     }
 
     CameraTransformer::~CameraTransformer()

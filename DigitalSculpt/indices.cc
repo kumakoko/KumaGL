@@ -2,7 +2,7 @@
 #include "indices.h"
 #include <limits>
 
-namespace IndicesDefinition
+namespace DigitalSculpt
 {
     const GLuint ImpossibleKey = std::numeric_limits<unsigned int>::max();
 }

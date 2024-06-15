@@ -63,6 +63,24 @@
     <ClInclude Include="octree_stats.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="octree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="triangle_octant_key_pair.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="triangle_octant_key_pair_list.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="octant.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="octree_collision.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="vertex_id_hashing.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="v3d.cc">
@@ -108,6 +126,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="mesh_stats.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="octree.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="octant.cc">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

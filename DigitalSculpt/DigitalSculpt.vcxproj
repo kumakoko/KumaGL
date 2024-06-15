@@ -19,6 +19,8 @@
     <ClCompile Include="indices.cc" />
     <ClCompile Include="math_definitions.h.cc" />
     <ClCompile Include="mesh_stats.cc" />
+    <ClCompile Include="octant.cc" />
+    <ClCompile Include="octree.cc" />
     <ClCompile Include="open_gl_wrapper.cc" />
     <ClCompile Include="transformer.cc" />
     <ClCompile Include="triangle_list.cc" />
@@ -36,12 +38,18 @@
     <ClInclude Include="indices.h" />
     <ClInclude Include="math_definitions.h" />
     <ClInclude Include="mesh_stats.h" />
+    <ClInclude Include="octant.h" />
+    <ClInclude Include="octree.h" />
+    <ClInclude Include="octree_collision.h" />
     <ClInclude Include="octree_stats.h" />
     <ClInclude Include="open_gl_wrapper.h" />
     <ClInclude Include="transformer.h" />
     <ClInclude Include="triangle_list.h" />
     <ClInclude Include="triangle_look_up.h" />
+    <ClInclude Include="triangle_octant_key_pair.h" />
+    <ClInclude Include="triangle_octant_key_pair_list.h" />
     <ClInclude Include="v3d.h" />
+    <ClInclude Include="vertex_id_hashing.h" />
     <ClInclude Include="vertex_list.h" />
     <ClInclude Include="vertex_look_up.h" />
   </ItemGroup>

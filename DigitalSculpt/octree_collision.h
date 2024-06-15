@@ -1,10 +1,7 @@
-#ifndef octree_collision_h__
-#define octree_collision_h__
+#pragma once
 
 #include <limits>
-
 #include "glm/glm.hpp"
-
 #include "mesh_stats.h"
 #include "octant.h"
 #include "triangle_octant_key_pair_list.h"
@@ -22,5 +19,3 @@ namespace DigitalSculpt
         int octantID;
     };
 }
-
-#endif // octree_collision_h__

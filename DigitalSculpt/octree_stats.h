@@ -1,5 +1,4 @@
-#ifndef octree_stats_h__
-#define octree_stats_h__
+#pragma once
 
 #include "mesh_stats.h"
 
@@ -17,5 +16,3 @@ namespace DigitalSculpt
         int root = 0;           // Root octant index (Always 0, should define or make constant)
     };
 }
-
-#endif // octree_stats_h__

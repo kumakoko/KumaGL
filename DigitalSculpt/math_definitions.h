@@ -1,5 +1,4 @@
-#ifndef math_definitions_h__
-#define math_definitions_h__
+#pragma once
 
 #include "glm/glm.hpp"
 
@@ -14,5 +13,3 @@ namespace DigitalSculpt
         static glm::vec3 Z;
     };
 }
-
-#endif // math_definitions_h__

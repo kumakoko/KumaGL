@@ -1,6 +1,7 @@
 // 定义了“边”这样子的一个数据结构
-#ifndef edge_h__
-#define edge_h__
+#pragma once
+//#ifndef edge_h__
+//#define edge_h__
 
 #include <set>
 #include <unordered_set>
@@ -45,4 +46,4 @@ namespace DigitalSculpt
     };
 }
 
-#endif // edge_h__
+//#endif // edge_h__

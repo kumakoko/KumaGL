@@ -1,5 +1,4 @@
-#ifndef octree_h__
-#define octree_h__
+#pragma once
 
 #include <chrono>
 #include <mutex>
@@ -21,6 +20,13 @@
 namespace DigitalSculpt
 {
 #define MortonCodeConvert_Safe(MortonCodeVertexPosition, MortonCodeCenterPosition) (((((MortonCodeVertexPosition) == 0.0f) && std::signbit((MortonCodeVertexPosition))) ? 0.0f : (MortonCodeVertexPosition)) >= (MortonCodeCenterPosition))
+
+    template<typename T1,typename T2>
+    inline float MortonCodeConvert_Safe(T1 MortonCodeVertexPosition, T2 MortonCodeCenterPosition)
+    {
+        return (((((MortonCodeVertexPosition) == 0.0f) && std::signbit((MortonCodeVertexPosition))) ? 0.0f : (MortonCodeVertexPosition)) >= (MortonCodeCenterPosition));
+    }
+
 
     class Octree : public OctreeStats
     {
@@ -216,29 +222,40 @@ namespace DigitalSculpt
          * Desc:
          * Method:    updateTrianglesInOctreeParallel
          * Returns:   bool
-         * Parameter: TriangleIDList tris
+         * Parameter: std::vector<int> tris
          ****************************************************************************************************************/
-        bool updateTrianglesInOctreeParallel(TriangleIDList tris);
+        bool updateTrianglesInOctreeParallel(std::vector<int> tris);
+        /***************************************************
+        
+        @name: DigitalSculpt::Octree::removeTriangleFromOctreeParallel
+        @return: bool
+        @param: int tri
+        ***************************************************/
         bool removeTriangleFromOctreeParallel(int tri);
+        /***************************************************
+        
+        @name: DigitalSculpt::Octree::updateAffectedTrianglesParallel
+        @return: void
+        ***************************************************/
         void updateAffectedTrianglesParallel();
 
         // OctreeIntersection.cpp
-        KeyList collectVerticesAroundCollisionOriginal(OctreeCollision collision, float range);
-        TriangleIDList collectTrianglesAroundCollisionOriginal(OctreeCollision collision, float range);
-        OctreeCollision octreeRayIntersectionOriginal(v3 origin, v3 direction);
+        std::vector<GLuint> collectVerticesAroundCollisionOriginal(OctreeCollision collision, float range);
+        std::vector<int> collectTrianglesAroundCollisionOriginal(OctreeCollision collision, float range);
+        OctreeCollision octreeRayIntersectionOriginal(glm::vec3 origin, glm::vec3 direction);
 
         void collectVerticesAroundCollision(float range);
         void collectTrianglesAroundCollision(float range);
 
-        void octreeRayIntersectionCore(v3 origin, v3 direction, OctreeCollision& collisionRef);
-        void octreeRayIntersection(v3 origin, v3 direction, bool isSymmetric = false, v3 planeOrigin = v3(0), v3 planeNormal = v3(1, 0, 0));
-        bool isOriginInOctantBounds(v3 origin, OctantReference octant);
-        void reflectRay(rv3 origin, rv3 direction, rv3 planeOrigin, rv3 planeNormal, rv3 reflectOrigin, rv3 reflectDirection);
+        void octreeRayIntersectionCore(glm::vec3 origin, glm::vec3 direction, OctreeCollision& collisionRef);
+        void octreeRayIntersection(glm::vec3 origin, glm::vec3 direction, bool isSymmetric = false, glm::vec3 planeOrigin = glm::vec3(0), glm::vec3 planeNormal = glm::vec3(1, 0, 0));
+        bool isOriginInOctantBounds(glm::vec3 origin, OctantReference octant);
+        void reflectRay(glm::vec3& origin, glm::vec3& direction, glm::vec3& planeOrigin, glm::vec3& planeNormal, glm::vec3& reflectOrigin, glm::vec3& reflectDirection);
 
         void collectAroundCollision(float range, bool collectAffectedTriangles = true, bool collectTrianglesInRange = false, bool isSymmetric = false);
         void collectVerticesWithReflection(float range);
 
-        int mortonCodeHash(v3 point, v3 center); // returns the morton code position with respect to octant
+        int mortonCodeHash(glm::vec3 point, glm::vec3 center); // returns the morton code position with respect to octant
 
         // List of octants which contain triangles
         // OctantIndexList activeOctants;
@@ -248,18 +265,19 @@ namespace DigitalSculpt
         // OctantList leaves;
 
         OctreeCollision collision;
-        KeyList verticesInRange;
-        TriangleIDList affectedTriangles;
-        TriangleIDList trianglesInRange;
+        std::vector<GLuint> verticesInRange;
+        std::vector<int> affectedTriangles;
+        std::vector<int> trianglesInRange;
 
         OctreeCollision reflectedCollision;
-        KeyList reflectedVerticesInRange;
-        TriangleIDList reflectedTrianglesInRange;
+        std::vector<GLuint> reflectedVerticesInRange;
+        std::vector<int> reflectedTrianglesInRange;
 
         concurrency::concurrent_vector<int> triangleToOctantList;
 
         // Plane normals may be wrong here, need to double check
-        v3 planeNormals[3] = {
+        glm::vec3 planeNormals[3] = 
+        {
             {0, 0, 1}, // xy plane
             {1, 0, 0}, // yz plane
             {0, 1, 0}  // xz plane
@@ -267,5 +285,3 @@ namespace DigitalSculpt
     };
 
 } // namespace OctreeDefinition
-
-#endif // octree_h__

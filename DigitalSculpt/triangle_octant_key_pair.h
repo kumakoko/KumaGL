@@ -11,8 +11,7 @@
  *
  * \note
 */
-#ifndef triangle_octant_key_pair_h__
-#define triangle_octant_key_pair_h__
+#pragma once
 
 namespace DigitalSculpt
 {
@@ -35,5 +34,3 @@ namespace DigitalSculpt
         int octantIndex;
     };
 }
-
-#endif // triangle_octant_key_pair_h__

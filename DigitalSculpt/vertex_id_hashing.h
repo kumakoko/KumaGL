@@ -1,10 +1,9 @@
-#ifndef vertex_id_hashing_h__
-#define vertex_id_hashing_h__
+#pragma once
 
 #include "GL/glew.h"
 #include "mesh_stats.h"
 
-namespace VertexIDHashingDefinition
+namespace DigitalSculpt
 {
     struct point_hash
     {
@@ -14,7 +13,6 @@ namespace VertexIDHashingDefinition
         }
     };
 
-
     struct point_equal
     {
         bool operator()(const GLuint& p1, const GLuint& p2) const
@@ -22,7 +20,4 @@ namespace VertexIDHashingDefinition
             return p1 == p2;
         }
     };
-
 }
-
-#endif // vertex_id_hashing_h__

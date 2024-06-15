@@ -1,5 +1,6 @@
-#ifndef edge_list_h__
-#define edge_list_h__
+#pragma once
+//#ifndef edge_list_h__
+//#define edge_list_h__
 
 #include <unordered_set>
 #include <vector>
@@ -44,5 +45,5 @@ namespace DigitalSculpt
     };
 }
 
-#endif // edge_list_h__
+//#endif // edge_list_h__
 

@@ -1,5 +1,4 @@
-#ifndef octant_h__
-#define octant_h__
+#pragma once
 
 #include <concurrent_vector.h>
 #include <mutex>
@@ -105,9 +104,4 @@ namespace DigitalSculpt
         /// </summary>
         glm::vec4 color = glm::vec4(0.5, 0.5, 0.5, 1);
     };
-
-    typedef Octant& OctantReference;
-
 } // namespace OctantDefinition
-
-#endif // octant_h__

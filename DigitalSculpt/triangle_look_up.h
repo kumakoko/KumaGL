@@ -1,8 +1,6 @@
-#ifndef triangle_look_up_h__
-#define triangle_look_up_h__
+#pragma once
 
 #include "glm/glm.hpp"
-
 #include "edge_list.h"
 
 namespace DigitalSculpt
@@ -38,6 +36,3 @@ namespace DigitalSculpt
          float getTriangleArea(int key) const;
     };
 }
-
-#endif // triangle_look_up_h__
-

@@ -1,14 +1,13 @@
 // 三角形
-
-#ifndef indexed_triangle_h__
-#define indexed_triangle_h__
+#pragma once
 
 #include <vector>
+#include "GL/glew.h"
 #include "indices.h"
 
 namespace DigitalSculpt
 {
-    struct IndexedTriangle
+    class IndexedTriangle
     {
     public:
         /******************************************************************************************************************
@@ -79,6 +78,4 @@ namespace DigitalSculpt
         /// </summary>
         GLuint indice[3]; // the actual key components - these values are fed straight into opengl to draw meshes by indice
     };
-} // namespace IndexedTriangleDefinition
-
-#endif // indexed_triangle_h__
+}

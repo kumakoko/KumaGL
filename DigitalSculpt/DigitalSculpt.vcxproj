@@ -19,6 +19,7 @@
     <ClCompile Include="indices.cc" />
     <ClCompile Include="math_definitions.h.cc" />
     <ClCompile Include="mesh_stats.cc" />
+    <ClCompile Include="noise.cc" />
     <ClCompile Include="octant.cc" />
     <ClCompile Include="octree.cc" />
     <ClCompile Include="open_gl_wrapper.cc" />
@@ -48,6 +49,7 @@
     <ClInclude Include="triangle_look_up.h" />
     <ClInclude Include="triangle_octant_key_pair.h" />
     <ClInclude Include="triangle_octant_key_pair_list.h" />
+    <ClInclude Include="utils.h" />
     <ClInclude Include="v3d.h" />
     <ClInclude Include="vertex_id_hashing.h" />
     <ClInclude Include="vertex_list.h" />
@@ -102,7 +104,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;BOOST_ALL_DYN_LINK;_DEBUG;_CONSOLE;_LIB;SPDLOG_WCHAR_TO_UTF8_SUPPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);$(SPDLOG_HEADER);$(FMT_HEADER);$(IMGUI_HEADER);../klib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>

@@ -1,4 +1,5 @@
 // 顶点列表
+#pragma once
 
 #include "v3d.h"
 #include "indices.h"

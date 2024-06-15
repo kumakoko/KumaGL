@@ -1,5 +1,4 @@
-#ifndef open_gl_wrapper_h__
-#define open_gl_wrapper_h__
+#pragma once
 
 #include "GL/glew.h"
 
@@ -77,5 +76,3 @@ namespace DigitalSculpt
         static void bindElementArrayBuffer(GLuint id);
     };
 }
-
-#endif // open_gl_wrapper_h__

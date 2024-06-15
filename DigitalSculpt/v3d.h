@@ -1,5 +1,4 @@
-#ifndef v3d_h__
-#define v3d_h__
+#pragma once
 
 //定义一个基本3D顶点类，一个3D顶点至少有position，color，normal和第一层纹理uv这四个属性
 
@@ -157,10 +156,4 @@ namespace DigitalSculpt
         v2 uv;
 #endif // !NOTUSINGNORMALORUV
     };
-
-
-
 }
-
-#endif // v3d_h__
-//定义

@@ -1,13 +1,12 @@
-#ifndef vertex_look_up_h__
-#define vertex_look_up_h__
+#pragma once
 
 #include "GL/glew.h"
 #include "glm/glm.hpp"
-
+#include "indexed_triangle.h"
 #include "v3d.h"
 #include "vertex_list.h"
 #include "triangle_list.h"
-#include "indexed_triangle.h"
+
 
 namespace DigitalSculpt
 {
@@ -70,5 +69,3 @@ namespace DigitalSculpt
         GLuint findClosest(const glm::vec3& testpoint, GLuint p0, GLuint p1, GLuint p2);
     };
 }
-
-#endif // vertex_look_up_h__

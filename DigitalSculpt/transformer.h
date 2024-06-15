@@ -1,5 +1,4 @@
-#ifndef transformer_h__
-#define transformer_h__
+#pragma once
 
 namespace DigitalSculpt
 {
@@ -211,5 +210,3 @@ namespace DigitalSculpt
         glm::vec3 up;
     };
 }
-
-#endif // transformer_h__

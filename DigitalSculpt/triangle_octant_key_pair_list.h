@@ -11,8 +11,7 @@
  *
  * \note
 */
-#ifndef triangle_octant_key_pair_list_h__
-#define triangle_octant_key_pair_list_h__
+#pragma once
 
 #include <vector>
 #include "triangle_octant_key_pair.h"
@@ -45,8 +44,5 @@ namespace DigitalSculpt
 
     public:
         std::vector<TriangleOctantKeyPair> triangleToOctantList;
-
     };
 }
-
-#endif // triangle_octant_key_pair_list_h__

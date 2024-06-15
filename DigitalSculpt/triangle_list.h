@@ -1,6 +1,5 @@
 // 三角形列表
-#ifndef triangle_list_h__
-#define triangle_list_h__
+#pragma once
 
 #include <vector>
 #include "indexed_triangle.h"
@@ -56,5 +55,3 @@ namespace DigitalSculpt
         std::vector<IndexedTriangle> triangles;
     };
 }
-
-#endif // triangle_list_h__

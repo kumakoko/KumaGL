@@ -1,5 +1,6 @@
-#ifndef graphics_data_h__
-#define graphics_data_h__
+//#ifndef graphics_data_h__
+//#define graphics_data_h__
+#pragma once
 
 #include "graphics_buffer_object.h"
 #include "triangle_look_up.h"
@@ -76,5 +77,5 @@ namespace DigitalSculpt
     };
 }
 
-#endif // graphics_data_h__
+//#endif // graphics_data_h__
 

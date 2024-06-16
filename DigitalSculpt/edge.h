@@ -1,4 +1,4 @@
-// 定义了“边”这样子的一个数据结构
+﻿// 定义了“边”这样子的一个数据结构
 #pragma once
 //#ifndef edge_h__
 //#define edge_h__

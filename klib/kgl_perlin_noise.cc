@@ -31,7 +31,7 @@ namespace kgl
 
         PerlinNoise::PerlinNoise(int octaves, float amplitude, float roughness)
         {
-            srand(time(nullptr));
+            srand(static_cast<unsigned int>(time(nullptr)));
             this->seed_ = rand();
             this->octaves_ = octaves;
             this->amplitude_ = amplitude;
@@ -45,8 +45,8 @@ namespace kgl
 
             for (int i = 0; i < octaves_; i++)
             {
-                float freq = (float)(powf(2, i) / d);
-                float amp = (float)powf(roughness_, i) * amplitude_;
+                float freq = (float)(powf(2, static_cast<float>(i)) / d);
+                float amp = (float)powf(roughness_, static_cast<float>(i)) * amplitude_;
                 total += GetInterpolatedNoise(x * freq, y * freq) * amp;
             }
             return total;

@@ -165,7 +165,7 @@ namespace kgl
             {
                 FT_Load_Char(ft_face_, cp, FT_LOAD_RENDER);
 
-                if ((2 * (ft_face_->glyph->bitmap.rows << 6) - ft_face_->glyph->metrics.horiBearingY) > max_height_)
+                if ((2 * (ft_face_->glyph->bitmap.rows << 6) - ft_face_->glyph->metrics.horiBearingY) > static_cast<uint32_t>(max_height_))
                 {
                     // 计算得到所有字符中的字模最高的那个
                     max_height_ = (2 * (ft_face_->glyph->bitmap.rows << 6) - ft_face_->glyph->metrics.horiBearingY);
@@ -268,13 +268,13 @@ namespace kgl
         int32_t sOffsetY = ft_face_->glyph->metrics.horiBearingY / 64;
         int32_t sAdvance = ft_face_->glyph->metrics.horiAdvance / 64;
 
-        for (int32_t j = 0; j < ft_face_->glyph->bitmap.rows; ++j)
+        for (uint32_t j = 0; j < ft_face_->glyph->bitmap.rows; ++j)
         {
             // 找到本字符的左上角Y坐标在缓冲区中的行数
             size_t row = j + img_char_top_/* + face_height*/;
             uint8_t* pDest = &image_data_[(row * width_ * pixel_bytes_) + (img_char_left_/* + face_width*/)* pixel_bytes_];
 
-            for (int32_t k = 0; k < ft_face_->glyph->bitmap.width; ++k)
+            for (uint32_t k = 0; k < ft_face_->glyph->bitmap.width; ++k)
             {
                 if (antialias_color_)
                 {

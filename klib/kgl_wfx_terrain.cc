@@ -150,7 +150,7 @@ namespace kgl
 
 			uint32_t val = image.get_rgb(x, z);
 
-			GLfloat height = val;
+			GLfloat height = static_cast<GLfloat>(val);
 			height /= (MAX_PIXEL_COLOR * 0.5f);
 			height -= 1.0;
 			height *= MAX_HEIGHT;

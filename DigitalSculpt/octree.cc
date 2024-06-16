@@ -1,7 +1,35 @@
-#include "spdlog/spdlog.h"
-#include "glm/gtx/component_wise.hpp"
+﻿/*
+八叉树（Octree）是一种常用于三维空间数据组织的树形数据结构，其中每个节点最多有八个子节点。
+这种结构在计算机图形学、空间索引、以及其他需要高效空间划分的领域中非常有用。在这些应用中，
+Morton码（也称为Z-order曲线）是一种将多维数据转换为一维数据的方法，用于维护元素在多维空
+间中的邻近性，同时可以简化数据结构的访问和修改。
+
+Morton Code（Z-order曲线）:
+Morton码是一种空间填充曲线，它将多维数据映射到一维数据，同时尽可能保持原始数据中的局部性。
+这种映射是通过交织各维度的坐标位来实现的。
+
+如何生成Morton码:
+以三维空间为例，如果有一个点的坐标是 (x, y, z)，Morton码可以通过以下步骤生成：
+
+将每个坐标值（x, y, z）的二进制表示进行扩展，使得每个二进制位之间有空位（即从 xyzb 变为 x0y0z0b0）。
+将扩展后的坐标位交织在一起，形成一个单一的二进制数。例如，扩展的坐标位可能是x0y0z0，然后交织为
+xyzxyz...，这就形成了Morton码。
+
+应用:
+Morton码的一个主要优势是它保持了数据的空间局部性。在八叉树等数据结构中，接近的点在Morton码中也往往
+是数值接近的，这使得空间查询变得更加高效。因此，Morton码在以下场景中特别有用：
+
+1 空间索引和查询，如快速查找空间中的点云数据。
+2 多维数据的排序和存储，以优化访问模式和缓存利用。
+3 在并行计算中，通过Morton码可以有效地将数据分割和分配给多个处理单元，减少数据处理中的通信需求。
+
+总之，Morton码是一种强大的工具，用于在八叉树和其他层次结构中管理和优化三维空间数据。
+*/
 
 #include "octree.h"
+#include "spdlog/spdlog.h"
+#include "glm/gtx/component_wise.hpp"
+#include "glm/gtx/string_cast.hpp"
 #include "vertex_id_hashing.h"
 #include "utils.h"
 
@@ -19,7 +47,7 @@ namespace DigitalSculpt
         spdlog::info("\tOctree Buffer Size: {} \n", this->octreeBuffer);;
         spdlog::info("\tOctree Looseness: {} \n", this->octreeLooseness);;
         spdlog::info("\tDepth {} \n", this->octreeDepth);;
-        spdlog::info("\tCenter: {} \n", to_string(octants[root].octantCenter));;
+        spdlog::info("\tCenter: {} \n", glm::to_string(octants[root].octantCenter));
         spdlog::info("\tHalfsize: {} \n", octants[root].octantHalfSize);;
         spdlog::info("\tVertices: {} \n", verticeCount());
         spdlog::info("\tTriangles: {} \n", totalTriangles());
@@ -71,9 +99,9 @@ namespace DigitalSculpt
         if (collision.isCollision)
         {
             spdlog::info("Collision: \n");
-            spdlog::info("\tRay Origin: {} \n", to_string(rayOrigin));
-            spdlog::info("\tRay Direction: {} \n ", to_string(rayDirection));
-            spdlog::info("\tIntersected Triangle: {} \n\t\t< {}, {}, {}>\n", , collision.triangleID,
+            spdlog::info("\tRay Origin: {} \n", glm::to_string(rayOrigin));
+            spdlog::info("\tRay Direction: {} \n ", glm::to_string(rayDirection));
+            spdlog::info("\tIntersected Triangle: {} \n\t\t< {}, {}, {}>\n", collision.triangleID
                 , glm::to_string(vertices[triangles[collision.triangleID][0]].position)
                 , glm::to_string(vertices[triangles[collision.triangleID][1]].position)
                 , glm::to_string(vertices[triangles[collision.triangleID][2]].position));
@@ -122,14 +150,14 @@ namespace DigitalSculpt
      */
     void Octree::buildOctree()
     {
-        // TriangleOctantKeyPairList::loadTriangleOctantKeyPairList();
+        // 根据本八叉树要负责的三角形个数，开辟空间，且先初始化一些值进去
         loadTriangleOctantList();
 
-        // Adjust the extents of the mesh vertices wrt the center
+        // 算出几何中心点到物体包络盒最大点的距离值，以及几何中心点到物体包络盒最小点的距离值
         float maxExtent = glm::compMax(abs(this->center - limMax));
         float minExtent = glm::compMin(abs(this->center - limMin));
 
-        // Create root octant with appropriate center and half size
+        // 先创建出作为根节点的八叉树元
         Octant rootOctant;
         rootOctant.octantIndex = 0;
         rootOctant.octantCenter = this->center;
@@ -137,7 +165,7 @@ namespace DigitalSculpt
         octants.push_back(rootOctant);
         octantMutexes.push_back(std::make_unique<std::mutex>());
 
-        // Insert all triangles into the octree
+        // 用并行操作的方法把所有的三角形插入到本八叉树内
         insertTrianglesParallel();
     }
 
@@ -171,10 +199,12 @@ namespace DigitalSculpt
 
     void Octree::loadTriangleOctantList()
     {
-        // triangleToOctantList.clear();
+        // 根据本八叉树要负责的三角形个数，开辟空间，且先初始化一些值进去
         const int triCount = totalTriangles();
         triangleToOctantList.reserve(triCount);
-        for (int i = 0; i < triCount; i++) {
+
+        for (int i = 0; i < triCount; i++)
+        {
             triangleToOctantList.push_back(-1);
         }
     }
@@ -188,9 +218,10 @@ namespace DigitalSculpt
     void Octree::resizeOctree(int tri)
     {
         spdlog::info("resizing octree \n");
-        glm::vec3 triangleCentroid = getTriangleCentroid(tri); // Get the triangle's centroid
+        glm::vec3 triangleCentroid = getTriangleCentroid(tri); // 获取到三角形的质心点
 
         // Continuously resize until triangle fits into the root octant
+        // 从八叉树的根八叉树元开始，判断给定的三角形是否落在本八叉树元中，不是的话就递归进去
         while (!isTriangleInOctantBounds(tri, root))
         {
             // If the depth limit is currently reached, increase limit to allow resizing
@@ -200,9 +231,11 @@ namespace DigitalSculpt
                 octreeDepthLimit++;
             }
 
+            // 缓存一下根八叉树元
             Octant oldRoot = octants[root]; // Save oldRoot to replace one of the new root's children
 
             // Get morton code of triangle centroid to determine direction to grow octree
+            // 根据三角形的质心位置，和根八叉树元的中心位置，求出要插入新的八叉树元（即增加新的八叉树子节点）的方向
             OctantPosition newRootDirection = (OctantPosition)mortonCodeHash(triangleCentroid, oldRoot.octantCenter);
             glm::vec3 newRootPositionVector = octantPositionVectors[newRootDirection]; // Vector from old root to new root
 
@@ -245,7 +278,7 @@ namespace DigitalSculpt
             // Adjust the parent values of the old roots children to point to its new index
             if (oldRoot.octantState != OctantLeaf)
             {
-                for (child, oldRoot.children)
+                for (auto& child : oldRoot.children)
                 {
                     octants[child].parent = oldRootNewIndex;
                 }
@@ -259,17 +292,17 @@ namespace DigitalSculpt
      *
      * @param tri
      */
-    mutex mtxResize;
+    std::mutex mtxResize;
     void Octree::resizeOctreeParallel(int tri)
     {
-        if (tri >= triangleToOctantList.size())
+        if (tri >= (int)triangleToOctantList.size())
         {
             spdlog::info("Triangle ID out of bounds \n");
             return;
         }
 
         // Only one thread can resize at a time
-        lock_guard<mutex> lock(mtxResize);
+        std::lock_guard<std::mutex> lock(mtxResize);
 
         glm::vec3 triangleCentroid = getTriangleCentroid(tri); // Get the triangle's centroid
 
@@ -322,7 +355,7 @@ namespace DigitalSculpt
         }
     }
 
-    extern concurrency::concurrent_vector<unique_ptr<mutex>> octantMutexes;
+    extern concurrency::concurrent_vector<std::unique_ptr<std::mutex>> octantMutexes;
     /**
      * @brief Insert triangle into octree, using the triangleID. Corrects state and subdivides if necessary.
      *
@@ -330,10 +363,10 @@ namespace DigitalSculpt
      * @return true
      * @return false
      */
-    bool Octree::insertTriangle(int tri) 
+    bool Octree::insertTriangle(int tri)
     {
         // expand triangletooctantlist to match the number of triangles
-        if (tri >= triangleToOctantList.size())
+        if (tri >= static_cast<int>(triangleToOctantList.size()))
         {
             int diff = tri - triangleToOctantList.size();
             for (int i = 0; i <= diff; i++)
@@ -353,7 +386,7 @@ namespace DigitalSculpt
      * @return true
      * @return false
      */
-    bool Octree::removeTriangleFromOctree(int tri) 
+    bool Octree::removeTriangleFromOctree(int tri)
     {
         // Get octant that triangle is in
         int oix = triangleToOctantList[tri];
@@ -381,25 +414,21 @@ namespace DigitalSculpt
         updateAffectedTrianglesParallel(); // testing
     }
 
-    // Parallel Functions
-    /**
-     * @brief Insert triangle into octree, using the triangleID. Corrects state and subdivides if necessary.
-     *
-     * @param tri
-     * @return true
-     * @return false
-     */
-    bool Octree::insertTriangleParallel(int tri) 
+    bool Octree::insertTriangleParallel(int tri)
     {
-        if (tri > triangleToOctantList.size())
+        // 插入的三角形编号不能大于待插入的三角形个数值
+        if (tri > static_cast<int>(triangleToOctantList.size()))
         {
             return false;
         }
-        // Check if the triangle is in the octree
+
+        // 检查编号为tri的三角形，是否已经存在于本八叉树中
         if (!Octree::isTriangleInOctantBounds(tri, root))
         {
+            // 不存在的话，就以并行操作的方式插入到八叉树中
             resizeOctreeParallel(tri);
         }
+
         int oix = root;
 
         // Loop until the triangle is inserted into the correct octant
@@ -434,7 +463,7 @@ namespace DigitalSculpt
             // Else If octant is a leaf, check depth and subdivide if # of triangles held exceeds limit
             else if (octants[oix].octantState == OctantLeaf &&
                 localDepth < octreeDepthLimit &&
-                octants[oix].triangleIDs->size() > octantTriangleLimit)
+                static_cast<int>(octants[oix].triangleIDs->size()) > octantTriangleLimit)
             {
                 subdivideOctantParallel(oix, localDepth);
             }
@@ -444,41 +473,55 @@ namespace DigitalSculpt
         }
     }
 
-    bool Octree::insertTrianglesParallel() 
+    bool Octree::insertTrianglesParallel()
     {
-        int nThreads = std::thread::hardware_concurrency();
-
-        if (nThreads == 0)
-        {
-            nThreads = 1;
-        }
-
+        int nThreads = getNThreads();
         int triangleCount = totalTriangles();
-        vector<thread> threads;
+        std::vector<std::thread> threads;
+
+        // 假定nThread为4，triangleCount为12，开了4条线程去进行并行插入三角形
+        // 第0条线程插入三角形的编号为：0，4，8
+        // 第1条线程插入三角形的编号为：1，5，9
+        // 第2条线程插入三角形的编号为：2，6，10
+        // 第3条线程插入三角形的编号为：3，7，11
         for (int i = 0; i < nThreads; i++)
         {
             int id = i;
-            // I'm doin lambda functions, what're you gonna do about it?
-            threads.push_back(thread([&, id]() {
-                for (int j = id; j < triangleCount; j += nThreads)
+            // 可被 joinable 的 std::thread 对象必须在他们销毁之前被主线程 join 或者将其设置为 detached.
+            threads.push_back(std::thread([&, id]()
                 {
-                    insertTriangleParallel(j);
-                }
-                }));
+                    for (int j = id; j < triangleCount; j += nThreads)
+                    {
+                        insertTriangleParallel(j);
+                    }
+                })
+            );
         }
 
-        foreach(t, threads)
+        // c++11中关于std::thread的join的详解
+        // https://blog.csdn.net/FL1768317420/article/details/136290423
+        // 在使用std::thread的时候，对创建的线程有两种操作：等待 / 分离，也就是join / detach操作。
+        // join()操作是在std::thread t(func)后“某个”合适的地方调用，其作用是回收对应创建的线程的资源，
+        // 避免造成资源的泄露。detach()操作是在std::thread t(func)后马上调用，用于把被创建的线程与做
+        // 创建动作的线程分离，分离的线程变为后台线程, 其后，创建的线程的“死活”就与其做创建动作的线程无
+        // 关，它的资源会被init进程回收。
+        // 在C++中，如果你尝试对已经执行完毕的线程使用join()，将不会发生任何问题。join()成员函数的作用
+        // 是等待线程完成其执行，但如果线程已经结束，调用join()将立即返回。
+        // 所以主线程会在这些插入三角形的线程都执行完之后，才返回，否则就block住
+        for (auto& t : threads)
         {
             t.join();
         }
+
         return true;
     }
 
-    void Octree::octreeReinsertTrianglesParallel() 
+    void Octree::octreeReinsertTrianglesParallel()
     {
         // TriangleOctantKeyPairList::loadTriangleOctantKeyPairList();
         loadTriangleOctantList();
-        foreach(octant, octants)
+
+        for (auto& octant : octants)
         {
             octant.triangleIDs->clear();
         }
@@ -486,7 +529,7 @@ namespace DigitalSculpt
         insertTrianglesParallel();
     }
 
-    bool Octree::updateTriangleInOctreeParallel(int tri) 
+    bool Octree::updateTriangleInOctreeParallel(int tri)
     {
         if (removeTriangleFromOctreeParallel(tri))
         {
@@ -496,7 +539,7 @@ namespace DigitalSculpt
         return false;
     }
 
-    bool Octree::updateTrianglesInOctreeParallel(std::vector<int> tris) 
+    bool Octree::updateTrianglesInOctreeParallel(std::vector<int> tris)
     {
         int triangles_count = (int)tris.size();
 
@@ -512,30 +555,34 @@ namespace DigitalSculpt
         {
             updateSuccessfulList.push_back(true);
             int id = i;
-            threads.push_back(thread([&, id]() {
+            threads.push_back(std::thread([&, id]() {
                 for (int j = id; j < triangles_count; j += nThreads)
                 {
                     updateSuccessfulList[id] = updateSuccessfulList[id] && updateTriangleInOctreeParallel(tris[j]);
                 }
                 }));
         }
-        joinThreads;
+
+        for (auto& t : threads)
+        {
+            t.join();
+        }
 
         return all_of(updateSuccessfulList.begin(), updateSuccessfulList.end(), [](bool b) { return b; });
     }
 
-    bool Octree::removeTriangleFromOctreeParallel(int tri) 
+    bool Octree::removeTriangleFromOctreeParallel(int tri)
     {
         // Get octant that triangle is in
         int oix = triangleToOctantList[tri];
 
         // If triangle is not in an octant, return false
-        if (oix == NonExistentOctantIndex || oix >= octants.size())
+        if (oix == NonExistentOctantIndex || oix >= static_cast<int>(octants.size()))
         {
             return false;
         }
 
-        lock_guard<mutex> lock(*octantMutexes[oix]);
+        std::lock_guard<std::mutex> lock(*octantMutexes[oix]);
 
         if (octants[oix].triangleIDs->find(tri) != octants[oix].triangleIDs->end())
         {
@@ -546,13 +593,13 @@ namespace DigitalSculpt
         return false; // Triangle was not found in the octant
     }
 
-    void Octree::updateAffectedTrianglesParallel() 
+    void Octree::updateAffectedTrianglesParallel()
     {
         updateTrianglesInOctreeParallel(affectedTriangles);
         clearCollision();
     }
 
-    void Octree::clearCollision() 
+    void Octree::clearCollision()
     {
         collision = OctreeCollision();
         verticesInRange.clear();
@@ -562,5 +609,320 @@ namespace DigitalSculpt
         reflectedCollision = OctreeCollision();
         reflectedVerticesInRange.clear();
         reflectedTrianglesInRange.clear();
+    }
+
+    extern concurrency::concurrent_vector<std::unique_ptr<std::mutex>> octantMutexes;
+
+    /**
+     * @brief Search octree for octant which encloses triangle. Standard Traversal.
+     *
+     * @param triangle
+     * @return int
+     */
+    int Octree::findOctantForTriangle(int triangle)
+    {
+        octreeCurrentDepth = 0;                                                                                                    // Set the current depth to 0
+        glm::vec3 triangleCentroid = getTriangleCentroid(triangle);                                                                       // get the triangle centroid, used for morton code
+        int currOctant = root;                                                                                             // Track the current octant index, start at root
+        int nextOctant = octants[currOctant].children[mortonCodeHash(triangleCentroid, octants[currOctant].octantCenter)]; // Calculate and track the next octant
+
+        while (nextOctant != NoOctantChildSet && isTriangleInOctantBounds(triangle, nextOctant)) // While the next octant exists and the triangle is within its bounds
+        {
+            currOctant = nextOctant;                                                                                       // Set the current octant to the next octant
+            nextOctant = octants[currOctant].children[mortonCodeHash(triangleCentroid, octants[currOctant].octantCenter)]; // Calculate the next octant
+            octreeCurrentDepth++;                                                                                          // increment the current depth
+        }
+        return currOctant;
+    }
+
+    int Octree::mortonCodeHash(glm::vec3 point, glm::vec3 center)
+    {
+        // this function is performing a safety test on point.members that are "0" on an axis.
+        // Due to the nature of floating points, -0.0f is possible and less than 0.0f, so this function takes this into account and auto converts -0.0f into 0.0f if it exists so there are no errors in the MortonCode produced.
+        return (MortonCodeConvert_Safe(point.x, center.x) << 2) | (MortonCodeConvert_Safe(point.y, center.y) << 1) | (MortonCodeConvert_Safe(point.z, center.z));
+    }
+
+    /**
+     * @brief Subdivide the given octant. Adds the children to the octant and octants list.
+     * Can recurse if child octant needs to subdivide.
+     *
+     * @param oix
+     */
+    void Octree::subdivideOctant(int oix)
+    {
+
+        if (octreeCurrentDepth == octreeDepth) // Update the current depth value of the octree if subdivision increases it
+        {
+            octreeDepth++;
+        }
+
+        octreeCurrentDepth++; // Child octants are at the next depth of the octant being subdivided
+
+        for (int i = 0; i < 8; i++) // Create this octants children
+        {
+            createChildOctant((OctantPosition)i, oix);
+        }
+
+        // // Reinsert triangles into children if they fit entirely inside
+        // // Reverse order to preserve positions on removal
+        // for (int i = (int)octants[oix].triangleIDs->size() - 1; i >= 0; i--)
+        // {
+        //     int tri = octants[oix].triangleIDs->at(i);
+        //     glm::vec3 triangleCentroid = getTriangleCentroid(tri);
+        //     int childOctant = octants[oix].children[mortonCodeHash(triangleCentroid, octants[oix].octantCenter)];
+        //     // If triangle fits in child octant, insert it
+        //     if (isTriangleInOctantBounds(tri, childOctant))
+        //     {
+        //         octants[childOctant].triangleIDs->emplace_back(tri);                    // Insert triangle into child octant
+        //         triangleToOctantList[tri] = childOctant;                                // Correct the triangle - octant mapping
+        //         octants[oix].triangleIDs->erase(octants[oix].triangleIDs->begin() + i); // Remove triangle from the parent octant
+        //     }
+        // }
+
+        // Reinsert triangles into children if they fit entirely inside
+        auto ts = *(octants[oix].triangleIDs.get());
+
+        for (auto& tri : ts)
+        {
+            glm::vec3 triangleCentroid = getTriangleCentroid(tri);
+            int childID = octants[oix].children[mortonCodeHash(triangleCentroid, octants[oix].octantCenter)];
+
+            // If triangle fits in child octant, insert it
+            if (isTriangleInOctantBounds(tri, childID))
+            {
+                int temp = tri;
+                octants[childID].triangleIDs->insert(temp); // Insert triangle into child octant
+                triangleToOctantList[tri] = childID;        // Correct the triangle - octant mapping
+                octants[oix].triangleIDs->erase(tri);       // Remove triangle from the parent octant
+            }
+        }
+
+        for (int i = 0; i < 8; i++) // Subdivide any child octants if necessary
+        {
+            int childOctant = octants[oix].children[i]; // Avoiding nested [] operators for clarity
+            if (octreeCurrentDepth < octreeDepthLimit && octants[childOctant].triangleIDs->size() > octantTriangleLimit)
+            {
+                subdivideOctant(childOctant);
+            }
+        }
+
+        // Set state of subdivided octant
+        // Checks if octant contains any triangles ands sets state accordingly
+        if (octants[oix].triangleIDs->size() == 0)
+        {
+            octants[oix].octantState = OctantEmptyInternal;
+        }
+        else
+        {
+            octants[oix].octantState = OctantNotEmptyInternal;
+        }
+        octreeCurrentDepth--;
+    }
+
+    /**
+     * @brief Creates a child octant for the octant at the given index.
+     * Adds the child to the octant list.
+     * Adjusts the center and halfsize of the child octant according to the looseness of the octree.
+     *
+     * NOTE: Can be optimized by calculating the unadjusted and loose halfsizes before hand since
+     * those are shared between all children of an octant.
+     *
+     * @param octantPosition
+     * @param parentIndex
+     */
+    void Octree::createChildOctant(OctantPosition octantPosition, int parentIndex)
+    {
+        Octant childOctant; // Empty octant
+
+        Octant& parentOctant = octants[parentIndex]; // Get the parent octant reference
+
+        float unadjustedHalfSize = parentOctant.octantHalfSize / 2.0f;     // Unadjusted half size for child octant
+        float looseHalfSize = (float)octreeLooseness * unadjustedHalfSize; // Looseness adjusted half size for child octant
+        float halfSizeDifference = looseHalfSize - unadjustedHalfSize;     // Difference between the two half sizes
+
+        glm::vec3 positionVector = octantPositionVectors[(int)octantPosition]; // Position vector for child octant
+
+        // Unadjusted child center, based on parent center and unadjusted half size
+        glm::vec3 unadjustedChildCenter = parentOctant.octantCenter + glm::vec3(unadjustedHalfSize) * positionVector;
+
+        // Set child center, adjusted for looseness
+        // Subtraction used to reverse direction of position vector
+        // Moves the child's center towards the parent's center based on the half size difference
+        childOctant.octantCenter = unadjustedChildCenter - glm::vec3(halfSizeDifference) * positionVector;
+        childOctant.octantHalfSize = looseHalfSize;    // Set half size of child octant, adjusted for looseness
+        childOctant.octantIndex = (int)octants.size(); // Set octants index to the next available index
+        childOctant.parent = parentIndex;              // Set parent of child octant
+
+        // Set the parent's child at the octant position to the child's index in the octants vector
+        parentOctant.children[(int)octantPosition] = childOctant.octantIndex;
+
+        octants.push_back(childOctant); // Add child octant to octants list
+        octantMutexes.push_back(std::make_unique<std::mutex>());
+    }
+
+    bool Octree::isTriangleInOctantBounds(int tri, int octantID)
+    {
+        Octant& oct = octants[octantID]; // retrieve the current processed octant
+        IndexedTriangle triangle = triangles[tri]; // 取出编号为tri的三角形
+        glm::vec3 halfSizeVector = glm::vec3(octants[octantID].octantHalfSize + std::numeric_limits<float>::epsilon()); // Half size vec3 for comparison
+
+        // 检查三角形的每个顶点，与八叉树元中心点之间的距离，是否小于八叉树元中心点的一半大小
+        // glm::all方法判断传递进来的bool向量中，是不是所有的分量都为true
+        // glm::lessThanEqual函数判断第1个向量是不是小于第2个向量，每个向量的分量各自对应独立比较，判断出来的bool值存在一个向量中返回
+        // glm::abs函数把传入的向量的每个分量都取其正数然后返回 
+        // 把待检测的三角形的三个顶点的xyz，分别于八叉树元的中点xyz相减，如果其绝对值都小于八叉树元的半长宽高值，即为待检测三角形
+        // 完全在本八叉树元内
+        return
+            glm::all(glm::lessThanEqual(glm::abs(oct.octantCenter - vertices[triangle[0]].position), halfSizeVector)) &&
+            glm::all(glm::lessThanEqual(glm::abs(oct.octantCenter - vertices[triangle[1]].position), halfSizeVector)) &&
+            glm::all(glm::lessThanEqual(glm::abs(oct.octantCenter - vertices[triangle[2]].position), halfSizeVector));
+    }
+
+    // Parallel Functions
+    std::mutex mtxOctants;
+    std::mutex mtxDepth;
+
+    void Octree::subdivideOctantParallel(int oix, int localDepth)
+    {
+        mtxDepth.lock();
+        if (localDepth == octreeDepth) // Update the current depth value of the octree if subdivision increases it
+        {
+            octreeDepth++;
+        }
+        mtxDepth.unlock();
+
+        localDepth++;
+        std::vector<int> children;
+        children.reserve(8);
+        for (int i = 0; i < 8; i++) // Create this octants children
+        {
+            children.push_back(createChildOctantParallel((OctantPosition)i, oix));
+        }
+
+        // // Reinsert triangles into children if they fit entirely inside
+        // // Reverse order to preserve positions on removal
+        // for (int i = (int)octants[oix].triangleIDs->size() - 1; i >= 0; i--)
+        // {
+        //     int tri = octants[oix].triangleIDs->at(i);
+        //     glm::vec3 triangleCentroid = getTriangleCentroid(tri);
+        //     int childID = children[mortonCodeHash(triangleCentroid, octants[oix].octantCenter)];
+
+        //     // If triangle fits in child octant, insert it
+        //     if (isTriangleInOctantBounds(tri, childID))
+        //     {
+        //         octants[childID].triangleIDs->emplace_back(tri);                       // Insert triangle into child octant
+        //         triangleToOctantList[tri] = childID;                                  // Correct the triangle - octant mapping
+        //         octants[oix].triangleIDs->erase(octants[oix].triangleIDs->begin() + i); // Remove triangle from the parent octant
+        //     }
+        // }
+
+        // Reinsert triangles into children if they fit entirely inside
+        auto ts = *(octants[oix].triangleIDs.get());
+        for (auto& tri : ts)
+        {
+            glm::vec3 triangleCentroid = getTriangleCentroid(tri);
+            int childID = children[mortonCodeHash(triangleCentroid, octants[oix].octantCenter)];
+
+            // If triangle fits in child octant, insert it
+            if (isTriangleInOctantBounds(tri, childID))
+            {
+                int temp = tri;
+                octants[childID].triangleIDs->insert(temp); // Insert triangle into child octant
+                triangleToOctantList[tri] = childID;        // Correct the triangle - octant mapping
+                octants[oix].triangleIDs->erase(tri);       // Remove triangle from the parent octant
+            }
+        }
+
+        for (int i = 0; i < 8; i++) // Subdivide any child octants if necessary
+        {
+            int childID = children[i]; // Avoiding nested [] operators for clarity
+
+            if (localDepth < octreeDepthLimit && octants[childID].triangleIDs->size() > octantTriangleLimit)
+            {
+                subdivideOctantParallel(childID, localDepth);
+            }
+            // octantMutexes[childOctant]->unlock();
+        }
+
+        // Set state of subdivided octant
+        // Checks if octant contains any triangles ands sets state accordingly
+        if (octants[oix].triangleIDs->size() == 0)
+        {
+            octants[oix].octantState = OctantEmptyInternal;
+        }
+        else
+        {
+            octants[oix].octantState = OctantNotEmptyInternal;
+        }
+
+        octants[oix].children = children;
+    }
+
+    // Generating colors
+    std::random_device rd;
+    std::mt19937 e2(rd());
+    std::normal_distribution<> dist(50, 100);
+
+    // -- WARNING: CHILD OCTANTS ARE LOCKED WHEN CREATED -- Not currently
+    int Octree::createChildOctantParallel(OctantPosition octantPosition, int parentIndex)
+    {
+        Octant childOctant;                         // Empty octant
+        Octant parentOctant = octants[parentIndex]; // Get the parent octant reference
+
+        childOctant.color = glm::vec4((float)dist(e2) / 100.0f,
+            (float)dist(e2) / 100.0f,
+            (float)dist(e2) / 100.0f,
+            1.0f); // Generate a random color for the child octant
+
+        float unadjustedHalfSize = parentOctant.octantHalfSize / 2.0f;     // Unadjusted half size for child octant
+        float looseHalfSize = (float)octreeLooseness * unadjustedHalfSize; // Looseness adjusted half size for child octant
+        float halfSizeDifference = looseHalfSize - unadjustedHalfSize;     // Difference between the two half sizes
+
+        glm::vec3 positionVector = octantPositionVectors[(int)octantPosition]; // Position vector for child octant
+
+        // Unadjusted child center, based on parent center and unadjusted half size
+        glm::vec3 unadjustedChildCenter = parentOctant.octantCenter + glm::vec3(unadjustedHalfSize) * positionVector;
+
+        // Set child center, adjusted for looseness
+        // Subtraction used to reverse direction of position vector
+        // Moves the child's center towards the parent's center based on the half size difference
+        childOctant.octantCenter = unadjustedChildCenter - glm::vec3(halfSizeDifference) * positionVector;
+        childOctant.octantHalfSize = looseHalfSize; // Set half size of child octant, adjusted for looseness
+        childOctant.parent = parentIndex;           // Set parent of child octant
+
+        // Insert child into octants vector and lock it before adding to the parent
+        int childIndex = insertOctantParallel(childOctant);
+        // octantMutexes[childIndex]->lock();
+
+        // set the parent's child at the octant position to the child's index in the octants vector
+        // octants[parentIndex].children[(int)octantPosition] = childIndex;
+        return childIndex;
+    }
+
+    int Octree::insertOctantParallel(Octant& octant)
+    {
+        std::lock_guard<std::mutex> lock(mtxOctants);
+        int octantIndex = (int)octants.size();
+        octant.octantIndex = octantIndex;
+        octants.push_back(octant);
+        octantMutexes.push_back(std::make_unique<std::mutex>());
+        return octantIndex;
+    }
+
+    std::pair<int, int> Octree::findOctantForTriangleParallel(int triangle, int start)
+    {
+        int localDepth = 0;
+        glm::vec3 triangleCentroid = getTriangleCentroid(triangle);
+        int currOctant = start;
+        int nextOctant = octants[currOctant].children[mortonCodeHash(triangleCentroid, octants[currOctant].octantCenter)];
+
+        while (nextOctant != NoOctantChildSet && isTriangleInOctantBounds(triangle, nextOctant))
+        {
+            currOctant = nextOctant;
+            nextOctant = octants[currOctant].children[mortonCodeHash(triangleCentroid, octants[currOctant].octantCenter)];
+            localDepth++;
+        }
+
+        return std::make_pair(currOctant, localDepth);
     }
 }

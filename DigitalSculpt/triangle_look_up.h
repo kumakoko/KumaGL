@@ -20,7 +20,7 @@ namespace DigitalSculpt
          glm::vec3 getTriangleNormal(int key) const;
 
         /******************************************************************************************************************
-         * Desc: 根据给定的三角形索引id，查找到该三角形，然后获取到该三角形的中心点
+         * Desc: 根据给定的三角形索引id，查找到该三角形，然后获取到该三角形的质心
          * Method:    getTriangleCentroid
          * Returns:   glm::vec3
          * Parameter: int key

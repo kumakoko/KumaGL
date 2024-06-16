@@ -24,23 +24,35 @@ namespace kgl
 
     double MathTools::SmoothedNoise(float x, float y)
     {
-        double corners = (Noise(x - 1.f, y - 1.f) + Noise(x + 1.f, y - 1.f) + Noise(x - 1.f, y + 1.f) + Noise(x + 1.f, y + 1.f)) / 16.0;
-        double sides = (Noise(x - 1.f, y) + Noise(x + 1.f, y) + Noise(x, y - 1) + Noise(x, y + 1.f)) / 8.0;
-        double center = Noise(x, y) / 4.0;
+        double corners = (
+            Noise(static_cast<int>(x - 1.f), static_cast<int>(y - 1.f)) + 
+            Noise(static_cast<int>(x + 1.f), static_cast<int>(y - 1.f)) +
+            Noise(static_cast<int>(x - 1.f), static_cast<int>(y + 1.f)) + 
+            Noise(static_cast<int>(x + 1.f), static_cast<int>(y + 1.f))) / 16.0;
+        
+        double sides = (
+            Noise(static_cast<int>(x - 1.f), static_cast<int>(y)) + 
+            Noise(static_cast<int>(x + 1.f), static_cast<int>(y)) + 
+            Noise(static_cast<int>(x), static_cast<int>(y - 1.f)) + 
+            Noise(static_cast<int>(x), static_cast<int>(y + 1.f))) / 8.0;
+        
+        double center = 
+            Noise(static_cast<int>(x), static_cast<int>(y)) / 4.0;
+        
         return corners + sides + center;
     }
 
     double MathTools::InterpolatedNoise(float x, float y)
     {
-        int intX = (int)x;
+        int intX = static_cast<int>(x);
         double fractionalX = x - intX;
-        int intY = (int)y;
+        int intY = static_cast<int>(y);
         double fractionalY = y - intY;
 
-        double v1 = SmoothedNoise(intX, intY);
-        double v2 = SmoothedNoise(intX + 1, intY);
-        double v3 = SmoothedNoise(intX, intY + 1);
-        double v4 = SmoothedNoise(intX + 1, intY + 1);
+        double v1 = SmoothedNoise(static_cast<float>(intX), static_cast<float>(intY));
+        double v2 = SmoothedNoise(static_cast<float>(intX + 1), static_cast<float>(intY));
+        double v3 = SmoothedNoise(static_cast<float>(intX), static_cast<float>(intY + 1));
+        double v4 = SmoothedNoise(static_cast<float>(intX + 1), static_cast<float>(intY + 1));
 
         double i1 = InterpolateCos(v1, v2, fractionalX);
         double i2 = InterpolateCos(v3, v4, fractionalX);
@@ -56,7 +68,7 @@ namespace kgl
         {
             double frequency = pow(2, i);
             double amplitude = pow(MathTools::PERSISTENCE, i);
-            total += InterpolatedNoise(x * frequency, y * frequency) * amplitude;
+            total += InterpolatedNoise(static_cast<float>(x * frequency), static_cast<float>(y * frequency)) * amplitude;
         }
 
         return total;
@@ -71,8 +83,8 @@ namespace kgl
         x = x + offset;
         y = y + offset;
 
-        float term = -(pow(x, 2) / (2 * spread) + pow(y, 2) / (2 * spread));
-        return -a * pow(e, term);
+        float term = -(powf(x, 2.0f) / (2.0f * spread) + powf(y, 2.0f) / (2.0f * spread));
+        return -a * powf(e, term);
     }
 
     glm::mat4 MathTools::CreateTransformationMatrix(const glm::vec3& translation, const glm::vec3& rotation, const glm::vec3& scale)

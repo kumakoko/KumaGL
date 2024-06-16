@@ -84,6 +84,9 @@
     <ClInclude Include="utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="digital_sculpt_app.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="v3d.cc">
@@ -138,6 +141,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="noise.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="digital_sculpt_app.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cc">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

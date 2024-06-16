@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <chrono>
 #include <mutex>
@@ -9,6 +9,7 @@
 #include <concurrent_unordered_set.h>
 #include <concurrent_queue.h>
 #include <random>
+#include <cmath>
 
 #include "mesh_stats.h"
 #include "octant.h"
@@ -19,25 +20,26 @@
 
 namespace DigitalSculpt
 {
-#define MortonCodeConvert_Safe(MortonCodeVertexPosition, MortonCodeCenterPosition) (((((MortonCodeVertexPosition) == 0.0f) && std::signbit((MortonCodeVertexPosition))) ? 0.0f : (MortonCodeVertexPosition)) >= (MortonCodeCenterPosition))
+// #define MortonCodeConvert_Safe(MortonCodeVertexPosition, MortonCodeCenterPosition) (((((MortonCodeVertexPosition) == 0.0f) && std::signbit((MortonCodeVertexPosition))) ? 0.0f : (MortonCodeVertexPosition)) >= (MortonCodeCenterPosition))
 
-    template<typename T1,typename T2>
-    inline float MortonCodeConvert_Safe(T1 MortonCodeVertexPosition, T2 MortonCodeCenterPosition)
+    template<typename T>
+    bool MortonCodeConvert_Safe(T MortonCodeVertexPosition, T MortonCodeCenterPosition) 
     {
-        return (((((MortonCodeVertexPosition) == 0.0f) && std::signbit((MortonCodeVertexPosition))) ? 0.0f : (MortonCodeVertexPosition)) >= (MortonCodeCenterPosition));
+        T adjustedPosition = (MortonCodeVertexPosition == 0.0 && std::signbit(MortonCodeVertexPosition)) ? 0.0 : MortonCodeVertexPosition;
+        return adjustedPosition >= MortonCodeCenterPosition;
     }
 
 
     class Octree : public OctreeStats
     {
     public:
-        // Octree.cpp
         /******************************************************************************************************************
-         * Desc:
+         * Desc: 构建八叉树，把mesh中的所有三角形都插入到本树中，且初始化根八叉树元
          * Method:    buildOctree
          * Returns:   void
          ****************************************************************************************************************/
         void buildOctree();
+
         /******************************************************************************************************************
          * Desc:
          * Method:    testOctree
@@ -50,43 +52,54 @@ namespace DigitalSculpt
          * Returns:   void
          ****************************************************************************************************************/
         void octreePrintStats();
+
         /******************************************************************************************************************
-         * Desc:
+         * Desc: Resize octree to fit the given triangle by creating a new root octant and placing the old root as a child
          * Method:    resizeOctree
          * Returns:   void
          * Parameter: int tri
          ****************************************************************************************************************/
         void resizeOctree(int tri);
+
         /******************************************************************************************************************
          * Desc:
          * Method:    clearOctree
          * Returns:   void
          ****************************************************************************************************************/
         void clearOctree();
+        
         /******************************************************************************************************************
          * Desc:
          * Method:    rebuildOctree
          * Returns:   void
          ****************************************************************************************************************/
         void rebuildOctree();
+
         /******************************************************************************************************************
-         * Desc:
+         * Desc: 根据本八叉树要负责的三角形个数，开辟空间，且先初始化一些值进去
          * Method:    loadTriangleOctantList
          * Returns:   void
          ****************************************************************************************************************/
         void loadTriangleOctantList();
 
-        // Parallel Octree functions
-        void resizeOctreeParallel(int tri);
+        /******************************************************************************************************************
+         * Desc: 
+         * Method:    resizeOctreeParallel
+         * Returns:   void
+         * Parameter: int tri
+         ****************************************************************************************************************/
+         void resizeOctreeParallel(int tri);
 
-        // OctreeOctant.cpp
+ 
         /******************************************************************************************************************
          * Desc:
          * Method:    subdivideOctant
          * Returns:   void
          * Parameter: int octantID
          ****************************************************************************************************************/
+
         void subdivideOctant(int octantID);
+        
         /******************************************************************************************************************
          * Desc:
          * Method:    createChildOctant
@@ -95,6 +108,7 @@ namespace DigitalSculpt
          * Parameter: int parentIndex
          ****************************************************************************************************************/
         void createChildOctant(OctantPosition octantPosition, int parentIndex);
+        
         /******************************************************************************************************************
          * Desc:
          * Method:    findOctantForTriangle
@@ -102,12 +116,13 @@ namespace DigitalSculpt
          * Parameter: int tri
          ****************************************************************************************************************/
         int findOctantForTriangle(int tri);
+
         /******************************************************************************************************************
-         * Desc:
+         * Desc: 检查给定的三角形的三个顶点，是否都在给定的八叉树元内
          * Method:    isTriangleInOctantBounds
-         * Returns:   bool
-         * Parameter: int tri
-         * Parameter: int octantID
+         * Returns:   bool 是true否false
+         * Parameter: int tri 给定的三角形的索引值
+         * Parameter: int octantID 给定的八叉树元的索引值
          ****************************************************************************************************************/
         bool isTriangleInOctantBounds(int tri, int octantID);
 
@@ -191,14 +206,14 @@ namespace DigitalSculpt
          ****************************************************************************************************************/
         void clearCollision();
 
-        // Parallel OctreeElements functions
         /******************************************************************************************************************
-         * Desc:
+         * Desc: Insert triangle into octree, using the triangleID. Corrects state and subdivides if necessary.
          * Method:    insertTriangleParallel
          * Returns:   bool
          * Parameter: int tri
          ****************************************************************************************************************/
         bool insertTriangleParallel(int tri);
+
         /******************************************************************************************************************
          * Desc:
          * Method:    insertTrianglesParallel
@@ -226,14 +241,14 @@ namespace DigitalSculpt
          ****************************************************************************************************************/
         bool updateTrianglesInOctreeParallel(std::vector<int> tris);
         /***************************************************
-        
+
         @name: DigitalSculpt::Octree::removeTriangleFromOctreeParallel
         @return: bool
         @param: int tri
         ***************************************************/
         bool removeTriangleFromOctreeParallel(int tri);
         /***************************************************
-        
+
         @name: DigitalSculpt::Octree::updateAffectedTrianglesParallel
         @return: void
         ***************************************************/
@@ -249,7 +264,7 @@ namespace DigitalSculpt
 
         void octreeRayIntersectionCore(glm::vec3 origin, glm::vec3 direction, OctreeCollision& collisionRef);
         void octreeRayIntersection(glm::vec3 origin, glm::vec3 direction, bool isSymmetric = false, glm::vec3 planeOrigin = glm::vec3(0), glm::vec3 planeNormal = glm::vec3(1, 0, 0));
-        bool isOriginInOctantBounds(glm::vec3 origin, OctantReference octant);
+        bool isOriginInOctantBounds(glm::vec3 origin, Octant& octant);
         void reflectRay(glm::vec3& origin, glm::vec3& direction, glm::vec3& planeOrigin, glm::vec3& planeNormal, glm::vec3& reflectOrigin, glm::vec3& reflectDirection);
 
         void collectAroundCollision(float range, bool collectAffectedTriangles = true, bool collectTrianglesInRange = false, bool isSymmetric = false);
@@ -273,10 +288,13 @@ namespace DigitalSculpt
         std::vector<GLuint> reflectedVerticesInRange;
         std::vector<int> reflectedTrianglesInRange;
 
+        /// <summary>
+        /// 本八叉树要管理的三角形的索引值
+        /// </summary>
         concurrency::concurrent_vector<int> triangleToOctantList;
 
         // Plane normals may be wrong here, need to double check
-        glm::vec3 planeNormals[3] = 
+        glm::vec3 planeNormals[3] =
         {
             {0, 0, 1}, // xy plane
             {1, 0, 0}, // yz plane

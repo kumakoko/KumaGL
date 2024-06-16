@@ -29,7 +29,7 @@ namespace DigitalSculpt
         edges.clear();
         const std::size_t countUniqueVertices = vertices.size();
         edges.reserve(countUniqueVertices);
-        for (int i = 0; i < countUniqueVertices; i++)
+        for (std::size_t i = 0; i < countUniqueVertices; i++)
         {
             this->edges.emplace_back(Edge());
         }
@@ -53,7 +53,7 @@ namespace DigitalSculpt
             const int id = threadID;
             threads.push_back(std::thread([&, id]()
                 {
-                    for (int vertexID = id; vertexID < countUniqueVertices; vertexID += nThreads)
+                    for (std::size_t vertexID = id; vertexID < countUniqueVertices; vertexID += nThreads)
                     {
                         for (auto& tri : vertices[vertexID].triangleIDs)
                         {
@@ -92,7 +92,7 @@ namespace DigitalSculpt
     {
         const auto countofedges = edges.size();
 
-        for (int i = 0; i < countofedges; i++)
+        for (std::size_t i = 0; i < countofedges; i++)
         {
             // edges[i].cleanUp();
         }

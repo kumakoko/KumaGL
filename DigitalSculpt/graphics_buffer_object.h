@@ -1,5 +1,5 @@
-#pragma once
-// ·â×°ÁËOpenGLµÄvertex array object£¬vertex buffer object £¬vertex element buffer µÄÀà
+ï»¿#pragma once
+// å°è£…äº†OpenGLçš„vertex array objectï¼Œvertex buffer object ï¼Œvertex element buffer çš„ç±»
 //#ifndef graphics_buffer_object_h__
 //#define graphics_buffer_object_h__
 

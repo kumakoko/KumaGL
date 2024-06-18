@@ -232,32 +232,33 @@ namespace DigitalSculpt
             }
 
             // 缓存一下根八叉树元
-            Octant oldRoot = octants[root]; // Save oldRoot to replace one of the new root's children
+            Octant oldRoot = octants[root];
 
-            // Get morton code of triangle centroid to determine direction to grow octree
             // 根据三角形的质心位置，和根八叉树元的中心位置，求出要插入新的八叉树元（即增加新的八叉树子节点）的方向
             OctantPosition newRootDirection = (OctantPosition)mortonCodeHash(triangleCentroid, oldRoot.octantCenter);
-            glm::vec3 newRootPositionVector = octantPositionVectors[newRootDirection]; // Vector from old root to new root
 
-            // Adjusted halfsize removing looseness
-            // New Root's halfsize, already loose no need for adjustment
+            // 拿到新根的方向
+            glm::vec3 newRootPositionVector = octantPositionVectors[newRootDirection]; //  Vector from old root to new root
+
+            // 调整八叉树元的半长值
+            // New Root 的半长，已经很宽松，无需调整
             float oldRootAdjustedHalfSize = (float)(oldRoot.octantHalfSize / octreeLooseness);
             float newRootHalfsize = oldRootAdjustedHalfSize * 2;
 
-            // Adjusted old root center, based on old root's center and adjusted half size
-            // New Root's Center based on old root's center and adjusted half size
+            // 调整旧根节点的中心点得到新中心点，根据的是旧根节点中心值和调整过的节点半长值
             glm::vec3 oldRootAdjustedCenter = oldRoot.octantCenter - newRootPositionVector * (oldRoot.octantHalfSize - oldRootAdjustedHalfSize);
             glm::vec3 newRootCenter = oldRootAdjustedCenter + newRootPositionVector * oldRootAdjustedHalfSize;
 
-            // Create new root octant, set its values accordingly
+            // 创建一个新的八叉树根节点
             Octant newRoot;
             newRoot.octantState = OctantEmptyInternal;
             newRoot.octantHalfSize = newRootHalfsize;
             newRoot.octantCenter = newRootCenter;
-            newRoot.octantIndex = root;
+            newRoot.octantIndex = this->root;
             octants[root] = newRoot;
 
             // Subdivide the new root to add missing child octants
+            // 针对根节点进行细分，添加丢失的子八叉树元
             subdivideOctant(root);
 
             oldRoot.parent = root; // Set the old root's parent to the new root
@@ -635,88 +636,65 @@ namespace DigitalSculpt
         return currOctant;
     }
 
-    int Octree::mortonCodeHash(glm::vec3 point, glm::vec3 center)
+    int Octree::mortonCodeHash(const glm::vec3& point, const glm::vec3& center)
     {
         // this function is performing a safety test on point.members that are "0" on an axis.
         // Due to the nature of floating points, -0.0f is possible and less than 0.0f, so this function takes this into account and auto converts -0.0f into 0.0f if it exists so there are no errors in the MortonCode produced.
         return (MortonCodeConvert_Safe(point.x, center.x) << 2) | (MortonCodeConvert_Safe(point.y, center.y) << 1) | (MortonCodeConvert_Safe(point.z, center.z));
     }
 
-    /**
-     * @brief Subdivide the given octant. Adds the children to the octant and octants list.
-     * Can recurse if child octant needs to subdivide.
-     *
-     * @param oix
-     */
     void Octree::subdivideOctant(int oix)
     {
-
-        if (octreeCurrentDepth == octreeDepth) // Update the current depth value of the octree if subdivision increases it
+        // 如果“当前操作的树深度值”已经等于“树深度值”，则“树深度值”加1，“当前操作的树深度值”也加1
+        if (octreeCurrentDepth == octreeDepth)
         {
             octreeDepth++;
         }
 
-        octreeCurrentDepth++; // Child octants are at the next depth of the octant being subdivided
+        octreeCurrentDepth++;
 
-        for (int i = 0; i < 8; i++) // Create this octants children
+        // 給待细分的八叉树节点，创建八个新的子节点
+        for (int i = 0; i < 8; i++)
         {
             createChildOctant((OctantPosition)i, oix);
         }
-
-        // // Reinsert triangles into children if they fit entirely inside
-        // // Reverse order to preserve positions on removal
-        // for (int i = (int)octants[oix].triangleIDs->size() - 1; i >= 0; i--)
-        // {
-        //     int tri = octants[oix].triangleIDs->at(i);
-        //     glm::vec3 triangleCentroid = getTriangleCentroid(tri);
-        //     int childOctant = octants[oix].children[mortonCodeHash(triangleCentroid, octants[oix].octantCenter)];
-        //     // If triangle fits in child octant, insert it
-        //     if (isTriangleInOctantBounds(tri, childOctant))
-        //     {
-        //         octants[childOctant].triangleIDs->emplace_back(tri);                    // Insert triangle into child octant
-        //         triangleToOctantList[tri] = childOctant;                                // Correct the triangle - octant mapping
-        //         octants[oix].triangleIDs->erase(octants[oix].triangleIDs->begin() + i); // Remove triangle from the parent octant
-        //     }
-        // }
-
         // Reinsert triangles into children if they fit entirely inside
-        auto ts = *(octants[oix].triangleIDs.get());
+        // 遍历本节点管理的三角形。取出本节点插入的如果三角形完全适合子代，则将其重新插入
+        auto& ts = *(octants[oix].triangleIDs.get());
 
         for (auto& tri : ts)
         {
+            // 拿到编号为tri的那个三角形的质心，用质心和本节点的中心点，算出morton码，
+            // 拿到三角形所在的那个子节点的索引
             glm::vec3 triangleCentroid = getTriangleCentroid(tri);
             int childID = octants[oix].children[mortonCodeHash(triangleCentroid, octants[oix].octantCenter)];
 
-            // If triangle fits in child octant, insert it
+            // 检查给定的三角形的三个顶点，是否都在给定的子节点内
             if (isTriangleInOctantBounds(tri, childID))
             {
                 int temp = tri;
-                octants[childID].triangleIDs->insert(temp); // Insert triangle into child octant
-                triangleToOctantList[tri] = childID;        // Correct the triangle - octant mapping
-                octants[oix].triangleIDs->erase(tri);       // Remove triangle from the parent octant
+                octants[childID].triangleIDs->insert(temp); // 把三角形插入到子节点中
+                triangleToOctantList[tri] = childID;        // 然后三角形对应的八叉树节点也重新映射一下
+                octants[oix].triangleIDs->erase(tri);       // 从待细分节点所持有的三角形列表中移除掉这个三角形
             }
         }
 
-        for (int i = 0; i < 8; i++) // Subdivide any child octants if necessary
+        // 细分完本节点后，递归式逐个细分本节点的子节点
+        for (int i = 0; i < 8; i++)
         {
-            int childOctant = octants[oix].children[i]; // Avoiding nested [] operators for clarity
+            int childOctant = octants[oix].children[i];
+
+            // 如果“当前操作的树深度值”，小于树深度值”，且当前子节点管理的三角形个数，大于每个八叉树节点所
+            // 管理的最大三角形数则可以进行进一步细分
             if (octreeCurrentDepth < octreeDepthLimit && octants[childOctant].triangleIDs->size() > octantTriangleLimit)
             {
                 subdivideOctant(childOctant);
             }
         }
 
-        // Set state of subdivided octant
-        // Checks if octant contains any triangles ands sets state accordingly
-        if (octants[oix].triangleIDs->size() == 0)
-        {
-            octants[oix].octantState = OctantEmptyInternal;
-        }
-        else
-        {
-            octants[oix].octantState = OctantNotEmptyInternal;
-        }
-        octreeCurrentDepth--;
+        // 设置待细分的节点的状态，如果其管理的三角形个数为0了，设置其为空节点，否则设置为非空节点
+        octants[oix].octantState = octants[oix].triangleIDs->size() == 0 ? OctantEmptyInternal : OctantNotEmptyInternal;
+        octreeCurrentDepth--; // 因为添加了子节点，意味着增加了一层树节点，那自然就需要把“当前操作的树深度值”减去一层
     }
 
     /**
@@ -736,13 +714,14 @@ namespace DigitalSculpt
 
         Octant& parentOctant = octants[parentIndex]; // Get the parent octant reference
 
-        float unadjustedHalfSize = parentOctant.octantHalfSize / 2.0f;     // Unadjusted half size for child octant
-        float looseHalfSize = (float)octreeLooseness * unadjustedHalfSize; // Looseness adjusted half size for child octant
-        float halfSizeDifference = looseHalfSize - unadjustedHalfSize;     // Difference between the two half sizes
+        float unadjustedHalfSize = parentOctant.octantHalfSize / 2.0f;     // 給子节点的未调整的半尺寸
+        float looseHalfSize = (float)octreeLooseness * unadjustedHalfSize; // 給子节点的松弛的半尺寸
+        float halfSizeDifference = looseHalfSize - unadjustedHalfSize;     // 算出两者的差值
 
         glm::vec3 positionVector = octantPositionVectors[(int)octantPosition]; // Position vector for child octant
 
         // Unadjusted child center, based on parent center and unadjusted half size
+        // 首先计算出未经调整之
         glm::vec3 unadjustedChildCenter = parentOctant.octantCenter + glm::vec3(unadjustedHalfSize) * positionVector;
 
         // Set child center, adjusted for looseness

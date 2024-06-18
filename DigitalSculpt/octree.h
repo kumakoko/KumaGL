@@ -20,15 +20,24 @@
 
 namespace DigitalSculpt
 {
-// #define MortonCodeConvert_Safe(MortonCodeVertexPosition, MortonCodeCenterPosition) (((((MortonCodeVertexPosition) == 0.0f) && std::signbit((MortonCodeVertexPosition))) ? 0.0f : (MortonCodeVertexPosition)) >= (MortonCodeCenterPosition))
+    // #define MortonCodeConvert_Safe(MortonCodeVertexPosition, MortonCodeCenterPosition) (((((MortonCodeVertexPosition) == 0.0f) && std::signbit((MortonCodeVertexPosition))) ? 0.0f : (MortonCodeVertexPosition)) >= (MortonCodeCenterPosition))
 
-    template<typename T>
-    bool MortonCodeConvert_Safe(T MortonCodeVertexPosition, T MortonCodeCenterPosition) 
+    /******************************************************************************************************************
+     * Desc: "要编码的顶点的位置向量的分量"是否小于“要编码的八叉树节点的中点位置的分量”。是的话返回false，不是返回true
+     * Method:    MortonCodeConvert_Safe
+     * Returns:   bool 
+     * Parameter: float MortonCodeVertexPosition 要编码的顶点的位置向量的分量
+     * Parameter: float MortonCodeCenterPosition 要编码的八叉树节点的中点位置的分量
+     ****************************************************************************************************************/
+    inline bool MortonCodeConvert_Safe(float MortonCodeVertexPosition, float MortonCodeCenterPosition)
     {
-        T adjustedPosition = (MortonCodeVertexPosition == 0.0 && std::signbit(MortonCodeVertexPosition)) ? 0.0 : MortonCodeVertexPosition;
+        // https://c-cpp.com/cpp/numeric/math/signbit
+        // std::signbit 确定给定的浮点数是否为负,浮点数0.0有正负之分
+        // signbit(+0.0) 返回 false
+        // signbit(-0.0) 返回 true
+        float adjustedPosition = (MortonCodeVertexPosition == 0.0f && std::signbit(MortonCodeVertexPosition)) ? 0.0f : MortonCodeVertexPosition;
         return adjustedPosition >= MortonCodeCenterPosition;
     }
-
 
     class Octree : public OctreeStats
     {
@@ -67,7 +76,7 @@ namespace DigitalSculpt
          * Returns:   void
          ****************************************************************************************************************/
         void clearOctree();
-        
+
         /******************************************************************************************************************
          * Desc:
          * Method:    rebuildOctree
@@ -83,32 +92,34 @@ namespace DigitalSculpt
         void loadTriangleOctantList();
 
         /******************************************************************************************************************
-         * Desc: 
+         * Desc:
          * Method:    resizeOctreeParallel
          * Returns:   void
          * Parameter: int tri
          ****************************************************************************************************************/
-         void resizeOctreeParallel(int tri);
+        void resizeOctreeParallel(int tri);
 
- 
         /******************************************************************************************************************
-         * Desc:
+         * Desc: 细分给定的八叉树节点。将子节点添加到给定的八叉树节点和及其子节点列表。如果子节点需要细分，则可以递归。
          * Method:    subdivideOctant
          * Returns:   void
-         * Parameter: int octantID
+         * Parameter: int octantID 待细分的八叉树节点的编号
          ****************************************************************************************************************/
-
         void subdivideOctant(int octantID);
-        
+
         /******************************************************************************************************************
-         * Desc:
+         * Desc: 给索引值为parentIndex的八叉树节点，创建一个子节点。
+         * 将这个子节点添加到节点列表。
+         * 根据八叉树的松散程度调整子节点的中心和尺寸。
+         *
+         * 注意：可以通过预先计算未调整和松散的半尺寸进行优化，因为这些尺寸在节点的所有子节点之间共享。
          * Method:    createChildOctant
          * Returns:   void
          * Parameter: OctantPosition octantPosition
          * Parameter: int parentIndex
          ****************************************************************************************************************/
         void createChildOctant(OctantPosition octantPosition, int parentIndex);
-        
+
         /******************************************************************************************************************
          * Desc:
          * Method:    findOctantForTriangle
@@ -270,7 +281,7 @@ namespace DigitalSculpt
         void collectAroundCollision(float range, bool collectAffectedTriangles = true, bool collectTrianglesInRange = false, bool isSymmetric = false);
         void collectVerticesWithReflection(float range);
 
-        int mortonCodeHash(glm::vec3 point, glm::vec3 center); // returns the morton code position with respect to octant
+        int mortonCodeHash(const glm::vec3& point, const glm::vec3& center); // returns the morton code position with respect to octant
 
         // List of octants which contain triangles
         // OctantIndexList activeOctants;

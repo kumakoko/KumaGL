@@ -721,7 +721,7 @@ namespace DigitalSculpt
         glm::vec3 positionVector = octantPositionVectors[(int)octantPosition]; // Position vector for child octant
 
         // Unadjusted child center, based on parent center and unadjusted half size
-        // 首先计算出未经调整之
+        // 首先计算出未经调整之子节点中心，其值未父节点中心值，乘以方向向量，再乘以未经调整的半长宽高值
         glm::vec3 unadjustedChildCenter = parentOctant.octantCenter + glm::vec3(unadjustedHalfSize) * positionVector;
 
         // Set child center, adjusted for looseness

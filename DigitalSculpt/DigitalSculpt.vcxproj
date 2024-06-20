@@ -24,7 +24,9 @@
     <ClCompile Include="noise.cc" />
     <ClCompile Include="octant.cc" />
     <ClCompile Include="octree.cc" />
+    <ClCompile Include="octree_visualization.cc" />
     <ClCompile Include="open_gl_wrapper.cc" />
+    <ClCompile Include="subdivision_surface.cc" />
     <ClCompile Include="transformer.cc" />
     <ClCompile Include="triangle_list.cc" />
     <ClCompile Include="triangle_look_up.cc" />
@@ -46,7 +48,9 @@
     <ClInclude Include="octree.h" />
     <ClInclude Include="octree_collision.h" />
     <ClInclude Include="octree_stats.h" />
+    <ClInclude Include="octree_visualization.h" />
     <ClInclude Include="open_gl_wrapper.h" />
+    <ClInclude Include="subdivision_surface.h" />
     <ClInclude Include="transformer.h" />
     <ClInclude Include="triangle_list.h" />
     <ClInclude Include="triangle_look_up.h" />

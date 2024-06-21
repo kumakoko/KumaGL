@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="decimation.cc" />
     <ClCompile Include="digital_sculpt_app.cc" />
     <ClCompile Include="edge.cc" />
     <ClCompile Include="edge_list.cc" />
@@ -30,11 +31,13 @@
     <ClCompile Include="transformer.cc" />
     <ClCompile Include="triangle_list.cc" />
     <ClCompile Include="triangle_look_up.cc" />
+    <ClCompile Include="undo_redo.cc" />
     <ClCompile Include="v3d.cc" />
     <ClCompile Include="vertex_list.cc" />
     <ClCompile Include="vertex_look_up.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="decimation.h" />
     <ClInclude Include="digital_sculpt_app.h" />
     <ClInclude Include="edge.h" />
     <ClInclude Include="edge_list.h" />
@@ -56,6 +59,7 @@
     <ClInclude Include="triangle_look_up.h" />
     <ClInclude Include="triangle_octant_key_pair.h" />
     <ClInclude Include="triangle_octant_key_pair_list.h" />
+    <ClInclude Include="undo_redo.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="v3d.h" />
     <ClInclude Include="vertex_id_hashing.h" />

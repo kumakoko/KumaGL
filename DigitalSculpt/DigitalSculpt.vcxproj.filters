@@ -93,6 +93,12 @@
     <ClInclude Include="subdivision_surface.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="decimation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="undo_redo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="v3d.cc">
@@ -159,6 +165,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="subdivision_surface.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="decimation.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="undo_redo.cc">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

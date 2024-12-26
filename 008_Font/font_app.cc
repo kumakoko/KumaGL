@@ -39,11 +39,11 @@ void FontApp::InitScene()
 {
     kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
     font_renderer->Initialize();
-    font_renderer->CreateFontTexture("resources/font/fzss_gbk.ttf", "fzss64", 64, 512, 512);
-    font_renderer->CreateFontTexture("resources/font/wqy_wmh.ttf", "wqy_wmh64", 64, 512, 512);
-    font_renderer->CreateFontTexture("resources/font/fzkt_sim.ttf", "fzkt64", 64, 512, 512);
-    font_renderer->CreateFontTexture("resources/font/meiryo.ttc", "meiryo64", 64, 512, 512);
-    font_renderer->CreateFontTexture("resources/font/mao.ttf", "mao64", 64, 1024, 1024);
+    font_renderer->CreateFontTexture("resources/font/fzss_gbk.ttf", "fzss64", 64, 2048, 2048);
+    font_renderer->CreateFontTexture("resources/font/wqy_wmh.ttf", "wqy_wmh64", 64, 2048, 2048);
+    font_renderer->CreateFontTexture("resources/font/fzkt_sim.ttf", "fzkt64", 64, 2048, 2048);
+    font_renderer->CreateFontTexture("resources/font/meiryo.ttc", "meiryo64", 64, 2048, 2048);
+    font_renderer->CreateFontTexture("resources/font/mao.ttf", "mao64", 48, 4096, 4096);
 
     text_1_ = kgl::StringConvertor::UTF8toUTF16LE("方正简宋： KumaGL图形学学习框架");
     text_2_ = kgl::StringConvertor::UTF8toUTF16LE("文泉驿微米黑 开彼源兮 斯流永继");

@@ -14,16 +14,12 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+
 #include "../klib/kgl_lib_pch.h"
 #include "../klib/kgl_error.h"
 #include "../klib/kgl_string_convertor.h"
-#include "font_app.h"
-
-#if defined(WIN32) || defined(_WIN32)
-#if defined(DEBUG) || defined(_DEBUG)
-#include "vld.h"
-#endif
-#endif
+#include "../klib/kgl_message_box.h"
+#include "quad_tree_terrain_app.h"
 
 #if defined(DEBUG) || defined(_DEBUG)
 #pragma comment(lib,"FreeImage.lib")
@@ -53,13 +49,24 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 int main()
 {
-    FontApp* app = nullptr;
+    QuadTreeTerrainApp* app = nullptr;
 
     try
     {
-        app = new FontApp();
-        app->InitWindow(1024, 768, false, "008_Font");
+#if defined(WIN32) || defined(_WIN32)
+        int context_version_major = 3;
+        int context_version_minor = 3;
+        kgl::App::GLProfile profile = kgl::App::CORE;
+#elif defined(__APPLE__) && defined(__MACH__)
+        int context_version_major = 3;
+        int context_version_minor = 3;
+        kgl::App::GLProfile profile = kgl::App::CORE;
+#endif
+        const char* title = "098_QuadTreeTerrain";
+        app = new QuadTreeTerrainApp();
+        app->InitWindow(1024, 768, false, title, context_version_major, context_version_minor, profile);
         app->InitRenderer();
+        app->InitGuiSystem(false);
         app->InitScene();
         app->Run();
     }
@@ -69,13 +76,13 @@ int main()
     }
     catch (std::exception e)
     {
-        std::wstring excepiton_desc;
-        kgl::StringConvertor::ANSItoUTF16LE(e.what(), excepiton_desc);
-#ifdef WIN32
-        ::MessageBox(NULL, excepiton_desc.c_str(), L"Unhandled Exception, aborting", MB_OK | MB_ICONERROR);
-#endif
+        std::wstring exception_desc;
+        kgl::StringConvertor::ANSItoUTF16LE(e.what(), exception_desc);
+        kgl::MessageBox(std::wstring(L"002_Triangle : Unhandled Exception, aborting"),exception_desc);
     }
 
     delete app;
+    
+   
     return 0;
 }

@@ -50,7 +50,7 @@ namespace kgl
             {
                 tp.wrap_s_mode = GL_CLAMP_TO_BORDER;
                 tp.wrap_t_mode = GL_CLAMP_TO_BORDER;
-                tp.mag_filter_mode = GL_NEAREST;
+                tp.mag_filter_mode = GL_LINEAR;
                 tp.min_filter_mode = GL_NEAREST;
                 tp.internal_format = GL_RGB;
                 tp.src_img_format = GL_RGB;
@@ -67,7 +67,7 @@ namespace kgl
             {
                 tp.wrap_s_mode = GL_CLAMP_TO_BORDER;
                 tp.wrap_t_mode = GL_CLAMP_TO_BORDER;
-                tp.mag_filter_mode = GL_NEAREST;
+                tp.mag_filter_mode = GL_LINEAR;
                 tp.min_filter_mode = GL_NEAREST;
                 tp.internal_format = GL_RGBA;
                 tp.src_img_format = GL_RGBA;
@@ -83,7 +83,7 @@ namespace kgl
             {
                 tp.wrap_s_mode = GL_CLAMP_TO_BORDER;
                 tp.wrap_t_mode = GL_CLAMP_TO_BORDER;
-                tp.mag_filter_mode = GL_NEAREST;
+                tp.mag_filter_mode = GL_LINEAR;
                 tp.min_filter_mode = GL_NEAREST;
                 tp.internal_format = GL_RGBA16F;
                 tp.src_img_format = GL_RGBA;
@@ -94,7 +94,7 @@ namespace kgl
         case RenderedTexelType::DEPTH_COMPONENT:
             tp.wrap_s_mode = GL_CLAMP_TO_BORDER;
             tp.wrap_t_mode = GL_CLAMP_TO_BORDER;
-            tp.mag_filter_mode = GL_NEAREST;
+            tp.mag_filter_mode = GL_LINEAR;
             tp.min_filter_mode = GL_NEAREST;
             tp.internal_format = GL_DEPTH_COMPONENT;
             tp.src_img_format = GL_DEPTH_COMPONENT;

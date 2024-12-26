@@ -99,8 +99,8 @@ void DeferredRenderingApp::InitFont()
     const char* font_name = "resources/font/wqy_wmh.ttf";
     std::string font_texture_name("wqyht24");
     int32_t font_size = 24;
-    uint32_t font_texture_width = 512;
-    uint32_t font_texture_height = 512;
+    uint32_t font_texture_width = 2048;
+    uint32_t font_texture_height = 2048;
     kgl::FontRenderer* font_renderer = kgl::KFontRenderer::GetInstance();
     font_renderer->Initialize();
     font_renderer->CreateFontTexture(font_name, font_texture_name.c_str(), font_size, font_texture_width, font_texture_height);

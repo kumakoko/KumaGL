@@ -71,7 +71,7 @@ void VertexDisplacementApp::InitModel()
     texture_param.wrap_s_mode = GL_REPEAT;
     texture_param.wrap_t_mode = GL_REPEAT;
     texture_param.mag_filter_mode = GL_LINEAR;
-    texture_param.min_filter_mode = GL_LINEAR;
+    texture_param.min_filter_mode = GL_NEAREST;
     texture_param.internal_format = GL_RGBA;
     texture_param.src_img_px_component_type = GL_UNSIGNED_BYTE;
 	texture_param.src_img_format = GL_BGRA; // 目標機器是little-end的話，src img format就是ABGR，big-end的話，是RGBA

@@ -218,7 +218,7 @@ void ShadowMappingApp::InitModel()
     texture_param.wrap_s_mode = GL_REPEAT;
     texture_param.wrap_t_mode = GL_REPEAT;
     texture_param.mag_filter_mode = GL_LINEAR;
-    texture_param.min_filter_mode = GL_LINEAR_MIPMAP_LINEAR;
+    texture_param.min_filter_mode = GL_NEAREST;
     texture_param.internal_format = GL_RGB;
     texture_param.src_img_px_component_type = GL_UNSIGNED_BYTE;
     texture_param.src_img_format = GL_BGR;//GL_RGB;

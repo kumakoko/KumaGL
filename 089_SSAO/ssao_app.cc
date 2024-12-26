@@ -183,7 +183,7 @@ void SSAOApp::BuildNoiseTexture()
 	tp.internal_format = GL_RGB16F;
 	tp.src_img_format = GL_RGB;
 	tp.src_img_px_component_type = GL_FLOAT;
-	tp.mag_filter_mode = GL_NEAREST;
+	tp.mag_filter_mode = GL_LINEAR;
 	tp.min_filter_mode = GL_NEAREST;
 	tp.wrap_s_mode = GL_REPEAT;
 	tp.wrap_t_mode = GL_REPEAT;

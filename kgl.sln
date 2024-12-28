@@ -160,6 +160,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppStudy", "CppStudy\CppStu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "098_QuadTreeTerrain", "098_QuadTreeTerrain\098_QuadTreeTerrain.vcxproj", "{C42421B0-6B3D-4278-9533-1F94B0F2891D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "039_SparseTextureARB", "039_SparseTextureARB\039_SparseTextureARB.vcxproj", "{4B74D27F-51DD-4184-BEFF-7A84E9D173E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -306,6 +308,10 @@ Global
 		{C42421B0-6B3D-4278-9533-1F94B0F2891D}.Debug|Win32.Build.0 = Debug|Win32
 		{C42421B0-6B3D-4278-9533-1F94B0F2891D}.Release|Win32.ActiveCfg = Release|Win32
 		{C42421B0-6B3D-4278-9533-1F94B0F2891D}.Release|Win32.Build.0 = Release|Win32
+		{4B74D27F-51DD-4184-BEFF-7A84E9D173E4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4B74D27F-51DD-4184-BEFF-7A84E9D173E4}.Debug|Win32.Build.0 = Debug|Win32
+		{4B74D27F-51DD-4184-BEFF-7A84E9D173E4}.Release|Win32.ActiveCfg = Release|Win32
+		{4B74D27F-51DD-4184-BEFF-7A84E9D173E4}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

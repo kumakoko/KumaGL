@@ -11,60 +11,38 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="decimation.cc" />
     <ClCompile Include="digital_sculpt_app.cc" />
-    <ClCompile Include="edge.cc" />
-    <ClCompile Include="edge_list.cc" />
-    <ClCompile Include="graphics_buffer_object.cc" />
-    <ClCompile Include="graphics_data.cc" />
-    <ClCompile Include="indexed_triangle.cc" />
-    <ClCompile Include="indices.cc" />
+    <ClCompile Include="enums.cc" />
+    <ClCompile Include="geometry.cc" />
+    <ClCompile Include="jsm_common.cc" />
+    <ClCompile Include="jsm_mat2.cc" />
+    <ClCompile Include="jsm_mat2d.cc" />
+    <ClCompile Include="jsm_mat3.cc" />
+    <ClCompile Include="jsm_mat4.cc" />
+    <ClCompile Include="jsm_quat.cc" />
+    <ClCompile Include="jsm_quat2.cc" />
+    <ClCompile Include="jsm_vec2.cc" />
+    <ClCompile Include="jsm_vec3.cc" />
+    <ClCompile Include="jsm_vec4.cc" />
     <ClCompile Include="main.cc" />
-    <ClCompile Include="math_definitions.h.cc" />
-    <ClCompile Include="mesh_stats.cc" />
-    <ClCompile Include="noise.cc" />
-    <ClCompile Include="octant.cc" />
-    <ClCompile Include="octree.cc" />
-    <ClCompile Include="octree_visualization.cc" />
-    <ClCompile Include="open_gl_wrapper.cc" />
-    <ClCompile Include="subdivision_surface.cc" />
-    <ClCompile Include="transformer.cc" />
-    <ClCompile Include="triangle_list.cc" />
-    <ClCompile Include="triangle_look_up.cc" />
-    <ClCompile Include="undo_redo.cc" />
-    <ClCompile Include="v3d.cc" />
-    <ClCompile Include="vertex_list.cc" />
-    <ClCompile Include="vertex_look_up.cc" />
+    <ClCompile Include="utils.cc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="decimation.h" />
     <ClInclude Include="digital_sculpt_app.h" />
-    <ClInclude Include="edge.h" />
-    <ClInclude Include="edge_list.h" />
-    <ClInclude Include="graphics_buffer_object.h" />
-    <ClInclude Include="graphics_data.h" />
-    <ClInclude Include="indexed_triangle.h" />
-    <ClInclude Include="indices.h" />
-    <ClInclude Include="math_definitions.h" />
-    <ClInclude Include="mesh_stats.h" />
-    <ClInclude Include="octant.h" />
-    <ClInclude Include="octree.h" />
-    <ClInclude Include="octree_collision.h" />
-    <ClInclude Include="octree_stats.h" />
-    <ClInclude Include="octree_visualization.h" />
-    <ClInclude Include="open_gl_wrapper.h" />
-    <ClInclude Include="subdivision_surface.h" />
-    <ClInclude Include="transformer.h" />
-    <ClInclude Include="triangle_list.h" />
-    <ClInclude Include="triangle_look_up.h" />
-    <ClInclude Include="triangle_octant_key_pair.h" />
-    <ClInclude Include="triangle_octant_key_pair_list.h" />
-    <ClInclude Include="undo_redo.h" />
+    <ClInclude Include="enums.h" />
+    <ClInclude Include="geometry.h" />
+    <ClInclude Include="jsm_common.h" />
+    <ClInclude Include="jsm_mat2.h" />
+    <ClInclude Include="jsm_mat2d.h" />
+    <ClInclude Include="jsm_mat3.h" />
+    <ClInclude Include="jsm_mat4.h" />
+    <ClInclude Include="jsm_quat.h" />
+    <ClInclude Include="jsm_quat2.h" />
+    <ClInclude Include="jsm_type_defines.h" />
+    <ClInclude Include="jsm_vec2.h" />
+    <ClInclude Include="jsm_vec3.h" />
+    <ClInclude Include="jsm_vec4.h" />
     <ClInclude Include="utils.h" />
-    <ClInclude Include="v3d.h" />
-    <ClInclude Include="vertex_id_hashing.h" />
-    <ClInclude Include="vertex_list.h" />
-    <ClInclude Include="vertex_look_up.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C5DB148E-5747-4B4D-9251-67B6A17FAB8D}</ProjectGuid>

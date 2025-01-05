@@ -15,162 +15,96 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="v3d.h">
+    <ClInclude Include="digital_sculpt_app.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="indices.h">
+    <ClInclude Include="jsm_common.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="vertex_list.h">
+    <ClInclude Include="jsm_vec2.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="triangle_list.h">
+    <ClInclude Include="jsm_vec4.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="indexed_triangle.h">
+    <ClInclude Include="jsm_vec3.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="vertex_look_up.h">
+    <ClInclude Include="jsm_mat2.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="edge.h">
+    <ClInclude Include="jsm_mat2d.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="edge_list.h">
+    <ClInclude Include="jsm_mat3.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="triangle_look_up.h">
+    <ClInclude Include="jsm_mat4.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="graphics_buffer_object.h">
+    <ClInclude Include="jsm_quat.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="transformer.h">
+    <ClInclude Include="jsm_quat2.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="math_definitions.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_data.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="open_gl_wrapper.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="mesh_stats.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="octree_stats.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="octree.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="triangle_octant_key_pair.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="triangle_octant_key_pair_list.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="octant.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="octree_collision.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="vertex_id_hashing.h">
+    <ClInclude Include="jsm_type_defines.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="digital_sculpt_app.h">
+    <ClInclude Include="enums.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="octree_visualization.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="subdivision_surface.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="decimation.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="undo_redo.h">
+    <ClInclude Include="geometry.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="v3d.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="indices.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="vertex_list.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="triangle_list.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="indexed_triangle.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="vertex_look_up.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="edge.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="edge_list.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="triangle_look_up.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_buffer_object.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="transformer.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="math_definitions.h.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_data.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="open_gl_wrapper.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="mesh_stats.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="octree.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="octant.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="noise.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="digital_sculpt_app.cc">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="main.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="octree_visualization.cc">
+    <ClCompile Include="jsm_common.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="subdivision_surface.cc">
+    <ClCompile Include="jsm_vec2.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="decimation.cc">
+    <ClCompile Include="jsm_vec4.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="undo_redo.cc">
+    <ClCompile Include="jsm_vec3.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="jsm_mat2.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="jsm_mat2d.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="jsm_mat3.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="jsm_mat4.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="jsm_quat.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="jsm_quat2.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="enums.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="geometry.cc">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

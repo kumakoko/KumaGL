@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="hiz_occlusion_culling_app.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="culling.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="hiz_culling.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="hiz_culling_no_lod.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="constants.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{34e8a380-274e-4b6d-9d23-340038ddf7e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{05cbe504-4de2-4c7b-8b34-4befcc28b8be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{e3e097cf-ef63-4f5c-b686-1e35123ee65c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="hiz_occlusion_culling_app.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="scene.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="culling.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="hiz_culling.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="hiz_culling_no_lod.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="constants.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\publish\resources\shader\060_hiz_cull_cs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\060_depth_fs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\060_depth_mip_fs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\060_depth_vs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\060_quad_vs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\060_hiz_cull_no_lod_cs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\060_physics_cs.glsl">
+      <Filter>shader</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,6 +1,4 @@
-﻿#include "kgl_lib_pch.h"
-#include "kgl_font_veretx.h"
-/**************************************************************************************************************************
+﻿/**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -16,6 +14,9 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+#include "kgl_lib_pch.h"
+#include "kgl_font_veretx.h"
+
 namespace kgl
 {
     FontVertex::FontVertex() :pos_x(0.0f), pos_y(0.0f), red(0.0f), green(0.0f), blue(0.0f), alpha(0.0f), texture_u(0.0f), texture_v(0.0f)

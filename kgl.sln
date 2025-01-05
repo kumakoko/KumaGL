@@ -162,6 +162,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "098_QuadTreeTerrain", "098_
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "039_SparseTextureARB", "039_SparseTextureARB\039_SparseTextureARB.vcxproj", "{4B74D27F-51DD-4184-BEFF-7A84E9D173E4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "060_HiZOcclusionCulling", "060_HiZOcclusionCulling\060_HiZOcclusionCulling.vcxproj", "{0186F2D0-E160-4A8B-B449-4A9901B57C3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -312,6 +314,10 @@ Global
 		{4B74D27F-51DD-4184-BEFF-7A84E9D173E4}.Debug|Win32.Build.0 = Debug|Win32
 		{4B74D27F-51DD-4184-BEFF-7A84E9D173E4}.Release|Win32.ActiveCfg = Release|Win32
 		{4B74D27F-51DD-4184-BEFF-7A84E9D173E4}.Release|Win32.Build.0 = Release|Win32
+		{0186F2D0-E160-4A8B-B449-4A9901B57C3A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0186F2D0-E160-4A8B-B449-4A9901B57C3A}.Debug|Win32.Build.0 = Debug|Win32
+		{0186F2D0-E160-4A8B-B449-4A9901B57C3A}.Release|Win32.ActiveCfg = Release|Win32
+		{0186F2D0-E160-4A8B-B449-4A9901B57C3A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

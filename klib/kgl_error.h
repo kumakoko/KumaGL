@@ -3,15 +3,15 @@ Copyright(C) 2014-2017 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
-modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the 
+modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the
 Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
 Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE 
-WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
 /*!
@@ -68,13 +68,32 @@ namespace kgl
         /// </summary>
         virtual void Prompt() const;
 
-        /// <summary>
-        /// 返回OpenGL的错误代码描述
-        /// </summary>
-        /// <param name="error_desc_array">返回OpenGL错误的描述的字符串的数组</param>
-        /// <param name="error_code_array">返回OpenGL错误代码的数组</param>
-        /// <returns>有错误的话返回true，没返回false</returns>
+        /**************************************************************************************
+        返回OpenGL的错误代码描述
+        @name: kgl::Error::GetGLErrorDesc
+        @return: bool 有错误的话返回true，没返回false
+        @param: std::vector<std::string> & error_desc_array 返回OpenGL错误的描述的字符串的数组
+        @param: std::vector<GLenum> & error_code_array 返回OpenGL错误代码的数组
+        *************************************************************************************/
         static bool GetGLErrorDesc(std::vector<std::string>& error_desc_array, std::vector<GLenum>& error_code_array);
+
+        /**************************************************************************************
+
+        @name: kgl::Error::CheckGLReturnValue
+        @return: void
+        @param: const char * file_path
+        @param: uint32_t line
+        *************************************************************************************/
+        static void CheckGLReturnValue(const char* file_path, uint32_t line);
+
+        /**************************************************************************************
+
+        @name: kgl::Error::CheckGLReturnValueSimple
+        @return: void
+        @param: const char * file_path
+        @param: uint32_t line
+        *************************************************************************************/
+        static void CheckGLReturnValueSimple(const char* file_path, uint32_t line);
 
     protected:
         /// <summary>
@@ -98,7 +117,7 @@ namespace kgl
         /// <summary>
         /// 对话框窗口标题
         /// </summary>
-        std::wstring title_; 
+        std::wstring title_;
 
         /// <summary>
         /// 错误消息字符串
@@ -108,7 +127,7 @@ namespace kgl
         /// <summary>
         /// 发生错误的代码文件名
         /// </summary>
-        std::string file_; 
+        std::string file_;
 
         /// <summary>
         /// 发生错误的代码行

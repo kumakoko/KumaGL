@@ -14,19 +14,6 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
-/*!
-* \file kgl_gpu_program.h
-* \date 2017/12/31 13:44
-*
-* \author www.xionggf.com
-* Contact: sun_of_lover@sina.com
-*
-* \brief
-*
-* TODO: shader类
-*
-* \note
-*/
 #ifndef kgl_gpu_program_h__
 #define kgl_gpu_program_h__
 
@@ -40,22 +27,22 @@ namespace kgl
     {
     public:
         /*********************************************************
-        GPUProgram类的构造函数       
+        GPUProgram类的构造函数
         *********************************************************/
         GPUProgram();
 
         /*********************************************************
-        GPUProgram类的析构函数      
+        GPUProgram类的析构函数
         *********************************************************/
         ~GPUProgram();
 
         /*********************************************************
-        使用本shader程序      
+        使用本shader程序
         *********************************************************/
         void Use() const;
 
         /*********************************************************
-        结束本shader程序       
+        结束本shader程序
         *********************************************************/
         void Finish() const;
 

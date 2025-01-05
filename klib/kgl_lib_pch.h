@@ -42,6 +42,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include <array>
 #include <memory>
 #include <exception>
+#include <stdexcept>
 #include <iosfwd>
 #include <sstream>
 #include <fstream>
@@ -54,6 +55,15 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include <utility>
 #include <random>
 #include <limits>
+#include <cmath>
+#include <type_traits>
+#include <functional>
+#include <initializer_list>
+#include <chrono>
+#include <unordered_map>
+#include <string>
+#include <cstring>
+#include <numeric>
 
 //#define GLEW_STATIC
 #include "GL/glew.h"

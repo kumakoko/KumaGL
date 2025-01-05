@@ -255,6 +255,15 @@
     <ClInclude Include="kgl_md2_animation_status.h">
       <Filter>headers</Filter>
     </ClInclude>
+    <ClInclude Include="kgl_glm_ext.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_compute_shader_program.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="kgl_shader_buffer.h">
+      <Filter>headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kgl_lib_pch.cc">
@@ -462,6 +471,12 @@
       <Filter>sources\water</Filter>
     </ClCompile>
     <ClCompile Include="kgl_md2_animation_status.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_compute_shader_program.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_shader_buffer.cc">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>

@@ -88,7 +88,6 @@ namespace kgl
         MessageBox(title_, AssembleOutput());
     }
 
-
     bool Error::GetGLErrorDesc(std::vector<std::string>& error_desc_array, std::vector<GLenum>& error_code_array)
     {
         error_desc_array.clear();
@@ -143,5 +142,29 @@ namespace kgl
         }
         
         return has_error;
+    }
+
+
+    void Error::CheckGLReturnValue(const char* file_path, uint32_t line)
+    {
+        std::vector<std::string> error_desc_array;
+        std::vector<GLenum> error_code_array;
+
+        if (GetGLErrorDesc(error_desc_array, error_code_array))
+        {
+            throw Error(error_code_array, error_desc_array, file_path, line);
+        }
+    }
+
+    void Error::CheckGLReturnValueSimple(const char* file_path, uint32_t line)
+    {
+        GLenum error_code = glGetError();
+
+        if (error_code != GL_NO_ERROR)
+        {
+            std::wstringstream wss;
+            wss << L"OpenGL Error.code : " << std::hex << error_code;
+            throw kgl::Error(wss.str(), file_path, line);
+        }
     }
 }

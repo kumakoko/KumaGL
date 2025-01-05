@@ -55,10 +55,12 @@ private:
 
     void init_instances();
 
-    Mesh create_box_mesh(const AABB& aabb);
+    void update_camera(float rotation_y, float rotation_x, uint32_t viewport_width, uint32_t viewport_height);
 
-    GLuint occluder_program;
-    GLuint sphere_program;
+    void update(float delta_time, uint32_t width, uint32_t height);
+
+  //  GLuint occluder_program;
+  //  GLuint sphere_program;
 
     GLDrawable quad;
     GLuint quad_program;
@@ -73,7 +75,17 @@ private:
     kgl::ShaderBuffer* occluder_instances_buffer;
     kgl::ShaderBuffer* sphere_instances_buffer;
 
+    kgl::GPUProgram* occluder_program;
+    kgl::GPUProgram* sphere_program;
 
+
+    glm::mat4 view;
+    glm::mat4 projection;
+
+    float camera_rotation_y;
+    float camera_rotation_x;
+
+    uint32_t num_sphere_render_lods;
 };
 
 

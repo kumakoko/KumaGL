@@ -42,3 +42,6 @@ const uint32_t SPHERE_VERT_PER_CIRC_LOD3 = 12;
 const uint32_t UNIFORM_MVP_LOCATION = 0;
 const uint32_t UNIFORM_COLOR_LOCATION = 1;
 const uint32_t UNIFORM_LIGHT_DIR_LOCATION = 2;
+
+const float Z_NEAR = 1.0f;
+const float Z_FAR = 500.0f;

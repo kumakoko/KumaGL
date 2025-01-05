@@ -30,7 +30,7 @@ void HizOcclusionCullingApp::RenderGUI()
         static int counter = 0;
 
         ImGui::Begin("001 Empty Window -- 简单的ImGui界面演示");                          // Create a window called "Hello, world!" and append into it.
-        
+
         ImGui::Text("有用的文本");               // Display some text (you can use a format strings too)
         ImGui::Checkbox("Demo Window", &show_demo_window_);      // Edit bools storing our window open/close state
         ImGui::Checkbox("Another Window", &show_another_window_);
@@ -68,6 +68,12 @@ void HizOcclusionCullingApp::InitShaders()
 {
     physics_program_ = new kgl::ComputeShaderProgram();
     GL_CHECK_SIMPLE(physics_program_->CreateFromSingleFile("resources/shader/060_physics_cs.glsl"));
+
+    occluder_program = new kgl::GPUProgram();
+    GL_CHECK_SIMPLE(occluder_program->CreateFromFile("resources/shader/060_scene_vs.glsl", "resources/shader/060_scene_fs.glsl", nullptr));
+
+    sphere_program = new kgl::GPUProgram();
+    GL_CHECK_SIMPLE(occluder_program->CreateFromFile("resources/shader/060_scene_sphere_vs.glsl", "resources/shader/060_scene_sphere_fs.glsl", nullptr));
 }
 
 
@@ -112,7 +118,7 @@ void HizOcclusionCullingApp::init_instances()
     // Spread occluder geometry out on a grid on the XZ plane.
     // Skip the center, because we put our camera there.
     std::vector<glm::vec4> occluder_instances;
-    
+
     for (int z = 0; z < 13; z++)
     {
         for (int x = 0; x < 13; x++)
@@ -190,4 +196,236 @@ void HizOcclusionCullingApp::init_instances()
         GL_CHECK(glBufferData(GL_DRAW_INDIRECT_BUFFER, SPHERE_LODS * sizeof(IndirectCommand), NULL, GL_DYNAMIC_COPY));
     }
     indirect.buffer_index = 0;
+}
+
+
+
+
+void HizOcclusionCullingApp::update_camera(float rotation_y, float rotation_x, uint32_t viewport_width, uint32_t viewport_height)
+{
+    // Compute view and projection matrices.
+    float radians_y = 2.0f * glm::pi<float>() * rotation_y;
+    float radians_x = 2.0f * glm::pi<float>() * rotation_x;
+
+    glm::mat4 identity_mat = glm::mat4(1.0f);
+
+    glm::mat4 rotation_matrix_y = glm::rotate(identity_mat, radians_y, glm::vec3(0.0f, 1.0f, 0.0f));//mat_rotate_y(radians_y);
+    glm::mat4 rotation_matrix_x = glm::rotate(identity_mat, radians_x, glm::vec3(1.0f, 0.0f, 0.0f));//mat_rotate_x(radians_x);
+    glm::vec3 camera_dir = glm::vec3(rotation_matrix_y * rotation_matrix_x * glm::vec4(0, 0, -1, 1));
+
+    glm::vec3 camera_position = glm::vec3(0, 2, 0);
+
+    view = glm::lookAt(camera_position, camera_position + camera_dir, glm::vec3(0, 1, 0));
+    projection = glm::perspective(glm::radians(60.0f), float(viewport_width) / viewport_height, Z_NEAR, Z_FAR);//mat_perspective_fov(60.0f, float(viewport_width) / viewport_height, Z_NEAR, Z_FAR);
+    glm::mat4 view_projection = projection * view;
+
+    auto vp_mat_ptr = glm::value_ptr(view_projection);
+    occluder_program->ApplyMatrix(vp_mat_ptr, UNIFORM_MVP_LOCATION);
+    sphere_program->ApplyMatrix(vp_mat_ptr, UNIFORM_MVP_LOCATION);
+
+    //GL_CHECK(glProgramUniformMatrix4fv(occluder_program, UNIFORM_MVP_LOCATION, 1, GL_FALSE, value_ptr(view_projection)));
+    //GL_CHECK(glProgramUniformMatrix4fv(sphere_program, UNIFORM_MVP_LOCATION, 1, GL_FALSE, value_ptr(view_projection)));
+}
+
+void HizOcclusionCullingApp::set_culling_method(CullingMethod method)
+{
+    if (method == CullNone)
+    {
+        enable_culling = false;
+        culling_implementation_index = 0;
+    }
+    else
+    {
+        enable_culling = true;
+        culling_implementation_index = static_cast<unsigned>(method);
+    }
+}
+
+void HizOcclusionCullingApp::apply_physics(float delta_time)
+{
+    if (physics_speed <= 0.0f)
+    {
+        return;
+    }
+
+    // Do physics on the spheres, in a compute shader.
+    GL_CHECK(glUseProgram(physics_program));
+    GL_CHECK(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, sphere_instances_buffer));
+    GL_CHECK(glProgramUniform1ui(physics_program, 0, SPHERE_INSTANCES));
+    GL_CHECK(glProgramUniform1f(physics_program, 1, physics_speed * delta_time));
+    GL_CHECK(glDispatchCompute((SPHERE_INSTANCES + PHYSICS_GROUP_SIZE - 1) / PHYSICS_GROUP_SIZE, 1, 1));
+
+    // We don't need data here until bounding box check, so we can let rasterizer and physics run in parallel, avoiding memory barrier here.
+}
+
+void HizOcclusionCullingApp::update(float delta_time, unsigned width, unsigned height)
+{
+    // Update scene rendering parameters.
+    update_camera(camera_rotation_y, camera_rotation_x, width, height);
+
+    // Update light direction, here it's static.
+    glm::vec3 light_dir = glm::normalize(glm::vec3(2, 4, 1));
+
+    occluder_program->ApplyVector3(glm::value_ptr(light_dir), UNIFORM_LIGHT_DIR_LOCATION);
+    sphere_program->ApplyVector3(glm::value_ptr(light_dir), UNIFORM_LIGHT_DIR_LOCATION);
+    //GL_CHECK(glProgramUniform3fv(occluder_program, UNIFORM_LIGHT_DIR_LOCATION, 1, value_ptr(light_dir)));
+    //GL_CHECK(glProgramUniform3fv(sphere_program, UNIFORM_LIGHT_DIR_LOCATION, 1, value_ptr(light_dir)));
+
+    // Move spheres around in a compute shader to make it more exciting.
+    apply_physics(delta_time);
+
+    if (enable_culling)
+    {
+        CullingInterface* culler = culling_implementations[culling_implementation_index];
+        num_sphere_render_lods = culler->get_num_lods();
+
+        // Rasterize occluders to depth map and mipmap it.
+        culler->set_view_projection(projection, view, vec2(Z_NEAR, Z_FAR));
+        culler->rasterize_occluders();
+
+        // We need physics results after this.
+        GL_CHECK(glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT));
+
+        IndirectCommand indirect_command[SPHERE_LODS];
+        unsigned offsets[SPHERE_LODS];
+
+        memset(indirect_command, 0, sizeof(indirect_command));
+
+        for (unsigned i = 0; i < SPHERE_LODS; i++)
+        {
+            indirect_command[i].count = sphere[i]->get_num_elements();
+            offsets[i] = 4 + sizeof(IndirectCommand) * i;
+        }
+
+        // Clear out our indirect draw buffer.
+        GL_CHECK(glBindBuffer(GL_DRAW_INDIRECT_BUFFER, indirect.buffer[indirect.buffer_index]));
+        GL_CHECK(glBufferData(GL_DRAW_INDIRECT_BUFFER, sizeof(indirect_command), indirect_command, GL_STREAM_DRAW));
+
+        // Test occluders and build indirect commands as well as per-instance buffers for every LOD.
+        culler->test_bounding_boxes(indirect.buffer[indirect.buffer_index], offsets, SPHERE_LODS,
+            indirect.instance_buffer, sphere_instances_buffer,
+            num_render_sphere_instances);
+    }
+    else
+    {
+        // If we don't do culling, we need to make sure we call the memory barrier for physics.
+        GL_CHECK(glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT));
+        num_sphere_render_lods = 1;
+    }
+}
+
+void HizOcclusionCullingApp::render_spheres(vec3 color_mod)
+{
+    if (enable_culling)
+    {
+        GL_CHECK(glBindBuffer(GL_DRAW_INDIRECT_BUFFER, indirect.buffer[indirect.buffer_index]));
+
+        for (unsigned i = 0; i < num_sphere_render_lods; i++)
+        {
+            // Use different colors for different LOD levels to easily spot them.
+            GL_CHECK(glProgramUniform3fv(sphere_program, UNIFORM_COLOR_LOCATION, 1,
+                value_ptr(color_mod * vec3(0.8f - 0.2f * i, 1.2f - 0.2f * i, 0.8f + 0.2f * i))));
+
+            // Use different meshes for different LOD levels.
+            GL_CHECK(glBindVertexArray(sphere[i]->get_vertex_array()));
+
+            GL_CHECK(glEnableVertexAttribArray(3));
+            GL_CHECK(glVertexAttribDivisor(3, 1));
+            GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, indirect.instance_buffer[i]));
+            GL_CHECK(glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(vec4), 0));
+
+            GL_CHECK(glDrawElementsIndirect(GL_TRIANGLES, GL_UNSIGNED_SHORT,
+                reinterpret_cast<const void*>(i * sizeof(IndirectCommand))));
+        }
+    }
+    else
+    {
+        // Unconditionally draw every instance of LOD0.
+        GL_CHECK(glProgramUniform3fv(sphere_program, UNIFORM_COLOR_LOCATION, 1, value_ptr(color_mod * vec3(0.8f, 1.2f, 0.8f))));
+        GL_CHECK(glBindVertexArray(sphere[0]->get_vertex_array()));
+        GL_CHECK(glEnableVertexAttribArray(3));
+        GL_CHECK(glVertexAttribDivisor(3, 1));
+        GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, sphere_instances_buffer));
+        GL_CHECK(glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 2 * sizeof(vec4), 0));
+        GL_CHECK(glDrawElementsInstanced(GL_TRIANGLES, sphere[0]->get_num_elements(),
+            GL_UNSIGNED_SHORT, NULL, num_render_sphere_instances));
+    }
+}
+
+void Scene::render(unsigned width, unsigned height)
+{
+    if (enable_culling)
+    {
+        GL_CHECK(glClearColor(0.02f, 0.02f, 0.35f, 0.05f));
+    }
+    else
+    {
+        GL_CHECK(glClearColor(0.35f, 0.02f, 0.02f, 0.05f));
+    }
+
+    // Enable depth testing and culling.
+    GL_CHECK(glEnable(GL_DEPTH_TEST));
+    GL_CHECK(glEnable(GL_CULL_FACE));
+
+    GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+    GL_CHECK(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
+    GL_CHECK(glViewport(0, 0, width, height));
+
+    // Render occluder boxes.
+    GL_CHECK(glUseProgram(occluder_program));
+    GL_CHECK(glProgramUniform3f(occluder_program, UNIFORM_COLOR_LOCATION, 1.2f, 0.6f, 0.6f));
+    GL_CHECK(glBindVertexArray(box->get_vertex_array()));
+    GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, occluder_instances_buffer));
+    GL_CHECK(glEnableVertexAttribArray(3));
+    GL_CHECK(glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(vec4), 0));
+    GL_CHECK(glVertexAttribDivisor(3, 1));
+    GL_CHECK(glDrawElementsInstanced(GL_TRIANGLES, box->get_num_elements(), GL_UNSIGNED_SHORT, 0, num_occluder_instances));
+
+    GL_CHECK(glUseProgram(sphere_program));
+    if (show_redundant)
+    {
+        // Draw false-positive meshes in a dark color.
+        // False-positives will fail the depth test (pass with GL_GREATER).
+        // We don't want to update the depth buffer, so the false-positives will be rendered in a "glitchy"
+        // way due to the random ordering that occlusion culling introduces.
+        GL_CHECK(glDepthFunc(GL_GREATER));
+        GL_CHECK(glDepthMask(GL_FALSE));
+        render_spheres(vec3(0.25f));
+        GL_CHECK(glDepthMask(GL_TRUE));
+        GL_CHECK(glDepthFunc(GL_LESS));
+    }
+    render_spheres(vec3(1.0f));
+
+    if (enable_culling)
+    {
+        render_depth_map();
+    }
+
+    // Restore viewport (for text rendering).
+    GL_CHECK(glViewport(0, 0, width, height));
+
+    // Jump to next indirect draw buffer (ring buffer).
+    indirect.buffer_index = (indirect.buffer_index + 1) % INDIRECT_BUFFERS;
+}
+
+void Scene::render_depth_map()
+{
+    GL_CHECK(glDisable(GL_DEPTH_TEST));
+    GL_CHECK(glUseProgram(quad_program));
+
+    // Debug
+    GL_CHECK(glBindVertexArray(quad.get_vertex_array()));
+
+    unsigned offset_x = 0;
+
+    GL_CHECK(glBindTexture(GL_TEXTURE_2D, culling_implementations[culling_implementation_index]->get_depth_texture()));
+    for (unsigned lod = 0; lod <= DEPTH_SIZE_LOG2; lod++)
+    {
+        GL_CHECK(glViewport(offset_x, 0, DEPTH_SIZE >> lod, DEPTH_SIZE >> lod));
+
+        // Mipmapped filtering mode will ensure we draw correct miplevel.
+        GL_CHECK(glDrawElements(GL_TRIANGLES, quad.get_num_elements(), GL_UNSIGNED_SHORT, 0));
+
+        offset_x += DEPTH_SIZE >> lod;
+    }
 }

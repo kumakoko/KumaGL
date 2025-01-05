@@ -44,4 +44,7 @@ extern const uint32_t UNIFORM_MVP_LOCATION;
 extern const uint32_t UNIFORM_COLOR_LOCATION;
 extern const uint32_t UNIFORM_LIGHT_DIR_LOCATION;
 
+extern const float Z_NEAR;
+extern const float Z_FAR;
+
 #endif // constants_h__

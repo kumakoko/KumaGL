@@ -69,8 +69,8 @@ void Scene::move_camera(float delta_x, float delta_y)
 
 // Bake our instanced occluder geometry into a single vertex buffer and index buffer.
 // Makes the implementation somewhat more generic and simple.
-void Scene::bake_occluder_geometry(vector<vec4>& occluder_positions, vector<uint32_t>& occluder_indices,
-    const Mesh& box_mesh, const vec4* instances, unsigned num_instances)
+void Scene::bake_occluder_geometry(std::vector<glm::vec4>& occluder_positions, std::vector<uint32_t>& occluder_indices,
+    const Mesh& box_mesh, const glm::vec4* instances, unsigned num_instances)
 {
     unsigned total_vertices = num_instances * box_mesh.vbo.size();
     occluder_positions.reserve(total_vertices);

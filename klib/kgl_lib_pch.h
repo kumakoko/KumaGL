@@ -50,14 +50,12 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include <cstdint>
 #include <functional>
 #include <set>
-#include <array>
 #include <cstdlib>
 #include <utility>
 #include <random>
 #include <limits>
 #include <cmath>
 #include <type_traits>
-#include <functional>
 #include <initializer_list>
 #include <chrono>
 #include <unordered_map>
@@ -71,6 +69,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 #if defined(WIN32) || defined(_WIN32)
 #include "GL/wglew.h"
+
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h> 
 #if defined(DEBUG) || defined(_DEBUG)
@@ -133,6 +132,7 @@ extern "C"
 #include "boost/numeric/ublas/matrix.hpp"
 #include "boost/filesystem.hpp"
 #include "boost/intrusive_ptr.hpp"
+#include "boost/stacktrace.hpp"
 
 namespace ublas = boost::numeric::ublas;
 namespace bfs = boost::filesystem;

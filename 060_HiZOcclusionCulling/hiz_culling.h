@@ -14,11 +14,11 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
-
 #ifndef hiz_culling_h__
 #define hiz_culling_h__
 
 #include "culling.h"
+#include "../klib/kgl_shader_buffer.h"
 
 class HiZCulling : public CullingInterface
 {
@@ -29,24 +29,23 @@ public:
 
     virtual ~HiZCulling();
 
-    void setup_occluder_geometry(const std::vector<glm::vec4>& positions, const std::vector<uint32_t>& indices);
+    virtual void SetupOccluderGeometry(const std::vector<glm::vec4>& positions, const std::vector<uint32_t>& indices) override;
 
-    void set_view_projection(const glm::mat4& projection, const glm::mat4& view, const glm::vec2& zNearFar);
+    virtual void SetViewProjectionMatrix(const glm::mat4& projection, const glm::mat4& view, const glm::vec2& zNearFar) override;
 
-    void rasterize_occluders();
+    virtual void RasterizeOccluders() override;
 
-    void test_bounding_boxes(GLuint counter_buffer, const uint32_t* counter_offsets, uint32_t num_offsets,
-        const GLuint* culled_instance_buffer, GLuint instance_data_buffer,
-        uint32_t num_instances);
+    virtual void TestBoundingBoxes(GLuint counter_buffer, const uint32_t* counter_offsets, uint32_t num_offsets,
+        const GLuint* culled_instance_buffer,kgl::ShaderBuffer* instance_data_buffer,
+        uint32_t num_instances) override;
 
-    GLuint get_depth_texture() const { return depth_texture; }
-
+    virtual GLuint GetDepthTexture() const override;
 private:
     kgl::ComputeShaderProgram* culling_program_;
     kgl::GPUProgram* depth_render_program_;
     kgl::GPUProgram* depth_mip_program_;
 
-    GLDrawable quad;
+    GLDrawable* quad;
 
     struct
     {

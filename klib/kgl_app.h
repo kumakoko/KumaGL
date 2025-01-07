@@ -101,6 +101,8 @@ namespace kgl
 		*********************************************************/
 		virtual void InitScene();
 
+        virtual void UpdateScene();
+
 		/*********************************************************
 		应用程序运行的主循环
 
@@ -333,6 +335,11 @@ namespace kgl
 
 		/** * @brief 是否使用Dear IMGUI系统 */
 		bool use_gui_;
+
+        /** * @brief 是否使用上一幀的时刻，单位是秒 */
+        std::chrono::steady_clock::time_point last_frame_time_;
+        std::chrono::steady_clock::time_point current_frame_time_;
+        float frame_time_delta_;
 	};
 }
 

@@ -144,7 +144,7 @@ namespace kgl
     }
 
     /// <summary>
-    /// Ends the writtng.
+    /// Ends the writing.
     /// </summary>
     void FrameBuffer::EndWriting(const IRect* rect)
     {

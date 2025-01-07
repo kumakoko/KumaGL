@@ -65,6 +65,7 @@
       <PrecompiledHeaderOutputFile />
       <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);$(IMGUI_HEADER);../klib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -87,6 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(GLFW_HEADER);$(GLEW_HEADER);$(GLM_HEADER);$(ICONV_HEADER);$(VLD_HEADER);$(FREEIMAGE_HEADER);$(FREETYPE_HEADER);$(BOOST_HEADER);$(ASSIMP_HEADER);$(TINYXML2_HEADER);$(IMGUI_HEADER);../klib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -107,7 +109,6 @@
     <ClCompile Include="hiz_occlusion_culling_app.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="mesh.cc" />
-    <ClCompile Include="scene.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h" />
@@ -116,7 +117,6 @@
     <ClInclude Include="hiz_culling_no_lod.h" />
     <ClInclude Include="hiz_occlusion_culling_app.h" />
     <ClInclude Include="mesh.h" />
-    <ClInclude Include="scene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\publish\resources\shader\060_depth_fs.glsl" />
@@ -125,7 +125,12 @@
     <None Include="..\publish\resources\shader\060_hiz_cull_cs.glsl" />
     <None Include="..\publish\resources\shader\060_hiz_cull_no_lod_cs.glsl" />
     <None Include="..\publish\resources\shader\060_physics_cs.glsl" />
+    <None Include="..\publish\resources\shader\060_quad_fs.glsl" />
     <None Include="..\publish\resources\shader\060_quad_vs.glsl" />
+    <None Include="..\publish\resources\shader\060_scene_fs.glsl" />
+    <None Include="..\publish\resources\shader\060_scene_sphere_fs.glsl" />
+    <None Include="..\publish\resources\shader\060_scene_sphere_vs.glsl" />
+    <None Include="..\publish\resources\shader\060_scene_vs.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

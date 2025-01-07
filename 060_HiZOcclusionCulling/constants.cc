@@ -15,14 +15,20 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER I
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
 #include "../klib/kgl_lib_pch.h"
+
 #include "constants.h"
 
-const uint32_t SPHERE_LODS = 4;
+//const uint32_t SPHERE_LODS = 4;
+//const uint32_t INDIRECT_BUFFERS = 4;
+
+
+//const uint32_t SPHERE_LODS = 4;
 const uint32_t DEPTH_SIZE = 256;
 const uint32_t DEPTH_SIZE_LOG2 = 8;
 const uint32_t GROUP_SIZE_AABB = 64;
 
-const uint32_t  PHYSICS_GROUP_SIZE = 128;
+const uint32_t PHYSICS_GROUP_SIZE = 128;
+//const uint32_t INDIRECT_BUFFERS = 4;
 
 // Spread our spheres out in three dimensions.
 const uint32_t SPHERE_INSTANCES_X = 24;

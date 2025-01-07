@@ -47,7 +47,6 @@ namespace kgl
 
     void ViewFrustum::setCamDef(glm::vec3 &p, glm::vec3 &l, glm::vec3 &u)
     {
-        glm::vec3 dir;
         glm::vec3 nc;
         glm::vec3 fc;
         glm::vec3 X;

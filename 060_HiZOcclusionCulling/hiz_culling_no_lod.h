@@ -24,7 +24,7 @@ class HiZCullingNoLOD : public HiZCulling
 public:
     HiZCullingNoLOD();
 
-    inline uint32_t get_num_lods() const 
+    inline uint32_t GetLodsCount() const 
     {
         return 1; 
     }

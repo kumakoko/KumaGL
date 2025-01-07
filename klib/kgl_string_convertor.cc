@@ -275,6 +275,13 @@ namespace kgl
         ANSItoUTF16LE(ansi_str, utf16_str);
         return utf16_str;
     }
+
+    std::wstring StringConvertor::ANSItoUTF16LE(const std::string& ansi_string)
+    {
+        std::wstring utf16_str;
+        ANSItoUTF16LE(ansi_string.c_str(), utf16_str);
+        return utf16_str;
+    }
  
     int StringConvertor::ANSItoUTF16LE(const char* ansi_str,std::wstring& utf16_str)
     {

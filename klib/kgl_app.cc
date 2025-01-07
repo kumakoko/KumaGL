@@ -164,7 +164,7 @@ namespace kgl
         if (r != GLEW_OK)
         {
             std::wstringstream wss;
-            wss << L"Failed to initialise GLEW" << std::endl;
+            wss << L"Failed to initialize GLEW" << std::endl;
             wss << L"OpenGL Error code : " << glGetError() << std::endl;
             throw Error(wss.str(), __FILE__, __LINE__);
             return;
@@ -217,6 +217,11 @@ namespace kgl
 
     }
 
+    void App::UpdateScene()
+    {
+
+    }
+
     const char* App::GetGLErrorDescription(GLenum err)
     {
         switch (err)
@@ -251,6 +256,8 @@ namespace kgl
         std::vector<GLenum> error_code_array;
         bool is_not_closed = true;
 
+        current_frame_time_ = last_frame_time_ = std::chrono::steady_clock::now();
+
         do
         {
             is_not_closed = !glfwWindowShouldClose(window_handle_);
@@ -258,9 +265,15 @@ namespace kgl
             if (!is_not_closed)
                 break;
 
+            // 算出时间差
+            last_frame_time_ = current_frame_time_;
+            current_frame_time_ = std::chrono::steady_clock::now();
+            frame_time_delta_ = std::chrono::duration_cast<std::chrono::duration<float>>(current_frame_time_ - last_frame_time_).count();
+
             this->CheckGLError();
             glfwPollEvents();
             this->ProcessInput();
+            this->UpdateScene();
             this->PreRenderFrame();
             this->RenderScene();
             this->PreRenderGUI();

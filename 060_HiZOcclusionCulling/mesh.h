@@ -47,8 +47,21 @@ public:
     std::vector<uint16_t> ibo;
     AABB aabb;
 public:
-    static Mesh create_box_mesh(const AABB& aabb);
-    static Mesh create_sphere_mesh(float radius, const glm::vec3& center, uint32_t vertices_per_circumference);
+    /*********************************************************
+    
+    @param  const AABB & aabb
+    @return Mesh    
+    *********************************************************/
+    static Mesh CreateBoxMesh(const AABB& aabb);
+
+    /*********************************************************
+    
+    @param  float radius
+    @param  const glm::vec3 & center
+    @param  uint32_t vertices_per_circumference
+    @return Mesh    
+    *********************************************************/
+    static Mesh CreateSphereMesh(float radius, const glm::vec3& center, uint32_t vertices_per_circumference);
 };
 
 class GLDrawable

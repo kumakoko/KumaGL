@@ -160,6 +160,13 @@ namespace kgl
         /// <returns>std.wstring.</returns>
         static std::wstring ANSItoUTF16LE(const char* ansi_str);
 
+        /*********************************************************
+        
+        @param  const std::string & ansi_str
+        @return std::wstring    
+        *********************************************************/
+        static std::wstring ANSItoUTF16LE(const std::string& ansi_string);
+
         /// <summary>
         /// Uts the F16 l eto ANSI.
         /// </summary>

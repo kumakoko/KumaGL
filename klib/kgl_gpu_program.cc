@@ -163,19 +163,24 @@ namespace kgl
         return shader_string_stream.str();
     }
 
-    GLuint GPUProgram::LoadAndCompileShader(const char* shader_string, GLuint shader_type)
+    GLuint GPUProgram::LoadAndCompileShader(const char* shader_file_path, GLuint shader_type)
     {
+        std::string shader_code = LoadShaderFileToString(shader_file_path);
+        const char* shader_string = shader_code.c_str();
         GLchar info_log[512];
         GLint is_success = 0; // 编译成功的话，返回0
         GLuint shader_handle = glCreateShader(shader_type);
-        glShaderSource(shader_handle, 1, &shader_string, nullptr);
+        glShaderSource(shader_handle, 1, &(shader_string), nullptr);
         glCompileShader(shader_handle);
         glGetShaderiv(shader_handle, GL_COMPILE_STATUS, &is_success);
 
         if (!is_success)
         {
+            std::wstring log = StringConvertor::ANSItoUTF16LE(shader_file_path);
             glGetShaderInfoLog(shader_handle, 512, NULL, info_log);
-            throw Error(StringConvertor::ANSItoUTF16LE(info_log), __FILE__, __LINE__);
+            log.append(L"\n");
+            log.append(StringConvertor::ANSItoUTF16LE(info_log));
+            throw Error(log, __FILE__, __LINE__);
             return -1;
         }
 
@@ -191,17 +196,17 @@ namespace kgl
 
         if (nullptr != vs_file_path)
         {
-            vs_handle = LoadAndCompileShader(LoadShaderFileToString(vs_file_path).c_str(), GL_VERTEX_SHADER);
+            vs_handle = LoadAndCompileShader(vs_file_path, GL_VERTEX_SHADER);
         }
 
         if (nullptr != fs_file_path)
         {
-            fs_handle = LoadAndCompileShader(LoadShaderFileToString(fs_file_path).c_str(), GL_FRAGMENT_SHADER);
+            fs_handle = LoadAndCompileShader(fs_file_path, GL_FRAGMENT_SHADER);
         }
 
         if (nullptr != gs_file_path)
         {
-            gs_handle = LoadAndCompileShader(LoadShaderFileToString(gs_file_path).c_str(), GL_GEOMETRY_SHADER);
+            gs_handle = LoadAndCompileShader(gs_file_path, GL_GEOMETRY_SHADER);
         }
 
         // 链接shader代码
@@ -362,6 +367,11 @@ namespace kgl
     void GPUProgram::ApplyFloat(GLfloat float_data, GLint location)
     {
         glUniform1f(location, float_data);
+    }
+
+    void GPUProgram::ApplyFloat3(GLfloat x, GLfloat y, GLfloat z, GLint location)
+    {
+        glProgramUniform3f(program_handle_, location, x, y, z);
     }
 
     void GPUProgram::ApplyInt(GLint int_data, GLint location)

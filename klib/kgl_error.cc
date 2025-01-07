@@ -160,10 +160,12 @@ namespace kgl
     {
         GLenum error_code = glGetError();
 
-        if (error_code != GL_NO_ERROR)
+        if (error_code != GL_NO_ERROR && error_code != GL_INVALID_OPERATION)
         {
+            //std::wstring stack_info = StringConvertor::ANSItoUTF16LE(boost::stacktrace::to_string(boost::stacktrace::stacktrace()));
             std::wstringstream wss;
-            wss << L"OpenGL Error.code : " << std::hex << error_code;
+            wss << L"OpenGL Error.code : 0x" << std::hex << error_code <<std::endl;
+            //wss << stack_info;
             throw kgl::Error(wss.str(), file_path, line);
         }
     }

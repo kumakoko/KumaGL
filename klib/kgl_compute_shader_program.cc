@@ -35,7 +35,8 @@ namespace kgl
     {
         if (program_ != 0)
         {
-            GL_CHECK_SIMPLE(glUseProgram(program_));
+            //GL_CHECK_SIMPLE(glUseProgram(program_));
+            glUseProgram(program_);
         }
     }
 
@@ -67,15 +68,17 @@ namespace kgl
         cs_file_stream.close();
         shader_src_code = cs_string_stream.str();
 
-        GL_CHECK_SIMPLE(program_ = glCreateProgram());
+       
 
         GLuint cs = common_compile(GL_COMPUTE_SHADER, shader_src_code.c_str());
 
         if (cs == 0)
         {
-            GL_CHECK_SIMPLE(glDeleteProgram(program_));
+            //GL_CHECK_SIMPLE(glDeleteProgram(program_));
             return;
         }
+
+        GL_CHECK_SIMPLE(program_ = glCreateProgram());
 
         // °ó¶¨compute shader¾ä±úºÍgpu program¾ä±ú
         GL_CHECK_SIMPLE(glAttachShader(program_, cs));
@@ -86,8 +89,7 @@ namespace kgl
 
         if (!check_program(program_))
         {
-            //LOGE("Failed to link program.");
-            throw Error(L"Failed tol inke program");
+            throw Error(L"Failed to link program");
         }
     }
 

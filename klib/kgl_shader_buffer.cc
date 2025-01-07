@@ -6,7 +6,7 @@ namespace kgl
 {
     ShaderBuffer::ShaderBuffer(GLenum buffer_type) :buffer_id_(0), buffer_type_(buffer_type)
     {
-
+        GL_CHECK_SIMPLE(glGenBuffers(1, &buffer_id_));
     }
 
     ShaderBuffer::~ShaderBuffer()
@@ -42,8 +42,10 @@ namespace kgl
                 GL_DYNAMIC_DRAW：数据会频繁更新，主要用于绘制。
                 GL_STREAM_DRAW：数据仅使用一次，之后会被更新。
         */
-
-        GL_CHECK_SIMPLE(glBufferData(buffer_type_, data_size, data_ptr, usage));
+        if (data_size > 0 && nullptr != data_ptr)
+        {
+            GL_CHECK_SIMPLE(glBufferData(buffer_type_, data_size, data_ptr, usage));
+        }
     }
 
     void ShaderBuffer::BindBufferBase(GLuint slot_index)
@@ -71,5 +73,11 @@ namespace kgl
             GL_CHECK_SIMPLE(glDeleteBuffers(1, &buffer_id_));
             buffer_id_ = 0;
         }
+    }
+
+    void ShaderBuffer::Rebinding(GLenum new_bind_type)
+    {
+        GL_CHECK_SIMPLE(glBindBuffer(GL_ARRAY_BUFFER, buffer_id_));
+        buffer_type_ = new_bind_type;
     }
 }

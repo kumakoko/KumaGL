@@ -7,9 +7,6 @@
     <ClCompile Include="main.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="scene.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="mesh.cc">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -42,9 +39,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="mesh.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="scene.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="culling.h">
@@ -80,6 +74,21 @@
       <Filter>shader</Filter>
     </None>
     <None Include="..\publish\resources\shader\060_physics_cs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\060_quad_fs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\060_scene_fs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\060_scene_sphere_fs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\060_scene_sphere_vs.glsl">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="..\publish\resources\shader\060_scene_vs.glsl">
       <Filter>shader</Filter>
     </None>
   </ItemGroup>

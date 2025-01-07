@@ -21,7 +21,11 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 #include "culling.h"
 
-void CullingInterface::compute_frustum_from_view_projection(glm::vec4 *planes, const glm::mat4 &view_projection)
+CullingInterface::~CullingInterface()
+{
+}
+
+void CullingInterface::ComputeFrustumFromViewProjection(glm::vec4 *planes, const glm::mat4 &view_projection)
 {
     glm::mat4 inv_view_proj = glm::inverse(view_projection);
 
@@ -58,3 +62,12 @@ void CullingInterface::compute_frustum_from_view_projection(glm::vec4 *planes, c
     planes[5] = glm::vec4(bottom_normal, -glm::dot(bottom_normal, lbn_pos)); // Bottom
 }
 
+uint32_t CullingInterface::GetLodsCount() const 
+{
+    return SPHERE_LODS; 
+}
+
+GLuint CullingInterface::GetDepthTexture() const
+{
+    return 0; 
+}

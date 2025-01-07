@@ -66,7 +66,7 @@ namespace kgl
         *************************************************************************************/
         void ApplyFloat(GLfloat float_data, GLint location);
 
-        void Dispatch(GLuint num_groups_x, GLuint num_groups_y, GLuint num_groups_z);
+        static void Dispatch(GLuint num_groups_x, GLuint num_groups_y, GLuint num_groups_z);
     private:
         GLuint common_compile(GLenum type, const char* source);
         bool check_program(GLuint prog);

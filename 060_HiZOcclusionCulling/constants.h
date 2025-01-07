@@ -17,13 +17,16 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #ifndef constants_h__
 #define constants_h__
 
-extern const uint32_t SPHERE_LODS;
+#include <cstdint>
+
+constexpr uint32_t SPHERE_LODS = 4;
+constexpr uint32_t INDIRECT_BUFFERS = 4;
+
 extern const uint32_t DEPTH_SIZE;
 extern const uint32_t DEPTH_SIZE_LOG2;
 extern const uint32_t GROUP_SIZE_AABB;
 
-
-extern const uint32_t  PHYSICS_GROUP_SIZE;
+extern const uint32_t PHYSICS_GROUP_SIZE;
 
 // Spread our spheres out in three dimensions.
 extern const uint32_t SPHERE_INSTANCES_X;
@@ -31,7 +34,7 @@ extern const uint32_t SPHERE_INSTANCES_Y;
 extern const uint32_t SPHERE_INSTANCES_Z;
 extern const uint32_t SPHERE_INSTANCES;
 
-extern const float  SPHERE_RADIUS;
+extern const float SPHERE_RADIUS;
 
 // Defines how densely spheres should be tesselated (offline) at each LOD level.
 extern const uint32_t SPHERE_VERT_PER_CIRC_LOD0;

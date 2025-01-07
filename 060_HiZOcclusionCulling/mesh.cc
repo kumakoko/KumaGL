@@ -26,13 +26,13 @@ GLDrawable::GLDrawable()
     aabb.minpos = glm::vec4(0.0f);
     aabb.maxpos = glm::vec4(0.0f);
 
-    GL_CHECK(glGenVertexArrays(1, &vertex_array));
-    GL_CHECK(glGenBuffers(1, &vertex_buffer));
-    GL_CHECK(glGenBuffers(1, &index_buffer));
+    GL_CHECK_SIMPLE(glGenVertexArrays(1, &vertex_array));
+    GL_CHECK_SIMPLE(glGenBuffers(1, &vertex_buffer));
+    GL_CHECK_SIMPLE(glGenBuffers(1, &index_buffer));
 
-    GL_CHECK(glBindVertexArray(vertex_array));
+    GL_CHECK_SIMPLE(glBindVertexArray(vertex_array));
 
-    GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer));
+    GL_CHECK_SIMPLE(glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer));
 
     static const float vertices[] = 
     {
@@ -47,14 +47,14 @@ GLDrawable::GLDrawable()
         0, 1, 2, 3, 2, 1
     };
 
-    GL_CHECK(glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW));
-    GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer));
-    GL_CHECK(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW));
-    GL_CHECK(glEnableVertexAttribArray(0));
-    GL_CHECK(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0));
-    GL_CHECK(glBindVertexArray(0));
-    GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, 0));
-    GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+    GL_CHECK_SIMPLE(glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW));
+    GL_CHECK_SIMPLE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer));
+    GL_CHECK_SIMPLE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW));
+    GL_CHECK_SIMPLE(glEnableVertexAttribArray(0));
+    GL_CHECK_SIMPLE(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0));
+    GL_CHECK_SIMPLE(glBindVertexArray(0));
+    GL_CHECK_SIMPLE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+    GL_CHECK_SIMPLE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 
     num_elements = 6;
 }
@@ -64,38 +64,38 @@ GLDrawable::GLDrawable(const Mesh& mesh)
     aabb = mesh.aabb;
     num_elements = mesh.ibo.size();
 
-    GL_CHECK(glGenVertexArrays(1, &vertex_array));
-    GL_CHECK(glGenBuffers(1, &vertex_buffer));
-    GL_CHECK(glGenBuffers(1, &index_buffer));
+    GL_CHECK_SIMPLE(glGenVertexArrays(1, &vertex_array));
+    GL_CHECK_SIMPLE(glGenBuffers(1, &vertex_buffer));
+    GL_CHECK_SIMPLE(glGenBuffers(1, &index_buffer));
 
-    GL_CHECK(glBindVertexArray(vertex_array));
+    GL_CHECK_SIMPLE(glBindVertexArray(vertex_array));
 
-    GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer));
-    GL_CHECK(glBufferData(GL_ARRAY_BUFFER, mesh.vbo.size() * sizeof(Vertex), &mesh.vbo[0],
+    GL_CHECK_SIMPLE(glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer));
+    GL_CHECK_SIMPLE(glBufferData(GL_ARRAY_BUFFER, mesh.vbo.size() * sizeof(Vertex), &mesh.vbo[0],
         GL_STATIC_DRAW));
 
-    GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer));
-    GL_CHECK(glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.ibo.size() * sizeof(uint16_t),
+    GL_CHECK_SIMPLE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer));
+    GL_CHECK_SIMPLE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.ibo.size() * sizeof(uint16_t),
         &mesh.ibo[0], GL_STATIC_DRAW));
 
     // Vertex position
-    GL_CHECK(glEnableVertexAttribArray(0));
-    GL_CHECK(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+    GL_CHECK_SIMPLE(glEnableVertexAttribArray(0));
+    GL_CHECK_SIMPLE(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
         reinterpret_cast<const GLvoid*>(offsetof(Vertex, position))));
 
     // Normal
-    GL_CHECK(glEnableVertexAttribArray(1));
-    GL_CHECK(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+    GL_CHECK_SIMPLE(glEnableVertexAttribArray(1));
+    GL_CHECK_SIMPLE(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
         reinterpret_cast<const GLvoid*>(offsetof(Vertex, normal))));
 
     // Tex coord
-    GL_CHECK(glEnableVertexAttribArray(2));
-    GL_CHECK(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+    GL_CHECK_SIMPLE(glEnableVertexAttribArray(2));
+    GL_CHECK_SIMPLE(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
         reinterpret_cast<const GLvoid*>(offsetof(Vertex, tex))));
 
-    GL_CHECK(glBindVertexArray(0));
-    GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, 0));
-    GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+    GL_CHECK_SIMPLE(glBindVertexArray(0));
+    GL_CHECK_SIMPLE(glBindBuffer(GL_ARRAY_BUFFER, 0));
+    GL_CHECK_SIMPLE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 }
 
 GLDrawable::~GLDrawable()
@@ -120,7 +120,7 @@ GLuint GLDrawable::get_vertex_array() const
     return vertex_array;
 }
 
-Mesh Mesh::create_sphere_mesh(float radius, const glm::vec3& center, uint32_t vertices_per_circumference)
+Mesh Mesh::CreateSphereMesh(float radius, const glm::vec3& center, uint32_t vertices_per_circumference)
 {
     Mesh mesh;
 
@@ -204,7 +204,7 @@ Mesh Mesh::create_sphere_mesh(float radius, const glm::vec3& center, uint32_t ve
     return mesh;
 }
 
-Mesh Mesh::create_box_mesh(const AABB & aabb)
+Mesh Mesh::CreateBoxMesh(const AABB & aabb)
 {
     static const Vertex vertex_data[] = {
         Vertex(glm::vec3(-1, -1,  1), glm::vec3(0, 0,  1), glm::vec2(0, 0)), // Front

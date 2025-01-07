@@ -21,6 +21,14 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include "constants.h"
 #include "kgl_compute_shader_program.h"
 #include "kgl_gpu_program.h"
+#include "kgl_shader_buffer.h"
+
+enum CullingMethod
+{
+    CullHiZ = 0,
+    CullHiZNoLOD = 1,
+    CullNone = -1
+};
 
  // Layout is defined by OpenGL ES 3.1.
  // We don't care about the three last elements in this case.
@@ -34,32 +42,57 @@ struct IndirectCommand
 class CullingInterface
 {
 public:
-    virtual ~CullingInterface() 
-    {
-    }
+    virtual ~CullingInterface();
 
-    // Sets up occlusion geometry. This is mostly static and should be done at startup of a scene.
-    virtual void setup_occluder_geometry(const std::vector<glm::vec4>& positions, const std::vector<uint32_t>& indices) = 0;
+    /*********************************************************
+    设置遮挡几何体。这些几何体基本上是静态的，应该在场景启动时完成。
+    @param  const std::vector<glm::vec4> & positions
+    @param  const std::vector<uint32_t> & indices
+    @return void    
+    *********************************************************/
+    virtual void SetupOccluderGeometry(const std::vector<glm::vec4>& positions, const std::vector<uint32_t>& indices) = 0;
 
-    // Sets current view and projection matrices.
-    virtual void set_view_projection(const glm::mat4& projection, const glm::mat4& view, const glm::vec2& zNearFar) = 0;
+    /*********************************************************
+    设置观察矩阵和投影矩阵
+    @param  const glm::mat4 & projection
+    @param  const glm::mat4 & view
+    @param  const glm::vec2 & zNearFar
+    @return void    
+    *********************************************************/
+    virtual void SetViewProjectionMatrix(const glm::mat4& projection, const glm::mat4& view, const glm::vec2& zNearFar) = 0;
 
-    // Rasterize occluders to depth map.
-    virtual void rasterize_occluders() = 0;
+    /*********************************************************
+    把遮挡体的深度值渲染到深度图中去
+    @return void    
+    *********************************************************/
+    virtual void RasterizeOccluders() = 0;
 
-    // Test bounding boxes in our scene.
-    virtual void test_bounding_boxes(GLuint counter_buffer, const uint32_t* counter_offsets, uint32_t num_offsets,
-        const GLuint* culled_instance_buffer, GLuint instance_data_buffer,
+    /*********************************************************
+    Test bounding boxes in our scene.
+    @param  GLuint counter_buffer
+    @param  const uint32_t * counter_offsets
+    @param  uint32_t num_offsets
+    @param  const GLuint * culled_instance_buffer
+    @param  kgl::ShaderBuffer * instance_data_buffer
+    @param  uint32_t num_instances
+    @return void    
+    *********************************************************/
+    virtual void TestBoundingBoxes(GLuint counter_buffer, const uint32_t* counter_offsets, uint32_t num_offsets,
+        const GLuint* culled_instance_buffer, kgl::ShaderBuffer* instance_data_buffer/*GLuint instance_data_buffer*/,
         uint32_t num_instances) = 0;
 
-    // Debugging functionality. Verify that the depth map is being rasterized correctly.
-    virtual GLuint get_depth_texture() const { return 0; }
+    virtual GLuint GetDepthTexture() const;
 
-    virtual uint32_t get_num_lods() const { return SPHERE_LODS; }
+    virtual uint32_t GetLodsCount() const;
 
 protected:
-    // Common functionality for various occlusion culling implementations.
-    void compute_frustum_from_view_projection(glm::vec4* planes, const glm::mat4& view_projection);
+    /*********************************************************
+    各种遮挡剔除实现的通用功能。
+    @param  glm::vec4 * planes
+    @param  const glm::mat4 & view_projection
+    @return void    
+    *********************************************************/
+    void ComputeFrustumFromViewProjection(glm::vec4* planes, const glm::mat4& view_projection);
 };
 
 

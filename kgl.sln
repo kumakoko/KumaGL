@@ -163,6 +163,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "039_SparseTextureARB", "039_SparseTextureARB\039_SparseTextureARB.vcxproj", "{4B74D27F-51DD-4184-BEFF-7A84E9D173E4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "060_HiZOcclusionCulling", "060_HiZOcclusionCulling\060_HiZOcclusionCulling.vcxproj", "{0186F2D0-E160-4A8B-B449-4A9901B57C3A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

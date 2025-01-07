@@ -38,12 +38,13 @@ HiZCulling::HiZCulling(const char* shader_file_path)
 
 void HiZCulling::init()
 {
+    quad = new GLDrawable();
+
     depth_render_program_ = new kgl::GPUProgram();
     depth_render_program_->CreateFromFile("resources/shader/060_depth_vs.glsl", "resources/shader/060_depth_fs.glsl", nullptr);
     depth_mip_program_ = new kgl::GPUProgram();
     depth_mip_program_->CreateFromFile("resources/shader/060_quad_vs.glsl", "resources/shader/060_depth_mip_fs.glsl", nullptr);
     
-
     lod_levels = DEPTH_SIZE_LOG2 + 1;
 
     GL_CHECK_SIMPLE(glGenTextures(1, &depth_texture));
@@ -102,8 +103,8 @@ void HiZCulling::init()
     GL_CHECK_SIMPLE(glBufferData(GL_UNIFORM_BUFFER, sizeof(Uniforms), NULL, GL_STREAM_DRAW));
 }
 
-void HiZCulling::test_bounding_boxes(GLuint counter_buffer, const uint32_t* counter_offsets, uint32_t num_offsets,
-    const GLuint* culled_instance_buffer, GLuint instance_data_buffer, uint32_t num_instances)
+void HiZCulling::TestBoundingBoxes(GLuint counter_buffer, const uint32_t* counter_offsets, uint32_t num_offsets,
+    const GLuint* culled_instance_buffer, kgl::ShaderBuffer* instance_data_buffer/*GLuint instance_data_buffer*/, uint32_t num_instances)
 {
     culling_program_->Use();//GL_CHECK(glUseProgram(culling_program));
 
@@ -129,8 +130,8 @@ void HiZCulling::test_bounding_boxes(GLuint counter_buffer, const uint32_t* coun
     GL_CHECK_SIMPLE(glBindSampler(0, shadow_sampler));
 
     // Dispatch occlusion culling job.
-    GL_CHECK_SIMPLE(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, instance_data_buffer));
-    GL_CHECK_SIMPLE(glDispatchCompute(aabb_groups, 1, 1));
+    instance_data_buffer->BindBufferBase(0);//GL_CHECK_SIMPLE(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, instance_data_buffer));
+    GL_CHECK_SIMPLE(kgl::ComputeShaderProgram::Dispatch(aabb_groups, 1, 1));
 
     GL_CHECK_SIMPLE(glBindSampler(0, 0));
 
@@ -138,9 +139,9 @@ void HiZCulling::test_bounding_boxes(GLuint counter_buffer, const uint32_t* coun
     GL_CHECK_SIMPLE(glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT | GL_COMMAND_BARRIER_BIT));
 }
 
-void HiZCulling::setup_occluder_geometry(const std::vector<glm::vec4>& position, const std::vector<uint32_t>& indices)
+void HiZCulling::SetupOccluderGeometry(const std::vector<glm::vec4>& position, const std::vector<uint32_t>& indices)
 {
-    // Upload occlusion geometry to GPU. This should be mostly static.
+    // 把遮挡物的顶点数据和索引数据上传到GPU
     GL_CHECK_SIMPLE(glBindVertexArray(occluder.vao));
 
     GL_CHECK_SIMPLE(glBindBuffer(GL_ARRAY_BUFFER, occluder.vertex));
@@ -159,7 +160,7 @@ void HiZCulling::setup_occluder_geometry(const std::vector<glm::vec4>& position,
     occluder.elements = indices.size();
 }
 
-void HiZCulling::rasterize_occluders()
+void HiZCulling::RasterizeOccluders()
 {
     GL_CHECK_SIMPLE(glBindTexture(GL_TEXTURE_2D, 0));
     GL_CHECK_SIMPLE(glEnable(GL_DEPTH_TEST));
@@ -173,7 +174,7 @@ void HiZCulling::rasterize_occluders()
     GL_CHECK_SIMPLE(glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
     GL_CHECK_SIMPLE(glDrawElements(GL_TRIANGLES, occluder.elements, GL_UNSIGNED_INT, 0));
 
-    GL_CHECK_SIMPLE(glBindVertexArray(quad.get_vertex_array()));
+    GL_CHECK_SIMPLE(glBindVertexArray(quad->get_vertex_array()));
     GL_CHECK_SIMPLE(glBindTexture(GL_TEXTURE_2D, depth_texture));
     depth_mip_program_->Use();//GL_CHECK(glUseProgram(depth_mip_program));
 
@@ -189,7 +190,7 @@ void HiZCulling::rasterize_occluders()
         GL_CHECK_SIMPLE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, lod - 1));
 
         // Mipmap.
-        GL_CHECK_SIMPLE(glDrawElements(GL_TRIANGLES, quad.get_num_elements(), GL_UNSIGNED_SHORT, 0));
+        GL_CHECK_SIMPLE(glDrawElements(GL_TRIANGLES, quad->get_num_elements(), GL_UNSIGNED_SHORT, 0));
     }
 
     // Restore miplevels. MAX_LEVEL will be clamped accordingly.
@@ -198,7 +199,7 @@ void HiZCulling::rasterize_occluders()
     GL_CHECK_SIMPLE(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 }
 
-void HiZCulling::set_view_projection(const glm::mat4& projection, const glm::mat4& view, const glm::vec2& zNearFar)
+void HiZCulling::SetViewProjectionMatrix(const glm::mat4& projection, const glm::mat4& view, const glm::vec2& zNearFar)
 {
     glm::mat4 view_projection = projection * view;
     depth_render_program_->ApplyMatrix(glm::value_ptr(view_projection), 0, false);
@@ -210,7 +211,7 @@ void HiZCulling::set_view_projection(const glm::mat4& projection, const glm::mat
     uniforms.zNearFar = zNearFar;
 
     // Compute the 6 frustum planes for frustum culling.
-    compute_frustum_from_view_projection(uniforms.planes, view_projection);
+    ComputeFrustumFromViewProjection(uniforms.planes, view_projection);
 }
 
 HiZCulling::~HiZCulling()
@@ -231,3 +232,7 @@ HiZCulling::~HiZCulling()
     GL_CHECK_SIMPLE(glDeleteSamplers(1, &shadow_sampler));
 }
 
+GLuint HiZCulling::GetDepthTexture() const
+{
+    return depth_texture;
+}

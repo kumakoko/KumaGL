@@ -54,8 +54,9 @@ void main()
         app = new HizOcclusionCullingApp;
         app->InitWindow(1024, 768, false, "060_HizOcclusionCullingApp", 4, 3, kgl::App::CORE);
         app->InitRenderer();
+        app->EnableVSync(false);
         app->InitScene();
-        app->InitGuiSystem(false);
+        app->InitGuiSystem(true);
         app->Run();
     }
     catch (kgl::Error e)

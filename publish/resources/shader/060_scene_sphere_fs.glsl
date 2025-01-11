@@ -17,8 +17,7 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #version 430 core
 
 
-// Shader for spheres in scene.
-// Just render a constant color with some basic lighting.
+// 和060_scene_fs.glsl类似，用简单的半琅勃特光照模型渲染一下小球
 
 precision mediump float;
 
@@ -31,6 +30,6 @@ in vec3 vNormal;
 void main()
 {
     vec3 normal = normalize(vNormal);
-    FragColor = vec4(uColor * (dot(uLightDir, normal) * 0.5 + 0.5), 1.0); // Half-lambertian
+    FragColor = vec4(uColor * (dot(uLightDir, normal) * 0.5 + 0.5), 1.0); // 半琅勃特光照 Half-lambertian
 }
 

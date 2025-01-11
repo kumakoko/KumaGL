@@ -30,13 +30,24 @@ enum CullingMethod
     CullNone = -1
 };
 
- // Layout is defined by OpenGL ES 3.1.
- // We don't care about the three last elements in this case.
+/*
+glDrawElementsIndirect 使用的间接绘制命令是一个结构体，其定义如下：
+
+cpp
+复制
+typedef struct {
+    GLuint count;         // 要绘制的索引数量
+    GLuint instanceCount; // 要绘制的实例数量
+    GLuint firstIndex;    // 索引缓冲区中的起始索引。
+    GLuint baseVertex;    // 顶点缓冲区中的起始顶点。
+    GLuint baseInstance;  // 实例化渲染中的起始实例。
+} DrawElementsIndirectCommand;
+*/
 struct IndirectCommand
 {
     GLuint count;
     GLuint instanceCount;
-    GLuint zero[3];
+    GLuint zero[3]; // 在本demo中后三项不用管它，所以可以以这种方式定义之
 };
 
 class CullingInterface
@@ -69,17 +80,16 @@ public:
 
     /*********************************************************
     Test bounding boxes in our scene.
-    @param  GLuint counter_buffer
-    @param  const uint32_t * counter_offsets
-    @param  uint32_t num_offsets
+    @param  GLuint counter_buffer 要执行的间接绘制缓冲区的buffer id
+    @param  const uint32_t * counter_offsets 每一个IndirectCommand指令，相对于指令空间首地址的偏移量，所有偏移量都存在一个数组中，counter_offsets就是数组的首指针
+    @param  uint32_t num_offsets 每一个IndirectCommand指令，相对于指令空间首地址的偏移量，所有偏移量都存在一个数组中，num_offsets就是数组中元素的个数
     @param  const GLuint * culled_instance_buffer
     @param  kgl::ShaderBuffer * instance_data_buffer
     @param  uint32_t num_instances
     @return void    
     *********************************************************/
     virtual void TestBoundingBoxes(GLuint counter_buffer, const uint32_t* counter_offsets, uint32_t num_offsets,
-        const GLuint* culled_instance_buffer, kgl::ShaderBuffer* instance_data_buffer/*GLuint instance_data_buffer*/,
-        uint32_t num_instances) = 0;
+        const GLuint* culled_instance_buffer, kgl::ShaderBuffer* instance_data_buffer,uint32_t num_instances) = 0;
 
     virtual GLuint GetDepthTexture() const;
 

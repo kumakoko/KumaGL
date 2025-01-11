@@ -19,8 +19,8 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 #include <cstdint>
 
-constexpr uint32_t SPHERE_LODS = 4;
-constexpr uint32_t INDIRECT_BUFFERS = 4;
+constexpr uint32_t SPHERE_LODS_COUNT = 4;
+constexpr uint32_t INDIRECT_BUFFERS_COUNT = 4; // 间接绘制缓冲区的个数
 
 extern const uint32_t DEPTH_SIZE;
 extern const uint32_t DEPTH_SIZE_LOG2;

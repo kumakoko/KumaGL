@@ -17,18 +17,19 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #version 430 core
 
 
-// Shader for spheres in scene.
-
+// VAO 顶点输入布局
 layout(location = 0) in vec3 aVertex;
-layout(location = 3) in vec4 aOffset; // Instanced arrays
+layout(location = 3) in vec4 aOffset; // instanced数组，记录者给每一个instance实例对象使用的偏移量
+				      // 对应C++代码中occluder_instances数组的每一个元素
 
+// uniform变量
 layout(location = 0) uniform mat4 uVP;
 
 out vec3 vNormal;
 
 void main()
 {
-    // .w component is radius. Sphere mesh is radius == 1.
+    // aOffset中的w分量存储了小球的半径
     vec3 world = aOffset.w * aVertex + aOffset.xyz;
     gl_Position = uVP * vec4(world, 1.0);
     vNormal = aVertex;

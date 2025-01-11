@@ -264,6 +264,9 @@
     <ClInclude Include="kgl_shader_buffer.h">
       <Filter>headers</Filter>
     </ClInclude>
+    <ClInclude Include="kgl_gl_enum_to_string.h">
+      <Filter>headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kgl_lib_pch.cc">
@@ -477,6 +480,9 @@
       <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="kgl_shader_buffer.cc">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="kgl_gl_enum_to_string.cc">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>

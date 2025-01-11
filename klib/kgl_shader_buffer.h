@@ -6,7 +6,17 @@ namespace kgl
     class ShaderBuffer
     {
     public:
+        /*********************************************************
+        
+        @param  GLenum buffer_type
+        @return     
+        *********************************************************/
         ShaderBuffer(GLenum buffer_type);
+
+        /*********************************************************
+        
+        @return     
+        *********************************************************/
         ~ShaderBuffer();
 
         /*********************************************************
@@ -19,8 +29,25 @@ namespace kgl
         *********************************************************/
         void BindBufferAndUploadData(std::size_t data_size, const void* data_ptr, GLenum usage = GL_STATIC_DRAW);
 
+        /*********************************************************
+        
+        @param  GLuint slot_index
+        @return void    
+        *********************************************************/
         void BindBufferBase(GLuint slot_index);
 
+        /*********************************************************
+        
+        @param  GLenum new_buffer_type
+        @param  GLuint slot_index
+        @return void    
+        *********************************************************/
+        void RebindBufferBase(GLenum new_buffer_type, GLuint slot_index);
+
+        /*********************************************************
+        
+        @return void    
+        *********************************************************/
         void Destroy();
 
         inline GLuint BufferID() const

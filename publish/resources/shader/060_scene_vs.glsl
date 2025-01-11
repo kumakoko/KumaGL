@@ -21,7 +21,8 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 
 layout(location = 0) in vec3 aVertex;
 layout(location = 1) in vec3 aNormal;
-layout(location = 3) in vec3 aOffset; // Instanced array
+layout(location = 3) in vec3 aOffset;	// instanced数组，记录者给每一个instance实例对象使用的偏移量
+					// 对应C++代码中occluder_instances数组的每一个元素
 
 layout(location = 0) uniform mat4 uVP; // view-projection matrix
 

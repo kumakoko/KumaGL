@@ -26,13 +26,11 @@ GLDrawable::GLDrawable()
     aabb.minpos = glm::vec4(0.0f);
     aabb.maxpos = glm::vec4(0.0f);
 
-    GL_CHECK_SIMPLE(glGenVertexArrays(1, &vertex_array));
-    GL_CHECK_SIMPLE(glGenBuffers(1, &vertex_buffer));
-    GL_CHECK_SIMPLE(glGenBuffers(1, &index_buffer));
-
-    GL_CHECK_SIMPLE(glBindVertexArray(vertex_array));
-
-    GL_CHECK_SIMPLE(glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer));
+    GL_CHECK_SIMPLE(glGenVertexArrays(1, &vao_));
+    GL_CHECK_SIMPLE(glGenBuffers(1, &vbo_));
+    GL_CHECK_SIMPLE(glGenBuffers(1, &ibo_));
+    GL_CHECK_SIMPLE(glBindVertexArray(vao_));
+    GL_CHECK_SIMPLE(glBindBuffer(GL_ARRAY_BUFFER, vbo_));
 
     static const float vertices[] = 
     {
@@ -48,7 +46,7 @@ GLDrawable::GLDrawable()
     };
 
     GL_CHECK_SIMPLE(glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW));
-    GL_CHECK_SIMPLE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer));
+    GL_CHECK_SIMPLE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_));
     GL_CHECK_SIMPLE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW));
     GL_CHECK_SIMPLE(glEnableVertexAttribArray(0));
     GL_CHECK_SIMPLE(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0));
@@ -64,17 +62,17 @@ GLDrawable::GLDrawable(const Mesh& mesh)
     aabb = mesh.aabb;
     num_elements = mesh.ibo.size();
 
-    GL_CHECK_SIMPLE(glGenVertexArrays(1, &vertex_array));
-    GL_CHECK_SIMPLE(glGenBuffers(1, &vertex_buffer));
-    GL_CHECK_SIMPLE(glGenBuffers(1, &index_buffer));
+    GL_CHECK_SIMPLE(glGenVertexArrays(1, &vao_));
+    GL_CHECK_SIMPLE(glGenBuffers(1, &vbo_));
+    GL_CHECK_SIMPLE(glGenBuffers(1, &ibo_));
 
-    GL_CHECK_SIMPLE(glBindVertexArray(vertex_array));
+    GL_CHECK_SIMPLE(glBindVertexArray(vao_));
 
-    GL_CHECK_SIMPLE(glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer));
+    GL_CHECK_SIMPLE(glBindBuffer(GL_ARRAY_BUFFER, vbo_));
     GL_CHECK_SIMPLE(glBufferData(GL_ARRAY_BUFFER, mesh.vbo.size() * sizeof(Vertex), &mesh.vbo[0],
         GL_STATIC_DRAW));
 
-    GL_CHECK_SIMPLE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer));
+    GL_CHECK_SIMPLE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_));
     GL_CHECK_SIMPLE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.ibo.size() * sizeof(uint16_t),
         &mesh.ibo[0], GL_STATIC_DRAW));
 
@@ -100,9 +98,9 @@ GLDrawable::GLDrawable(const Mesh& mesh)
 
 GLDrawable::~GLDrawable()
 {
-    glDeleteVertexArrays(1, &vertex_array);
-    glDeleteBuffers(1, &vertex_buffer);
-    glDeleteBuffers(1, &index_buffer);
+    glDeleteVertexArrays(1, &vao_);
+    glDeleteBuffers(1, &vbo_);
+    glDeleteBuffers(1, &ibo_);
 }
 
 const AABB& GLDrawable::get_aabb() const
@@ -110,14 +108,14 @@ const AABB& GLDrawable::get_aabb() const
     return aabb;
 }
 
-uint32_t GLDrawable::get_num_elements() const
+uint32_t GLDrawable::GetNumElements() const
 {
     return num_elements;
 }
 
-GLuint GLDrawable::get_vertex_array() const
+GLuint GLDrawable::GetVertexArray() const
 {
-    return vertex_array;
+    return vao_;
 }
 
 Mesh Mesh::CreateSphereMesh(float radius, const glm::vec3& center, uint32_t vertices_per_circumference)

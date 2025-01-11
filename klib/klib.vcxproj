@@ -103,6 +103,7 @@
     <ClInclude Include="kgl_flat_terrain_generator.h" />
     <ClInclude Include="kgl_gbuffer.h" />
     <ClInclude Include="kgl_glm_ext.h" />
+    <ClInclude Include="kgl_gl_enum_to_string.h" />
     <ClInclude Include="kgl_gpu_particle_system.h" />
     <ClInclude Include="kgl_imgui_glfw_bridge.h" />
     <ClInclude Include="kgl_imgui_opengl_bridge.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="kgl_font_vertex.cc" />
     <ClCompile Include="kgl_frame_buffer.cc" />
     <ClCompile Include="kgl_gbuffer.cc" />
+    <ClCompile Include="kgl_gl_enum_to_string.cc" />
     <ClCompile Include="kgl_gpu_particle_system.cc" />
     <ClCompile Include="kgl_gpu_program.cc" />
     <ClCompile Include="kgl_image_file_reader.cc" />

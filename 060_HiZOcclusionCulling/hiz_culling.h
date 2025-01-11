@@ -44,8 +44,7 @@ private:
     kgl::ComputeShaderProgram* culling_program_;
     kgl::GPUProgram* depth_render_program_;
     kgl::GPUProgram* depth_mip_program_;
-
-    GLDrawable* quad;
+    GLDrawable* quad_;
 
     struct
     {
@@ -55,12 +54,12 @@ private:
         uint32_t elements;
     } occluder;
 
-    GLuint depth_texture;
-    GLuint shadow_sampler;
-    uint32_t lod_levels;
-    std::vector<GLuint> framebuffers;
+    GLuint depth_texture_;
+    GLuint shadow_sampler_;
+    uint32_t lod_levels_;
+    std::vector<GLuint> frame_buffers_;
 
-    GLuint uniform_buffer;
+    GLuint uniform_buffer_;
     struct Uniforms
     {
         glm::mat4 uVP;
@@ -69,7 +68,7 @@ private:
         glm::vec4 planes[6];
         glm::vec2 zNearFar;
     };
-    Uniforms uniforms;
+    Uniforms uniforms_;
 
     void init();
 };

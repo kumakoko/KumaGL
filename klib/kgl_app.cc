@@ -112,8 +112,9 @@ namespace kgl
         window_height_ = wnd_height;
         window_width_ = wnd_width;
         gl_profile_ = profile;
-    }
 
+        EnableVSync(true);
+    }
 
     void App::InitGuiSystem(bool use_gui, bool install_callbacks, bool install_key_callback, bool install_scroll_callback,
         bool install_char_callback, bool install_mouse_btn_callback)
@@ -151,6 +152,17 @@ namespace kgl
                 throw Error(wss.str(), __FILE__, __LINE__);
             }
         }
+    }
+
+    void App::EnableVSync(bool enable)
+    {
+        enable_v_sync_ = enable;
+        glfwSwapInterval(enable_v_sync_ ? 1 : 0);
+    }
+
+    bool App::IsVSyncEnabled() const
+    {
+        return enable_v_sync_;
     }
 
     void App::InitRenderer()
@@ -353,12 +365,12 @@ namespace kgl
         s_instance_->OnMouseButtonAction(window, received_event, button, action);
     }
 
-    void App::CharCallback(GLFWwindow *window, unsigned int x)
+    void App::CharCallback(GLFWwindow* window, unsigned int x)
     {
         s_instance_->OnCharAction(window, x);
     }
 
-    void App::OnCharAction(GLFWwindow *window, unsigned int x)
+    void App::OnCharAction(GLFWwindow* window, unsigned int x)
     {
 
     }

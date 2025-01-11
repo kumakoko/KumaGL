@@ -64,7 +64,7 @@ void CullingInterface::ComputeFrustumFromViewProjection(glm::vec4 *planes, const
 
 uint32_t CullingInterface::GetLodsCount() const 
 {
-    return SPHERE_LODS; 
+    return SPHERE_LODS_COUNT; 
 }
 
 GLuint CullingInterface::GetDepthTexture() const

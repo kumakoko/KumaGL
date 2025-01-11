@@ -66,6 +66,25 @@ namespace kgl
         GL_CHECK_SIMPLE(glBindBufferBase(buffer_type_, slot_index, buffer_id_));
     }
 
+    void ShaderBuffer::RebindBufferBase(GLenum new_buffer_type,GLuint slot_index)
+    {
+        /*glBindBufferBase 是 OpenGL 中用于绑定缓冲区对象到特定绑定点的函数，
+        主要用于统一缓冲区 (Uniform Buffer Objects, UBOs) 或着色器存储缓冲区
+        (Shader Storage Buffer Objects, SSBOs)。
+
+        函数定义:
+        void glBindBufferBase(GLenum target, GLuint index, GLuint buffer);
+
+        参数说明:
+        target: 指定缓冲区对象的目标类型。常用值如下：
+                GL_UNIFORM_BUFFER: 表示绑定统一缓冲区。
+                GL_SHADER_STORAGE_BUFFER: 表示绑定着色器存储缓冲区。
+        index:  指定绑定点的索引。这是绑定点号，着色器中的布局声明将引用该索引，例如 layout(std140, binding = 0)。
+        buffer: 指定要绑定的缓冲区对象的名称（ID）。如果传递 0，表示解绑该绑定点上的缓冲区。*/
+        buffer_type_ = new_buffer_type;
+        GL_CHECK_SIMPLE(glBindBufferBase(buffer_type_, slot_index, buffer_id_));
+    }
+
     void ShaderBuffer::Destroy()
     {
         if (0 != buffer_id_)

@@ -73,13 +73,13 @@ public:
 
     const AABB& get_aabb() const;
 
-    GLuint get_vertex_array() const;
-    uint32_t get_num_elements() const;
+    GLuint GetVertexArray() const;
+    uint32_t GetNumElements() const;
 
 private:
-    GLuint vertex_array;
-    GLuint vertex_buffer;
-    GLuint index_buffer;
+    GLuint vao_;
+    GLuint vbo_;
+    GLuint ibo_;
 
     uint32_t num_elements;
     AABB aabb;

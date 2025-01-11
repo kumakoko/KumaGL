@@ -94,6 +94,19 @@ namespace kgl
 		void InitGuiSystem(bool use_gui = true, bool install_callbacks = true, bool install_key_callback = true, bool install_scroll_callback = true,
 			bool install_char_callback = true, bool install_mouse_btn_callback = true);
 
+        /*********************************************************
+
+        @param  bool enable
+        @return void
+        *********************************************************/
+        void EnableVSync(bool enable);
+
+        /*********************************************************
+
+        @return bool
+        *********************************************************/
+        bool IsVSyncEnabled() const;
+
 		/*********************************************************
 		初始化demo场景
 
@@ -101,6 +114,10 @@ namespace kgl
 		*********************************************************/
 		virtual void InitScene();
 
+        /*********************************************************
+        
+        @return void    
+        *********************************************************/
         virtual void UpdateScene();
 
 		/*********************************************************
@@ -219,6 +236,10 @@ namespace kgl
 		*********************************************************/
 		virtual void ProcessInput();
 
+		/*********************************************************
+		
+		@return void    
+		*********************************************************/
 		virtual void PreRenderFrame();
 
 		/*********************************************************
@@ -313,8 +334,15 @@ namespace kgl
 		*********************************************************/
 		const char* GetGLErrorDescription(GLenum err);
 
+		/*********************************************************
+		
+		@return void    
+		*********************************************************/
 		void CheckGLError();
 	protected:
+        /** * @brief 是否啓用垂直同步 */
+        bool enable_v_sync_ = true;
+
 		/** * @brief GLFW窗口句柄 */
 		GLFWwindow* window_handle_ = nullptr;
 

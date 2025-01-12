@@ -167,6 +167,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "060_HiZOcclusionCulling", "
 		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "059_Instance", "059_Instance\059_Instance.vcxproj", "{C5A12C6D-F959-4055-B5F1-497BB78EF65A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -321,6 +326,10 @@ Global
 		{0186F2D0-E160-4A8B-B449-4A9901B57C3A}.Debug|Win32.Build.0 = Debug|Win32
 		{0186F2D0-E160-4A8B-B449-4A9901B57C3A}.Release|Win32.ActiveCfg = Release|Win32
 		{0186F2D0-E160-4A8B-B449-4A9901B57C3A}.Release|Win32.Build.0 = Release|Win32
+		{C5A12C6D-F959-4055-B5F1-497BB78EF65A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C5A12C6D-F959-4055-B5F1-497BB78EF65A}.Debug|Win32.Build.0 = Debug|Win32
+		{C5A12C6D-F959-4055-B5F1-497BB78EF65A}.Release|Win32.ActiveCfg = Release|Win32
+		{C5A12C6D-F959-4055-B5F1-497BB78EF65A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

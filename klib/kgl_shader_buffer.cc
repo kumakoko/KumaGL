@@ -96,7 +96,7 @@ namespace kgl
 
     void ShaderBuffer::Rebinding(GLenum new_bind_type)
     {
-        GL_CHECK_SIMPLE(glBindBuffer(GL_ARRAY_BUFFER, buffer_id_));
+        GL_CHECK_SIMPLE(glBindBuffer(new_bind_type, buffer_id_));
         buffer_type_ = new_bind_type;
     }
 }

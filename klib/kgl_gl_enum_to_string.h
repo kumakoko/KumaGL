@@ -1,4 +1,4 @@
-/**************************************************************************************************************************
+﻿/**************************************************************************************************************************
 Copyright(C) 2014-2025 www.xionggf.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
@@ -14,20 +14,8 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
+#ifndef kgl_gl_enum_to_string_h__
+#define kgl_gl_enum_to_string_h__
 
-#version 430 core
 
-precision mediump float;
-
-layout(location = 1) uniform vec3 uColor;
-layout(location = 2) uniform vec3 uLightDir;
-
-out vec4 FragColor;
-in vec3 vNormal; // 060_scene_vs.glsl中VS的输出，对应于这里FS的输入
-
-void main()
-{
-    vec3 normal = normalize(vNormal);
-    FragColor = vec4(uColor * (dot(uLightDir, normal) * 0.5 + 0.5), 1.0); // 简单的半郎伯特光照效果
-    //FragColor = vec4(0,1,0,1);
-}
+#endif // kgl_gl_enum_to_string_h__

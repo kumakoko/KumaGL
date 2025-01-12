@@ -192,7 +192,8 @@ private:
 
     kgl::ComputeShaderProgram* physics_program_;
 
-    kgl::ShaderBuffer* occluder_instances_buffer_;
+    GLuint occluder_instances_buffer;
+    //kgl::ShaderBuffer* occluder_instances_buffer_;
     kgl::ShaderBuffer* sphere_instances_buffer_; // 存放着每一个小球的，参见SphereInstance
 
     kgl::GPUProgram* occluder_program_;

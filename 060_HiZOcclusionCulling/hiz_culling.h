@@ -20,56 +20,35 @@ ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALI
 #include "culling.h"
 #include "../klib/kgl_shader_buffer.h"
 
-class HiZCulling : public CullingInterface
+class HiZCulling : public Culling
 {
 public:
     HiZCulling();
+    HiZCulling(const char* program);
+    ~HiZCulling();
 
-    HiZCulling(const char* shader_file_path);
+    void SetupOccluderGeometry(const std::vector<glm::vec4>& positions, const std::vector<uint32_t>& indices);
+    void SetViewProjectionMatrix(const glm::mat4& projection, const glm::mat4& view, const glm::vec2& zNearFar);
 
-    virtual ~HiZCulling();
+    void RasterizeOccluders();
+    void TestBoundingBoxes(GLuint counter_buffer, const uint32_t* counter_offsets, uint32_t num_offsets,
+        const GLuint* culled_instance_buffer, GLuint instance_data_buffer,
+        uint32_t num_instances);
 
-    virtual void SetupOccluderGeometry(const std::vector<glm::vec4>& positions, const std::vector<uint32_t>& indices) override;
+    GLuint GetDepthTexture() const { return depth_texture_; }
 
-    virtual void SetViewProjectionMatrix(const glm::mat4& projection, const glm::mat4& view, const glm::vec2& zNearFar) override;
-
-    virtual void RasterizeOccluders() override;
-
-    virtual void TestBoundingBoxes(GLuint counter_buffer, const uint32_t* counter_offsets, uint32_t num_offsets,
-        const GLuint* culled_instance_buffer,kgl::ShaderBuffer* instance_data_buffer,
-        uint32_t num_instances) override;
-
-    virtual GLuint GetDepthTexture() const override;
 private:
-    kgl::ComputeShaderProgram* culling_program_;
-    kgl::GPUProgram* depth_render_program_;
-    kgl::GPUProgram* depth_mip_program_;
-    GLDrawable* quad_;
-
-    struct
-    {
-        GLuint vertex;
-        GLuint index;
-        GLuint vao;
-        uint32_t elements;
-    } occluder;
-
+    GLuint depth_render_program_;
+    GLuint depth_mip_program_;
+    GLuint culling_program;
     GLuint depth_texture_;
     GLuint shadow_sampler_;
+    GLuint uniform_buffer;
+    GLDrawable quad_;
+    OccluderInfo occluder_;
     uint32_t lod_levels_;
-    std::vector<GLuint> frame_buffers_;
-
-    GLuint uniform_buffer_;
-    struct Uniforms
-    {
-        glm::mat4 uVP;
-        glm::mat4 uView;
-        glm::mat4 uProj;
-        glm::vec4 planes[6];
-        glm::vec2 zNearFar;
-    };
+    std::vector<GLuint> framebuffers_;
     Uniforms uniforms_;
-
     void init();
 };
 

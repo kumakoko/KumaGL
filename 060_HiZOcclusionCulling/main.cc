@@ -52,7 +52,7 @@ void main()
     try
     {
         app = new HizOcclusionCullingApp;
-        app->InitWindow(1024, 768, false, "060_HizOcclusionCullingApp", 4, 3, kgl::App::CORE);
+        app->InitWindow(1400, 900, false, "060_HizOcclusionCullingApp", 4, 3, kgl::App::CORE);
         app->InitRenderer();
         app->EnableVSync(false);
         app->InitScene();

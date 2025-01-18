@@ -7,7 +7,7 @@
     <ClCompile Include="main.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="mesh.cc">
+    <ClCompile Include="common.cc">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="culling.cc">
@@ -16,10 +16,13 @@
     <ClCompile Include="hiz_culling.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="hiz_culling_no_lod.cc">
+    <ClCompile Include="mesh.cc">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="constants.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="hiz_culling_no_lod.cc">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,19 +41,22 @@
     <ClInclude Include="hiz_occlusion_culling_app.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="mesh.h">
+    <ClInclude Include="common.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="culling.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="constants.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="hiz_culling.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="hiz_culling_no_lod.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="constants.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

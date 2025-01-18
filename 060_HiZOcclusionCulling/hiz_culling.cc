@@ -1,94 +1,95 @@
-ï»¿/**************************************************************************************************************************
-Copyright(C) 2014-2018 www.xionggf.com
+/* Copyright (c) 2014-2017, ARM Limited and Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ * Permission is hereby granted, free of charge,
+ * to any person obtaining a copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
+ * and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
-files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
-modify, merge, publish, distribute,sublicense, and/or sell copies of the Software, and to permit persons to whom the
-Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
-Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-**************************************************************************************************************************/
 #include "../klib/kgl_lib_pch.h"
-#include "../klib/kgl_defines.h"
 #include "../klib/kgl_error.h"
+#include "../klib/kgl_defines.h"
 #include "../klib/kgl_string_convertor.h"
-
-#include "constants.h"
 #include "hiz_culling.h"
+
+using namespace std;
+
+#define GROUP_SIZE_AABB 64
 
 HiZCulling::HiZCulling()
 {
-    culling_program_ = new kgl::ComputeShaderProgram();
-    culling_program_->CreateFromSingleFile("resources/shader/060_hiz_cull_cs.glsl");
+    culling_program = common_compile_compute_shader_from_file("resources/shader/060_hiz_cull_cs.glsl"); // hiz_cull.cs
     init();
 }
 
-HiZCulling::HiZCulling(const char* shader_file_path)
+HiZCulling::HiZCulling(const char* program)
 {
-    culling_program_ = new kgl::ComputeShaderProgram();
-    culling_program_->CreateFromSingleFile(shader_file_path);
+    culling_program = common_compile_compute_shader_from_file(program);
     init();
 }
 
 void HiZCulling::init()
 {
-    quad_ = new GLDrawable();
+    depth_render_program_ = common_compile_shader_from_file("resources/shader/060_depth_vs.glsl", "resources/shader/060_depth_fs.glsl");
 
-    depth_render_program_ = new kgl::GPUProgram();
-    depth_render_program_->CreateFromFile("resources/shader/060_depth_vs.glsl", "resources/shader/060_depth_fs.glsl", nullptr);
+    depth_mip_program_ = common_compile_shader_from_file("resources/shader/060_quad_vs.glsl", "resources/shader/060_depth_mip_fs.glsl");
 
-    depth_mip_program_ = new kgl::GPUProgram();
-    depth_mip_program_->CreateFromFile("resources/shader/060_quad_vs.glsl", "resources/shader/060_depth_mip_fs.glsl", nullptr);
-    
     lod_levels_ = DEPTH_SIZE_LOG2 + 1;
 
     GL_CHECK_SIMPLE(glGenTextures(1, &depth_texture_));
     GL_CHECK_SIMPLE(glBindTexture(GL_TEXTURE_2D, depth_texture_));
-    GL_CHECK_SIMPLE(glTexStorage2D(GL_TEXTURE_2D, lod_levels_, GL_DEPTH24_STENCIL8, DEPTH_SIZE, DEPTH_SIZE));
+    GL_CHECK_SIMPLE(glTexStorage2D(GL_TEXTURE_2D, lod_levels_, GL_DEPTH24_STENCIL8,
+        DEPTH_SIZE, DEPTH_SIZE));
 
-    // æ·±åº¦å›¾ä¸éœ€è¦åšåŒçº¿æ€§è¿‡æ»¤
+    // We cannot do filtering on depth textures unless we're doing shadow compare (PCF).
     GL_CHECK_SIMPLE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
     GL_CHECK_SIMPLE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST));
 
     GL_CHECK_SIMPLE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
     GL_CHECK_SIMPLE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 
-    // æ·±åº¦æ˜¾ç¤ºä¸ºç°è‰²è°ƒè€Œä¸ä»…ä»…æ˜¯çº¢è‰²
+    // Useful for debugging purposes so depth shows up as graytone and not just red.
     GL_CHECK_SIMPLE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_R, GL_RED));
     GL_CHECK_SIMPLE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_G, GL_RED));
     GL_CHECK_SIMPLE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_B, GL_RED));
     GL_CHECK_SIMPLE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_A, GL_ONE));
     GL_CHECK_SIMPLE(glBindTexture(GL_TEXTURE_2D, 0));
 
-    // ç»™æ·±åº¦å›¾çš„æ¯ä¸€ä¸ªmipmapç­‰çº§éƒ½å¯¹åº”åˆ›å»ºä¸€ä¸ªFBO
-    frame_buffers_.resize(lod_levels_);
-    GL_CHECK_SIMPLE(glGenFramebuffers(lod_levels_, &frame_buffers_[0]));
-
+    // Create FBO chain for each miplevel.
+    framebuffers_.resize(lod_levels_);
+    GL_CHECK_SIMPLE(glGenFramebuffers(lod_levels_, &framebuffers_[0]));
     for (uint32_t i = 0; i < lod_levels_; i++)
     {
-        GL_CHECK_SIMPLE(glBindFramebuffer(GL_FRAMEBUFFER, frame_buffers_[i]));
-        GL_CHECK_SIMPLE(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT,GL_TEXTURE_2D, depth_texture_, i));
-        GL_CHECK_SIMPLE(GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER));
+        GL_CHECK_SIMPLE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffers_[i]));
+        GL_CHECK_SIMPLE(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT,
+            GL_TEXTURE_2D, depth_texture_, i));
 
+        GL_CHECK_SIMPLE(GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER));
         if (status != GL_FRAMEBUFFER_COMPLETE)
         {
             //LOGE("Framebuffer for LOD %u is incomplete!", i);
         }
     }
-
     GL_CHECK_SIMPLE(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-    GL_CHECK_SIMPLE(glGenBuffers(1, &occluder.vertex));
-    GL_CHECK_SIMPLE(glGenBuffers(1, &occluder.index));
-    GL_CHECK_SIMPLE(glGenVertexArrays(1, &occluder.vao));
 
-    // é®æŒ¡å‰”é™¤æœŸé—´ä½¿ç”¨çš„é‡‡æ ·å™¨å¯¹è±¡ã€‚
-    // éœ€è¦ GL_LINEAR é˜´å½±æ¨¡å¼(PCF)ï¼Œä½†ä¸è¦åœ¨ miplevel ä¹‹é—´è¿›è¡Œè¿‡æ»¤ï¼Œå› ä¸ºåœ¨è®¡ç®—ç€è‰²å™¨ä¸­æ‰‹åŠ¨æŒ‡å®š miplevel
+    GL_CHECK_SIMPLE(glGenBuffers(1, &occluder_.vertex));
+    GL_CHECK_SIMPLE(glGenBuffers(1, &occluder_.index));
+    GL_CHECK_SIMPLE(glGenVertexArrays(1, &occluder_.vao));
+
+    // Sampler object that is used during occlusion culling.
+    // We want GL_LINEAR shadow mode (PCF), but no filtering between miplevels as we manually specify the miplevel in the compute shader.
     GL_CHECK_SIMPLE(glGenSamplers(1, &shadow_sampler_));
     GL_CHECK_SIMPLE(glSamplerParameteri(shadow_sampler_, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST));
     GL_CHECK_SIMPLE(glSamplerParameteri(shadow_sampler_, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
@@ -97,86 +98,72 @@ void HiZCulling::init()
     GL_CHECK_SIMPLE(glSamplerParameteri(shadow_sampler_, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE));
     GL_CHECK_SIMPLE(glSamplerParameteri(shadow_sampler_, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL));
 
-    GL_CHECK_SIMPLE(glGenBuffers(1, &uniform_buffer_));
-    GL_CHECK_SIMPLE(glBindBuffer(GL_UNIFORM_BUFFER, uniform_buffer_));
+    GL_CHECK_SIMPLE(glGenBuffers(1, &uniform_buffer));
+    GL_CHECK_SIMPLE(glBindBuffer(GL_UNIFORM_BUFFER, uniform_buffer));
     GL_CHECK_SIMPLE(glBufferData(GL_UNIFORM_BUFFER, sizeof(Uniforms), NULL, GL_STREAM_DRAW));
 }
 
-/*********************************************************
-   Test bounding boxes in our scene.
-   @param  GLuint counter_buffer è¦æ‰§è¡Œçš„é—´æ¥ç»˜åˆ¶ç¼“å†²åŒºçš„buffer id
-   @param  const uint32_t * counter_offsets æ¯ä¸€ä¸ªIndirectCommandæŒ‡ä»¤ï¼Œç›¸å¯¹äºæŒ‡ä»¤ç©ºé—´é¦–åœ°å€çš„åç§»é‡ï¼Œæ‰€æœ‰åç§»é‡éƒ½å­˜åœ¨ä¸€ä¸ªæ•°ç»„ä¸­ï¼Œcounter_offsetså°±æ˜¯æ•°ç»„çš„é¦–æŒ‡é’ˆ
-   @param  uint32_t num_offsets æ¯ä¸€ä¸ªIndirectCommandæŒ‡ä»¤ï¼Œç›¸å¯¹äºæŒ‡ä»¤ç©ºé—´é¦–åœ°å€çš„åç§»é‡ï¼Œæ‰€æœ‰åç§»é‡éƒ½å­˜åœ¨ä¸€ä¸ªæ•°ç»„ä¸­ï¼Œnum_offsetså°±æ˜¯æ•°ç»„ä¸­å…ƒç´ çš„ä¸ªæ•°
-   @param  const GLuint * culled_instance_buffer // å­˜å‚¨è€…å°çƒå®ä¾‹çš„ä½ç½®æ•°æ®çš„ç¼“å†²åŒºå¯¹è±¡ID
-   @param  kgl::ShaderBuffer * instance_data_buffer //  // å­˜å‚¨ç€å°çƒå®ä¾‹çš„ä½ç½®æ•°æ®çš„ç¼“å†²åŒºå¯¹è±¡IDï¼Œå‚è§SphereInstanceç±»
-   @param  uint32_t num_instances
-   @return void
-   *********************************************************/
 void HiZCulling::TestBoundingBoxes(GLuint counter_buffer, const uint32_t* counter_offsets, uint32_t num_offsets,
-    const GLuint* culled_instance_buffer, kgl::ShaderBuffer* instance_data_buffer, uint32_t num_instances)
+    const GLuint* culled_instance_buffer, GLuint instance_data_buffer,
+    uint32_t num_instances)
 {
-    // ç»‘å®šç”¨äºé®æŒ¡å‰”é™¤çš„è®¡ç®—ç€è‰²å™¨ç¨‹åº culling_programã€‚
-    // è´Ÿè´£æ‰§è¡Œ Hi-Z é®æŒ¡å‰”é™¤ç®—æ³•ã€‚
-    culling_program_->Use();
+    // °ó¶¨ÓÃÓÚÕÚµ²ÌŞ³ıµÄ¼ÆËã×ÅÉ«Æ÷³ÌĞò culling_program¡£
+   // ¸ºÔğÖ´ĞĞ Hi-Z ÕÚµ²ÌŞ³ıËã·¨¡£
+    GL_CHECK_SIMPLE(glUseProgram(culling_program));
 
-    // æ›´æ–°culling program shader ç”¨åˆ°uniformå˜é‡ æ›´æ–°å¹¶ç»‘å®š Uniform ç¼“å†²åŒºã€‚
-    GL_CHECK_SIMPLE(glBindBuffer(GL_UNIFORM_BUFFER, uniform_buffer_));
-    GL_CHECK_SIMPLE(glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Uniforms), &uniforms_)); // å°† uniforms æ•°æ®ä¸Šä¼ åˆ° GPUã€‚
-    GL_CHECK_SIMPLE(glBindBufferBase(GL_UNIFORM_BUFFER, 0, uniform_buffer_)); // Uniform ç¼“å†²åŒºç»‘å®šåˆ°ç»‘å®šç‚¹ 0ã€‚
+    // ¸üĞÂculling program shader ÓÃµ½uniform±äÁ¿ ¸üĞÂ²¢°ó¶¨ Uniform »º³åÇø¡£
+    GL_CHECK_SIMPLE(glBindBuffer(GL_UNIFORM_BUFFER, uniform_buffer));
+    GL_CHECK_SIMPLE(glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Uniforms), &uniforms_));
+    GL_CHECK_SIMPLE(glBindBufferBase(GL_UNIFORM_BUFFER, 0, uniform_buffer));
 
-    // å°†å·¥ä½œç»„æ•°é‡å››èˆäº”å…¥ã€‚
-    // ç”Ÿæˆçš„å‡ ä¸ªé¢å¤–çº¿ç¨‹ç”±äºæ£€æŸ¥äº† num_instances è€Œç«‹å³ç»ˆæ­¢ã€‚
-    /*
-        è®¡ç®—éœ€è¦æ´¾å‘çš„å·¥ä½œç»„æ•°é‡ï¼Œå¹¶è®¾ç½®å®ä¾‹æ•°é‡ Uniformã€‚
-        GROUP_SIZE_AABB æ˜¯æ¯ä¸ªå·¥ä½œç»„çš„å¤§å°ï¼ˆé€šå¸¸ä¸º 64 æˆ– 128ï¼‰ã€‚
-        aabb_groups æ˜¯è®¡ç®—å¾—åˆ°çš„å·¥ä½œç»„æ•°é‡ï¼Œç¡®ä¿æ‰€æœ‰å®ä¾‹éƒ½è¢«å¤„ç†ã€‚
-        ApplyUint å°†å®ä¾‹æ•°é‡ num_instances ä¼ é€’ç»™è®¡ç®—ç€è‰²å™¨ã€‚
-    */
+    // ½«¹¤×÷×éÊıÁ¿ËÄÉáÎåÈë¡£
+    // Éú³ÉµÄ¼¸¸ö¶îÍâÏß³ÌÓÉÓÚ¼ì²éÁË num_instances ¶øÁ¢¼´ÖÕÖ¹¡£
+    // ¼ÆËãĞèÒªÅÉ·¢µÄ¹¤×÷×éÊıÁ¿£¬²¢ÉèÖÃÊµÀıÊıÁ¿ Uniform¡£
+    // GROUP_SIZE_AABB ÊÇÃ¿¸ö¹¤×÷×éµÄ´óĞ¡£¨Í¨³£Îª 64 »ò 128£©¡£
+    // aabb_groups ÊÇ¼ÆËãµÃµ½µÄ¹¤×÷×éÊıÁ¿£¬È·±£ËùÓĞÊµÀı¶¼±»´¦Àí¡£
+    // ApplyUint ½«ÊµÀıÊıÁ¿ num_instances ´«µİ¸ø¼ÆËã×ÅÉ«Æ÷¡£
     uint32_t aabb_groups = (num_instances + GROUP_SIZE_AABB - 1) / GROUP_SIZE_AABB;
-    culling_program_->ApplyUint(num_instances, 0);
+    GL_CHECK_SIMPLE(glProgramUniform1ui(culling_program, 0, num_instances));
 
-    // ç»‘å®šåŸå­è®¡æ•°å™¨å’Œå‰”é™¤åçš„å®ä¾‹ç¼“å†²åŒºã€‚
+    // °ó¶¨Ô­×Ó¼ÆÊıÆ÷ºÍÌŞ³ıºóµÄÊµÀı»º³åÇø¡£
     for (uint32_t i = 0; i < num_offsets; i++)
     {
-        // glBindBufferRange å°†åŸå­è®¡æ•°å™¨ç¼“å†²åŒºç»‘å®šåˆ°ç»‘å®šç‚¹ iï¼Œå¹¶æŒ‡å®šåç§»é‡ counter_offsets[i]ã€‚
-        // glBindBufferBase å°†å‰”é™¤åçš„å®ä¾‹ç¼“å†²åŒºç»‘å®šåˆ°ç»‘å®šç‚¹ 1 + iã€‚
-        // è¿™äº›ç¼“å†²åŒºç”¨äºå­˜å‚¨æ¯ä¸ª LOD çº§åˆ«çš„å®ä¾‹æ•°é‡å’Œå¯è§å®ä¾‹çš„ç´¢å¼•ã€‚
         GL_CHECK_SIMPLE(glBindBufferRange(GL_ATOMIC_COUNTER_BUFFER, i, counter_buffer, counter_offsets[i], sizeof(uint32_t)));
         GL_CHECK_SIMPLE(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1 + i, culled_instance_buffer[i]));
     }
 
-    // æ·±åº¦å›¾ç»‘å®šæ·±åº¦å›¾çº¹ç†ç»™compute shader
-    // ç»‘å®š Hi - Z æ·±åº¦å›¾å’Œé‡‡æ ·å™¨ã€‚
-    // depth_texture æ˜¯ Hi - Z æ·±åº¦å›¾ï¼Œç”¨äºé®æŒ¡æµ‹è¯•ã€‚
-    // shadow_sampler æ˜¯é‡‡æ ·å™¨å¯¹è±¡ï¼Œç”¨äºæ§åˆ¶çº¹ç†é‡‡æ ·æ–¹å¼ã€‚
+    // Éî¶ÈÍ¼°ó¶¨Éî¶ÈÍ¼ÎÆÀí¸øcompute shader
+    // °ó¶¨ Hi - Z Éî¶ÈÍ¼ºÍ²ÉÑùÆ÷¡£
+    // depth_texture ÊÇ Hi - Z Éî¶ÈÍ¼£¬ÓÃÓÚÕÚµ²²âÊÔ¡£
+    // shadow_sampler ÊÇ²ÉÑùÆ÷¶ÔÏó£¬ÓÃÓÚ¿ØÖÆÎÆÀí²ÉÑù·½Ê½¡£
     GL_CHECK_SIMPLE(glActiveTexture(GL_TEXTURE0));
     GL_CHECK_SIMPLE(glBindTexture(GL_TEXTURE_2D, depth_texture_));
     GL_CHECK_SIMPLE(glBindSampler(0, shadow_sampler_));
 
-    // ä½œç”¨ï¼šæ´¾å‘è®¡ç®—ç€è‰²å™¨ä»»åŠ¡ã€‚
-    // glBindBufferBase å°†å®ä¾‹æ•°æ®ç¼“å†²åŒºç»‘å®šåˆ°ç»‘å®šç‚¹ 0ã€‚
-    // glDispatchCompute æ´¾å‘è®¡ç®—ç€è‰²å™¨ä»»åŠ¡ï¼Œå·¥ä½œç»„æ•°é‡ä¸º aabb_groupsã€‚
-    instance_data_buffer->BindBufferBase(0);
-    GL_CHECK_SIMPLE(kgl::ComputeShaderProgram::Dispatch(aabb_groups, 1, 1));
+    // ×÷ÓÃ£ºÅÉ·¢¼ÆËã×ÅÉ«Æ÷ÈÎÎñ¡£
+    // glBindBufferBase ½«ÊµÀıÊı¾İ»º³åÇø°ó¶¨µ½°ó¶¨µã 0¡£
+    // glDispatchCompute ÅÉ·¢¼ÆËã×ÅÉ«Æ÷ÈÎÎñ£¬¹¤×÷×éÊıÁ¿Îª aabb_groups¡£
+    GL_CHECK_SIMPLE(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, instance_data_buffer));
+    GL_CHECK_SIMPLE(glDispatchCompute(aabb_groups, 1, 1));
 
     GL_CHECK_SIMPLE(glBindSampler(0, 0));
 
-    // å†…å­˜å±éšœ
-    // ä½œç”¨ï¼šç¡®ä¿è®¡ç®—ç€è‰²å™¨çš„å†™å…¥æ“ä½œå¯¹åç»­æ¸²æŸ“å¯è§ã€‚
-    // GL_VERTEX_ATTRIB_ARRAY_BARRIER_BITï¼šåŒæ­¥é¡¶ç‚¹å±æ€§æ•°ç»„çš„è®¿é—®ã€‚
-    // GL_COMMAND_BARRIER_BITï¼šåŒæ­¥å‘½ä»¤ç¼“å†²åŒºï¼ˆå¦‚é—´æ¥ç»˜åˆ¶å‘½ä»¤ï¼‰çš„è®¿é—®ã€‚
+    // ÄÚ´æÆÁÕÏ
+    // ×÷ÓÃ£ºÈ·±£¼ÆËã×ÅÉ«Æ÷µÄĞ´Èë²Ù×÷¶ÔºóĞøäÖÈ¾¿É¼û¡£
+    // GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT£ºÍ¬²½¶¥µãÊôĞÔÊı×éµÄ·ÃÎÊ¡£
+    // GL_COMMAND_BARRIER_BIT£ºÍ¬²½ÃüÁî»º³åÇø£¨Èç¼ä½Ó»æÖÆÃüÁî£©µÄ·ÃÎÊ¡£
     GL_CHECK_SIMPLE(glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT | GL_COMMAND_BARRIER_BIT));
 }
 
-void HiZCulling::SetupOccluderGeometry(const std::vector<glm::vec4>& position, const std::vector<uint32_t>& indices)
+void HiZCulling::SetupOccluderGeometry(const std::vector<glm::vec4>& position, const vector<uint32_t>& indices)
 {
-    // æŠŠé®æŒ¡ç‰©çš„é¡¶ç‚¹æ•°æ®å’Œç´¢å¼•æ•°æ®ä¸Šä¼ åˆ°GPU
-    GL_CHECK_SIMPLE(glBindVertexArray(occluder.vao));
+    // Upload occlusion geometry to GPU. This should be mostly static.
+    GL_CHECK_SIMPLE(glBindVertexArray(occluder_.vao));
 
-    GL_CHECK_SIMPLE(glBindBuffer(GL_ARRAY_BUFFER, occluder.vertex));
+    GL_CHECK_SIMPLE(glBindBuffer(GL_ARRAY_BUFFER, occluder_.vertex));
     GL_CHECK_SIMPLE(glBufferData(GL_ARRAY_BUFFER, position.size() * sizeof(glm::vec4), &position[0], GL_STATIC_DRAW));
 
-    GL_CHECK_SIMPLE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, occluder.index));
+    GL_CHECK_SIMPLE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, occluder_.index));
     GL_CHECK_SIMPLE(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(uint32_t), &indices[0], GL_STATIC_DRAW));
 
     GL_CHECK_SIMPLE(glEnableVertexAttribArray(0));
@@ -186,7 +173,7 @@ void HiZCulling::SetupOccluderGeometry(const std::vector<glm::vec4>& position, c
     GL_CHECK_SIMPLE(glBindBuffer(GL_ARRAY_BUFFER, 0));
     GL_CHECK_SIMPLE(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 
-    occluder.elements = indices.size();
+    occluder_.elements = indices.size();
 }
 
 void HiZCulling::RasterizeOccluders()
@@ -194,35 +181,28 @@ void HiZCulling::RasterizeOccluders()
     GL_CHECK_SIMPLE(glBindTexture(GL_TEXTURE_2D, 0));
     GL_CHECK_SIMPLE(glEnable(GL_DEPTH_TEST));
 
-    depth_render_program_->Use(); //GL_CHECK(glUseProgram(depth_render_program));
-    GL_CHECK_SIMPLE(glBindFramebuffer(GL_FRAMEBUFFER, frame_buffers_[0]));
+    GL_CHECK_SIMPLE(glUseProgram(depth_render_program_));
+    GL_CHECK_SIMPLE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffers_[0]));
 
-    // Render occlusion geometry to miplevel 0.
-    GL_CHECK_SIMPLE(glBindVertexArray(occluder.vao));
+    GL_CHECK_SIMPLE(glBindVertexArray(occluder_.vao));
     GL_CHECK_SIMPLE(glViewport(0, 0, DEPTH_SIZE, DEPTH_SIZE));
     GL_CHECK_SIMPLE(glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
-    GL_CHECK_SIMPLE(glDrawElements(GL_TRIANGLES, occluder.elements, GL_UNSIGNED_INT, 0));
+    GL_CHECK_SIMPLE(glDrawElements(GL_TRIANGLES, occluder_.elements, GL_UNSIGNED_INT, 0));
 
-    GL_CHECK_SIMPLE(glBindVertexArray(quad_->GetVertexArray()));
+    GL_CHECK_SIMPLE(glBindVertexArray(quad_.get_vertex_array()));
     GL_CHECK_SIMPLE(glBindTexture(GL_TEXTURE_2D, depth_texture_));
-    depth_mip_program_->Use();
+    GL_CHECK_SIMPLE(glUseProgram(depth_mip_program_));
 
     for (uint32_t lod = 1; lod < lod_levels_; lod++)
     {
-        GL_CHECK_SIMPLE(glBindFramebuffer(GL_FRAMEBUFFER, frame_buffers_[lod]));
+        GL_CHECK_SIMPLE(glBindFramebuffer(GL_FRAMEBUFFER, framebuffers_[lod]));
         GL_CHECK_SIMPLE(glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
         GL_CHECK_SIMPLE(glViewport(0, 0, DEPTH_SIZE >> lod, DEPTH_SIZE >> lod));
-
-        // Need to do this to ensure that we cannot possibly read from the miplevel we are rendering to.
-        // Otherwise, we have undefined behavior.
         GL_CHECK_SIMPLE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, lod - 1));
         GL_CHECK_SIMPLE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, lod - 1));
-
-        // Mipmap.
-        GL_CHECK_SIMPLE(glDrawElements(GL_TRIANGLES, quad_->GetNumElements(), GL_UNSIGNED_SHORT, 0));
+        GL_CHECK_SIMPLE(glDrawElements(GL_TRIANGLES, quad_.get_num_elements(), GL_UNSIGNED_SHORT, 0));
     }
 
-    // Restore miplevels. MAX_LEVEL will be clamped accordingly.
     GL_CHECK_SIMPLE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0));
     GL_CHECK_SIMPLE(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 1000));
     GL_CHECK_SIMPLE(glBindFramebuffer(GL_FRAMEBUFFER, 0));
@@ -231,8 +211,7 @@ void HiZCulling::RasterizeOccluders()
 void HiZCulling::SetViewProjectionMatrix(const glm::mat4& projection, const glm::mat4& view, const glm::vec2& zNearFar)
 {
     glm::mat4 view_projection = projection * view;
-    depth_render_program_->ApplyMatrix(glm::value_ptr(view_projection), 0, false);
-    //GL_CHECK(glProgramUniformMatrix4fv(depth_render_program, 0, 1, GL_FALSE, value_ptr(view_projection)));
+    GL_CHECK_SIMPLE(glProgramUniformMatrix4fv(depth_render_program_, 0, 1, GL_FALSE, value_ptr(view_projection)));
 
     uniforms_.uVP = view_projection;
     uniforms_.uView = view;
@@ -240,30 +219,19 @@ void HiZCulling::SetViewProjectionMatrix(const glm::mat4& projection, const glm:
     uniforms_.zNearFar = zNearFar;
 
     // Compute the 6 frustum planes for frustum culling.
-    ComputeFrustumFromViewProjection(uniforms_.planes, view_projection);
+    compute_frustum_from_view_projection(uniforms_.planes, view_projection);
 }
 
 HiZCulling::~HiZCulling()
 {
     GL_CHECK_SIMPLE(glDeleteTextures(1, &depth_texture_));
-
-    KGL_SAFE_DELETE(depth_render_program_);
-    KGL_SAFE_DELETE(depth_mip_program_);
-    KGL_SAFE_DELETE(culling_program_);
-    
-    GL_CHECK(glDeleteFramebuffers(frame_buffers_.size(), &frame_buffers_[0]));
-
-    GL_CHECK_SIMPLE(glDeleteBuffers(1, &occluder.vertex));
-    GL_CHECK_SIMPLE(glDeleteBuffers(1, &occluder.index));
-    GL_CHECK_SIMPLE(glDeleteBuffers(1, &uniform_buffer_));
-    GL_CHECK_SIMPLE(glDeleteVertexArrays(1, &occluder.vao));
-
+    GL_CHECK_SIMPLE(glDeleteProgram(depth_render_program_));
+    GL_CHECK_SIMPLE(glDeleteProgram(depth_mip_program_));
+    GL_CHECK_SIMPLE(glDeleteProgram(culling_program));
+    GL_CHECK_SIMPLE(glDeleteFramebuffers(framebuffers_.size(), &framebuffers_[0]));
+    GL_CHECK_SIMPLE(glDeleteBuffers(1, &occluder_.vertex));
+    GL_CHECK_SIMPLE(glDeleteBuffers(1, &occluder_.index));
+    GL_CHECK_SIMPLE(glDeleteBuffers(1, &uniform_buffer));
+    GL_CHECK_SIMPLE(glDeleteVertexArrays(1, &occluder_.vao));
     GL_CHECK_SIMPLE(glDeleteSamplers(1, &shadow_sampler_));
-
-    KGL_SAFE_DELETE(quad_);
-}
-
-GLuint HiZCulling::GetDepthTexture() const
-{
-    return depth_texture_;
 }

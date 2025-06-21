@@ -3,55 +3,69 @@
 // Based on the following article:
 // http://data.imaginary-exhibition.com/IMAGINARY-Moebiusband-Stephan-Klaus.pdf
 #version 330 core
-uniform sampler2D ourTexture1;
-uniform float global_time;
-uniform vec2 screen_resolution;
-uniform vec2 mouse_input_pos;
-out vec4 fragment_color;
+uniform sampler2D ourTexture1;		// 纹理采样器（未使用）
+uniform float global_time;		// 全局时间，用于动画
+uniform vec2 screen_resolution;		// 屏幕分辨率
+uniform vec2 mouse_input_pos;		// 鼠标输入位置
+out vec4 fragment_color;		// 输出片段颜色
 
-#define EPS 0.01
-#define STEPS 64
-#define TAU 6.28318530718
+#define EPS 0.01			// 光线步进的精度阈值
+#define STEPS 64			// 光线步进的最大步数
+#define TAU 6.28318530718		// 2π，用于角度计算
 
 // comment to stop the rotation.
-#define ROTATION
+#define ROTATION // 宏定义，用于控制是否启用旋转和同伦变换。
 
 // comment to stop the homotopy between the mobius strip and the torus.
-#define HOMOTOPY
+#define HOMOTOPY // 宏定义，用于控制是否启用旋转和同伦变换。
 
-float mobius(vec3 p, float b) {
+// mobius：计算点到莫比乌斯带的距离函数。
+// p：点的坐标。
+// b：控制莫比乌斯带形状的参数。
+float mobius(vec3 p, float b) 
+{
 	float x = p.x, y = p.y, z = p.z;
 	float xx = x*x, yy = y*y, zz = z*z, y3 = yy*y, x3 = xx*x;
 	float xy = xx+yy, b2 = b*2.0, zxy = z*(xx*y*3.0-y3), xyy = x*yy*3.0-x3;
-    float k1 = (2.0*zxy+xyy*(xy-zz+1.0))*(b-0.1)-xy*xy*(b2+0.2);
-    float k2 = b*xy*0.2+(b2-0.2)*(zxy+xyy)-xy*(b+0.1)*(xy+zz+1.0);
+	float k1 = (2.0*zxy+xyy*(xy-zz+1.0))*(b-0.1)-xy*xy*(b2+0.2);
+	float k2 = b*xy*0.2+(b2-0.2)*(zxy+xyy)-xy*(b+0.1)*(xy+zz+1.0);
 	return k1*k1-xy*k2*k2;
 }
 
-vec3 grad(vec3 p, float b) {
+// grad：计算莫比乌斯带的梯度（法线方向）。
+// 使用中心差分法近似计算梯度。
+vec3 grad(vec3 p, float b)
+{
 	vec2 q = vec2(0.0, EPS);
-	return vec3(mobius(p+q.yxx, b) - mobius(p-q.yxx, b), 
-			    mobius(p+q.xyx, b) - mobius(p-q.xyx, b),
-			    mobius(p+q.xxy, b) - mobius(p-q.xxy, b));
+	return vec3(
+		mobius(p+q.yxx, b) - mobius(p-q.yxx, b), 
+		mobius(p+q.xyx, b) - mobius(p-q.xyx, b),
+		mobius(p+q.xxy, b) - mobius(p-q.xxy, b));
 }
 
-float torus(vec3 p) {
+// torus：计算点到圆环的距离函数。
+// t：圆环的主半径和次半径。
+float torus(vec3 p)
+{
 	vec2 t = vec2(1.0, 0.32);
-  	vec2 q = vec2(length(p.xy)-t.x,p.z);
-  	return length(q)-t.y;
+	vec2 q = vec2(length(p.xy)-t.x,p.z);
+	return length(q)-t.y;
 }
 
-mat3 rotY(float ang) {
+mat3 rotY(float ang)
+{
 	float c = cos(ang), s = sin(ang);
 	return mat3(c, 0.0, s, 0.0, 1.0, 0.0, -s, 0.0, c);
 }
 
-mat3 rotX(float ang) {
+mat3 rotX(float ang)
+{
 	float c = cos(ang), s = sin(ang);
 	return mat3(1.0, 0.0, 0.0, 0.0, c, -s, 0.0, s, c);
 }
 
-vec3 shade(vec3 p, vec3 rd, float b, mat3 m) {
+vec3 shade(vec3 p, vec3 rd, float b, mat3 m) 
+{
 	vec3 col = vec3(0.0);
 	vec3 n = normalize(-grad(p, b));
 	

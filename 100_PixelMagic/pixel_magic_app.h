@@ -1,16 +1,3 @@
-/*!
- * \file pixel_magic_app.h
- * \date 2017/12/31 15:26
- *
- * \author www.xionggf.com
- * Contact: sun_of_lover@sina.com
- *
- * \brief 
- *
- * TODO: long description
- *
- * \note
-*/
 /**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
@@ -27,8 +14,8 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
-#ifndef texture_app_h__
-#define texture_app_h__
+#ifndef pixel_magic_app_h__
+#define pixel_magic_app_h__
 
 #include "../klib/kgl_lib_pch.h"
 #include "../klib/kgl_app.h"
@@ -71,4 +58,4 @@ private:
     float                   china_flag_scale_ = 150.0f;
 };
 
-#endif // texture_app_h__
+#endif // pixel_magic_app_h__

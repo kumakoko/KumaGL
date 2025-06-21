@@ -1,16 +1,3 @@
-﻿/*!
- * \file pixel_magic_app.h
- * \date 2017/12/31 15:26
- *
- * \author www.xionggf.com
- * Contact: sun_of_lover@sina.com
- *
- * \brief 
- *
- * TODO: long description
- *
- * \note
-*/
 /**************************************************************************************************************************
 Copyright(C) 2014-2017 www.xionggf.com
 
@@ -27,29 +14,36 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **************************************************************************************************************************/
-#ifndef digital_sculpt_app_h__
-#define digital_sculpt_app_h__
+#ifndef spherical_octahedral_mapping_app_h__
+#define spherical_octahedral_mapping_app_h__
 
 #include "../klib/kgl_lib_pch.h"
 #include "../klib/kgl_app.h"
+#include "../klib/kgl_gpu_program.h"
+#include "../klib/kgl_primitive.h"
 
-#include "GLFW/glfw3.h"
-#include "glm/glm.hpp"
-
-class DigitalSculptApp : public kgl::App
+class SphericalOctahedralMappingApp : public kgl::App
 {
 public:
-    DigitalSculptApp();
-    virtual ~DigitalSculptApp();
+    SphericalOctahedralMappingApp();
+    virtual ~SphericalOctahedralMappingApp();
     virtual void InitScene()  override;
 protected:
     virtual void RenderScene() override;
     virtual void OnKeyAction(GLFWwindow* window, int key, int scancode, int action, int mode) override;
     virtual void OnMouseAction(GLFWwindow* window, double xpos, double ypos) override;
     virtual void ProcessInput() override;
+    /* void RenderBeatHeart();
+     void RenderColorfulRing();
+     void RenderMobius();
+     void RenderSun();
+     void RenderJapanFlag();
+     void RenderChinaFlag();*/
 private:
-    glm::vec2               screen_resolution_;
-    glm::vec3               mouse_input_pos_;
+    kgl::GPUProgram* shader_;
+    kgl::Primitive*  rectangle_primitive_;
+    glm::vec2        screen_resolution_;
+    glm::vec3        mouse_input_pos_;
 };
 
-#endif // digital_sculpt_app_h__
+#endif // spherical_octahedral_mapping_app_h__

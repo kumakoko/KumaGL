@@ -172,6 +172,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "059_Instance", "059_Instanc
 		{9ADDC3CF-ED52-456E-8869-FBD492653F0F} = {9ADDC3CF-ED52-456E-8869-FBD492653F0F}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "101_SphericalAndOctahedralMapping", "101_SphericalOctahedralMapping\101_SphericalAndOctahedralMapping.vcxproj", "{D7341477-9F6C-43FE-987E-C4134AF14CC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -330,6 +332,10 @@ Global
 		{C5A12C6D-F959-4055-B5F1-497BB78EF65A}.Debug|Win32.Build.0 = Debug|Win32
 		{C5A12C6D-F959-4055-B5F1-497BB78EF65A}.Release|Win32.ActiveCfg = Release|Win32
 		{C5A12C6D-F959-4055-B5F1-497BB78EF65A}.Release|Win32.Build.0 = Release|Win32
+		{D7341477-9F6C-43FE-987E-C4134AF14CC6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D7341477-9F6C-43FE-987E-C4134AF14CC6}.Debug|Win32.Build.0 = Debug|Win32
+		{D7341477-9F6C-43FE-987E-C4134AF14CC6}.Release|Win32.ActiveCfg = Release|Win32
+		{D7341477-9F6C-43FE-987E-C4134AF14CC6}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
